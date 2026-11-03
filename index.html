@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biologie Lehrplan & Lernpfade | BioLP</title>
+    <meta
+      name="description"
+      content="Übersicht über die Themen und Lernpfade im Fach Biologie nach Jahrgangsstufen am Johannes-Scharrer-Gymnasium"
+    />
+    <meta name="theme-color" content="#166534" />
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Shared Tailwind config & Dark Mode -->
+    <script src="shared/tailwind-config.js"></script>
+    <link rel="stylesheet" href="shared/animations.css" />
+    <link rel="stylesheet" href="shared/dark-mode.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f0fdf4;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+
+      .bg-gradient-forest {
+        background: linear-gradient(
+          135deg,
+          #f0fdf4 0%,
+          #dcfce7 45%,
+          #bbf7d0 100%
+        );
+        background-attachment: fixed;
+      }
+
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px -15px rgba(22, 101, 52, 0.22);
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible {
+        outline: 2px solid #16a34a;
+        outline-offset: 2px;
+      }
+
+      .bio-pattern {
+        background-image: radial-gradient(rgba(22, 101, 52, 0.07) 1.5px, transparent 1.5px);
+        background-size: 24px 24px;
+      }
+    </style>
+  </head>
+  <body
+    class="text-slate-800 antialiased min-h-screen flex flex-col bg-gradient-forest bio-pattern relative overflow-x-hidden"
+  >
+    <!-- Skip to main content link for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-forest-700 text-white px-4 py-2 rounded-lg font-medium shadow-lg"
+    >
+      Zum Hauptinhalt springen
+    </a>
+
+    <!-- Floating Dark Mode Button -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
+      <button
+        type="button"
+        data-dark-toggle
+        aria-label="Dunkles Design aktivieren"
+        title="Dunkles Design"
+      >
+        <span class="dark-mode-icon">🌙</span>
+      </button>
+    </div>
+
+    <!-- Decorative Background Illustrations (Plants, Leaves, Fauna, DNA) -->
+    <div class="pointer-events-none select-none fixed inset-0 overflow-hidden z-0 opacity-20 dark:opacity-10" aria-hidden="true">
+      <!-- Top-left Botanical Monstera / Fern Leaf -->
+      <svg class="absolute -top-10 -left-10 w-72 h-72 text-forest-600 animate-float" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20 180 C 50 130, 100 80, 175 25" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M175 25 C 120 20, 60 45, 35 105 C 20 140, 20 180, 20 180 C 20 180, 60 180, 95 165 C 155 140, 180 80, 175 25 Z" fill="currentColor" fill-opacity="0.08"/>
+        <path d="M65 135 C 50 110, 50 85, 65 65" stroke-linecap="round"/>
+        <path d="M95 105 C 80 80, 82 58, 98 42" stroke-linecap="round"/>
+        <path d="M128 72 C 118 55, 120 40, 132 30" stroke-linecap="round"/>
+        <path d="M65 135 C 90 150, 115 150, 135 135" stroke-linecap="round"/>
+        <path d="M95 105 C 120 118, 142 116, 158 102" stroke-linecap="round"/>
+      </svg>
+
+      <!-- Top-right Butterfly / Fauna & DNA Helix -->
+      <svg class="absolute top-16 -right-8 w-64 h-64 text-forest-700 animate-float" style="animation-delay: 1.5s" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5">
+        <!-- Butterfly wings -->
+        <path d="M100 75 C 75 35, 25 40, 35 80 C 42 105, 78 105, 100 95 Z" fill="currentColor" fill-opacity="0.08"/>
+        <path d="M100 75 C 125 35, 175 40, 165 80 C 158 105, 122 105, 100 95 Z" fill="currentColor" fill-opacity="0.08"/>
+        <path d="M100 95 C 75 102, 48 125, 62 150 C 72 168, 95 148, 100 122 Z" fill="currentColor" fill-opacity="0.05"/>
+        <path d="M100 95 C 125 102, 152 125, 138 150 C 128 168, 105 148, 100 122 Z" fill="currentColor" fill-opacity="0.05"/>
+        <line x1="100" y1="62" x2="100" y2="132" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M100 65 Q 88 48 80 50" stroke-linecap="round"/>
+        <path d="M100 65 Q 112 48 120 50" stroke-linecap="round"/>
+      </svg>
+
+      <!-- Bottom-left DNA & Cell -->
+      <svg class="absolute bottom-12 left-8 w-56 h-56 text-forest-600" viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M30 20 C 70 50, 90 110, 130 140" />
+        <path d="M130 20 C 90 50, 70 110, 30 140" />
+        <line x1="48" y1="36" x2="112" y2="36" stroke-dasharray="3 3"/>
+        <line x1="65" y1="58" x2="95" y2="58" stroke-dasharray="3 3"/>
+        <line x1="65" y1="102" x2="95" y2="102" stroke-dasharray="3 3"/>
+        <line x1="48" y1="124" x2="112" y2="124" stroke-dasharray="3 3"/>
+      </svg>
+    </div>
+
+    <!-- Header Section -->
+    <header class="w-full pt-12 md:pt-16 pb-6 px-4 md:px-6 text-center relative z-10">
+      <div class="max-w-5xl mx-auto">
+        <div class="inline-flex flex-wrap items-center justify-center gap-2 mb-4">
+          <span
+            class="inline-flex items-center gap-1.5 py-1.5 px-4 rounded-full bg-forest-100 text-forest-900 text-xs font-semibold tracking-wide uppercase shadow-sm border border-forest-200"
+          >
+            <svg class="w-3.5 h-3.5 text-forest-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 22c4.97 0 9-4.03 9-9-4.97 0-9 4.03-9 9zm0 0c0-4.97-4.03-9-9-9 0 4.97 4.03 9 9 9zm0 0V3"/>
+            </svg>
+            Johannes-Scharrer-Gymnasium • LehrplanPLUS
+          </span>
+          <a
+            href="https://herrzo.github.io/BioApps/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 py-1.5 px-3.5 rounded-full bg-white/80 hover:bg-forest-50 text-forest-800 text-xs font-medium shadow-sm border border-forest-200/80 transition-colors"
+          >
+            <span>Zu den Biologie Lern-Apps</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        </div>
+
+        <h1
+          class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4"
+        >
+          Biologie – Themen &amp; Jahrgangsstufen
+        </h1>
+        <p
+          class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed mb-8"
+        >
+          Die zentrale Fachübersicht für Biologie: Vom Entdecken der Pflanzen und Tiere in Natur &amp; Technik bis zu Genetik, Ökologie, Evolution und Neurobiologie in der Oberstufe.
+        </p>
+
+        <!-- Thematic Pillars Banner (Pflanzen, Tiere, Mensch, Zelle & DNA, Ökosysteme) -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 md:gap-3 max-w-4xl mx-auto mb-2 text-left">
+          <div class="bg-white/85 backdrop-blur-sm border border-forest-200/70 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+            <div class="p-2 rounded-lg bg-forest-100 text-forest-700 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-800">Flora &amp; Botanik</div>
+              <div class="text-[11px] text-slate-500">Pflanzen &amp; Fotosynthese</div>
+            </div>
+          </div>
+
+          <div class="bg-white/85 backdrop-blur-sm border border-forest-200/70 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+            <div class="p-2 rounded-lg bg-forest-100 text-forest-700 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="4" cy="9" r="2"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 20c4.5 0 7-3 7-5.5 0-2.5-2-4.5-4.5-4.5-1.5 0-2 .5-2.5.5s-1-.5-2.5-.5C7 10 5 12 5 14.5 5 17 7.5 20 12 20Z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-800">Fauna &amp; Zoologie</div>
+              <div class="text-[11px] text-slate-500">Wirbeltiere &amp; Insekten</div>
+            </div>
+          </div>
+
+          <div class="bg-white/85 backdrop-blur-sm border border-forest-200/70 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+            <div class="p-2 rounded-lg bg-forest-100 text-forest-700 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-800">Mensch &amp; Körper</div>
+              <div class="text-[11px] text-slate-500">Sinne, Hormone &amp; Nerven</div>
+            </div>
+          </div>
+
+          <div class="bg-white/85 backdrop-blur-sm border border-forest-200/70 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+            <div class="p-2 rounded-lg bg-forest-100 text-forest-700 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993M9 22c1.798-1.998 2.518-3.995 2.807-5.993M2 15c6.667-6 13.333 0 20-6M20 9c-6.667 6-13.333 0-20 6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-800">Zelle &amp; Genetik</div>
+              <div class="text-[11px] text-slate-500">DNA, Enzyme &amp; Erbgänge</div>
+            </div>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1 bg-white/85 backdrop-blur-sm border border-forest-200/70 rounded-xl p-3 flex items-center gap-3 shadow-sm">
+            <div class="p-2 rounded-lg bg-forest-100 text-forest-700 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-800">Ökologie &amp; Evolution</div>
+              <div class="text-[11px] text-slate-500">Lebensräume &amp; Arten</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search & Filter Navigation (Sticky) -->
+    <div class="sticky top-2 md:top-4 z-40 px-3 md:px-4 mb-6 md:mb-8">
+      <div class="max-w-4xl mx-auto space-y-3">
+        <!-- Search Bar -->
+        <div class="relative">
+          <label for="search-input" class="sr-only">Themen oder Jahrgangsstufen durchsuchen</label>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Jahrgangsstufe, Lernbereich oder Thema suchen (z. B. Pflanzen, Wirbeltiere, Genetik, Ökologie)..."
+            aria-label="Themen oder Jahrgangsstufen durchsuchen"
+            class="w-full px-4 py-3 pl-11 bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/60 outline-none text-slate-700 placeholder-slate-400 text-sm md:text-base transition-all"
+          />
+          <svg
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-forest-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+
+        <!-- Category / Grade Filter -->
+        <nav
+          aria-label="Jahrgangsstufen-Filter"
+          class="bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/60 p-1.5 md:p-2 overflow-x-auto no-scrollbar"
+        >
+          <div class="flex space-x-1 min-w-max" id="filter-container">
+            <!-- Filter-Buttons werden per JS eingefügt -->
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content: Grade & Topic Grid -->
+    <main
+      id="main-content"
+      class="flex-grow px-4 md:px-6 pb-16 md:pb-20 relative z-10"
+      aria-live="polite"
+    >
+      <div class="max-w-6xl mx-auto min-h-[300px]" id="app-grid-container">
+        <!-- Karten für die Jahrgangsstufen & Unterseiten werden hier per JS eingefügt -->
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="w-full py-6 md:py-8 border-t border-slate-200 bg-white/60 backdrop-blur-sm mt-auto relative z-10"
+    >
+      <div
+        class="max-w-6xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <div class="text-xs md:text-sm text-slate-500 text-center md:text-left">
+          <span class="font-medium">Johannes-Scharrer-Gymnasium</span> •
+          <span>Zollfrank</span> • &copy; <span id="year"></span> •
+          <span>Biologie Lehrplan &amp; Lernpfade (BioLP)</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            href="https://www.lehrplanplus.bayern.de/fachprofil/gymnasium/biologie"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs md:text-sm text-slate-600 hover:text-forest-700 transition-colors font-medium"
+          >
+            LehrplanPLUS Biologie
+          </a>
+          <a
+            href="https://github.com/HerrZo/BioLP"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2 text-slate-600 hover:text-forest-700 transition-colors text-sm"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="font-medium">GitHub</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIK -->
+    <script src="shared/dark-mode.js"></script>
+    <script>
+      // ============================================================================
+      // 1. KONFIGURATION & DATEN (Jahrgangsstufen & Unterseiten)
+      // ============================================================================
+      // Um eine neue Jahrgangsstufen-Unterseite freizuschalten oder hinzuzufügen:
+      // 1. Unterordner im Repo anlegen (z. B. "Bio8/index.html")
+      // 2. Unten bei der entsprechenden Karte `link: "Bio8/index.html"` prüfen und
+      //    optional `subpages: [{ title: "LB 2: ...", link: "Bio8/..." }]` ergänzen.
+      // ============================================================================
+
+      const categories = [
+        "Alle",
+        "NuT 5",
+        "NuT 6",
+        "Biologie 8",
+        "Biologie 9",
+        "Biologie 10",
+        "Biologie 11",
+        "Biologie 12",
+        "Biologie 13",
+      ];
+
+      const projects = [
+        {
+          id: "nut5",
+          title: "Natur und Technik 5 – Biologie",
+          subtitle: "Säugetiere, Mensch & Blütenpflanzen",
+          description:
+            "Einführung in das naturwissenschaftliche Arbeiten, Kennzeichen des Lebendigen, Bau und Leistung des menschlichen Körpers sowie Samenpflanzen im Jahreslauf.",
+          link: "NUT5/index.html",
+          tag: "NuT 5",
+          iconType: "leaf",
+          folderHint: "NUT5",
+          topics: [
+            "Naturwissenschaftliches Arbeiten & Mikroskopie",
+            "Der Mensch: Bewegungssystem, Ernährung, Atmung & Blutkreislauf",
+            "Säugetiere als Gleichwarme: Angepasstheit & Verwandtschaft",
+            "Blütenpflanzen: Grundorgane, Bestäubung, Samen & Früchte",
+            "Ökosystem Grünland / Hecke",
+          ],
+          subpages: [],
+        },
+        {
+          id: "nut6",
+          title: "Natur und Technik 6 – Biologie",
+          subtitle: "Wirbeltierklassen, Fotosynthese & Ökosystem Gewässer",
+          description:
+            "Stammesgeschichtliche Verwandtschaft der Wirbeltiere (Fische, Amphibien, Reptilien, Vögel), Fotosynthese der grünen Pflanzen und wirbellose Tiere.",
+          link: "NUT6/index.html",
+          tag: "NuT 6",
+          iconType: "fish",
+          folderHint: "NUT6",
+          topics: [
+            "Fische, Amphibien, Reptilien & Vögel im Vergleich",
+            "Fotosynthese & Zellatmung als Wortgleichungen",
+            "Gliederfüßer (Insekten, Spinnentiere, Krebstiere)",
+            "Ökosystem Gewässer: Nahrungsbeziehungen & Gewässerschutz",
+          ],
+          subpages: [],
+        },
+        {
+          id: "bio8",
+          title: "Biologie 8",
+          subtitle: "Information, Hormone, Sexualität & Evolution der Tiere",
+          description:
+            "Informationsaufnahme und -verarbeitung beim Menschen (Sinnesorgane, Nervensystem, Hormonsystem), Fortpflanzung sowie Vielfalt von Gliederfüßern und Weichtieren.",
+          link: "Bio8/index.html",
+          tag: "Biologie 8",
+          iconType: "eye",
+          folderHint: "Bio8",
+          topics: [
+            "LB 2: Sinnesorgane (Auge, Ohr) & Nervensystem",
+            "LB 3: Hormonsystem, Blutzuckerregulation & Stress",
+            "LB 4: Fortpflanzung, Individualentwicklung & Sexualität",
+            "LB 5: Gliederfüßer, Weichtiere & Parasitismus",
+            "LB 6: Evolutionsprozesse & Artbildung",
+          ],
+          subpages: [],
+        },
+        {
+          id: "bio9",
+          title: "Biologie 9",
+          subtitle: "Immunbiologie, Zellbiologie, Genetik & Ökologie",
+          description:
+            "Mikroorganismen und Viren, spezifische und unspezifische Immunabwehr, Zellkern und Chromosomen, Proteinbiosynthese sowie angewandte Ökologie.",
+          link: "Bio9/index.html",
+          tag: "Biologie 9",
+          iconType: "dna",
+          folderHint: "Bio9",
+          topics: [
+            "LB 2: Bakterien, Viren, Infektionskrankheiten & Immunsystem",
+            "LB 3: Zelluläre Grundlagen, Mitose, Meiose & Karyogramm",
+            "LB 4: Molekulare Genetik – DNA, Transkription & Translation",
+            "LB 5: Klassische Genetik & Humangenetik",
+            "LB 6: Ökosysteme, Stoffkreisläufe & Nachhaltigkeit",
+          ],
+          subpages: [],
+        },
+        {
+          id: "bio10",
+          title: "Biologie 10",
+          subtitle: "Stoffwechsel, Enzyme, Kreislaufsystem & Evolution",
+          description:
+            "Biokatalyse durch Enzyme, Dissimilation und Zellatmung, innere Organe des Menschen, Leistungsphysiologie sowie Geschichte und Mechanismen der Evolution.",
+          link: "Bio10/index.html",
+          tag: "Biologie 10",
+          iconType: "seedling",
+          folderHint: "Bio10",
+          topics: [
+            "LB 2: Biomembranen, Stofftransport & Enzyme als Biokatalysatoren",
+            "LB 3: Ernährung, Verdauung, Atmung, Herz-Kreislauf & Sport",
+            "LB 4: Zellatmung, Gärung & ATP als universeller Energieträger",
+            "LB 5: Evolutionstheorien, Belege der Evolution & Humanevolution",
+          ],
+          subpages: [],
+        },
+        {
+          id: "bio11",
+          title: "Biologie 11",
+          subtitle: "Zytologie, Stoffwechselphysiologie & Ökologie",
+          description:
+            "Feinbau der Zelle und Biomembranen, molekulare Grundlagen von Fotosynthese und Dissimilation sowie Wechselbeziehungen in Ökosystemen.",
+          link: "Bio11/index.html",
+          tag: "Biologie 11",
+          iconType: "tree",
+          folderHint: "Bio11",
+          topics: [
+            "LB 2: Struktur & Funktion von Zellen, Organellen & Biomembranen",
+            "LB 3: Enzymkinetik, Hemmungstypen & Stoffwechselregulation",
+            "LB 4: Fotosynthese (Licht- und Dunkelreaktion) & Ökofaktoren",
+            "LB 5: Dissimilation, Glykolyse, Citratzyklus & Atmungskette",
+          ],
+          subpages: [],
+        },
+        {
+          id: "bio12",
+          title: "Biologie 12",
+          subtitle: "Genetik, Gentechnik & Ökologie",
+          description:
+            "Molekulargenetik, Genregulation, Humangenetik, moderne molekularbiologische Methoden (PCR, Sequenzierung, CRISPR/Cas) sowie Populationsökologie.",
+          link: "Bio12/index.html",
+          tag: "Biologie 12",
+          iconType: "dna",
+          folderHint: "Bio12",
+          topics: [
+            "LB 2: Speicherung & Realisierung genetischer Information, Epigenetik",
+            "LB 3: Mutationen, Chromosomenaberrationen & Stammbaumanalyse",
+            "LB 4: Gentechnik, PCR, Gelelektrophorese & DNA-Sequenzierung",
+            "LB 5: Autökologie, Populationsdynamik & Synökologie",
+          ],
+          subpages: [],
+        },
+        {
+          id: "bio13",
+          title: "Biologie 13",
+          subtitle: "Neurobiologie, Verhaltensbiologie & Evolution",
+          description:
+            "Ruhe- und Aktionspotential, Synapsen und Wirkstoffe, Leistungen des ZNS, Verhaltensökologie sowie Synthetische Evolutionstheorie und Phylogenie.",
+          link: "Bio13/index.html",
+          tag: "Biologie 13",
+          iconType: "brain",
+          folderHint: "Bio13",
+          topics: [
+            "LB 2: Erregungsentstehung, Erregungsleitung & Synapsenprozesse",
+            "LB 3: Sinneszellen, Signaltransduktion, Gehirn & Gedächtnis",
+            "LB 4: Verhaltensbiologie – Proximate & ultimate Ursachen",
+            "LB 5: Evolutionsfaktoren, Artbildung, Koevolution & Stammbäume",
+          ],
+          subpages: [],
+        },
+      ];
+
+      // Status der Seite
+      let currentCategory = "Alle";
+      let searchQuery = "";
+
+      // ============================================================================
+      // 2. HILFSFUNKTIONEN (Fachspezifische Bio-Icons: Pflanzen, Tiere, DNA, etc.)
+      // ============================================================================
+      function getIconSvg(type) {
+        const className = "w-6 h-6";
+        switch (type) {
+          case "leaf":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`;
+          case "seedling":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>`;
+          case "tree":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22v-7l-2-2"/><path d="M17 8v.8A6 6 0 0 1 13.8 20v0H10v0A6.5 6.5 0 0 1 7 8h0a5 5 0 0 1 10 0Z"/><path d="m14 14-2 2"/></svg>`;
+          case "fish":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z"/><path d="M18 12v.5"/><path d="M16 17.93a9.77 9.77 0 0 1 0-11.86"/><path d="M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33"/></svg>`;
+          case "dna":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993M9 22c1.798-1.998 2.518-3.995 2.807-5.993M2 15c6.667-6 13.333 0 20-6M20 9c-6.667 6-13.333 0-20 6"/></svg>`;
+          case "eye":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`;
+          case "brain":
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"/></svg>`;
+          default:
+            return `<svg class="${className}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22c4.97 0 9-4.03 9-9-4.97 0-9 4.03-9 9zm0 0c0-4.97-4.03-9-9-9 0 4.97 4.03 9 9 9zm0 0V3"/></svg>`;
+        }
+      }
+
+      function escapeHTML(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // ============================================================================
+      // 3. RENDERING LOGIK
+      // ============================================================================
+      function renderFilterBar() {
+        const container = document.getElementById("filter-container");
+        container.innerHTML = "";
+
+        categories.forEach((category) => {
+          const isActive = currentCategory === category;
+          const button = document.createElement("button");
+
+          let classes =
+            "px-3.5 md:px-4 py-1.5 md:py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-300 ease-out whitespace-nowrap ";
+          if (isActive) {
+            classes += "bg-forest-600 text-white shadow-md transform scale-105";
+          } else {
+            classes +=
+              "text-slate-600 hover:bg-forest-50 hover:text-forest-700";
+          }
+
+          button.className = classes;
+          button.textContent = category;
+          button.setAttribute("aria-pressed", isActive);
+
+          button.onclick = () => {
+            currentCategory = category;
+            renderFilterBar();
+            renderGrid();
+          };
+
+          container.appendChild(button);
+        });
+      }
+
+      function createCardHTML(project) {
+        const topicsHTML = (project.topics || [])
+          .map(
+            (t) => `
+              <li class="flex items-start gap-2 text-xs md:text-sm text-slate-600">
+                <svg class="w-4 h-4 text-forest-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>${escapeHTML(t)}</span>
+              </li>
+            `
+          )
+          .join("");
+
+        const subpagesHTML =
+          project.subpages && project.subpages.length > 0
+            ? `
+              <div class="mb-5 pt-3 border-t border-slate-100">
+                <div class="text-xs font-semibold uppercase tracking-wider text-forest-700 mb-2">
+                  Direkt zu den Lernbereichen:
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  ${project.subpages
+                    .map(
+                      (sp) => `
+                        <a href="${escapeHTML(sp.link)}" class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-forest-50 text-forest-800 hover:bg-forest-600 hover:text-white border border-forest-200/70 transition-colors">
+                          ${escapeHTML(sp.title)}
+                        </a>
+                      `
+                    )
+                    .join("")}
+                </div>
+              </div>
+            `
+            : "";
+
+        return `
+          <article class="bg-white/95 rounded-2xl p-5 md:p-6 border border-forest-100 card-hover flex flex-col h-full hover:border-forest-300 transition-all duration-300 animate-fadeIn">
+            <div class="flex items-center justify-between mb-4">
+              <div class="p-3 bg-forest-50 rounded-xl text-forest-700 border border-forest-100">
+                ${getIconSvg(project.iconType)}
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-100" title="Ordnername im Repository">
+                  /${escapeHTML(project.folderHint || project.id)}
+                </span>
+                <span class="text-xs font-bold text-forest-800 bg-forest-100 px-3 py-1 rounded-full border border-forest-200">
+                  ${escapeHTML(project.tag)}
+                </span>
+              </div>
+            </div>
+
+            <h2 class="text-xl font-bold text-slate-900 mb-1">
+              ${escapeHTML(project.title)}
+            </h2>
+            <p class="text-xs md:text-sm font-medium text-forest-700 mb-3">
+              ${escapeHTML(project.subtitle || "")}
+            </p>
+
+            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+              ${escapeHTML(project.description)}
+            </p>
+
+            <div class="bg-forest-50/60 rounded-xl p-3.5 mb-5 border border-forest-100 flex-grow">
+              <div class="text-xs font-bold uppercase tracking-wider text-forest-800 mb-2">
+                Themenübersicht (LehrplanPLUS)
+              </div>
+              <ul class="space-y-1.5">
+                ${topicsHTML}
+              </ul>
+            </div>
+
+            ${subpagesHTML}
+
+            <a href="${escapeHTML(project.link)}"
+               class="inline-flex items-center justify-center w-full px-4 py-2.5 md:py-3 text-sm font-semibold text-white transition-all bg-forest-700 rounded-xl hover:bg-forest-600 group shadow-sm hover:shadow-forest-500/30 mt-auto"
+               aria-label="${escapeHTML(project.title)} öffnen">
+              Jahrgangsstufe öffnen
+              <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </a>
+          </article>
+        `;
+      }
+
+      function renderGrid() {
+        const container = document.getElementById("app-grid-container");
+
+        let filteredProjects =
+          currentCategory === "Alle"
+            ? projects
+            : projects.filter((p) => p.tag === currentCategory);
+
+        if (searchQuery.trim() !== "") {
+          const q = searchQuery.toLowerCase();
+          filteredProjects = filteredProjects.filter(
+            (p) =>
+              p.title.toLowerCase().includes(q) ||
+              (p.subtitle && p.subtitle.toLowerCase().includes(q)) ||
+              p.description.toLowerCase().includes(q) ||
+              p.tag.toLowerCase().includes(q) ||
+              (p.topics && p.topics.some((t) => t.toLowerCase().includes(q)))
+          );
+        }
+
+        if (filteredProjects.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full flex flex-col items-center justify-center text-center py-16 md:py-20 animate-fadeIn bg-white rounded-2xl border border-slate-100 shadow-sm">
+              <div class="bg-forest-50 p-4 rounded-full mb-4 text-forest-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-700 mb-2">Keine Themen oder Jahrgangsstufen gefunden</h3>
+              <p class="text-slate-500 mb-6 max-w-md">Für deine aktuelle Auswahl sind keine Einträge vorhanden.</p>
+              <button onclick="currentCategory = 'Alle'; searchQuery = ''; document.getElementById('search-input').value = ''; renderFilterBar(); renderGrid();" class="inline-flex items-center px-4 py-2 bg-forest-700 text-white rounded-lg text-sm font-medium hover:bg-forest-600 transition-colors shadow-sm">
+                Alle Jahrgangsstufen anzeigen
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        let gridHTML =
+          '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 md:gap-6">';
+        filteredProjects.forEach((project) => {
+          gridHTML += createCardHTML(project);
+        });
+        gridHTML += "</div>";
+
+        container.innerHTML = gridHTML;
+      }
+
+      // 4. INITIALISIERUNG
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const searchInput = document.getElementById("search-input");
+        searchInput.addEventListener("input", (e) => {
+          searchQuery = e.target.value;
+          renderGrid();
+        });
+
+        renderFilterBar();
+        renderGrid();
+      });
+    </script>
+  </body>
+</html>

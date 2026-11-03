@@ -1,0 +1,134 @@
+/* Dark Mode Overrides für alle BioLP-Seiten (Forest Theme) */
+/* Nutzt Tailwind's 'dark' Klasse am <html> Element */
+
+/* ===== BASIS-FARBEN ===== */
+.dark body {
+  background-color: #052e16 !important;
+  background-image: linear-gradient(135deg, #042211 0%, #052e16 50%, #0a3a1e 100%) !important;
+  color: #dcfce7 !important;
+}
+
+/* ===== KARTEN & CONTAINER ===== */
+.dark .bg-white,
+.dark .bg-white\/90,
+.dark .bg-white\/85,
+.dark .bg-white\/80,
+.dark .bg-white\/70,
+.dark .bg-white\/50 {
+  background-color: rgba(20, 83, 45, 0.88) !important;
+  color: #dcfce7 !important;
+}
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-slate-50,
+.dark .bg-slate-100,
+.dark .bg-forest-50 {
+  background-color: #0b381d !important;
+  color: #dcfce7 !important;
+}
+.dark .bg-slate-950,
+.dark .bg-slate-900,
+.dark .bg-slate-800,
+.dark .bg-slate-700 {
+  background-color: #0b381d !important;
+  color: #dcfce7 !important;
+}
+.dark .bg-slate-200 {
+  background-color: #166534 !important;
+}
+.dark .bg-green-50,
+.dark .bg-emerald-50 {
+  background-color: #14532d !important;
+}
+.dark .bg-green-100,
+.dark .bg-forest-100 {
+  background-color: #166534 !important;
+}
+.dark .bg-forest-800 {
+  background-color: #022c22 !important;
+}
+.dark .bg-forest-900 {
+  background-color: #011d17 !important;
+}
+
+/* ===== TEXT ===== */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700,
+.dark .text-forest-900,
+.dark .text-forest-800,
+.dark .text-slate-100,
+.dark .text-slate-200,
+.dark .text-slate-300 {
+  color: #dcfce7 !important;
+}
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-slate-600,
+.dark .text-slate-500,
+.dark .text-slate-400,
+.dark .text-forest-600,
+.dark .text-forest-700 {
+  color: #86efac !important;
+}
+
+/* ===== BORDERS ===== */
+.dark .border-green-100,
+.dark .border-green-200,
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-200\/50,
+.dark .border-slate-700,
+.dark .border-slate-800,
+.dark .border-forest-100,
+.dark .border-forest-200,
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: #166534 !important;
+}
+
+/* ===== INPUTS & BUTTONS ===== */
+.dark input:not([type="range"]),
+.dark select,
+.dark textarea {
+  background-color: #0b381d !important;
+  color: #dcfce7 !important;
+  border-color: #15803d !important;
+}
+.dark input::placeholder {
+  color: #86efac !important;
+}
+
+/* ===== SCROLLBAR ===== */
+.dark ::-webkit-scrollbar-track { background: #052e16 !important; }
+.dark ::-webkit-scrollbar-thumb { background: #15803d !important; }
+
+/* ===== TOGGLE BUTTON ===== */
+[data-dark-toggle] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(22, 163, 74, 0.35);
+  cursor: pointer;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #166534;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  padding: 0;
+}
+[data-dark-toggle]:hover {
+  border-color: #16a34a;
+  transform: scale(1.08);
+}
+.dark [data-dark-toggle] {
+  background: rgba(20, 83, 45, 0.9);
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.4);
+}

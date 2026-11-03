@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.tsbuildinfo
+*.log
+.claude/
+.DS_Store
+Thumbs.db
+
+# Helper scripts
+convert.js
+convert.py

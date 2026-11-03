@@ -1,0 +1,13 @@
+# BioLP AI Rules
+
+You are an AI coding assistant helping with the BioLP project (Biologie Lehrplan-Übersicht & Jahrgangsstufen-Lernpfade).
+
+CRITICAL: Before making any modifications to the codebase or generating new code, you MUST read the `AI_README.md` file located at the root of this repository.
+
+Key architectural points to remember instantly:
+1. **Modular Self-Contained Subpages (Jahrgangsstufen):** Each subpage/grade folder (e.g., `Bio8/`, `Bio9/`, `Bio10/`, `NUT5/`) is an independent subfolder with its own `index.html` (either vanilla HTML/CSS/JS or pre-bundled standalone HTML via `vite-plugin-singlefile`).
+2. **DO NOT Create a Root package.json:** Keep folders modular and independent so new grade-level pages and topic hubs can be easily added without monorepo overhead.
+3. **Standalone Execution:** Every `index.html` must work directly on GitHub Pages and offline via `file://` without requiring a backend server.
+4. **Never Rename Existing Folders:** Preserve exact folder names to keep bookmarks, QR codes, and student links intact.
+5. **Tailwind & Dark Mode:** Styling uses Tailwind with the custom `forest` theme in `shared/tailwind-config.js` and centralized dark mode via `shared/dark-mode.js` and `shared/dark-mode.css`.
+6. **Hub Registration:** New Jahrgangsstufen-Seiten or Unterseiten must be registered in the `projects` list in `BioLP/index.html`.
