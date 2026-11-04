@@ -1,0 +1,1599 @@
+<!doctype html>
+<html lang="de" data-grade="8" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Sinne, Nerven und Hormone | Biologie 8</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 8 zu Sinnen, Nerven und Hormonen: Neuron, Synapse, Auge, Ohr, Erkrankungen des Nervensystems, Blutzuckerregulation und Stress.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Hedgerow (deal 2/3, seed interaktive-lernwebsite-biologie-jugendliche-3f84·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: das 3D-Neuron, das 3D-Auge, das 3D-Ohr und das Krankheits-Schema · states: default, hover, focus, active, disabled, loading, empty, error · hedgerow: hedge
+ * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the dark sheet needs the tool wells to sit one step lighter; theme.css lifts the wells and keeps the sheet one step darker */
+/* Hallmark · answered F4 · the 8 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Prata; every figure is Manrope with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.reflex-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs); margin: var(--space-md) 0; }
+.reflex-node { border: var(--rule-hair) solid var(--color-rule); background: var(--color-paper-3); padding: var(--space-xs) var(--space-sm); font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.reflex-node.is-active { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.reflex-arrow { width: 1.5rem; height: 1px; background: var(--color-rule-2); position: relative; }
+.reflex-arrow::after { content: ""; position: absolute; right: -1px; top: -3px; width: 6px; height: 6px; background: var(--color-rule-2); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.tool[data-tool="reflex8"] .tool__stage { min-height: 0; }
+.hearing-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.hearing-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.hearing-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.hearing-card p { font-size: var(--text-sm); color: var(--color-ink-2); }
+.hormone-svg, .sugar-chart, .stress-body { width: 100%; height: auto; display: block; }
+.hormone-svg text, .sugar-chart text, .stress-body text { font-family: var(--font-body); font-size: 13px; fill: var(--color-ink); }
+.hormone-svg .membrane { stroke: var(--color-rule-2); stroke-width: 8; }
+.hormone-svg .receptor { fill: none; stroke: var(--color-accent); stroke-width: 4; }
+.hormone-svg .hormone { fill: var(--color-accent); stroke: var(--color-accent-ink); stroke-width: 2; }
+.hormone-svg .hormone-label { font-weight: 700; fill: var(--color-accent-ink); }
+.sugar-chart .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.sugar-chart .gridline { stroke: var(--color-rule); stroke-width: 1; }
+.sugar-chart .series { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.sugar-chart .point { fill: var(--color-accent); stroke: var(--color-paper-2); stroke-width: 2; }
+.stress-body .body { fill: none; stroke: var(--color-rule-2); stroke-width: 2; }
+.stress-body .organ { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.stress-body .organ.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.stress-body .organ.is-reduced { fill: var(--color-paper-2); opacity: 0.45; }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.disease-svg { width: 100%; height: auto; display: block; }
+.disease-svg .frame { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.disease-svg .brain { fill: none; stroke: var(--color-muted); stroke-width: 3; }
+.disease-svg .fold { fill: none; stroke: var(--color-rule-2); stroke-width: 2; }
+.disease-svg .plaque { fill: var(--color-accent); }
+.disease-svg .lost { fill: none; stroke: var(--color-accent); stroke-width: 3; stroke-dasharray: 4 6; }
+.disease-svg .lesion { fill: var(--color-accent); }
+.disease-svg .dopamine { fill: var(--color-accent); }
+.disease-svg .tremor { fill: none; stroke: var(--color-accent); stroke-width: 3; }
+.disease-svg .fiber { stroke: var(--color-muted); stroke-width: 8; }
+.disease-svg .myelin { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.disease-svg .damage { fill: none; stroke: var(--color-accent); stroke-width: 4; }
+.disease-svg .immune { fill: none; stroke: var(--color-accent); stroke-width: 2; }
+.disease-svg .signal { fill: none; stroke: var(--color-accent); stroke-width: 3; stroke-dasharray: 5 4; }
+.disease-svg .panel-label { font-family: var(--font-body); font-size: 15px; font-weight: 500; fill: var(--color-muted); }
+.disease-svg .disease-panel { opacity: 0.3; transition: opacity var(--dur-short) var(--ease-out); }
+.disease-svg .disease-panel.is-active { opacity: 1; }
+.disease-svg .disease-panel.is-active .frame { stroke: var(--color-accent); stroke-width: 2; }
+.disease-svg .disease-panel.is-active .panel-label { fill: var(--color-ink); }
+.blindspot { margin: var(--space-lg) 0; border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.blindspot__head { display: grid; gap: var(--space-2xs); margin-bottom: var(--space-sm); }
+.blindspot__title { margin: 0; font: 700 var(--text-lg)/1.2 var(--font-display); }
+.blindspot__hint { margin: 0; font: 400 var(--text-sm)/1.45 var(--font-body); color: var(--color-ink-2); }
+.blindspot__svg { width: 100%; height: auto; display: block; }
+.blindspot__caption { margin-top: var(--space-xs); font: 400 var(--text-sm)/1.45 var(--font-body); color: var(--color-muted); }
+@media (max-width: 60rem) { .hearing-cards { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="8-2" data-grade="8">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 8">
+      <span class="brand__name">Biologie 8</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">02</span> Sinne, Nerven und Hormone</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 10</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Sinne, Nerven und Hormone</h2>
+      <p class="sidebar__deck">Reiz und Reaktion, Nervenzelle, Synapse, Erkrankungen, Auge, Ohr, Hormone, Blutzucker und Stress.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 10</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#reiz" data-station-link="reiz"><span class="station-nav__num">01</span><span>Reiz und Reaktion</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#nervenzelle" data-station-link="nervenzelle"><span class="station-nav__num">02</span><span>Nervenzelle</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#synapse" data-station-link="synapse"><span class="station-nav__num">03</span><span>Synapse</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#erkrankungen" data-station-link="erkrankungen"><span class="station-nav__num">04</span><span>Nervensystem und Erkrankungen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#auge" data-station-link="auge"><span class="station-nav__num">05</span><span>Auge</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#ohr" data-station-link="ohr"><span class="station-nav__num">06</span><span>Ohr</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#hormone" data-station-link="hormone"><span class="station-nav__num">07</span><span>Hormone</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#blutzucker" data-station-link="blutzucker"><span class="station-nav__num">08</span><span>Blutzucker und Diabetes</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#stress" data-station-link="stress"><span class="station-nav__num">09</span><span>Stress</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#vergleich" data-station-link="vergleich"><span class="station-nav__num">10</span><span>Nerven und Hormone</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">11</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">12</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 8</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Sinne, Nerven und Hormone: Wie dein Körper reagiert.</h1>
+<p class="lead">Vom Reiz zur Reaktion: Nervenzellen, Sinnesorgane und Hormone arbeiten zusammen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="reiz" href="#reiz">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">N1</span><span>Du beschreibst die Reiz-Reaktions-Kette, den Bau einer Nervenzelle und die Übertragung an der Synapse.</span></li>
+<li><span class="cnum">N2</span><span>Du erklärst Auge und Ohr, leitest Sehfehler und Hörschäden ab und kennst Schutzmaßnahmen.</span></li>
+<li><span class="cnum">N3</span><span>Du erklärst die Wirkung von Hormonen, die Blutzuckerregulation, Diabetes und die Stressreaktion.</span></li>
+<li><span class="cnum">N4</span><span>Du vergleichst die Informationsübertragung im Nervensystem mit der durch Hormone.</span></li>
+<li><span class="cnum">N5</span><span>Du erklärst ausgewählte Erkrankungen des Nervensystems und unterscheidest ihre Ursachen und Folgen.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 2 des LehrplanPLUS Biologie 8 zusammen.</small></p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Modell aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie wird aus einem Reiz eine Reaktion, und warum reagiert der Körper manchmal schneller als der Verstand?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="reiz" data-title="Reiz und Reaktion" data-track="true" id="reiz">
+<header class="station__head">
+<h2 id="reiz-title"><span class="station__num">01</span> Vom Reiz zur Reaktion</h2>
+<p class="lead">Ein Reiz wird von einem Rezeptor aufgenommen, über Nerven weitergeleitet und löst eine Reaktion aus.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Reiz ist eine Veränderung, die ein Rezeptor erkennt, zum Beispiel Licht, Schall, Druck oder eine Chemikalie. Der Rezeptor wandelt den Reiz in ein elektrisches Signal um. Über afferente Nervenfasern gelangt das Signal zum Zentralnervensystem, also zu Gehirn und Rückenmark. Dort wird es verarbeitet. Über efferente Nervenfasern läuft die Antwort zu einem Erfolgsorgan, etwa zu einem Muskel oder einer Drüse.</p>
+<p>Bei einem Reflex läuft die Reaktion teilweise ohne Bewusstsein ab. Das Rückenmark kann den Reflexbogen steuern, noch bevor das Gehirn den Reiz bewusst wahrnimmt. Deshalb ziehst du die Hand von einer heißen Herdplatte zurück, bevor du den Schmerz bewusst einordnest. Der Reflex ist schnell, aber nicht immer genau. Bewusste Reaktionen dauern länger, weil das Gehirn den Reiz verarbeitet und eine Entscheidung trifft.</p>
+<figure class="tool" data-tool="reflex8">
+<div class="tool__head">
+<p class="tool__title">Reflexbogen</p>
+<p class="tool__hint">Löse einen Reiz aus. Verfolge den Weg vom Rezeptor bis zum Muskel.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-reflex-fire="" type="button" data-tip="Startet die Reiz-Reaktions-Kette. Die Stationen leuchten nacheinander auf.">Reiz auslösen</button>
+<button class="btn btn--quiet btn--small" data-reflex-reset="" type="button" data-tip="Setzt den Reflexbogen auf den Ausgangszustand zurück.">Zurücksetzen</button>
+<span role="group" aria-label="Geschwindigkeit des Reflexbogens">
+<button class="btn btn--quiet btn--small" data-reflex-speed="0.5" aria-pressed="false" type="button" data-tip="Halbe Geschwindigkeit: gut zum Mitlesen der einzelnen Stationen.">0,5×</button>
+<button class="btn btn--quiet btn--small" data-reflex-speed="1" aria-pressed="true" type="button" data-tip="Normale Geschwindigkeit: zeigt den schnellen Ablauf des Reflexes.">1×</button>
+<button class="btn btn--quiet btn--small" data-reflex-speed="2" aria-pressed="false" type="button" data-tip="Doppelte Geschwindigkeit: betont, wie schnell ein Reflex abläuft.">2×</button>
+</span>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="reflex-row">
+<div class="reflex-node" data-reflex-node="0" data-tip="Reiz: eine Veränderung, die ein Rezeptor erkennt – hier die Hitze der Herdplatte." tabindex="0">Reiz</div>
+<span aria-hidden="true" class="reflex-arrow"></span>
+<div class="reflex-node" data-reflex-node="1" data-tip="Rezeptor: Sinneszelle in der Haut, die den Hitzereiz erkennt und in ein elektrisches Signal umwandelt." tabindex="0">Rezeptor</div>
+<span aria-hidden="true" class="reflex-arrow"></span>
+<div class="reflex-node" data-reflex-node="2" data-tip="Afferentes Neuron: leitet das Signal zum Zentralnervensystem hin – also zum Rückenmark." tabindex="0">afferentes Neuron</div>
+<span aria-hidden="true" class="reflex-arrow"></span>
+<div class="reflex-node" data-reflex-node="3" data-tip="Rückenmark: Hier wird der Reflex verschaltet. Das Gehirn muss nicht erst bewusst entscheiden." tabindex="0">Rückenmark</div>
+<span aria-hidden="true" class="reflex-arrow"></span>
+<div class="reflex-node" data-reflex-node="4" data-tip="Efferentes Neuron: leitet die Antwort vom Zentralnervensystem weg zum Erfolgsorgan." tabindex="0">efferentes Neuron</div>
+<span aria-hidden="true" class="reflex-arrow"></span>
+<div class="reflex-node" data-reflex-node="5" data-tip="Muskel: das Erfolgsorgan. Er zieht sich zusammen, und die Hand bewegt sich weg." tabindex="0">Muskel</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Der Reflexbogen ist eine Kette aus Rezeptor, Nerven, Rückenmark und Erfolgsorgan. Das Gehirn kann die Reaktion später bewusst wahrnehmen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Reflexe schnell sind</summary>
+<p>Ein Reflexbogen hat wenige Stationen. Das Signal muss nicht erst im Großhirn bewusst verarbeitet werden. Dadurch ist die Reaktion sehr schnell. Bei einem Lidschlussreflex oder beim Zurückziehen der Hand kann das lebenswichtig sein. Bewusste Reaktionen sind langsamer, weil viele Signale verglichen und Entscheidungen getroffen werden.</p>
+</details>
+<section aria-labelledby="reiz-check" class="checkpoint">
+<h3 id="reiz-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="reiz">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="reiz" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "r1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Welche Reihenfolge beschreibt die Reiz-Reaktions-Kette?",
+              "options": ["Reiz, Rezeptor, afferentes Neuron, Zentralnervensystem, efferentes Neuron, Erfolgsorgan", "Reiz, Muskel, Gehirn, Rezeptor", "Gehirn, Reiz, Rezeptor, Muskel", "Rezeptor, Muskel, Rückenmark, Reiz"],
+              "correct": 0,
+              "explain": "Der Reiz wird vom Rezeptor aufgenommen, über afferente Nerven zum ZNS geleitet und über efferente Nerven zum Erfolgsorgan."
+            },
+            {
+              "id": "r2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Warum ist ein Reflex oft schneller als eine bewusste Reaktion?",
+              "options": ["Weil der Reflexbogen ohne bewusste Verarbeitung im Großhirn auskommt.", "Weil Reflexe keine Nerven brauchen.", "Weil das Rückenmark den Reiz ignoriert.", "Weil Muskeln schneller denken können."],
+              "correct": 0,
+              "explain": "Der Reflexbogen kann im Rückenmark geschaltet werden. Das Gehirn verarbeitet den Reiz später bewusst."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="reiz" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="nervenzelle" href="#nervenzelle">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Reiz, Rezeptor, Nervenbahn, Zentralnervensystem, Erfolgsorgan. Der Reflexbogen ist die kurze Route.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Reiz</dt><dd>Veränderung, die ein Rezeptor erkennt.</dd>
+<dt>afferent</dt><dd>zum Zentralnervensystem hin.</dd>
+<dt>efferent</dt><dd>vom Zentralnervensystem weg.</dd>
+<dt>Erfolgsorgan</dt><dd>Muskel oder Drüse, die reagiert.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Reiz und Reaktion verwechseln. Der Reiz ist der Auslöser, die Reaktion ist die Antwort des Körpers.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="nervenzelle" data-title="Nervenzelle" data-track="true" id="nervenzelle">
+<header class="station__head">
+<h2 id="nervenzelle-title"><span class="station__num">02</span> Die Nervenzelle</h2>
+<p class="lead">Nervenzellen nehmen Signale auf, leiten sie weiter und geben sie an andere Zellen ab.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Nervenzelle hat einen Zellkörper mit Zellkern, viele kurze Dendriten und meist ein langes Axon. Dendriten nehmen Signale von anderen Zellen auf. Am Axonhügel entsteht ein Aktionspotential, wenn die Erregung einen Schwellenwert überschreitet. Das Aktionspotential läuft über das Axon zu den Endknöpfchen. Myelinscheiden isolieren viele Axone und lassen die Erregung schneller springen.</p>
+<p>Im Ruhezustand ist die Innenseite der Membran negativ gegenüber außen. Das ist das Ruhepotential. Öffnen sich Ionenkanäle, strömen Ionen und die Spannung ändert sich. Ein Aktionspotential ist eine kurze, sich selbst verstärkende Spannungsänderung. Nach dem Signal wird die Membran wieder in den Ruhezustand gebracht. Nervenzellen können Signale nicht unbegrenzt schnell und nicht beliebig oft weiterleiten.</p>
+<figure class="tool" data-tool="neuron">
+<div class="tool__head">
+<p class="tool__title">3D-Nervenzelle</p>
+<p class="tool__hint">Drehen zeigt den Bau. Fahre über ein Bauteil, um seine Funktion zu lesen. Löse einen Reiz aus und beobachte die Weiterleitung.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-neuron-fire="" type="button" data-tip="Startet ein Aktionspotential. Der helle Punkt läuft vom Zellkörper über das Axon zu den Endknöpfchen.">Reiz auslösen</button>
+<button class="btn btn--quiet btn--small" data-neuron-reset="" type="button" data-tip="Stoppt die Weiterleitung und setzt den Puls an den Start zurück.">Zurücksetzen</button>
+<label data-tip="Myelinscheiden isolieren das Axon. Die Erregung springt von Schnürring zu Schnürring und ist dadurch schneller."><input checked="" data-neuron-myelin="" type="checkbox"/> Myelinscheiden</label>
+</div>
+<div aria-label="Interaktives 3D-Modell einer Nervenzelle. Ziehen dreht das Modell, Mausrad zoomt." class="tool__stage tool__stage--3d" data-scene="neuron" id="neuron-scene" role="group">
+<div class="tool__fallback">
+<svg aria-label="Schematische Nervenzelle mit Dendriten, Zellkörper, Axon, Myelinscheiden und Endknöpfchen" role="img" viewbox="0 0 640 280">
+<circle cx="150" cy="140" fill="var(--color-paper-3)" r="42" stroke="var(--color-ink)" stroke-width="2"></circle>
+<g fill="none" stroke="var(--color-ink)" stroke-width="3">
+<path d="M115 115 L70 80 M110 140 L55 140 M115 165 L70 200 M150 98 L140 50 M180 115 L225 75"></path>
+</g>
+<line stroke="var(--color-ink)" stroke-width="5" x1="190" x2="500" y1="140" y2="140"></line>
+<g fill="var(--color-paper-2)" stroke="var(--color-muted)" stroke-width="2">
+<rect height="28" width="55" x="230" y="126"></rect><rect height="28" width="55" x="310" y="126"></rect><rect height="28" width="55" x="390" y="126"></rect>
+</g>
+<g fill="var(--color-accent)">
+<circle cx="520" cy="115" r="9"></circle><circle cx="520" cy="140" r="9"></circle><circle cx="520" cy="165" r="9"></circle>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="14" text-anchor="middle" x="320" y="235">Dendriten, Zellkörper, Axon, Myelinscheiden, Endknöpfchen</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-neuron-readout=""></div>
+<p class="tool__note">Modellhinweis: Die Größenverhältnisse sind vereinfacht. Ein echtes Axon ist je nach Nervenbahn unterschiedlich dick und myelinisiert.</p>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-accent)"></span>Erregung</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-muted)"></span>Myelinscheide</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-ink)"></span>Zellfortsätze</span>
+</div>
+<figcaption class="tool__caption">Die Myelinscheiden sind als helle Hüllen um das Axon dargestellt. Sie beschleunigen die Weiterleitung, sind aber kein Ersatz für die Nervenzelle selbst.</figcaption>
+</figure>
+<table class="data-table">
+<caption>Leitungsgeschwindigkeit und Axondurchmesser</caption>
+<thead><tr><th>Lebewesen oder Nervenbahn</th><th>Axondurchmesser</th><th>Leitungsgeschwindigkeit</th></tr></thead>
+<tbody>
+<tr><td>Qualle</td><td>9 µm</td><td>0,5 m/s</td></tr>
+<tr><td>Frosch</td><td>13 µm</td><td>42 m/s</td></tr>
+<tr><td>Katze</td><td>18 µm</td><td>75 m/s</td></tr>
+<tr><td>Mensch, Hautnerv</td><td>5 µm</td><td>20 m/s</td></tr>
+<tr><td>Mensch, motorischer Nerv</td><td>20 µm</td><td>120 m/s</td></tr>
+<tr><td>Tintenfisch</td><td>650 µm</td><td>25 m/s</td></tr>
+</tbody>
+</table>
+<p>Was fällt auf? Der Tintenfisch hat ein sehr dickes Axon, ist aber langsamer als der menschliche motorische Nerv. Entscheidend sind nicht nur der Durchmesser, sondern auch die Myelinscheiden und die Schnürringe. Sie machen die Weiterleitung schnell, ohne dass das Axon extrem dick werden muss.</p>
+<details class="deep">
+<summary>Mehr im Detail: Ruhepotential und Aktionspotential</summary>
+<p>Im Ruhepotential ist die Membran innen negativ, weil mehr Kaliumionen innen und mehr Natriumionen außen vorliegen und die Membran für Kalium durchlässiger ist. Öffnen sich Natriumkanäle, strömt Natrium ein und die Membran wird innen positiv. Das ist die Depolarisation. Danach öffnen sich Kaliumkanäle, Kalium strömt aus und die Membran wird wieder negativ. Die Natrium-Kalium-Pumpe stellt die ursprüngliche Verteilung langfristig wieder her.</p>
+</details>
+<section aria-labelledby="nervenzelle-check" class="checkpoint">
+<h3 id="nervenzelle-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="nervenzelle">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="nervenzelle" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "n1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Welche Aufgabe haben die Dendriten?",
+              "options": ["Sie nehmen Signale von anderen Zellen auf.", "Sie bilden die Myelinscheiden.", "Sie speichern die Erbinformation.", "Sie pumpen Blut durch den Körper."],
+              "correct": 0,
+              "explain": "Dendriten sind verzweigte Fortsätze, die Signale von anderen Zellen aufnehmen."
+            },
+            {
+              "id": "n2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Was bewirken Myelinscheiden?",
+              "options": ["Sie beschleunigen die Weiterleitung des Aktionspotentials.", "Sie verhindern jede Weiterleitung.", "Sie bilden Neurotransmitter.", "Sie ersetzen den Zellkern."],
+              "correct": 0,
+              "explain": "Myelinscheiden isolieren das Axon. Die Erregung springt von Schnürring zu Schnürring und ist schneller."
+            },
+            {
+              "id": "n3",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Warum ist der menschliche motorische Nerv trotz eines dünneren Axons schneller als der Tintenfisch?",
+              "options": ["Weil die Myelinscheiden die Erregung schneller weiterleiten.", "Weil der Tintenfisch keine Nerven besitzt.", "Weil der Mensch größere Zellen hat.", "Weil der Tintenfisch im Wasser lebt."],
+              "correct": 0,
+              "explain": "Myelin und Schnürringe beschleunigen die Weiterleitung: Die Erregung springt von Schnürring zu Schnürring. Der Tintenfisch braucht dafür ein sehr dickes, unmyelinisiertes Axon."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="nervenzelle" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="synapse" href="#synapse">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Dendriten nehmen auf, das Axon leitet weiter, die Endknöpfchen geben das Signal an die nächste Zelle.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Axon</dt><dd>langer Fortsatz, der Signale weiterleitet.</dd>
+<dt>Myelin</dt><dd>Isolierschicht um viele Axone.</dd>
+<dt>Aktionspotential</dt><dd>kurze elektrische Spannungsänderung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Die Nervenzelle als Kabel mit Stromfluss wie im Haushalt verstehen. Es sind Ionenbewegungen an der Membran.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="synapse" data-title="Synapse" data-track="true" id="synapse">
+<header class="station__head">
+<h2 id="synapse-title"><span class="station__num">03</span> Die Synapse: Übergabe an der Kontaktstelle</h2>
+<p class="lead">Am Ende einer Nervenzelle wird das elektrische Signal in ein chemisches Signal übersetzt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Synapse ist eine Kontaktstelle zwischen zwei Nervenzellen oder zwischen einer Nervenzelle und einem Erfolgsorgan. Das elektrische Aktionspotential erreicht das Endknöpfchen. Dort verschmelzen Vesikel mit der Membran und setzen Neurotransmitter in den synaptischen Spalt frei. Die Botenstoffe binden an Rezeptoren der nächsten Zelle. Dadurch öffnen sich Ionenkanäle und ein neues elektrisches Signal kann entstehen.</p>
+<p>Neurotransmitter können erregend oder hemmend wirken. Sie werden nach der Übertragung abgebaut oder wieder aufgenommen, damit das Signal endet. Viele Gifte und Medikamente greifen an Synapsen an. Sie können die Freisetzung, die Bindung oder den Abbau von Neurotransmittern verändern. Deshalb wirken schon kleine Mengen stark.</p>
+<figure class="tool" data-tool="synapse">
+<div class="tool__head">
+<p class="tool__title">3D-Synapse</p>
+<p class="tool__hint">Drehen zeigt den Aufbau. Fahre über ein Bauteil, um seine Funktion zu lesen. Sende ein Signal und beobachte die Übertragung.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-synapse-send="" type="button" data-tip="Startet die Übertragung: Vesikel setzen Neurotransmitter frei, die an Rezeptoren binden.">Signal senden</button>
+<button class="btn btn--quiet btn--small" data-synapse-reset="" type="button" data-tip="Setzt die Synapse in den Ausgangszustand zurück.">Zurücksetzen</button>
+</div>
+<div aria-label="Interaktives 3D-Modell einer Synapse. Ziehen dreht das Modell, Mausrad zoomt." class="tool__stage tool__stage--3d" data-scene="synapse" id="synapse-scene" role="group">
+<div class="tool__fallback">
+<svg aria-label="Schematische Synapse: Vesikel setzen Neurotransmitter in den synaptischen Spalt frei, die an Rezeptoren der nächsten Zelle binden" role="img" viewbox="0 0 640 280">
+<ellipse cx="160" cy="140" fill="var(--color-paper-3)" rx="90" ry="70" stroke="var(--color-ink)" stroke-width="2"></ellipse>
+<rect fill="var(--color-paper-3)" height="180" stroke="var(--color-ink)" stroke-width="2" width="18" x="430" y="50"></rect>
+<g fill="var(--color-accent)">
+<circle cx="140" cy="120" r="7"></circle><circle cx="170" cy="135" r="7"></circle><circle cx="145" cy="160" r="7"></circle>
+</g>
+<g fill="var(--color-accent)">
+<circle cx="270" cy="110" r="5"></circle><circle cx="300" cy="130" r="5"></circle><circle cx="330" cy="150" r="5"></circle><circle cx="360" cy="120" r="5"></circle><circle cx="390" cy="145" r="5"></circle>
+</g>
+<g stroke="var(--color-accent)" stroke-width="4">
+<line x1="430" x2="450" y1="90" y2="90"></line><line x1="430" x2="450" y1="120" y2="120"></line><line x1="430" x2="450" y1="150" y2="150"></line><line x1="430" x2="450" y1="180" y2="180"></line>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="14" text-anchor="middle" x="320" y="250">Vesikel, synaptischer Spalt, Rezeptoren der nächsten Zelle</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-synapse-readout=""></div>
+<p class="tool__note">Modellhinweis: Der synaptische Spalt ist stark vergrößert dargestellt. In Wirklichkeit ist er nur etwa 20 Nanometer breit.</p>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-accent)"></span>Vesikel und Neurotransmitter</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-paper-2)"></span>Membranen</span>
+</div>
+<figcaption class="tool__caption">Die Übertragung ist chemisch. Das Signal wird an der Synapse nicht einfach durchgereicht, sondern neu ausgelöst.</figcaption>
+</figure>
+<p>Der Neurotransmitter passt nur an einen bestimmten Rezeptor, ähnlich wie ein Schlüssel in ein Schloss. Das nennt man Schlüssel-Schloss-Modell. Es erklärt, warum ein Botenstoff viele Zellen erreicht, aber nur auf Zellen mit dem passenden Rezeptor wirkt. Gifte können genau diesen Schritt stören.</p>
+<p>Botulinumtoxin, bekannt als Botox, verhindert die Freisetzung von Acetylcholin an der motorischen Endplatte. Der Nervenimpuls kommt am Endknöpfchen an, aber der Muskel erhält kein Signal und bleibt entspannt. In der Medizin wird Botox bei bestimmten Bewegungsstörungen eingesetzt; in der Kosmetik wird der Effekt zur Faltenglättung genutzt. Die Anwendung ist nicht harmlos und gehört in ärztliche Hand.</p>
+<details class="deep">
+<summary>Mehr im Detail: Erregend und hemmend</summary>
+<p>Ein erregender Neurotransmitter öffnet Ionenkanäle, die die Membran depolarisieren. Ein hemmender Neurotransmitter macht die Membran negativer und erschwert ein Aktionspotential. Eine Nervenzelle kann viele Synapsen haben. Sie bildet ein neues Signal nur, wenn die Summe der erregenden und hemmenden Eingänge den Schwellenwert überschreitet.</p>
+</details>
+<section aria-labelledby="synapse-check" class="checkpoint">
+<h3 id="synapse-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="synapse">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="synapse" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "s1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Was wird an einer Synapse freigesetzt?",
+              "options": ["Neurotransmitter", "Blutplasma", "Myelin", "Chromosomen"],
+              "correct": 0,
+              "explain": "Vesikel setzen Neurotransmitter in den synaptischen Spalt frei. Sie binden an Rezeptoren der nächsten Zelle."
+            },
+            {
+              "id": "s2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Warum ist die Synapse eine chemische Übergabestelle?",
+              "options": ["Weil das elektrische Signal in ein chemisches Botensignal umgewandelt wird.", "Weil dort Blut fließt.", "Weil dort keine Ionen vorkommen.", "Weil die Nervenzelle dort endet und nicht weiterleitet."],
+              "correct": 0,
+              "explain": "Das elektrische Aktionspotential führt zur Freisetzung von Neurotransmittern. Diese chemische Übertragung kann erregend oder hemmend wirken."
+            },
+            {
+              "id": "s3",
+              "type": "mc",
+              "level": "g",
+              "competency": "N1",
+              "prompt": "Wie wirkt Botulinumtoxin an der motorischen Endplatte?",
+              "options": ["Es verhindert die Freisetzung von Acetylcholin; der Muskel erhält kein Signal.", "Es verstärkt das elektrische Aktionspotential im Axon.", "Es baut Myelinscheiden auf.", "Es erhöht die Zahl der Rezeptoren."],
+              "correct": 0,
+              "explain": "Botox blockiert die Freisetzung des Neurotransmitters. Die elektrische Erregung läuft weiter, aber die Übertragung auf den Muskel fehlt."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="synapse" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="erkrankungen" href="#erkrankungen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>An der Synapse wird elektrisch zu chemisch. Neurotransmitter übertragen das Signal auf die nächste Zelle.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Vesikel</dt><dd>Bläschen mit Neurotransmittern.</dd>
+<dt>synaptischer Spalt</dt><dd>schmaler Zwischenraum zwischen den Zellen.</dd>
+<dt>Rezeptor</dt><dd>Bindungsstelle für den Botenstoff.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, das Signal springe einfach als Strom über den Spalt. Es wird chemisch übertragen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="erkrankungen" data-title="Nervensystem und Erkrankungen" data-track="true" id="erkrankungen">
+<header class="station__head">
+<h2 id="erkrankungen-title"><span class="station__num">04</span> Wenn das Nervensystem erkrankt</h2>
+<p class="lead">Alzheimer, Parkinson und Multiple Sklerose betreffen unterschiedliche Strukturen. Gemeinsam ist ihnen, dass Signale im Nervensystem nicht mehr zuverlässig funktionieren.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Das Nervensystem kann auf viele Arten erkranken. Bei Alzheimer verändern sich Proteine im Gehirn, Ablagerungen entstehen und Verbindungen zwischen Nervenzellen gehen verloren. Betroffene vergessen zunehmend Dinge, finden Worte schwer und brauchen im Alltag Unterstützung. Alzheimer ist keine normale Alterserscheinung.</p>
+<p>Bei Parkinson sterben Nervenzellen ab, die den Botenstoff Dopamin bilden, vor allem in einer Region des Mittelhirns. Dopamin ist wichtig für die Steuerung von Bewegungen. Typisch sind Zittern in Ruhe, steife Muskeln und langsame Bewegungen. Bei Multipler Sklerose greift das Immunsystem die Myelinscheiden im zentralen Nervensystem an. Die Isolierung wird geschädigt, Signale werden langsamer oder gestört. Sehstörungen, Gefühlsstörungen und Schwäche können in Schüben auftreten.</p>
+<p>Diese Erkrankungen sind nicht ansteckend. Sie haben unterschiedliche Ursachen und Verläufe. Für Betroffene sind eine frühe Diagnose, Behandlung und Unterstützung wichtig. Die Forschung untersucht, wie sich Nervenzellen schützen oder ersetzen lassen.</p>
+<figure class="tool" data-tool="nerve-disease8">
+<div class="tool__head">
+<p class="tool__title">Drei Erkrankungen im Vergleich</p>
+<p class="tool__hint">Wähle eine Erkrankung. Das Schema zeigt, welche Struktur besonders betroffen ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Schematische Darstellung von Alzheimer, Parkinson und Multipler Sklerose" class="disease-svg" role="img" viewbox="0 0 660 270">
+<g class="disease-panel" data-disease-panel="alzheimer" data-tip="Alzheimer: Proteinablagerungen und der Verlust von Synapsen im Gehirn. Betroffen sind besonders Gedächtnis und Orientierung." tabindex="0">
+<rect class="frame" height="220" rx="2" width="200" x="15" y="15"></rect>
+<path class="brain" d="M70 100 C65 70 90 55 115 62 C140 48 168 65 160 92 C178 105 172 132 148 136 C142 158 115 165 100 148 C75 158 55 138 62 118 C55 110 58 104 70 100 Z"></path>
+<path class="fold" d="M90 80 Q105 95 95 115 M125 70 Q120 95 135 110 M105 130 Q120 140 135 128"></path>
+<g class="plaque">
+<circle cx="85" cy="105" r="4"></circle><circle cx="125" cy="90" r="4"></circle><circle cx="145" cy="120" r="4"></circle><circle cx="105" cy="140" r="4"></circle><circle cx="70" cy="125" r="3"></circle>
+</g>
+<path class="lost" d="M150 145 L178 162"></path>
+<text class="panel-label" text-anchor="middle" x="115" y="220">Alzheimer</text>
+</g>
+<g class="disease-panel" data-disease-panel="parkinson" data-tip="Parkinson: Nervenzellen in der Substantia nigra bilden zu wenig Dopamin. Dadurch werden Bewegungen langsamer und ungenauer." tabindex="0">
+<rect class="frame" height="220" rx="2" width="200" x="230" y="15"></rect>
+<path class="brain" d="M285 100 C280 70 305 55 330 62 C355 48 383 65 375 92 C393 105 387 132 363 136 C357 158 330 165 315 148 C290 158 270 138 277 118 C270 110 273 104 285 100 Z"></path>
+<path class="fold" d="M305 80 Q320 95 310 115 M340 70 Q335 95 350 110 M320 130 Q335 140 350 128"></path>
+<ellipse class="lesion" cx="330" cy="128" rx="10" ry="6"></ellipse>
+<g class="dopamine"><circle cx="355" cy="112" r="4"></circle><circle cx="368" cy="122" r="3"></circle><circle cx="350" cy="98" r="3"></circle></g>
+<path class="tremor" d="M370 150 L380 142 L390 158 L400 142 L410 158"></path>
+<text class="panel-label" text-anchor="middle" x="330" y="220">Parkinson</text>
+</g>
+<g class="disease-panel" data-disease-panel="ms" data-tip="Multiple Sklerose: Das Immunsystem greift die Myelinscheiden im zentralen Nervensystem an. Signale werden langsamer oder gestört." tabindex="0">
+<rect class="frame" height="220" rx="2" width="200" x="445" y="15"></rect>
+<line class="fiber" x1="470" x2="620" y1="120" y2="120"></line>
+<g class="myelin">
+<rect height="26" width="22" x="476" y="107"></rect><rect height="26" width="22" x="506" y="107"></rect><rect height="26" width="22" x="536" y="107"></rect><rect height="26" width="22" x="566" y="107"></rect><rect height="26" width="18" x="596" y="107"></rect>
+</g>
+<path class="damage" d="M540 104 L534 120 L543 120 L537 136"></path>
+<g class="immune"><circle cx="548" cy="80" r="9"></circle><circle cx="572" cy="92" r="7"></circle><circle cx="526" cy="92" r="6"></circle></g>
+<path class="signal" d="M470 155 L485 145 L500 160 L515 145 L530 160"></path>
+<text class="panel-label" text-anchor="middle" x="545" y="220">Multiple Sklerose</text>
+</g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Schemata sind vereinfacht. Sie zeigen typische betroffene Strukturen, nicht die ganze Bandbreite der Erkrankungen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Erkrankungen verschieden sind</summary>
+<p>Alzheimer, Parkinson und Multiple Sklerose werden oft zusammen genannt, weil sie das Nervensystem betreffen. Ihre Ursachen sind aber verschieden. Bei Alzheimer stehen Proteinablagerungen und der Verlust von Synapsen im Vordergrund. Bei Parkinson ist der Mangel an Dopamin entscheidend. Bei Multipler Sklerose greift das Immunsystem die Myelinscheiden an. Deshalb unterscheiden sich auch die Behandlungen.</p>
+</details>
+<section aria-labelledby="erkrankungen-check" class="checkpoint">
+<h3 id="erkrankungen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="erkrankungen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="erkrankungen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "e1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N5",
+              "prompt": "Bei welcher Erkrankung greift das Immunsystem die Myelinscheiden an?",
+              "options": ["Bei Multipler Sklerose", "Bei Parkinson", "Bei Alzheimer", "Bei einer Grippe"],
+              "correct": 0,
+              "explain": "Bei Multipler Sklerose werden die Myelinscheiden im zentralen Nervensystem angegriffen. Die Signalweiterleitung wird dadurch gestört."
+            },
+            {
+              "id": "e2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N5",
+              "prompt": "Welcher Botenstoff fehlt bei Parkinson vor allem?",
+              "options": ["Dopamin", "Insulin", "Adrenalin", "Glucagon"],
+              "correct": 0,
+              "explain": "Bei Parkinson sterben dopaminbildende Nervenzellen im Mittelhirn ab. Dopamin ist wichtig für die Bewegungssteuerung."
+            },
+            {
+              "id": "e3",
+              "type": "mc",
+              "level": "g",
+              "competency": "N5",
+              "prompt": "Was ist bei Alzheimer besonders betroffen?",
+              "options": ["Verbindungen zwischen Nervenzellen im Gehirn", "Die Myelinscheiden im Rückenmark", "Die Linse im Auge", "Die Cochlea im Ohr"],
+              "correct": 0,
+              "explain": "Bei Alzheimer gehen Synapsen und Nervenzellen im Gehirn verloren. Proteinablagerungen spielen dabei eine Rolle."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="erkrankungen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="auge" href="#auge">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Alzheimer, Parkinson und Multiple Sklerose sind nicht ansteckend. Sie betreffen unterschiedliche Strukturen und brauchen unterschiedliche Behandlung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Alzheimer</dt><dd>Erkrankung des Gehirns mit Proteinablagerungen und Verlust von Synapsen.</dd>
+<dt>Parkinson</dt><dd>Erkrankung mit Verlust dopaminbildender Nervenzellen im Mittelhirn.</dd>
+<dt>Multiple Sklerose</dt><dd>Erkrankung, bei der das Immunsystem Myelinscheiden angreift.</dd>
+<dt>Dopamin</dt><dd>Botenstoff, der an der Bewegungssteuerung beteiligt ist.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Alzheimer als normales Altern abtun. Vergesslichkeit im Alter ist nicht automatisch Alzheimer.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="auge" data-title="Auge" data-track="true" id="auge">
+<header class="station__head">
+<h2 id="auge-title"><span class="station__num">05</span> Das Auge: Licht wird zum Bild</h2>
+<p class="lead">Hornhaut und Linse bündeln das Licht. Die Netzhaut wandelt es in Nervensignale um.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Das Licht trifft zuerst auf die <span data-tip="Hornhaut: Die klare, gewölbte Schicht an der Augenoberfläche bricht das Licht und schützt das Auge." tabindex="0">Hornhaut</span>, dann auf die Pupille und die Linse. Hornhaut und Linse brechen das Licht so, dass ein scharfes Bild auf der Netzhaut entsteht. Die Iris regelt die Pupillenweite und damit die Lichtmenge. Die Netzhaut enthält Stäbchen für Helligkeit und Bewegung und Zapfen für Farben und Schärfe. Die Signale verlassen das Auge über den Sehnerv.</p>
+<p>Beim Nahsehen wird die Linse stärker gekrümmt, beim Fernsehen flacher. Das heißt <span data-tip="Akkommodation: die Anpassung der Linsenkrümmung an die Entfernung des Gegenstands." tabindex="0">Akkommodation</span>. Ist der Augapfel zu lang oder die Linse zu stark, entsteht das Bild vor der Netzhaut: Kurzsichtigkeit. Ist der Augapfel zu kurz oder die Linse zu schwach, liegt das Bild hinter der Netzhaut: Weitsichtigkeit. Eine Brille mit Zerstreuungs- oder Sammellinse kann das Bild wieder auf die Netzhaut bringen.</p>
+<figure class="tool" data-tool="eye">
+<div class="tool__head">
+<p class="tool__title">3D-Auge</p>
+<p class="tool__hint">Drehen zeigt den Aufbau. Fahre über ein Bauteil, um seine Funktion zu lesen. Wechsle zwischen Nah, Fern und Sehfehlern.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-eye-mode="near" type="button" data-tip="Nahsehen: Die Linse wird stärker gekrümmt. Das Licht wird stärker gebrochen.">Nah</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-eye-mode="far" type="button" data-tip="Fernsehen: Die Linse ist flacher. Das Licht wird weniger stark gebrochen.">Fern</button>
+<button class="btn btn--quiet btn--small" data-eye-mode="myopia" type="button" data-tip="Kurzsichtigkeit: Das Bild entsteht vor der Netzhaut. Eine Zerstreuungslinse kann korrigieren.">Kurzsichtig</button>
+<button class="btn btn--quiet btn--small" data-eye-mode="hyperopia" type="button" data-tip="Weitsichtigkeit: Das Bild würde hinter der Netzhaut entstehen. Eine Sammellinse kann korrigieren.">Weitsichtig</button>
+</div>
+<div aria-label="Interaktives 3D-Modell eines Auges. Ziehen dreht das Modell, Mausrad zoomt." class="tool__stage tool__stage--3d" data-scene="eye" id="eye-scene" role="group">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Auge mit Hornhaut, Linse, Netzhaut und Lichtstrahlen" role="img" viewbox="0 0 640 280">
+<circle cx="320" cy="140" fill="var(--color-paper-3)" r="95" stroke="var(--color-ink)" stroke-width="2"></circle>
+<path d="M230 140 Q320 45 410 140 Q320 235 230 140" fill="none" stroke="var(--color-accent)" stroke-width="4"></path>
+<ellipse cx="270" cy="140" fill="var(--color-paper-2)" rx="18" ry="42" stroke="var(--color-accent)" stroke-width="3"></ellipse>
+<line stroke="var(--color-muted)" stroke-width="6" x1="380" x2="380" y1="60" y2="220"></line>
+<line stroke="var(--color-accent)" stroke-width="2" x1="80" x2="270" y1="100" y2="100"></line>
+<line stroke="var(--color-accent)" stroke-width="2" x1="80" x2="270" y1="180" y2="180"></line>
+<line stroke="var(--color-accent)" stroke-width="2" x1="270" x2="380" y1="100" y2="140"></line>
+<line stroke="var(--color-accent)" stroke-width="2" x1="270" x2="380" y1="180" y2="140"></line>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="14" text-anchor="middle" x="320" y="255">Hornhaut, Linse, Netzhaut, Lichtstrahlen</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-eye-readout=""></div>
+<p class="tool__note">Modellhinweis: Das Auge ist stark vereinfacht. Hornhaut, Linse und Netzhaut sind als Flächen dargestellt; das Gehirn verarbeitet die Signale anschließend.</p>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-accent)"></span>Lichtweg und Brennpunkt</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-muted)"></span>Netzhaut</span>
+</div>
+<figcaption class="tool__caption">Das Modell zeigt den Lichtweg. Die Netzhaut ist als Fläche am hinteren Augenpol dargestellt; das Gehirn verarbeitet die Signale anschließend.</figcaption>
+</figure>
+<div class="lab-callout">
+  <div class="lab-callout__icon" aria-hidden="true">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16s5-8 13-8 13 8 13 8-5 8-13 8S3 16 3 16Z"></path><circle cx="16" cy="16" r="4.5"></circle><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"></circle></svg>
+  </div>
+  <div class="lab-callout__body">
+    <p class="lab-callout__kicker">3D-Labor · Sinnesorgane</p>
+    <h3>Das Auge als Funktionsschnitt</h3>
+    <p>Im 3D-Labor drehst du den Augapfel, verfolgst den Lichtweg und siehst, wie Ziliarmuskel und Linse bei Nah und Fern zusammenarbeiten. Der Signalweg führt bis in den Sehnerv.</p>
+  </div>
+  <div class="lab-callout__actions">
+    <a class="btn btn--small" href="klasse_8_biologie/modell_auge_3d.html">3D-Labor Auge öffnen</a>
+  </div>
+</div>
+<figure class="blindspot">
+<div class="blindspot__head">
+<p class="blindspot__title">Selbstversuch: der blinde Fleck</p>
+<p class="blindspot__hint">Halte das Bild auf Armlänge, schließe das linke Auge und fixiere das Kreuz mit dem rechten Auge. Bewege den Kopf langsam näher. Bei einem bestimmten Abstand verschwindet der Punkt.</p>
+</div>
+<svg aria-label="Blinder-Fleck-Test: Kreuz links, Punkt rechts auf hellem Grund" class="blindspot__svg" role="img" viewbox="0 0 640 160">
+<rect fill="var(--color-ink)" height="160" width="640" x="0" y="0"></rect>
+<path d="M90 55 L120 105 M120 55 L90 105" stroke="var(--color-paper)" stroke-linecap="round" stroke-width="8"></path>
+<circle cx="500" cy="80" fill="var(--color-paper)" r="12"></circle>
+</svg>
+<figcaption class="blindspot__caption">Der blinde Fleck ist die Stelle, an der der Sehnerv die Netzhaut verlässt. Das Gehirn ergänzt die Lücke mit Informationen aus der Umgebung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Stäbchen und Zapfen</summary>
+<p>Stäbchen sind sehr lichtempfindlich, unterscheiden aber keine Farben. Sie helfen beim Sehen in der Dämmerung. Zapfen brauchen mehr Licht, ermöglichen aber Farbsehen und Schärfe. Es gibt drei Typen von Zapfen mit unterschiedlicher Empfindlichkeit für kurze, mittlere und lange Wellenlängen. Aus ihrem Zusammenspiel entsteht der Farbeindruck im Gehirn.</p>
+</details>
+<details class="deep">
+<summary>Mehr im Detail: Präparation eines Schweineauges</summary>
+<p>Bei einer Präparation lassen sich Hornhaut, Linse, Glaskörper und Netzhaut unterscheiden. Wichtig sind Handschuhe, eine saubere Unterlage und die Anweisungen der Lehrkraft. Tierschutz und Hygiene haben Vorrang. Die Präparation ersetzt nicht das Modell, sondern ergänzt es: Du siehst die Strukturen, die im Schema vereinfacht dargestellt sind.</p>
+</details>
+<section aria-labelledby="auge-check" class="checkpoint">
+<h3 id="auge-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="auge">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="auge" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "a1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N2",
+              "prompt": "Wo entsteht das scharfe Bild im Auge?",
+              "options": ["Auf der Netzhaut", "In der Hornhaut", "In der Iris", "Im Sehnerv"],
+              "correct": 0,
+              "explain": "Hornhaut und Linse bündeln das Licht so, dass ein scharfes Bild auf der Netzhaut entsteht."
+            },
+            {
+              "id": "a2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N2",
+              "prompt": "Was passiert bei der Akkommodation beim Nahsehen?",
+              "options": ["Die Linse wird stärker gekrümmt.", "Die Pupille verschwindet.", "Die Netzhaut wird länger.", "Der Sehnerv zieht sich zusammen."],
+              "correct": 0,
+              "explain": "Beim Nahsehen wird die Linse stärker gekrümmt. Dadurch werden die Lichtstrahlen stärker gebrochen."
+            },
+            {
+              "id": "a3",
+              "type": "mc",
+              "level": "g",
+              "competency": "N2",
+              "prompt": "Warum verschwindet der Punkt beim Blinder-Fleck-Test?",
+              "options": ["Weil dort keine Lichtsinneszellen sind und das Gehirn die Lücke ergänzt.", "Weil der Punkt zu klein ist.", "Weil die Linse den Punkt nicht bricht.", "Weil das Auge dort keine Nerven hat."],
+              "correct": 0,
+              "explain": "Am blinden Fleck verlässt der Sehnerv die Netzhaut. Dort fehlen Lichtsinneszellen; das Gehirn ergänzt die Lücke."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="auge" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="ohr" href="#ohr">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Hornhaut und Linse brechen das Licht. Die Netzhaut wandelt es in Nervensignale um.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Akkommodation</dt><dd>Anpassung der Linse an die Entfernung.</dd>
+<dt>Kurzsichtigkeit</dt><dd>Bild vor der Netzhaut.</dd>
+<dt>Weitsichtigkeit</dt><dd>Bild hinter der Netzhaut.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, das Auge „sieht“ selbst. Es nimmt Licht auf; das Gehirn macht daraus ein Bild.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="ohr" data-title="Ohr" data-track="true" id="ohr">
+<header class="station__head">
+<h2 id="ohr-title"><span class="station__num">06</span> Das Ohr: Schall wird zum Signal</h2>
+<p class="lead">Schallwellen werden im Ohr verstärkt und in der Cochlea in Nervensignale umgewandelt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Ohrmuschel fängt Schallwellen auf. Sie wandern durch den Gehörgang zum Trommelfell, das in Schwingung gerät. Die drei Gehörknöchelchen übertragen und verstärken die Schwingung. In der Cochlea werden die Schwingungen in Nervensignale umgewandelt. Der Hörnerv leitet sie zum Gehirn. Hohe Töne werden am Anfang der Cochlea wahrgenommen, tiefe Töne weiter innen.</p>
+<p>Laute Geräusche können die Haarzellen in der Cochlea schädigen. Diese Zellen erneuern sich beim Menschen nicht. Ein Hörschaden kann dauerhaft sein. Deshalb ist Gehörschutz wichtig, besonders bei lauter Musik, Konzerten, Motorsägen oder in der Freizeit. Auch die Dauer der Belastung zählt: Ein kurzer lauter Ton kann weniger schaden als viele Stunden mittlere Lautstärke.</p>
+<figure class="tool" data-tool="ear">
+<div class="tool__head">
+<p class="tool__title">3D-Ohr</p>
+<p class="tool__hint">Drehen zeigt den Aufbau. Fahre über ein Bauteil, um seine Funktion zu lesen. Starte einen Ton und verändere Lautstärke und Tonhöhe.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-ear-play="" type="button" data-tip="Startet oder stoppt die Schallwellen. Beobachte den Weg vom Außenohr bis zur Cochlea.">Ton abspielen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-ear-loud="" type="button" data-tip="Laut: Ein hoher Schallpegel belastet die Haarzellen in der Cochlea stärker.">Laut</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-ear-high="" type="button" data-tip="Hoher Ton: schnelle Schwingung. Hohe Frequenzen werden am Anfang der Cochlea wahrgenommen.">Hoher Ton</button>
+</div>
+<div aria-label="Interaktives 3D-Modell eines Ohres. Ziehen dreht das Modell, Mausrad zoomt." class="tool__stage tool__stage--3d" data-scene="ear" id="ear-scene" role="group">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Ohr mit Ohrmuschel, Gehörgang, Trommelfell, Gehörknöchelchen und Cochlea" role="img" viewbox="0 0 640 280">
+<path d="M100 60 Q40 140 100 220" fill="none" stroke="var(--color-accent)" stroke-width="7"></path>
+<line stroke="var(--color-ink)" stroke-width="10" x1="100" x2="280" y1="140" y2="140"></line>
+<line stroke="var(--color-paper-3)" stroke-width="8" x1="280" x2="280" y1="100" y2="180"></line>
+<g fill="var(--color-paper-3)" stroke="var(--color-ink)" stroke-width="2">
+<circle cx="320" cy="125" r="14"></circle><circle cx="350" cy="145" r="12"></circle><circle cx="380" cy="125" r="10"></circle>
+</g>
+<path d="M430 140 C430 90 500 90 500 140 C500 190 430 190 430 140 C430 110 470 110 470 140" fill="none" stroke="var(--color-accent)" stroke-width="6"></path>
+<line stroke="var(--color-ink)" stroke-width="5" x1="500" x2="580" y1="140" y2="140"></line>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="14" text-anchor="middle" x="320" y="245">Ohrmuschel, Gehörgang, Trommelfell, Gehörknöchelchen, Cochlea</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-ear-readout=""></div>
+<p class="tool__note">Modellhinweis: Die Cochlea ist als Schnecke vereinfacht. Die Haarzellen und die genaue Frequenzverteilung sind nicht einzeln dargestellt.</p>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-accent)"></span>Schallwelle und Cochlea</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-paper-2)"></span>Knochen und Knorpel</span>
+</div>
+<figcaption class="tool__caption">Das Modell zeigt den Weg des Schalls. Die Cochlea ist als Schnecke dargestellt; die Hörnervenfasern verlassen sie Richtung Gehirn.</figcaption>
+</figure>
+<div class="lab-callout">
+  <div class="lab-callout__icon" aria-hidden="true">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-5 0-9 4-9 9v3c0 4-3 5-3 8 0 3 3 4 5 4 3 0 5-2 5-5"></path><path d="M20 9c-3 0-5 2-5 5v2c0 4 3 6 6 6 4 0 7-3 7-7"></path><path d="M20 14c-1.5 0-2.5 1-2.5 2.5"></path></svg>
+  </div>
+  <div class="lab-callout__body">
+    <p class="lab-callout__kicker">3D-Labor · Sinnesorgane</p>
+    <h3>Das Ohr in drei Räumen</h3>
+    <p>Vom Gehörgang über die Gehörknöchelchen bis zur Cochlea: Im 3D-Labor steuerst du Tonhöhe und Lautstärke, beobachtest die Wanderwelle und siehst die Tonotopie der Haarsinneszellen.</p>
+  </div>
+  <div class="lab-callout__actions">
+    <a class="btn btn--small" href="klasse_8_biologie/modell_ohr_3d.html">3D-Labor Ohr öffnen</a>
+  </div>
+</div>
+<figure class="tool" data-tool="hearing8">
+<div class="tool__head">
+<p class="tool__title">Lärm-Check</p>
+<p class="tool__hint">Wähle eine Situation. Das Werkzeug zeigt, was das Gehör belastet.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="hearing-cards">
+<div class="hearing-card" data-tip-block data-tip="Kopfhörer: Die Belastung hängt von Lautstärke und Hörzeit ab. Leiser hören und Pausen machen senken das Risiko." tabindex="0"><h3>Kopfhörer</h3><p>Lange Hörzeit, oft hohe Lautstärke. Die Belastung summiert sich.</p></div>
+<div class="hearing-card" data-tip-block data-tip="Konzert: Kurze, sehr laute Belastung. Abstand zur Bühne, Gehörschutz und Pausen machen einen großen Unterschied." tabindex="0"><h3>Konzert</h3><p>Kurze, sehr laute Belastung. Der Abstand zur Bühne zählt.</p></div>
+<div class="hearing-card" data-tip-block data-tip="Straßenverkehr: Dauerhafte mittlere Belastung. Auch sie kann das Gehör stressen, besonders über viele Stunden." tabindex="0"><h3>Straßenverkehr</h3><p>Dauerhafte mittlere Belastung. Auch sie kann das Gehör stressen.</p></div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Nicht nur die Lautstärke zählt, sondern auch die Dauer. Gehörschutz und Pausen senken die Belastung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Haarzellen nicht nachwachsen</summary>
+<p>Die Haarzellen in der Cochlea wandeln Schwingungen in elektrische Signale um. Werden sie durch zu laute Geräusche geschädigt, können sie beim Menschen nicht ersetzt werden. Ein Hörschaden ist deshalb oft dauerhaft. Ein Tinnitus kann ebenfalls durch Lärm entstehen. Schutz besteht aus geringerer Lautstärke, kürzerer Belastung, Abstand zur Schallquelle und Gehörschutz.</p>
+</details>
+<section aria-labelledby="ohr-check" class="checkpoint">
+<h3 id="ohr-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="ohr">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="ohr" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "o1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N2",
+              "prompt": "Wo werden Schallschwingungen in Nervensignale umgewandelt?",
+              "options": ["In der Cochlea", "Im Gehörgang", "In der Ohrmuschel", "Im Trommelfell"],
+              "correct": 0,
+              "explain": "Die Cochlea enthält die Haarzellen, die Schwingungen in elektrische Signale umwandeln."
+            },
+            {
+              "id": "o2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N2",
+              "prompt": "Warum ist ein Hörschaden oft dauerhaft?",
+              "options": ["Weil geschädigte Haarzellen beim Menschen nicht ersetzt werden.", "Weil das Ohr keine Nerven hat.", "Weil Schall nicht messbar ist.", "Weil das Gehirn keine Signale verarbeitet."],
+              "correct": 0,
+              "explain": "Die Haarzellen in der Cochlea erneuern sich beim Menschen nicht. Deshalb kann ein Lärm schaden dauerhaft sein."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="ohr" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="hormone" href="#hormone">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Schall wird im Ohr verstärkt und in der Cochlea in Nervensignale umgewandelt.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Trommelfell</dt><dd>Membran, die durch Schall schwingt.</dd>
+<dt>Gehörknöchelchen</dt><dd>drei kleine Knochen im Mittelohr.</dd>
+<dt>Cochlea</dt><dd>Schnecke im Innenohr.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur die Lautstärke beachten. Auch die Dauer der Belastung und die Nähe zur Schallquelle zählen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="hormone" data-title="Hormone" data-track="true" id="hormone">
+<header class="station__head">
+<h2 id="hormone-title"><span class="station__num">07</span> Hormone: Botenstoffe im Blut</h2>
+<p class="lead">Hormone werden in Drüsen gebildet und erreichen über das Blut ihre Zielzellen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Hormone sind chemische Botenstoffe. Sie werden in endokrinen Drüsen gebildet und über das Blut im Körper verteilt. Nur Zellen mit dem passenden Rezeptor reagieren auf ein Hormon. Das Prinzip ähnelt einem Schlüssel, der nur in ein bestimmtes Schloss passt. Deshalb kann ein Hormon viele Zellen erreichen, aber nur bestimmte Zielzellen beeinflussen.</p>
+<p>Die Wirkung setzt oft langsam ein und hält länger an als ein Nervensignal. Viele Hormone werden über Rückkopplung reguliert. Steigt ein Wert, wird die Ausschüttung gedrosselt; sinkt er, wird sie verstärkt. Insulin und Glucagon regulieren den Blutzucker, Adrenalin bereitet den Körper auf Anstrengung vor, Cortisol spielt bei längerem Stress eine Rolle.</p>
+<figure class="tool" data-tool="hormone8">
+<div class="tool__head">
+<p class="tool__title">Hormon und Rezeptor</p>
+<p class="tool__hint">Wähle ein Hormon. Das Werkzeug zeigt, welche Zielzelle reagiert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Hormon bindet an einen passenden Rezeptor einer Zielzelle" class="hormone-svg" role="img" viewbox="0 0 640 300">
+<line class="membrane" x1="80" x2="560" y1="190" y2="190"></line>
+<path class="receptor" d="M300 190 L300 145 Q300 125 320 125 Q340 125 340 145 L340 190"></path>
+<circle class="hormone" cx="160" cy="80" data-hormone-token="" r="22"></circle>
+<text class="hormone-label" data-hormone-label="" text-anchor="middle" x="160" y="86">Insulin</text>
+<path d="M185 95 Q250 120 300 135" fill="none" stroke="var(--color-accent)" stroke-dasharray="5 4" stroke-width="2"></path>
+<text text-anchor="middle" x="320" y="235">Zielzelle mit Rezeptor</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Hormon passt nur an einen bestimmten Rezeptor. Fehlt der Rezeptor, reagiert die Zelle nicht.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Rückkopplung</summary>
+<p>Bei der Blutzuckerregulation steigt nach einer Mahlzeit der Glucosespiegel. Insulin wird ausgeschüttet, die Zellen nehmen mehr Glucose auf und die Leber speichert Glucose. Der Blutzucker sinkt. Bei niedrigem Blutzucker wird Glucagon ausgeschüttet; die Leber setzt Glucose frei. Das ist ein Regelkreis mit negativer Rückkopplung: Die Reaktion dämpft den ursprünglichen Reiz.</p>
+</details>
+<section aria-labelledby="hormone-check" class="checkpoint">
+<h3 id="hormone-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="hormone">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="hormone" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "h1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N3",
+              "prompt": "Warum reagiert nicht jede Zelle auf jedes Hormon?",
+              "options": ["Weil nur Zellen mit dem passenden Rezeptor reagieren.", "Weil Hormone nur im Gehirn wirken.", "Weil Hormone keine Zielzellen haben.", "Weil alle Zellen dieselben Rezeptoren besitzen."],
+              "correct": 0,
+              "explain": "Hormone wirken über spezifische Rezeptoren. Nur Zielzellen mit dem passenden Rezeptor reagieren."
+            },
+            {
+              "id": "h2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N3",
+              "prompt": "Was bewirkt Insulin?",
+              "options": ["Es senkt den Blutzucker und fördert die Glucoseaufnahme.", "Es erhöht den Blutzucker und setzt Glucose frei.", "Es steigert die Sehschärfe.", "Es hemmt die Atmung."],
+              "correct": 0,
+              "explain": "Insulin fördert die Aufnahme von Glucose in die Zellen und die Speicherung in der Leber. Dadurch sinkt der Blutzucker."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="hormone" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="blutzucker" href="#blutzucker">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Hormone sind Botenstoffe im Blut. Nur Zielzellen mit dem passenden Rezeptor reagieren.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Hormon</dt><dd>Botenstoff, der über das Blut wirkt.</dd>
+<dt>Zielzelle</dt><dd>Zelle mit dem passenden Rezeptor.</dd>
+<dt>Rückkopplung</dt><dd>Regulation, bei der die Antwort den Reiz dämpft.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Hormone als Nervensignale verstehen. Sie wirken langsamer und über das Blut.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="blutzucker" data-title="Blutzucker und Diabetes" data-track="true" id="blutzucker">
+<header class="station__head">
+<h2 id="blutzucker-title"><span class="station__num">08</span> Blutzucker und Diabetes</h2>
+<p class="lead">Insulin und Glucagon halten den Blutzucker in einem Bereich. Bei Diabetes ist dieser Regelkreis gestört.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Nach einer Mahlzeit steigt der Blutzucker. Die Bauchspeicheldrüse schüttet Insulin aus. Insulin fördert die Aufnahme von Glucose in die Zellen und die Speicherung in der Leber. Der Blutzucker sinkt. Bei niedrigem Blutzucker wird Glucagon ausgeschüttet; die Leber setzt Glucose frei. Dieser Regelkreis hält den Blutzucker in einem Bereich, der für die Zellen gut verträglich ist.</p>
+<p>Bei Diabetes Typ 1 bildet der Körper kein ausreichendes Insulin. Bei Typ 2 reagieren die Zellen oft weniger empfindlich auf Insulin. In beiden Fällen steigt der Blutzucker. Häufiger Harndrang, Durst, Müdigkeit und Gewichtsverlust können Warnzeichen sein. Bewegung, Ernährung und Medikamente können helfen. Die genaue Behandlung gehört in ärztliche Hand.</p>
+<figure class="tool" data-tool="bloodsugar8">
+<div class="tool__head">
+<p class="tool__title">Blutzucker-Simulation</p>
+<p class="tool__hint">Wähle eine Aktion. Die Kurve zeigt, wie sich der Blutzucker im Modell verändert.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-sugar-action="eat" type="button" data-tip="Essen: Glucose gelangt ins Blut, der Blutzucker steigt. Insulin wird ausgeschüttet.">Essen</button>
+<button class="btn btn--quiet btn--small" data-sugar-action="sport" type="button" data-tip="Sport: Die Muskeln verbrauchen Glucose. Der Blutzucker sinkt.">Sport</button>
+<button class="btn btn--quiet btn--small" data-sugar-action="insulin" type="button" data-tip="Insulin: fördert die Aufnahme von Glucose in die Zellen und senkt den Blutzucker.">Insulin</button>
+<button class="btn btn--quiet btn--small" data-sugar-action="glucagon" type="button" data-tip="Glucagon: Die Leber setzt Glucose frei. Der Blutzucker steigt.">Glucagon</button>
+<button class="btn btn--quiet btn--small" data-sugar-reset="" type="button" data-tip="Setzt den Modellwert auf 90 mg/dl zurück.">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Blutzuckerkurve nach Essen, Sport, Insulin und Glucagon" class="sugar-chart" role="img" viewbox="0 0 640 300">
+<line class="axis" x1="60" x2="600" y1="250" y2="250"></line>
+<line class="axis" x1="60" x2="60" y1="250" y2="30"></line>
+<line class="gridline" x1="60" x2="600" y1="190" y2="190"></line>
+<line class="gridline" x1="60" x2="600" y1="130" y2="130"></line>
+<line class="gridline" x1="60" x2="600" y1="70" y2="70"></line>
+<polyline class="series" data-sugar-line="" points="60,195"></polyline>
+<g data-sugar-points=""></g>
+<text x="330" y="285">Verlauf</text>
+<text transform="rotate(-90 8 145)" x="8" y="145">Blutzucker (mg/dl)</text>
+<text x="55" y="268">60</text>
+<text x="55" y="75">180</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Werte sind ein Modell, keine medizinische Messung. Sie zeigen das Prinzip der Regulation, nicht die Behandlung einer echten Erkrankung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Diabetes nicht nur „zu viel Zucker“ ist</summary>
+<p>Glucose ist ein wichtiger Energieträger. Ohne Insulin kann sie aber nicht gut in die Zellen aufgenommen werden. Sie bleibt im Blut und wird teilweise über den Urin ausgeschieden. Deshalb haben Menschen mit unbehandeltem Diabetes oft Durst und häufigen Harndrang. Langfristig können hohe Blutzuckerwerte Gefäße, Nieren, Augen und Nerven schädigen. Die Behandlung zielt darauf, den Blutzucker zu senken und Folgeerkrankungen zu vermeiden.</p>
+</details>
+<section aria-labelledby="blutzucker-check" class="checkpoint">
+<h3 id="blutzucker-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="blutzucker">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="blutzucker" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "bz1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N3",
+              "prompt": "Was passiert nach einer Mahlzeit mit dem Blutzucker?",
+              "options": ["Er steigt; Insulin wird ausgeschüttet.", "Er sinkt; Glucagon wird ausgeschüttet.", "Er bleibt immer gleich.", "Er wird nicht reguliert."],
+              "correct": 0,
+              "explain": "Nach dem Essen steigt der Blutzucker. Insulin fördert die Aufnahme von Glucose in die Zellen."
+            },
+            {
+              "id": "bz2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N3",
+              "prompt": "Was ist ein Kennzeichen von Diabetes Typ 1?",
+              "options": ["Der Körper bildet kein ausreichendes Insulin.", "Die Zellen reagieren immer stärker auf Insulin.", "Der Blutzucker ist immer zu niedrig.", "Die Bauchspeicheldrüse bildet zu viel Glucagon."],
+              "correct": 0,
+              "explain": "Bei Typ 1 fehlt Insulin. Bei Typ 2 reagieren die Zellen oft weniger empfindlich auf Insulin."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="blutzucker" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="stress" href="#stress">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Insulin senkt den Blutzucker, Glucagon erhöht ihn. Der Regelkreis hält den Wert im Gleichgewicht.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Insulin</dt><dd>senkt den Blutzucker.</dd>
+<dt>Glucagon</dt><dd>erhöht den Blutzucker.</dd>
+<dt>Diabetes</dt><dd>Störung der Blutzuckerregulation.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Diabetes als einfache „Zuckerkrankheit“ abtun. Es ist eine Störung der Regulation mit vielen Folgen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="stress" data-title="Stress" data-track="true" id="stress">
+<header class="station__head">
+<h2 id="stress-title"><span class="station__num">09</span> Stress: Körper und Hormone in Alarmbereitschaft</h2>
+<p class="lead">Bei Stress schaltet der Körper auf Leistung. Das ist kurzfristig sinnvoll, kann aber dauerhaft belasten.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Stress ist eine Antwort des Körpers auf eine Anforderung. Das vegetative Nervensystem und Hormone wie Adrenalin und Cortisol sind beteiligt. Kurzfristig steigen Herzfrequenz und Atmung, die Muskeln werden besser durchblutet, die Pupillen weiten sich. Die Verdauung wird gedrosselt. Der Körper ist bereit, schnell zu reagieren.</p>
+<p>Dieser Alarm ist nicht grundsätzlich schlecht. Prüfungsstress kann wach machen; Sport und Herausforderungen können fördern. Dauerstress ohne Erholung kann aber schlapp machen, den Schlaf stören und das Immunsystem belasten. Wichtig sind Pausen, Bewegung, Schlaf, soziale Unterstützung und realistische Planung. Stressbewältigung ist eine Lebenskompetenz, die man üben kann.</p>
+<figure class="tool" data-tool="stress8">
+<div class="tool__head">
+<p class="tool__title">Stressreaktion</p>
+<p class="tool__hint">Aktiviere den Stress und beobachte, welche Organe reagieren. Danach kannst du die Erholung starten.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-stress-fire="" type="button" data-tip="Stress: Adrenalin und Cortisol bereiten den Körper auf Leistung vor.">Stress</button>
+<button class="btn btn--quiet btn--small" data-stress-calm="" type="button" data-tip="Erholung: Puls und Atmung sinken, die Verdauung kommt wieder in Gang.">Erholung</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Schematischer Körper mit Herz, Lunge, Muskeln, Verdauung und Pupillen" class="stress-body" role="img" viewbox="0 0 320 420">
+<circle class="body" cx="160" cy="55" r="34"></circle>
+<path class="body" d="M130 95 L190 95 L210 210 L190 380 L170 380 L160 250 L150 380 L130 380 L110 210 Z"></path>
+<path class="body" d="M130 110 L75 190 M190 110 L245 190"></path>
+<circle class="organ" cx="160" cy="145" data-stress-organ="heart" r="16" data-tip="Herz: Bei Stress schlägt es schneller und versorgt die Muskeln mit mehr Blut." tabindex="0"></circle>
+<circle class="organ" cx="135" cy="135" data-stress-organ="lungs" r="13" data-tip="Lunge: Die Atmung wird schneller, damit mehr Sauerstoff ins Blut gelangt." tabindex="0"></circle>
+<circle class="organ" cx="185" cy="135" data-stress-organ="lungs" r="13" data-tip="Lunge: Die Atmung wird schneller, damit mehr Sauerstoff ins Blut gelangt." tabindex="0"></circle>
+<ellipse class="organ" cx="160" cy="205" data-stress-organ="digestion" rx="24" ry="14" data-tip="Verdauung: Bei akutem Stress wird sie gedrosselt. Die Energie wird für Muskeln und Kreislauf gebraucht." tabindex="0"></ellipse>
+<circle class="organ" cx="148" cy="48" data-stress-organ="pupils" r="5" data-tip="Pupillen: Sie weiten sich, damit mehr Licht ins Auge fällt und du schneller reagieren kannst." tabindex="0"></circle>
+<circle class="organ" cx="172" cy="48" data-stress-organ="pupils" r="5" data-tip="Pupillen: Sie weiten sich, damit mehr Licht ins Auge fällt und du schneller reagieren kannst." tabindex="0"></circle>
+<g class="organ" data-stress-organ="muscles" data-tip="Muskeln: Sie werden besser durchblutet und sind kurzfristig leistungsfähiger." tabindex="0">
+<ellipse cx="118" cy="240" rx="10" ry="26"></ellipse><ellipse cx="202" cy="240" rx="10" ry="26"></ellipse>
+</g>
+<text text-anchor="middle" x="160" y="410">Herz, Lunge, Muskeln, Verdauung, Pupillen</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Grafik ist ein Schema. Stress ist eine normale Reaktion, keine Krankheit; dauerhafte Belastung braucht Erholung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Akut und chronisch</summary>
+<p>Akuter Stress ist kurz und hilft bei einer Anforderung. Chronischer Stress hält länger an, ohne ausreichende Erholung. Dabei kann Cortisol dauerhaft erhöht bleiben. Das kann Schlaf, Konzentration, Stimmung und Immunsystem beeinflussen. Wichtig ist, die eigenen Warnsignale zu erkennen und rechtzeitig gegenzusteuern. Bei anhaltender Belastung ist professionelle Hilfe sinnvoll.</p>
+</details>
+<section aria-labelledby="stress-check" class="checkpoint">
+<h3 id="stress-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="stress">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="stress" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "st1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N3",
+              "prompt": "Was passiert bei akutem Stress?",
+              "options": ["Herz und Atmung werden schneller, die Verdauung wird gedrosselt.", "Der Körper schaltet alle Organe ab.", "Der Blutzucker sinkt immer sofort.", "Die Muskeln entspannen sich vollständig."],
+              "correct": 0,
+              "explain": "Akuter Stress bereitet den Körper auf Leistung vor. Herz und Atmung werden schneller, die Verdauung tritt zurück."
+            },
+            {
+              "id": "st2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N3",
+              "prompt": "Was hilft gegen dauerhaften Stress?",
+              "options": ["Pausen, Bewegung, Schlaf und soziale Unterstützung", "Mehr Stress ohne Pausen", "Weniger Schlaf", "Alle Gefühle unterdrücken"],
+              "correct": 0,
+              "explain": "Erholung, Bewegung, Schlaf und Unterstützung helfen, die Belastung zu senken. Stressbewältigung ist eine Lebenskompetenz."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="stress" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="vergleich" href="#vergleich">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Stress ist eine normale Alarmreaktion. Dauerstress ohne Erholung kann krank machen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Adrenalin</dt><dd>schneller Botenstoff für Leistung.</dd>
+<dt>Cortisol</dt><dd>Hormon bei längerer Belastung.</dd>
+<dt>vegetatives Nervensystem</dt><dd>steuert Organe ohne bewussten Willen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Stress als reine Kopfsache sehen. Herz, Atmung, Muskeln und Hormone reagieren mit.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="vergleich" data-title="Nerven und Hormone" data-track="true" id="vergleich">
+<header class="station__head">
+<h2 id="vergleich-title"><span class="station__num">10</span> Nerven und Hormone im Vergleich</h2>
+<p class="lead">Nerven wirken schnell und gezielt. Hormone wirken langsamer, aber oft länger und breiter.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Das Nervensystem leitet Signale über Nervenbahnen. Die Übertragung ist schnell und oft auf ein Ziel gerichtet. Hormone werden über das Blut verteilt und erreichen viele Zellen. Nur Zielzellen mit dem passenden Rezeptor reagieren. Die Wirkung setzt langsamer ein, hält aber oft länger an. Beide Systeme arbeiten zusammen: Das Nervensystem kann die Hormonausschüttung steuern, und Hormone können die Erregbarkeit von Nervenzellen verändern.</p>
+<table class="data-table">
+<thead><tr><th>Merkmal</th><th>Nervensystem</th><th>Hormonsystem</th></tr></thead>
+<tbody>
+<tr><td>Weg</td><td>Nervenbahnen</td><td>Blut</td></tr>
+<tr><td>Geschwindigkeit</td><td>sehr schnell</td><td>langsamer</td></tr>
+<tr><td>Reichweite</td><td>gezielt</td><td>breit, über Zielzellen begrenzt</td></tr>
+<tr><td>Wirkdauer</td><td>kurz</td><td>oft länger</td></tr>
+<tr><td>Beispiel</td><td>Reflex, Sehen</td><td>Insulin, Adrenalin</td></tr>
+</tbody>
+</table>
+<section aria-labelledby="vergleich-check" class="checkpoint">
+<h3 id="vergleich-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="vergleich">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="vergleich" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "v1",
+              "type": "mc",
+              "level": "g",
+              "competency": "N4",
+              "prompt": "Was ist ein typischer Unterschied zwischen Nerven- und Hormonsystem?",
+              "options": ["Nerven wirken schneller und gezielter; Hormone wirken langsamer und oft länger.", "Hormone wirken immer schneller als Nerven.", "Nerven wirken nur über das Blut.", "Beide Systeme haben keine Zielzellen."],
+              "correct": 0,
+              "explain": "Nervensignale laufen über Nervenbahnen und sind schnell. Hormone werden über das Blut verteilt und wirken oft langsamer, aber länger."
+            },
+            {
+              "id": "v2",
+              "type": "mc",
+              "level": "g",
+              "competency": "N4",
+              "prompt": "Warum können Nerven- und Hormonsystem nicht getrennt betrachtet werden?",
+              "options": ["Weil sie sich gegenseitig beeinflussen, etwa bei der Stressreaktion.", "Weil Hormone keine Botenstoffe sind.", "Weil Nerven kein Gehirn haben.", "Weil beide nur im Blut wirken."],
+              "correct": 0,
+              "explain": "Bei Stress steuert das Nervensystem die Ausschüttung von Adrenalin und Cortisol. Beide Systeme arbeiten zusammen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="vergleich" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Nerven: schnell, gezielt, kurz. Hormone: langsamer, breiter, oft länger. Beide arbeiten zusammen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Nervenbahn</dt><dd>Weg des elektrischen Signals.</dd>
+<dt>Blutweg</dt><dd>Transport der Hormone im Körper.</dd>
+<dt>Zielzelle</dt><dd>Zelle mit passendem Rezeptor.</dd>
+</dl>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">11</span> Kompetenzcheck Sinne, Nerven und Hormone</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="sinne8">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="sinne8" type="application/json">
+      {
+        "competencies": {
+          "N1": "Reiz-Reaktions-Kette, Neuron und Synapse",
+          "N2": "Auge, Ohr und Sinnesleistungen",
+          "N3": "Hormone, Blutzucker und Stress",
+          "N4": "Nerven und Hormone vergleichen",
+          "N5": "Erkrankungen des Nervensystems erklären"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "N1",
+            "prompt": "Welche Reihenfolge beschreibt die Reiz-Reaktions-Kette?",
+            "options": ["Reiz, Rezeptor, afferentes Neuron, ZNS, efferentes Neuron, Erfolgsorgan", "Reiz, Muskel, Gehirn, Rezeptor", "Gehirn, Reiz, Rezeptor, Muskel", "Rezeptor, Muskel, Rückenmark, Reiz"],
+            "correct": 0,
+            "explain": "Der Reiz wird vom Rezeptor aufgenommen, zum ZNS geleitet und über efferente Nerven zum Erfolgsorgan gebracht."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "N1",
+            "prompt": "Was ist die Aufgabe der Myelinscheiden?",
+            "options": ["Sie beschleunigen die Weiterleitung.", "Sie bilden Neurotransmitter.", "Sie speichern die Erbinformation.", "Sie pumpen Blut."],
+            "correct": 0,
+            "explain": "Myelinscheiden isolieren das Axon. Die Erregung springt schneller von Schnürring zu Schnürring."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "N1",
+            "prompt": "Was wird an einer Synapse freigesetzt?",
+            "options": ["Neurotransmitter", "Blutplasma", "Myelin", "Chromosomen"],
+            "correct": 0,
+            "explain": "Vesikel setzen Neurotransmitter in den synaptischen Spalt frei. Sie binden an Rezeptoren der nächsten Zelle."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "N2",
+            "prompt": "Wo entsteht das scharfe Bild im Auge?",
+            "options": ["Auf der Netzhaut", "In der Hornhaut", "In der Iris", "Im Sehnerv"],
+            "correct": 0,
+            "explain": "Hornhaut und Linse bündeln das Licht so, dass ein scharfes Bild auf der Netzhaut entsteht."
+            },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "N2",
+            "prompt": "Was passiert bei Kurzsichtigkeit?",
+            "options": ["Das Bild entsteht vor der Netzhaut.", "Das Bild entsteht hinter der Netzhaut.", "Die Netzhaut fehlt.", "Der Sehnerv ist zu kurz."],
+            "correct": 0,
+            "explain": "Bei Kurzsichtigkeit liegt das Bild vor der Netzhaut. Eine Zerstreuungslinse kann korrigieren."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "N2",
+            "prompt": "Wo werden Schallschwingungen in Nervensignale umgewandelt?",
+            "options": ["In der Cochlea", "Im Gehörgang", "In der Ohrmuschel", "Im Trommelfell"],
+            "correct": 0,
+            "explain": "Die Cochlea enthält die Haarzellen, die Schwingungen in elektrische Signale umwandeln."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "N3",
+            "prompt": "Warum reagiert nicht jede Zelle auf jedes Hormon?",
+            "options": ["Weil nur Zellen mit dem passenden Rezeptor reagieren.", "Weil Hormone nur im Gehirn wirken.", "Weil Hormone keine Zielzellen haben.", "Weil alle Zellen dieselben Rezeptoren besitzen."],
+            "correct": 0,
+            "explain": "Hormone wirken über spezifische Rezeptoren. Nur Zielzellen mit dem passenden Rezeptor reagieren."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "N3",
+            "prompt": "Was bewirkt Insulin?",
+            "options": ["Es senkt den Blutzucker und fördert die Glucoseaufnahme.", "Es erhöht den Blutzucker und setzt Glucose frei.", "Es steigert die Sehschärfe.", "Es hemmt die Atmung."],
+            "correct": 0,
+            "explain": "Insulin fördert die Aufnahme von Glucose in die Zellen und die Speicherung in der Leber. Dadurch sinkt der Blutzucker."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "N4",
+            "prompt": "Was ist ein typischer Unterschied zwischen Nerven- und Hormonsystem?",
+            "options": ["Nerven wirken schneller und gezielter; Hormone wirken langsamer und oft länger.", "Hormone wirken immer schneller als Nerven.", "Nerven wirken nur über das Blut.", "Beide Systeme haben keine Zielzellen."],
+            "correct": 0,
+            "explain": "Nervensignale laufen über Nervenbahnen und sind schnell. Hormone werden über das Blut verteilt und wirken oft langsamer, aber länger."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "N3",
+            "prompt": "Was passiert bei akutem Stress?",
+            "options": ["Herz und Atmung werden schneller, die Verdauung wird gedrosselt.", "Der Körper schaltet alle Organe ab.", "Der Blutzucker sinkt immer sofort.", "Die Muskeln entspannen sich vollständig."],
+            "correct": 0,
+            "explain": "Akuter Stress bereitet den Körper auf Leistung vor. Herz und Atmung werden schneller, die Verdauung tritt zurück."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "N5",
+            "prompt": "Bei welcher Erkrankung greift das Immunsystem die Myelinscheiden an?",
+            "options": ["Bei Multipler Sklerose", "Bei Parkinson", "Bei Alzheimer", "Bei einer Grippe"],
+            "correct": 0,
+            "explain": "Bei Multipler Sklerose werden die Myelinscheiden im zentralen Nervensystem angegriffen. Die Signalweiterleitung wird gestört."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "N5",
+            "prompt": "Welcher Botenstoff fehlt bei Parkinson vor allem?",
+            "options": ["Dopamin", "Insulin", "Adrenalin", "Glucagon"],
+            "correct": 0,
+            "explain": "Bei Parkinson sterben dopaminbildende Nervenzellen im Mittelhirn ab. Dopamin ist wichtig für die Bewegungssteuerung."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">12</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Reiz</dt><dd>Veränderung, die ein Rezeptor erkennt.</dd></div>
+<div class="glossary__row"><dt>Rezeptor</dt><dd>Struktur, die ein Signal erkennt und eine Reaktion auslöst.</dd></div>
+<div class="glossary__row"><dt>Nervenzelle</dt><dd>Zelle, die Informationen als elektrische Signale aufnimmt und weiterleitet.</dd></div>
+<div class="glossary__row"><dt>Axon</dt><dd>Langer Fortsatz einer Nervenzelle, der Signale weiterleitet.</dd></div>
+<div class="glossary__row"><dt>Myelin</dt><dd>Isolierschicht um viele Axone; beschleunigt die Weiterleitung.</dd></div>
+<div class="glossary__row"><dt>Aktionspotential</dt><dd>Kurze elektrische Spannungsänderung an der Membran einer Nervenzelle.</dd></div>
+<div class="glossary__row"><dt>Synapse</dt><dd>Kontaktstelle zwischen zwei Nervenzellen oder zwischen Nerv und Erfolgsorgan.</dd></div>
+<div class="glossary__row"><dt>Neurotransmitter</dt><dd>Botenstoff, der an einer Synapse ein Signal überträgt.</dd></div>
+<div class="glossary__row"><dt>Hormon</dt><dd>Botenstoff, der über das Blut zu Zielzellen transportiert wird.</dd></div>
+<div class="glossary__row"><dt>Zielzelle</dt><dd>Zelle mit dem passenden Rezeptor für ein Hormon.</dd></div>
+<div class="glossary__row"><dt>Insulin</dt><dd>Hormon, das den Blutzucker senkt.</dd></div>
+<div class="glossary__row"><dt>Glucagon</dt><dd>Hormon, das den Blutzucker erhöht.</dd></div>
+<div class="glossary__row"><dt>Diabetes</dt><dd>Störung der Blutzuckerregulation; Typ 1 und Typ 2 haben unterschiedliche Ursachen.</dd></div>
+<div class="glossary__row"><dt>Stress</dt><dd>Antwort des Körpers auf Belastung, an der Nerven- und Hormonsystem beteiligt sind.</dd></div>
+<div class="glossary__row"><dt>Akkommodation</dt><dd>Anpassung der Linse an die Entfernung.</dd></div>
+<div class="glossary__row"><dt>Kurzsichtigkeit</dt><dd>Sehfehler, bei dem das Bild vor der Netzhaut entsteht.</dd></div>
+<div class="glossary__row"><dt>Weitsichtigkeit</dt><dd>Sehfehler, bei dem das Bild hinter der Netzhaut entsteht.</dd></div>
+<div class="glossary__row"><dt>Cochlea</dt><dd>Schneckenförmiges Innenohrorgan, das Schall in Nervensignale umwandelt.</dd></div>
+<div class="glossary__row"><dt>Trommelfell</dt><dd>Membran im Ohr, die durch Schallwellen schwingt.</dd></div>
+<div class="glossary__row"><dt>Alzheimer</dt><dd>Erkrankung des Gehirns mit Proteinablagerungen und Verlust von Synapsen.</dd></div>
+<div class="glossary__row"><dt>Parkinson</dt><dd>Erkrankung mit Verlust dopaminbildender Nervenzellen im Mittelhirn.</dd></div>
+<div class="glossary__row"><dt>Multiple Sklerose</dt><dd>Erkrankung, bei der das Immunsystem Myelinscheiden angreift.</dd></div>
+<div class="glossary__row"><dt>Dopamin</dt><dd>Botenstoff, der an Bewegungssteuerung, Motivation und Belohnung beteiligt ist.</dd></div>
+<div class="glossary__row"><dt>Substantia nigra</dt><dd>Hirnregion im Mittelhirn, die Dopamin bildet.</dd></div>
+<div class="glossary__row"><dt>Hippocampus</dt><dd>Hirnregion, die für Gedächtnis und Orientierung wichtig ist.</dd></div>
+<div class="glossary__row"><dt>Botulinumtoxin</dt><dd>Nervengift, das die Freisetzung von Acetylcholin an der motorischen Endplatte verhindert.</dd></div>
+<div class="glossary__row"><dt>Schlüssel-Schloss-Modell</dt><dd>Modellvorstellung, nach der ein Botenstoff nur an einen passenden Rezeptor bindet.</dd></div>
+<div class="glossary__row"><dt>Blinder Fleck</dt><dd>Stelle der Netzhaut, an der der Sehnerv das Auge verlässt; dort gibt es keine Lichtsinneszellen.</dd></div>
+<div class="glossary__row"><dt>Optische Täuschung</dt><dd>Wahrnehmung, bei der das Gehirn ein Bild ergänzt oder falsch interpretiert.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 8</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/8/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 8</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>
+

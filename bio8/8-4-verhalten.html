@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="de" data-grade="8" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Verhalten | Biologie 8</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 8 zu Verhalten: angeborene und erlernte Verhaltensweisen, Attrappenversuche, Prägung und Konditionierung.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Hedgerow (deal 2/3, seed interaktive-lernwebsite-biologie-jugendliche-3f84·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der Pawlow-Simulator und die Skinner-Box · states: default, hover, focus, active, disabled, loading, empty, error · hedgerow: hedge
+ * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the dark sheet needs the tool wells to sit one step lighter; theme.css lifts the wells and keeps the sheet one step darker */
+/* Hallmark · answered F4 · the 8 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Prata; every figure is Manrope with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.behavior-card, .learning-card { display: grid; gap: var(--space-sm); }
+.behavior-card__text { margin: 0; font: 500 var(--text-lg)/1.4 var(--font-body); min-height: 3.2em; }
+.behavior-actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.attrappen-card { display: grid; gap: var(--space-sm); }
+.attrappen-svg { width: 100%; height: auto; display: block; }
+.attrappen-svg .parent { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.attrappen-svg .beak { fill: var(--color-accent); }
+.attrappen-svg .spot { fill: var(--color-accent); }
+.attrappen-svg .chick { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.attrappen-svg .peck { stroke: var(--color-accent); stroke-width: 2; }
+.attrappen-bars { display: grid; gap: var(--space-2xs); }
+.attrappen-bar { display: grid; grid-template-columns: 11rem minmax(0, 1fr) 3rem; gap: var(--space-sm); align-items: center; font: 400 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.attrappen-bar__track { height: 10px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.attrappen-bar__fill { display: block; height: 100%; background: var(--color-rule-2); }
+.attrappen-bar.is-active .attrappen-bar__fill { background: var(--color-accent); }
+.attrappen-bar.is-active { color: var(--color-ink); }
+.imprinting-svg { width: 100%; height: auto; display: block; }
+.imprinting-svg .track { stroke: var(--color-rule-2); stroke-width: 2; }
+.imprinting-svg .sensitive { fill: var(--color-accent); opacity: 0.22; }
+.imprinting-svg .tick { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); }
+.imprinting-svg .label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); }
+.imprinting-svg .duckling { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.imprinting-svg .duckling-beak { fill: var(--color-accent); }
+.imprinting-svg .object { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.imprinting-svg .follow { stroke: var(--color-accent); stroke-width: 2; stroke-dasharray: 4 4; }
+.pavlov-card, .skinner-card { display: grid; gap: var(--space-sm); }
+.pavlov-svg, .skinner-svg, .skinner-graph { width: 100%; height: auto; display: block; }
+.pavlov-svg .dog { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.pavlov-svg .ear { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.pavlov-svg .bell { fill: var(--color-accent); stroke: var(--color-accent-ink); stroke-width: 2; }
+.pavlov-svg .bowl { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.pavlov-svg .drop { fill: var(--color-accent); opacity: 0; transition: opacity var(--dur-short) var(--ease-out); }
+.pavlov-meter { display: grid; grid-template-columns: 8rem minmax(0, 1fr) 3rem; gap: var(--space-sm); align-items: center; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.pavlov-bar { height: 10px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.pavlov-bar i { display: block; height: 100%; width: 100%; background: var(--color-accent); transform: scaleX(0); transform-origin: left center; transition: transform var(--dur-short) var(--ease-out); }
+.pavlov-meter output { font-family: var(--font-body); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.skinner-svg .box { fill: none; stroke: var(--color-rule-2); stroke-width: 2; }
+.skinner-svg .lever { fill: var(--color-accent); stroke: var(--color-accent-ink); stroke-width: 2; transition: transform var(--dur-micro) var(--ease-out); }
+.skinner-svg .lever.is-pressed { transform: translateY(8px); }
+.skinner-svg .tray { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.skinner-svg .rat { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.skinner-graph .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.skinner-graph .grid { stroke: var(--color-rule); stroke-width: 1; }
+.skinner-graph .line { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.skinner-graph .point { fill: var(--color-accent); stroke: var(--color-paper-2); stroke-width: 2; }
+.skinner-graph .label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); }
+.learning-card__title { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.learning-card__text { margin: 0; font: 400 var(--text-md)/1.5 var(--font-body); color: var(--color-ink-2); }
+.learning-card__list { margin: 0; padding-left: 1.2em; }
+.learning-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.tool[data-tool="behavior-sort8"] .tool__stage, .tool[data-tool="learning8"] .tool__stage { min-height: 0; }
+.mobile-hint { display: none; }
+@media (max-width: 60rem) {
+  .attrappen-bar { grid-template-columns: 7rem minmax(0, 1fr) 2.5rem; }
+  .tool[data-tool="attrappen8"] .tool__stage, .tool[data-tool="imprinting8"] .tool__stage, .tool[data-tool="pavlov8"] .tool__stage, .tool[data-tool="skinner8"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="attrappen8"] .attrappen-svg, .tool[data-tool="imprinting8"] .imprinting-svg, .tool[data-tool="pavlov8"] .pavlov-svg, .tool[data-tool="skinner8"] .skinner-svg, .tool[data-tool="skinner8"] .skinner-graph { min-width: 520px; }
+  .mobile-hint { display: block; margin-top: var(--space-2xs); font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="8-4" data-grade="8">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 8">
+      <span class="brand__name">Biologie 8</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">04</span> Verhalten</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Verhalten</h2>
+      <p class="sidebar__deck">Angeboren und erlernt, Schlüsselreize, Prägung, Konditionierung und Lernen lernen.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#verhalten" data-station-link="verhalten"><span class="station-nav__num">01</span><span>Angeboren und erlernt</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#schluesselreize" data-station-link="schluesselreize"><span class="station-nav__num">02</span><span>Schlüsselreize und Attrappen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#praegung" data-station-link="praegung"><span class="station-nav__num">03</span><span>Prägung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#klassisch" data-station-link="klassisch"><span class="station-nav__num">04</span><span>Klassische Konditionierung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#operant" data-station-link="operant"><span class="station-nav__num">05</span><span>Operante Konditionierung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#lernen" data-station-link="lernen"><span class="station-nav__num">06</span><span>Höhere Lernleistungen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 8</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Verhalten: angeboren, erlernt, verstanden.</h1>
+<p class="lead">Vom Balztanz des Blaufußtölpels bis zum Lernen mit Belohnung: Wie Verhalten entsteht und was es steuert.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="verhalten" href="#verhalten">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">V1</span><span>Du beobachtest und beschreibst Verhalten und unterscheidest angeborene, erlernte und geprägte Anteile.</span></li>
+<li><span class="cnum">V2</span><span>Du erklärst das Zusammenwirken von inneren Faktoren und Schlüsselreizen und wertest Attrappenversuche aus.</span></li>
+<li><span class="cnum">V3</span><span>Du erklärst Prägung und sensible Phasen und ordnest Kaspar-Hauser-Versuche ethisch ein.</span></li>
+<li><span class="cnum">V4</span><span>Du erklärst die klassische Konditionierung mit den Fachbegriffen und überträgst sie auf Alltag und Werbung.</span></li>
+<li><span class="cnum">V5</span><span>Du unterscheidest Verstärkung und Bestrafung und erklärst operante Konditionierung.</span></li>
+<li><span class="cnum">V6</span><span>Du beschreibst höhere Lernleistungen und wendest evidenzbasierte Lernstrategien an.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 4 des LehrplanPLUS Biologie 8 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Verhalten ist beobachtbar. Wir beschreiben zuerst, was ein Tier oder ein Mensch tut, und deuten erst danach. Vermeide es, menschliche Gefühle in Tiere hineinzulesen („der Vogel ist glücklich“), ohne Belege. Für die Forschung an Tieren und Menschen gelten ethische Regeln: Kein Eingriff darf unnötiges Leid verursachen. Historische Versuche, die Tiere oder Menschen geschädigt haben, werden heute kritisch bewertet und nicht wiederholt.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Warum zeigt ein Lebewesen ein bestimmtes Verhalten, und wie viel davon ist angeboren?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="verhalten" data-title="Angeboren und erlernt" data-track="true" id="verhalten">
+<header class="station__head">
+<h2 id="verhalten-title"><span class="station__num">01</span> Angeboren, erlernt oder beides?</h2>
+<p class="lead">Verhalten entsteht aus Genen, Erfahrung und Umwelt. Selten ist es nur das eine oder das andere.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Verhalten umfasst alles, was ein Lebewesen tut: sich bewegen, Nahrung suchen, kommunizieren, balzen, Brutpflege betreiben oder lernen. Verhaltensbiologie beobachtet und beschreibt diese Abläufe. Ein Ethogramm listet die typischen Verhaltenselemente einer Art auf. Erst danach fragt man nach den Ursachen und Funktionen.</p>
+<p>Angeborenes Verhalten ist genetisch vorbereitet. Es muss nicht von Artgenossen abgeschaut werden und tritt auch bei isoliert aufgezogenen Tieren auf. Ein Beispiel ist das Balzverhalten des Blaufußtölpels: Männchen zeigen ihre blauen Füße, verbeugen sich, überreichen Futter und tanzen. Küken, die ohne Artgenossen aufwachsen, zeigen als Erwachsene dennoch dieses artspezifische Verhalten. Das spricht für einen starken genetischen Anteil.</p>
+<p>Erlerntes Verhalten entsteht durch Erfahrung, Übung oder Beobachtung. Ein Eichhörnchen erkennt Nüsse als Nahrung auch ohne Vorbild, aber die Technik, sie geschickt zu öffnen, verbessert sich durch Übung. Der Gesang einer Goldammer hat einen angeborenen Grundbaustein, die artspezifischen Feinheiten werden aber von Artgenossen gelernt. Viele Verhaltensweisen sind also Mischungen. Gene legen eine Reaktionsnorm fest, die durch die Umwelt unterschiedlich ausgeprägt wird.</p>
+<p>Um angeborene und erworbene Anteile zu trennen, nutzt die Forschung Isolationsexperimente, Zwillingsstudien, Beobachtungen von taubblind geborenen Kindern und Vergleiche über Kulturen. Solche „Kaspar-Hauser-Versuche“ sind ethisch problematisch, weil sie Lebewesen isolieren und schädigen können. Heute werden sie durch weniger invasive Methoden ersetzt.</p>
+<figure class="tool" data-tool="behavior-sort8">
+<div class="tool__head">
+<p class="tool__title">Angeboren, erlernt oder Prägung?</p>
+<p class="tool__hint">Wähle eine Aussage und ordne sie zu. Manche Verhaltensweisen haben mehrere Anteile.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="behavior-card">
+<p class="behavior-card__text" data-behavior-text="">Wähle eine Aussage.</p>
+<div class="behavior-actions">
+<button class="btn btn--quiet btn--small" data-behavior-answer="angeboren" type="button" data-tip="Angeboren: genetisch vorbereitet und ohne Vorbild ausführbar.">Angeboren</button>
+<button class="btn btn--quiet btn--small" data-behavior-answer="erlernt" type="button" data-tip="Erlernt: durch Erfahrung, Übung oder Beobachtung erworben.">Erlernt</button>
+<button class="btn btn--quiet btn--small" data-behavior-answer="praegung" type="button" data-tip="Prägung: dauerhaftes Lernen in einer kurzen sensiblen Phase.">Prägung</button>
+</div>
+</div>
+<p class="tool__note" data-behavior-progress="" aria-live="polite"></p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Viele Verhaltensweisen sind Mischungen. Die Einordnung zeigt den Schwerpunkt, nicht eine starre Grenze.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Verhaltensforschung beobachten und deuten</summary>
+<p>Der naturwissenschaftliche Erkenntnisweg beginnt mit einer Beobachtung, führt zu einer Fragestellung und einer prüfbaren Hypothese, dann zu einem Versuch und schließlich zur Deutung. Beim Blaufußtölpel könnte die Frage lauten: „Ist die blaue Fußfarbe der Auslöser für die Paarungsbereitschaft der Weibchen?“ Eine Hypothese wäre: „Weibchen reagieren häufiger auf Männchen mit blauen Füßen als auf Männchen mit andersfarbigen Füßen.“ Im Versuch werden Attrappen mit unterschiedlichen Fußfarben präsentiert; alle anderen Merkmale bleiben gleich. So lässt sich die Variable isolieren.</p>
+</details>
+<section aria-labelledby="verhalten-check" class="checkpoint">
+<h3 id="verhalten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="verhalten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="verhalten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "v1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V1",
+              "prompt": "Welches Verhalten ist ein starkes Beispiel für angeborenes Verhalten?",
+              "options": ["Eine Spinne baut ihr Netz ohne Vorbild.", "Ein Hund lernt auf „Sitz“ zu hören.", "Ein Papagei lernt Wörter.", "Ein Kind lernt Fahrradfahren."],
+              "correct": 0,
+              "explain": "Der Netzbau der Spinne ist artspezifisch und tritt auch ohne Vorbild auf. Die anderen Beispiele sind erlernt."
+            },
+            {
+              "id": "v2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V1",
+              "prompt": "Warum sind Kaspar-Hauser-Versuche ethisch problematisch?",
+              "options": ["Weil die Isolation den Tieren oder Menschen schaden kann.", "Weil sie zu teuer sind.", "Weil sie keine Daten liefern.", "Weil sie nur im Labor funktionieren."],
+              "correct": 0,
+              "explain": "Isolation und Deprivation können dauerhafte psychische und soziale Schäden verursachen. Heute werden solche Eingriffe streng geprüft und weitgehend vermieden."
+            },
+            {
+              "id": "v3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V1",
+              "prompt": "Was bedeutet „Reaktionsnorm“?",
+              "options": ["Der Bereich, in dem ein genetisch angelegtes Merkmal durch Umwelt unterschiedlich ausgeprägt werden kann.", "Ein Verhalten, das immer gleich abläuft.", "Die Zahl der Nachkommen.", "Die Lerngeschwindigkeit eines Tieres."],
+              "correct": 0,
+              "explain": "Gene legen einen Spielraum fest. Innerhalb dieses Spielraums kann die Umwelt die Ausprägung beeinflussen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="verhalten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="schluesselreize" href="#schluesselreize">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Angeboren heißt genetisch vorbereitet, nicht „ohne Lernen“. Erlernt heißt durch Erfahrung verändert. Viele Verhaltensweisen sind Mischungen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Verhalten</dt><dd>alles, was ein Lebewesen tut.</dd>
+<dt>Ethologie</dt><dd>Verhaltensbiologie; beobachtet und beschreibt Verhalten.</dd>
+<dt>angeboren</dt><dd>genetisch vorbereitet, ohne Vorbild ausführbar.</dd>
+<dt>erlernt</dt><dd>durch Erfahrung, Übung oder Beobachtung erworben.</dd>
+<dt>Reaktionsnorm</dt><dd>Spielraum der Ausprägung durch Gene und Umwelt.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Verhalten als entweder angeboren oder erlernt einordnen. Meist wirken beide Anteile zusammen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="schluesselreize" data-title="Schlüsselreize und Attrappen" data-track="true" id="schluesselreize">
+<header class="station__head">
+<h2 id="schluesselreize-title"><span class="station__num">02</span> Schlüsselreize: Was löst Verhalten aus?</h2>
+<p class="lead">Innere Bereitschaft und äußere Reize müssen zusammenkommen. Ein einzelnes Merkmal kann eine ganze Handlung auslösen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Angeborenes Verhalten wird nicht nur durch Gene bestimmt. Es braucht innere Faktoren wie Hormone, Hunger oder Paarungsbereitschaft und äußere Reize aus der Umwelt. Ein Schlüsselreiz ist ein bestimmtes Merkmal, das eine artspezifische Reaktion auslöst, zum Beispiel ein roter Punkt am Schnabel, eine bestimmte Bewegung oder ein Duft. Die Reaktion ist oft eine Erbkoordination: ein angeborenes Verhaltensmuster, das nach dem Auslösen meist vollständig abläuft.</p>
+<p>Ein klassisches Beispiel ist das Eirollen der Graugans. Sie rollt ein Ei mit dem Schnabel zurück ins Nest. Nimmt man das Ei während der Bewegung weg, führt die Gans die Kopfbewegung dennoch fort. Das zeigt: Die Handlung läuft nach dem Auslösen weiter, auch wenn der Reiz verschwunden ist. Ein anderes Beispiel ist das Küken der Silbermöwe, das auf den roten Punkt am Elternschnabel pickt und damit das Füttern auslöst.</p>
+<p>Innere Bereitschaft und Reizstärke addieren sich. Ist die Bereitschaft hoch, genügt ein schwacher Reiz; ist sie niedrig, braucht es einen starken Reiz. Dieses Zusammenwirken nennt man doppelte Quantifizierung. Ein supernormaler Reiz ist eine künstliche Übertreibung des natürlichen Schlüsselreizes, die eine stärkere Reaktion auslöst als das Original, etwa ein übergroßer roter Stab für Möwenküken oder der auffällige rote Rachen eines Kuckuckskükens.</p>
+<p>Attrappenversuche nutzen künstliche Nachbildungen, um den entscheidenden Reiz zu isolieren. Wichtig ist, dass nur eine Variable verändert wird. Beim Kaisermantel-Schmetterling wurden Attrappen mit unterschiedlichen Mustern und unterschiedlichen Größen getestet. Wenn Muster und Größe gleichzeitig variieren, lässt sich nicht sagen, welche Eigenschaft die Reaktion ausgelöst hat. Gute Versuche kontrollieren solche Störgrößen.</p>
+<figure class="tool" data-tool="attrappen8">
+<div class="tool__head">
+<p class="tool__title">Der Schlüsselreiz zählt</p>
+<p class="tool__hint">Wähle einen Attrappen-Typ. Beobachte, wie oft das Küken pickt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="attrappen-card">
+<svg aria-label="Küken pickt nach dem roten Punkt am Schnabel eines Elternvogels" class="attrappen-svg" role="img" viewbox="0 0 640 240">
+<ellipse class="parent" cx="470" cy="100" rx="80" ry="62"></ellipse>
+<path class="parent" d="M470 38 C450 10 420 10 415 38 C430 48 450 48 470 38 Z"></path>
+<path class="beak" d="M390 100 L300 112 L390 124 Z"></path>
+<circle class="spot" cx="330" cy="112" r="12"></circle>
+<ellipse class="chick" cx="170" cy="170" rx="62" ry="42"></ellipse>
+<circle class="chick" cx="120" cy="130" r="28"></circle>
+<path class="beak" d="M145 128 L205 118 L150 142 Z"></path>
+<line class="peck" x1="205" x2="290" y1="118" y2="112"></line>
+<line class="peck" x1="210" x2="292" y1="132" y2="120"></line>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" text-anchor="middle" x="470" y="210">Elternvogel mit rotem Schnabelfleck</text>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" text-anchor="middle" x="160" y="230">Küken pickt</text>
+</svg>
+<div class="attrappen-bars" data-attrappen-bars=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Der rote Punkt ist ein Schlüsselreiz. Ein übergroßer roter Stab ist ein supernormaler Reiz und löst mehr Pickreaktionen aus.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Attrappenversuche richtig planen</summary>
+<p>Ein guter Attrappenversuch verändert genau eine Variable, zum Beispiel die Farbe des Schnabelflecks. Form, Größe, Bewegung und Geruch müssen zwischen den Gruppen gleich bleiben. Sonst ist unklar, welche Eigenschaft die Reaktion ausgelöst hat. Auch die Reihenfolge der Präsentation kann eine Rolle spielen: Tiere können ermüden oder sich gewöhnen. Deshalb werden Attrappen randomisiert und mehrfach gezeigt. Die Stichprobe muss groß genug sein, und die Reaktion wird vorher festgelegt, etwa „Pickreaktionen pro Minute“.</p>
+</details>
+<section aria-labelledby="schluesselreize-check" class="checkpoint">
+<h3 id="schluesselreize-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="schluesselreize">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="schluesselreize" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "s1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V2",
+              "prompt": "Was ist ein Schlüsselreiz?",
+              "options": ["Ein bestimmtes Merkmal, das eine artspezifische Reaktion auslöst.", "Ein beliebiger Reiz ohne Wirkung.", "Eine Belohnung nach einem Verhalten.", "Ein Hormon im Blut."],
+              "correct": 0,
+              "explain": "Ein Schlüsselreiz ist ein spezifisches Merkmal, etwa ein roter Schnabelfleck, das eine angeborene Reaktion auslöst."
+            },
+            {
+              "id": "s2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V2",
+              "prompt": "Was ist ein supernormaler Reiz?",
+              "options": ["Eine übertriebene Attrappe, die eine stärkere Reaktion auslöst als der natürliche Reiz.", "Ein Reiz, der gar keine Reaktion auslöst.", "Ein Reiz, der nur bei Menschen wirkt.", "Ein Reiz, der erlernt werden muss."],
+              "correct": 0,
+              "explain": "Ein supernormaler Reiz übertreibt den natürlichen Schlüsselreiz und löst dadurch eine besonders starke angeborene Reaktion aus."
+            },
+            {
+              "id": "s3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V2",
+              "prompt": "Warum ist es problematisch, wenn Attrappen sich in Muster und Größe gleichzeitig unterscheiden?",
+              "options": ["Weil nicht klar ist, welche Variable die Reaktion ausgelöst hat.", "Weil die Attrappen dann zu groß sind.", "Weil Tiere keine Muster erkennen.", "Weil die Stichprobe automatisch zu klein wird."],
+              "correct": 0,
+              "explain": "Wenn zwei Variablen gleichzeitig verändert werden, lässt sich der Effekt nicht eindeutig zuordnen. Gute Versuche kontrollieren Störgrößen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="schluesselreize" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="praegung" href="#praegung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Verhalten entsteht aus innerer Bereitschaft und äußeren Schlüsselreizen. Ein supernormaler Reiz übertreibt den natürlichen Reiz.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Schlüsselreiz</dt><dd>Merkmal, das eine angeborene Reaktion auslöst.</dd>
+<dt>Erbkoordination</dt><dd>angeborenes Verhaltensmuster, das nach dem Auslösen abläuft.</dd>
+<dt>Schwellenwert</dt><dd>Mindeststärke, ab der ein Verhalten ausgelöst wird.</dd>
+<dt>supernormaler Reiz</dt><dd>übertriebene Attrappe mit stärkerer Wirkung.</dd>
+<dt>Attrappe</dt><dd>künstliche Nachbildung eines Reizes.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, ein Schlüsselreiz wirke immer gleich stark. Die innere Bereitschaft verändert die Schwelle.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="praegung" data-title="Prägung" data-track="true" id="praegung">
+<header class="station__head">
+<h2 id="praegung-title"><span class="station__num">03</span> Prägung: Lernen im richtigen Moment</h2>
+<p class="lead">In einer kurzen sensiblen Phase wird eine Bindung dauerhaft gelernt. Danach ist sie kaum noch veränderbar.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Prägung ist eine besondere Form des Lernens. Sie findet in einer genetisch vorbereiteten sensiblen Phase statt, verläuft schnell und ist oft irreversibel. Konrad Lorenz beobachtete, dass frisch geschlüpfte Graugänse dem ersten bewegten Objekt folgen, das Laute von sich gibt. Wurden die Küken im Brutschrank ausgebrütet, folgten sie Lorenz wie einer Mutter. Diese Nachfolgeprägung ist später kaum umkehrbar.</p>
+<p>Prägung ist weder reines Angeborensein noch freies Lernen. Die Bereitschaft, in einem bestimmten Zeitfenster zu lernen, ist genetisch vorbereitet; das konkrete Objekt wird durch Erfahrung gelernt. Neben der Nachfolgeprägung gibt es sexuelle Prägung, Ortsprägung, Nahrungsprägung und Prägung auf den eigenen Nachwuchs. Lachse kehren zum Beispiel zum Ort ihres Schlüpfens zurück, und junge Ziegen oder Schafe erkennen ihre Mutter am Geruch.</p>
+<p>Die sensible Phase ist ein Zeitfenster, in dem das Gehirn besonders empfänglich für bestimmte Erfahrungen ist. Nach dem Fenster ist das Lernen deutlich schwieriger oder nicht mehr möglich. Bei Kaspar-Hauser-Versuchen werden Tiere oder Menschen isoliert, um zu prüfen, welche Verhaltensanteile ohne Umweltreize auftreten. Solche Eingriffe können schwere und dauerhafte Schäden verursachen. Deshalb werden sie heute streng ethisch geprüft und weitgehend durch Beobachtung, Zwillingsstudien oder nicht-invasive Methoden ersetzt.</p>
+<figure class="tool" data-tool="imprinting8">
+<div class="tool__head">
+<p class="tool__title">Prägung: Das Zeitfenster zählt</p>
+<p class="tool__hint">Wähle einen Tag nach dem Schlüpfen. Beobachte, ob das Küken folgt.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-imprinting-day="1" type="button" data-tip="Tag 1: Die sensible Phase ist offen. Das Küken folgt dem ersten bewegten Objekt.">Tag 1</button>
+<button class="btn btn--quiet btn--small" data-imprinting-day="3" type="button" data-tip="Tag 3: Prägung ist noch möglich, die Bindung wird aber schwächer.">Tag 3</button>
+<button class="btn btn--quiet btn--small" data-imprinting-day="7" type="button" data-tip="Tag 7: Die sensible Phase ist weitgehend vorbei. Das Küken folgt nicht mehr zuverlässig.">Tag 7</button>
+<button class="btn btn--quiet btn--small" data-imprinting-day="14" type="button" data-tip="Tag 14: Die Prägung ist abgeschlossen und kaum noch veränderbar.">Tag 14</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Zeitstrahl der Prägung mit sensibler Phase und Küken, das einem Objekt folgt" class="imprinting-svg" role="img" viewbox="0 0 640 240">
+<line class="track" x1="60" x2="580" y1="120" y2="120"></line>
+<rect class="sensitive" height="60" width="120" x="60" y="90"></rect>
+<text class="label" text-anchor="middle" x="120" y="80">sensible Phase</text>
+<text class="tick" text-anchor="middle" x="60" y="220">Tag 1</text>
+<text class="tick" text-anchor="middle" x="250" y="220">Tag 7</text>
+<text class="tick" text-anchor="middle" x="440" y="220">Tag 14</text>
+<g data-imprinting-marker="">
+<circle cx="120" cy="120" fill="var(--color-accent)" r="8"></circle>
+</g>
+<g data-imprinting-duckling="">
+<ellipse class="duckling" cx="160" cy="155" rx="30" ry="20"></ellipse>
+<circle class="duckling" cx="135" cy="140" r="14"></circle>
+<path class="duckling-beak" d="M124 140 L108 144 L124 148 Z"></path>
+<line stroke="var(--color-rule-2)" stroke-width="3" x1="150" x2="150" y1="174" y2="188"></line>
+<line stroke="var(--color-rule-2)" stroke-width="3" x1="170" x2="170" y1="174" y2="188"></line>
+</g>
+<g data-imprinting-object="">
+<rect class="object" height="52" rx="4" width="42" x="520" y="100"></rect>
+<path class="object" d="M520 152 L562 152 L548 180 L534 180 Z"></path>
+<text class="label" text-anchor="middle" x="541" y="90">Objekt</text>
+</g>
+<line class="follow" data-imprinting-follow="" x1="195" x2="515" y1="160" y2="160"></line>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Prägung ist eine genetisch vorbereitete Lernphase. Nach dem Zeitfenster ist die Bindung kaum noch veränderbar.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Kaspar-Hauser-Versuche und Ethik</summary>
+<p>Kaspar-Hauser-Versuche sind benannt nach einem Jugendlichen, der 1828 in Nürnberg auftauchte und nach eigenen Angaben isoliert aufgewachsen war. Forschende nutzten Isolation, um zu prüfen, welche Verhaltensweisen ohne Umweltreize auftreten. Bei Tieren wurden Artgenossen oder Sinneskanäle entfernt; bei Menschen gibt es tragische Einzelfälle und ethisch problematische Studien. Solche Eingriffe können Angst, Bindungsstörungen und kognitive Defizite verursachen. Moderne Verhaltensforschung nutzt Beobachtung, vergleichende Studien, Zwillingsforschung und nicht-invasive Methoden. Ethische Richtlinien verlangen, dass der Erkenntnisgewinn in einem angemessenen Verhältnis zum vermeidbaren Leid steht.</p>
+</details>
+<section aria-labelledby="praegung-check" class="checkpoint">
+<h3 id="praegung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="praegung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="praegung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "p1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V3",
+              "prompt": "Was ist Prägung?",
+              "options": ["Eine dauerhafte Form des Lernens in einer sensiblen Phase", "Ein angeborener Reflex ohne Lernen", "Eine Belohnung nach einem Verhalten", "Eine zufällige Mutation"],
+              "correct": 0,
+              "explain": "Prägung findet in einer genetisch vorbereiteten sensiblen Phase statt und ist oft irreversibel."
+            },
+            {
+              "id": "p2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V3",
+              "prompt": "Was passiert, wenn ein Küken erst nach der sensiblen Phase einem neuen Objekt begegnet?",
+              "options": ["Es folgt dem Objekt nicht mehr zuverlässig; die Prägung ist weitgehend abgeschlossen.", "Es prägt sich sofort auf das Objekt.", "Es lernt schneller als in der sensiblen Phase.", "Es zeigt überhaupt kein Verhalten."],
+              "correct": 0,
+              "explain": "Nach der sensiblen Phase ist die Prägung abgeschlossen. Ein neues Objekt wird nicht mehr als Mutterfigur angenommen."
+            },
+            {
+              "id": "p3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V3",
+              "prompt": "Warum werden Kaspar-Hauser-Versuche heute kritisch gesehen?",
+              "options": ["Weil Isolation und Deprivation schwere Schäden verursachen können.", "Weil sie keine Hypothese brauchen.", "Weil sie nur bei Pflanzen funktionieren.", "Weil sie zu schnell sind."],
+              "correct": 0,
+              "explain": "Isolation kann dauerhafte psychische und soziale Schäden verursachen. Ethische Forschung muss Leid vermeiden und den Erkenntnisgewinn abwägen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="praegung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="klassisch" href="#klassisch">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Prägung ist Lernen in einem genetisch vorbereiteten Zeitfenster. Sie ist schnell, dauerhaft und oft irreversibel.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Prägung</dt><dd>dauerhaftes Lernen in einer sensiblen Phase.</dd>
+<dt>sensible Phase</dt><dd>Zeitfenster mit besonderer Lernbereitschaft.</dd>
+<dt>irreversibel</dt><dd>kaum oder nicht rückgängig zu machen.</dd>
+<dt>Kaspar-Hauser-Versuch</dt><dd>Isolationsversuch zur Trennung von angeborenen und erlernten Anteilen.</dd>
+<dt>Deprivation</dt><dd>Entzug von Reizen oder sozialen Kontakten.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Prägung mit „angeboren“ gleichsetzen. Das Objekt wird gelernt, das Zeitfenster ist genetisch vorbereitet.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="klassisch" data-title="Klassische Konditionierung" data-track="true" id="klassisch">
+<header class="station__head">
+<h2 id="klassisch-title"><span class="station__num">04</span> Klassische Konditionierung: Reize verknüpfen</h2>
+<p class="lead">Ein neutraler Reiz wird mit einem unbedingten Reiz gekoppelt und löst später allein eine Reaktion aus.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Iwan Pawlow untersuchte den Speichelfluss von Hunden. Futter ist ein unbedingter Reiz (UCS): Es löst ohne Lernen Speichelfluss aus, die unbedingte Reaktion (UCR). Eine Glocke ist zunächst ein neutraler Reiz (NS) und löst keine spezifische Reaktion aus. Wird die Glocke wiederholt gemeinsam mit dem Futter präsentiert, wird sie zum bedingten Reiz (CS). Schließlich löst die Glocke allein den Speichelfluss aus, die bedingte Reaktion (CR).</p>
+<p>Klassische Konditionierung verknüpft also Reize. Sie erklärt viele Alltagsphänomene: Der Schulgong kann Vorfreude auf die Pause auslösen, wenn er oft genug mit Pause gekoppelt war. Werbung koppelt Produkte mit positiven Gefühlen, indem sie attraktive Menschen, Musik oder Erfolg zeigt. Auch Angst kann klassisch konditioniert werden, wie das historische „Little Albert“-Experiment zeigte.</p>
+<p>Wird der bedingte Reiz wiederholt ohne den unbedingten Reiz präsentiert, schwächt sich die bedingte Reaktion ab. Das nennt man Löschung. Nach einer Pause kann die Reaktion vorübergehend zurückkehren, die spontane Erholung. Generalisierung bedeutet, dass ähnliche Reize ebenfalls eine Reaktion auslösen; Diskrimination bedeutet, dass das Lebewesen zwischen ähnlichen Reizen unterscheidet. Die Reaktionen sind oft physiologisch und nicht bewusst steuerbar.</p>
+<figure class="tool" data-tool="pavlov8">
+<div class="tool__head">
+<p class="tool__title">Pawlow-Simulator</p>
+<p class="tool__hint">Kopple Glocke und Futter. Beobachte, wann die Glocke allein Speichelfluss auslöst.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-pavlov-action="bell" type="button" data-tip="Glocke allein: Zunächst ein neutraler Reiz (NS). Nach der Kopplung wird sie zum bedingten Reiz (CS).">Glocke</button>
+<button class="btn btn--quiet btn--small" data-pavlov-action="food" type="button" data-tip="Futter: unbedingter Reiz (UCS). Es löst ohne Lernen Speichelfluss aus (UCR).">Futter</button>
+<button class="btn btn--quiet btn--small" data-pavlov-action="pair" type="button" data-tip="Glocke und Futter gemeinsam: Der neutrale Reiz wird mit dem unbedingten Reiz gekoppelt.">Glocke + Futter</button>
+<button class="btn btn--quiet btn--small" data-pavlov-action="reset" type="button" data-tip="Setzt den Hund in den Ausgangszustand zurück.">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="pavlov-card">
+<svg aria-label="Hund im Pawlow-Experiment mit Glocke, Futternapf und Speichelfluss" class="pavlov-svg" role="img" viewbox="0 0 640 240">
+<circle class="dog" cx="170" cy="120" r="52"></circle>
+<path class="ear" d="M130 88 C100 60 95 110 125 128 Z"></path>
+<path class="ear" d="M210 88 C240 60 245 110 215 128 Z"></path>
+<ellipse class="dog" cx="120" cy="130" rx="26" ry="18"></ellipse>
+<circle cx="145" cy="112" fill="var(--color-ink)" r="5"></circle>
+<circle cx="120" cy="128" fill="var(--color-accent-ink)" r="5"></circle>
+<path class="bell" d="M470 60 C470 30 500 30 500 60 L510 90 L460 90 Z"></path>
+<line stroke="var(--color-accent)" stroke-width="3" x1="485" x2="485" y1="90" y2="104"></line>
+<circle cx="485" cy="108" fill="var(--color-accent)" r="5"></circle>
+<path class="bowl" d="M440 170 L530 170 L515 205 L455 205 Z"></path>
+<circle class="drop" cx="150" cy="180" data-pavlov-drop="" r="5"></circle>
+<circle class="drop" cx="170" cy="192" data-pavlov-drop="" r="4"></circle>
+<circle class="drop" cx="190" cy="180" data-pavlov-drop="" r="3"></circle>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" text-anchor="middle" x="485" y="30" data-tip="Glocke: zunächst neutraler Reiz (NS). Nach mehreren Kopplungen mit Futter wird sie zum bedingten Reiz (CS).">Glocke</text>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" text-anchor="middle" x="485" y="225" data-tip="Futter: unbedingter Reiz (UCS). Es löst ohne Lernen Speichelfluss aus.">Futter</text>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" text-anchor="middle" x="170" y="225" data-tip="Hund: Der Speichelfluss ist die unbedingte Reaktion (UCR) auf Futter und später die bedingte Reaktion (CR) auf die Glocke.">Hund</text>
+</svg>
+<div class="pavlov-meter">
+<span>Speichelfluss</span>
+<div class="pavlov-bar"><i data-pavlov-bar=""></i></div>
+<output data-pavlov-value="">0 %</output>
+</div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Glocke ist zunächst neutral. Erst durch die Kopplung mit Futter wird sie zum bedingten Reiz.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Little Albert und die Ethik</summary>
+<p>John B. Watson zeigte einem Kleinkind, „Little Albert“, eine weiße Ratte und erzeugte gleichzeitig ein lautes, erschreckendes Geräusch. Nach mehreren Kopplungen zeigte das Kind Angst vor der Ratte und später auch vor ähnlichen fellartigen Objekten. Das Experiment gilt heute als ethisch nicht vertretbar, weil es einem Kind gezielt Angst und möglicherweise eine Phobie zufügte, ohne angemessene Schutzmaßnahmen. Es zeigt aber, wie Angst durch klassische Konditionierung entstehen kann. Moderne Forschung muss Leid vermeiden, informierte Zustimmung einholen und ethische Standards einhalten.</p>
+</details>
+<section aria-labelledby="klassisch-check" class="checkpoint">
+<h3 id="klassisch-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="klassisch">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="klassisch" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "k1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V4",
+              "prompt": "Was ist die Glocke bei Pawlow nach der Konditionierung?",
+              "options": ["Der bedingte Reiz (CS)", "Der unbedingte Reiz (UCS)", "Die unbedingte Reaktion (UCR)", "Ein neutraler Reiz ohne Wirkung"],
+              "correct": 0,
+              "explain": "Nach der Kopplung wird die Glocke zum bedingten Reiz (CS). Sie löst die bedingte Reaktion (CR) aus."
+            },
+            {
+              "id": "k2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V4",
+              "prompt": "Was passiert bei der Löschung?",
+              "options": ["Der bedingte Reiz wird wiederholt ohne den unbedingten Reiz gezeigt; die Reaktion wird schwächer.", "Der Hund lernt ein völlig neues Verhalten.", "Die Glocke wird lauter.", "Das Futter wird verstärkt."],
+              "correct": 0,
+              "explain": "Bei der Löschung wird der CS allein präsentiert. Die CR schwächt sich ab, weil die Kopplung nicht mehr bestätigt wird."
+            },
+            {
+              "id": "k3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V4",
+              "prompt": "Wie nutzt Werbung klassische Konditionierung?",
+              "options": ["Sie koppelt ein Produkt mit positiven Gefühlen oder attraktiven Bildern.", "Sie erklärt die chemische Zusammensetzung des Produkts.", "Sie bestraft den Konsumenten.", "Sie zeigt nur neutrale Informationen."],
+              "correct": 0,
+              "explain": "Werbung koppelt Produkte mit positiven Reizen. Das Produkt wird zum CS und löst positive Gefühle aus."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="klassisch" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="operant" href="#operant">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Klassische Konditionierung verknüpft Reize. Aus NS wird CS; die CR folgt. Löschung schwächt die Reaktion ab.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>UCS</dt><dd>unbedingter Reiz, z. B. Futter.</dd>
+<dt>UCR</dt><dd>unbedingte Reaktion, z. B. Speichelfluss.</dd>
+<dt>NS</dt><dd>neutraler Reiz, z. B. Glocke vor der Kopplung.</dd>
+<dt>CS</dt><dd>bedingter Reiz nach der Kopplung.</dd>
+<dt>CR</dt><dd>bedingte Reaktion.</dd>
+<dt>Löschung</dt><dd>Abschwächung der CR durch CS ohne UCS.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Klassische und operante Konditionierung verwechseln. Klassisch verknüpft Reize; operant verknüpft Verhalten mit Konsequenzen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="operant" data-title="Operante Konditionierung" data-track="true" id="operant">
+<header class="station__head">
+<h2 id="operant-title"><span class="station__num">05</span> Operante Konditionierung: Folgen formen Verhalten</h2>
+<p class="lead">Verstärkung erhöht die Wahrscheinlichkeit eines Verhaltens, Bestrafung senkt sie.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bei der operanten Konditionierung lernt ein Lebewesen aus den Folgen seines Verhaltens. Skinner untersuchte das mit einer Skinner-Box: Eine Ratte drückt einen Hebel und erhält Futter. Die Wahrscheinlichkeit, dass sie den Hebel erneut drückt, steigt. Verstärkung erhöht ein Verhalten, Bestrafung senkt es. Wichtig ist die Unterscheidung zwischen positiver und negativer Verstärkung sowie positiver und negativer Bestrafung.</p>
+<p>Positive Verstärkung bedeutet, einen angenehmen Reiz hinzuzufügen, etwa Futter, Lob oder Punkte. Negative Verstärkung bedeutet, einen unangenehmen Reiz zu entfernen, etwa das Abschalten eines lauten Tons. Beide erhöhen das Verhalten. Positive Bestrafung fügt einen unangenehmen Reiz hinzu, etwa eine Strafe. Negative Bestrafung entfernt einen angenehmen Reiz, etwa das Handy oder ein Privileg. Beide senken das Verhalten.</p>
+<p>Shaping bedeutet, schrittweise Annäherungen an ein Zielverhalten zu verstärken. Verstärkungspläne legen fest, wann eine Belohnung erfolgt: kontinuierlich, nach einer festen Anzahl, nach einer festen Zeit oder unvorhersehbar. Variable Belohnungen sind besonders wirksam und löschungsresistent. Deshalb nutzen Spiele Lootboxen, Streaks und zufällige Belohnungen. Das kann motivieren, aber auch in eine problematische Nutzung führen.</p>
+<p>Körperliche Bestrafung ist keine empfehlenswerte Erziehungsmethode. Sie kann Verhalten kurzfristig unterdrücken, verursacht aber Angst, Demütigung und Schäden für die Beziehung. Sie verstößt gegen das Recht auf gewaltfreie Erziehung. Wirksamer sind klare Regeln, positive Verstärkung, natürliche Konsequenzen und das Einbeziehen der betroffenen Person.</p>
+<figure class="tool" data-tool="skinner8">
+<div class="tool__head">
+<p class="tool__title">Skinner-Box</p>
+<p class="tool__hint">Wähle eine Konsequenz und drücke den Hebel. Beobachte die Lernkurve.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-skinner-mode="futter" type="button" data-tip="Futter: positive Verstärkung. Ein angenehmer Reiz folgt auf das Verhalten und macht es wahrscheinlicher.">Futter</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-skinner-mode="ton" type="button" data-tip="Ton: positive Bestrafung. Ein unangenehmer Reiz folgt auf das Verhalten und macht es unwahrscheinlicher.">Ton</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-skinner-mode="keine" type="button" data-tip="Keine Konsequenz: Das Verhalten wird weder verstärkt noch bestraft; die Rate bleibt niedrig.">Keine Konsequenz</button>
+<button class="btn btn--quiet btn--small" data-skinner-press="" type="button" data-tip="Löst einen Hebeldruck aus und zeigt die Konsequenz.">Hebel drücken</button>
+<button class="btn btn--quiet btn--small" data-skinner-reset="" type="button" data-tip="Setzt Hebel, Kurve und Zähler zurück.">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="skinner-card">
+<svg aria-label="Skinner-Box mit Hebel, Futterspender und Ratte" class="skinner-svg" role="img" viewbox="0 0 640 240">
+<rect class="box" height="170" rx="4" width="520" x="60" y="35"></rect>
+<rect class="lever" data-skinner-lever="" height="60" rx="3" width="18" x="120" y="110"></rect>
+<rect class="tray" height="28" rx="3" width="60" x="470" y="165"></rect>
+<circle cx="510" cy="75" fill="var(--color-accent)" r="10"></circle>
+<ellipse class="rat" cx="310" cy="160" rx="55" ry="26"></ellipse>
+<circle class="rat" cx="255" cy="145" r="22"></circle>
+<path d="M360 160 C390 140 410 150 420 170" fill="none" stroke="var(--color-rule-2)" stroke-width="4"></path>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="11" text-anchor="middle" x="129" y="195">Hebel</text>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="11" text-anchor="middle" x="500" y="210">Futter</text>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="11" text-anchor="middle" x="310" y="210">Ratte</text>
+</svg>
+<svg aria-label="Lernkurve der Hebelpressungen" class="skinner-graph" role="img" viewbox="0 0 640 200">
+<line class="axis" x1="60" x2="600" y1="160" y2="160"></line>
+<line class="axis" x1="60" x2="60" y1="160" y2="30"></line>
+<line class="grid" x1="60" x2="600" y1="130" y2="130"></line>
+<line class="grid" x1="60" x2="600" y1="100" y2="100"></line>
+<line class="grid" x1="60" x2="600" y1="70" y2="70"></line>
+<polyline class="line" data-skinner-line="" points=""></polyline>
+<g data-skinner-points=""></g>
+<text class="label" text-anchor="middle" x="330" y="190">Hebeldrücke</text>
+<text class="label" transform="rotate(-90 20 95)" x="20" y="95">kumuliert</text>
+</svg>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Verstärkung erhöht die Wahrscheinlichkeit eines Verhaltens. Bestrafung senkt sie. Die Lernkurve zeigt den Verlauf.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Lootboxen, Streaks und variable Belohnungen</summary>
+<p>Viele Apps nutzen operante Prinzipien. Ein „Streak“ belohnt tägliches Einloggen; Lootboxen belohnen das Öffnen mit unvorhersehbaren Inhalten; Level-Ups und Achievements verstärken weiteres Spielen. Besonders wirksam sind variable Verstärkungspläne: Die Belohnung kommt nicht jedes Mal, sondern unvorhersehbar. Das hält die Motivation hoch und macht das Verhalten schwer löschbar. Das ist nicht automatisch böse, aber es kann die Selbstkontrolle umgehen. Ein bewusster Umgang bedeutet: Benachrichtigungen prüfen, Spielzeit begrenzen, Alternativen planen und sich fragen, ob man spielt, weil man möchte oder weil die App es will.</p>
+</details>
+<section aria-labelledby="operant-check" class="checkpoint">
+<h3 id="operant-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="operant">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="operant" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "o1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V5",
+              "prompt": "Was ist negative Verstärkung?",
+              "options": ["Ein unangenehmer Reiz wird entfernt, um ein Verhalten zu erhöhen.", "Ein angenehmer Reiz wird entfernt, um ein Verhalten zu senken.", "Ein unangenehmer Reiz wird hinzugefügt, um ein Verhalten zu senken.", "Ein Verhalten wird ignoriert."],
+              "correct": 0,
+              "explain": "Negative Verstärkung entfernt einen unangenehmen Reiz und erhöht dadurch die Wahrscheinlichkeit des Verhaltens."
+            },
+            {
+              "id": "o2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V5",
+              "prompt": "Warum sind variable Belohnungen so wirksam?",
+              "options": ["Weil sie unvorhersehbar sind und das Verhalten besonders löschungsresistent machen.", "Weil sie immer sofort kommen.", "Weil sie keine Motivation erzeugen.", "Weil sie nur bei Tieren wirken."],
+              "correct": 0,
+              "explain": "Unvorhersehbare Belohnungen halten die Motivation hoch und machen das Verhalten schwer löschbar. Deshalb nutzen Spiele Lootboxen und Streaks."
+            },
+            {
+              "id": "o3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V5",
+              "prompt": "Warum ist körperliche Bestrafung als Erziehungsmittel abzulehnen?",
+              "options": ["Sie verursacht Angst und Demütigung und verstößt gegen gewaltfreie Erziehung.", "Sie wirkt immer besser als Lob.", "Sie ist gesetzlich vorgeschrieben.", "Sie hat keine emotionalen Folgen."],
+              "correct": 0,
+              "explain": "Körperliche Bestrafung kann kurzfristig unterdrücken, aber sie schädigt die Beziehung und die psychische Entwicklung. Gewaltfreie Erziehung ist ein Recht des Kindes."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="operant" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="lernen" href="#lernen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Verstärkung erhöht Verhalten, Bestrafung senkt es. Positiv heißt hinzufügen, negativ heißt entfernen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Verstärkung</dt><dd>Konsequenz, die ein Verhalten wahrscheinlicher macht.</dd>
+<dt>Bestrafung</dt><dd>Konsequenz, die ein Verhalten unwahrscheinlicher macht.</dd>
+<dt>Shaping</dt><dd>schrittweises Verstärken von Annäherungen.</dd>
+<dt>Verstärkungsplan</dt><dd>Regel, wann eine Belohnung erfolgt.</dd>
+<dt>variable Ratio</dt><dd>Belohnung nach unvorhersehbarer Anzahl von Reaktionen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Negative Verstärkung mit Bestrafung verwechseln. Negative Verstärkung erhöht das Verhalten, indem sie etwas Unangenehmes entfernt.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="lernen" data-title="Höhere Lernleistungen" data-track="true" id="lernen">
+<header class="station__head">
+<h2 id="lernen-title"><span class="station__num">06</span> Höhere Lernleistungen und Lernen lernen</h2>
+<p class="lead">Menschen und einige Tiere lernen durch Nachahmung, Einsicht und Sprache. Gutes Lernen lässt sich planen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Konditionierung und Prägung sind einfache Lernformen. Höhere Lernleistungen gehen darüber hinaus: Ein Lebewesen bildet ein inneres Modell der Situation, nutzt Vorwissen und findet eine Lösung, ohne sie durch zufälliges Ausprobieren zu entdecken. Schimpansen können zum Beispiel eine Erdnuss aus einem Zylinder holen, indem sie Wasser hineingießen. Dieses Lernen durch Einsicht ist flexibel und auf neue Situationen übertragbar.</p>
+<p>Lernen durch Nachahmung beobachtet das Verhalten anderer und übernimmt es. Japanische Makaken lernten, in heißen Quellen zu baden; Blaumeisen lernten, Milchflaschen zu öffnen. Nachahmung spart Zeit und Energie, kann aber auch Traditionen verfestigen und kreativere Lösungen behindern. Sprache und Kultur ermöglichen beim Menschen eine besonders weitreichende Weitergabe von Wissen.</p>
+<p>Lernen verändert das Gehirn. Nervenzellen bilden neue Verbindungen, Dendriten bekommen mehr Dornen, und häufig genutzte Bahnen werden durch Myelinisierung schneller. Schlaf festigt Gelerntes. Wiederholung allein reicht oft nicht: Entscheidend ist, ob du den Stoff aktiv abrufst, ihn organisierst und in eigenen Worten erklärst. Metakognition bedeutet, den eigenen Lernprozess zu planen, zu überwachen und anzupassen.</p>
+<figure class="tool" data-tool="learning8">
+<div class="tool__head">
+<p class="tool__title">Lernstrategien</p>
+<p class="tool__hint">Wähle eine Strategie. Prüfe, wie sie wirkt und wie du sie umsetzt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="learning-card">
+<p class="learning-card__title" data-learning-title="">Wiederholen</p>
+<p class="learning-card__text" data-learning-text="">Wiederholung hilft, aber nicht jede Wiederholung ist gleich wirksam.</p>
+<ul class="learning-card__list" data-learning-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Lernen ist kein passives Aufnehmen. Wiederholung, Bedeutung und Pausen verändern das Gehirn.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Einen Lernplan erstellen</summary>
+<p>Ein guter Lernplan hat drei Phasen. Planen: Lernziele festlegen, Stoff in sinnvolle Abschnitte teilen und feste Lernzeiten mit Pausen einplanen. Überwachen: Nach jeder Einheit prüfen, ob du die Inhalte ohne Hilfe erklären kannst; Aufgaben bearbeiten und Fehler analysieren. Anpassen: Schwierige Themen erneut bearbeiten, eine andere Methode wählen und den Plan realistisch korrigieren. Bewährte Strategien sind verteiltes Wiederholen (Spaced Repetition), aktives Erinnern (Active Recall), Zusammenfassen in eigenen Worten, Karteikarten, Erklären für andere und ausreichend Schlaf. Reines Wiederlesen und Multitasking sind oft ineffektiv.</p>
+</details>
+<section aria-labelledby="lernen-check" class="checkpoint">
+<h3 id="lernen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="lernen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="lernen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "l1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V6",
+              "prompt": "Was ist Lernen durch Einsicht?",
+              "options": ["Eine Lösung wird mental geplant und plötzlich gefunden.", "Ein Verhalten wird nur durch Belohnung verstärkt.", "Ein Reiz wird mit einem anderen gekoppelt.", "Ein Jungtier folgt dem ersten bewegten Objekt."],
+              "correct": 0,
+              "explain": "Beim Lernen durch Einsicht wird die Situation innerlich modelliert. Die Lösung wird geplant und ist auf neue Situationen übertragbar."
+            },
+            {
+              "id": "l2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V6",
+              "prompt": "Welche Lernstrategie ist besonders effektiv?",
+              "options": ["Aktives Erinnern und verteiltes Wiederholen", "Nur wiederholtes Lesen", "Multitasking mit Handy", "Alles in einer Nacht lernen"],
+              "correct": 0,
+              "explain": "Aktives Erinnern und verteiltes Wiederholen sind evidenzbasiert. Reines Lesen und Multitasking sind oft ineffektiv."
+            },
+            {
+              "id": "l3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V6",
+              "prompt": "Was bedeutet Metakognition?",
+              "options": ["Den eigenen Lernprozess planen, überwachen und anpassen", "Nur Fakten auswendig lernen", "Ein Tier konditionieren", "Ein Experiment ohne Hypothese durchführen"],
+              "correct": 0,
+              "explain": "Metakognition ist das Nachdenken über das eigene Lernen: Ziele setzen, Fortschritt prüfen und die Strategie anpassen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="lernen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Höhere Lernleistungen sind flexibler als Konditionierung. Gutes Lernen plant, überwacht und passt sich an.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Nachahmung</dt><dd>Übernehmen eines beobachteten Verhaltens.</dd>
+<dt>Einsicht</dt><dd>mentale Lösung eines Problems.</dd>
+<dt>Neuroplastizität</dt><dd>Veränderung von Nervenzellen und Verbindungen durch Lernen.</dd>
+<dt>Metakognition</dt><dd>Planen, Überwachen und Anpassen des eigenen Lernens.</dd>
+<dt>Spaced Repetition</dt><dd>verteiltes Wiederholen über mehrere Tage.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, wiederholtes Lesen sei schon Lernen. Aktives Abrufen und Erklären sind wirksamer.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Verhalten</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="verhalten8">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="verhalten8" type="application/json">
+      {
+        "competencies": {
+          "V1": "Angeboren, erlernt und beobachtet",
+          "V2": "Innere Faktoren, Schlüsselreize und Attrappen",
+          "V3": "Prägung und sensible Phasen",
+          "V4": "Klassische Konditionierung",
+          "V5": "Operante Konditionierung",
+          "V6": "Höhere Lernleistungen und Lernstrategien"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "V1",
+            "prompt": "Welches Verhalten ist ein starkes Beispiel für angeborenes Verhalten?",
+            "options": ["Eine Spinne baut ihr Netz ohne Vorbild.", "Ein Hund lernt auf „Sitz“ zu hören.", "Ein Papagei lernt Wörter.", "Ein Kind lernt Fahrradfahren."],
+            "correct": 0,
+            "explain": "Der Netzbau der Spinne ist artspezifisch und tritt auch ohne Vorbild auf. Die anderen Beispiele sind erlernt."
+          },
+          {
+            "id": "c2",
+            "type": "input",
+            "level": "g",
+            "competency": "V1",
+            "prompt": "Wie heißt der Spielraum, in dem Gene und Umwelt ein Merkmal unterschiedlich ausprägen können?",
+            "accept": ["reaktionsnorm"],
+            "model": "Reaktionsnorm",
+            "explain": "Die Reaktionsnorm ist der Bereich, in dem ein genetisch angelegtes Merkmal durch Umweltfaktoren unterschiedlich ausgeprägt werden kann."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "V2",
+            "prompt": "Was ist ein Schlüsselreiz?",
+            "options": ["Ein bestimmtes Merkmal, das eine artspezifische Reaktion auslöst.", "Ein beliebiger Reiz ohne Wirkung.", "Eine Belohnung nach einem Verhalten.", "Ein Hormon im Blut."],
+            "correct": 0,
+            "explain": "Ein Schlüsselreiz ist ein spezifisches Merkmal, etwa ein roter Schnabelfleck, das eine angeborene Reaktion auslöst."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "V2",
+            "prompt": "Was ist ein supernormaler Reiz?",
+            "options": ["Eine übertriebene Attrappe, die eine stärkere Reaktion auslöst als der natürliche Reiz.", "Ein Reiz, der gar keine Reaktion auslöst.", "Ein Reiz, der nur bei Menschen wirkt.", "Ein Reiz, der erlernt werden muss."],
+            "correct": 0,
+            "explain": "Ein supernormaler Reiz übertreibt den natürlichen Schlüsselreiz und löst dadurch eine besonders starke angeborene Reaktion aus."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "V3",
+            "prompt": "Was ist Prägung?",
+            "options": ["Eine dauerhafte Form des Lernens in einer sensiblen Phase", "Ein angeborener Reflex ohne Lernen", "Eine Belohnung nach einem Verhalten", "Eine zufällige Mutation"],
+            "correct": 0,
+            "explain": "Prägung findet in einer genetisch vorbereiteten sensiblen Phase statt und ist oft irreversibel."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "V3",
+            "prompt": "Warum werden Kaspar-Hauser-Versuche heute kritisch gesehen?",
+            "options": ["Weil Isolation und Deprivation schwere Schäden verursachen können.", "Weil sie keine Hypothese brauchen.", "Weil sie nur bei Pflanzen funktionieren.", "Weil sie zu schnell sind."],
+            "correct": 0,
+            "explain": "Isolation kann dauerhafte psychische und soziale Schäden verursachen. Ethische Forschung muss Leid vermeiden und den Erkenntnisgewinn abwägen."
+          },
+          {
+            "id": "c7",
+            "type": "input",
+            "level": "g",
+            "competency": "V4",
+            "prompt": "Wie heißt die Lernform, bei der ein neutraler Reiz mit einem unbedingten Reiz gekoppelt wird?",
+            "accept": ["klassische konditionierung", "klassische konditionierung", "klassisch"],
+            "model": "klassische Konditionierung",
+            "explain": "Bei der klassischen Konditionierung wird ein neutraler Reiz zum bedingten Reiz, weil er wiederholt mit dem unbedingten Reiz gekoppelt wird."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "V4",
+            "prompt": "Was ist die Glocke bei Pawlow nach der Konditionierung?",
+            "options": ["Der bedingte Reiz (CS)", "Der unbedingte Reiz (UCS)", "Die unbedingte Reaktion (UCR)", "Ein neutraler Reiz ohne Wirkung"],
+            "correct": 0,
+            "explain": "Nach der Kopplung wird die Glocke zum bedingten Reiz (CS). Sie löst die bedingte Reaktion (CR) aus."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "V5",
+            "prompt": "Was ist negative Verstärkung?",
+            "options": ["Ein unangenehmer Reiz wird entfernt, um ein Verhalten zu erhöhen.", "Ein angenehmer Reiz wird entfernt, um ein Verhalten zu senken.", "Ein unangenehmer Reiz wird hinzugefügt, um ein Verhalten zu senken.", "Ein Verhalten wird ignoriert."],
+            "correct": 0,
+            "explain": "Negative Verstärkung entfernt einen unangenehmen Reiz und erhöht dadurch die Wahrscheinlichkeit des Verhaltens."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "V5",
+            "prompt": "Warum sind variable Belohnungen so wirksam?",
+            "options": ["Weil sie unvorhersehbar sind und das Verhalten besonders löschungsresistent machen.", "Weil sie immer sofort kommen.", "Weil sie keine Motivation erzeugen.", "Weil sie nur bei Tieren wirken."],
+            "correct": 0,
+            "explain": "Unvorhersehbare Belohnungen halten die Motivation hoch und machen das Verhalten schwer löschbar. Deshalb nutzen Spiele Lootboxen und Streaks."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "V6",
+            "prompt": "Was ist Lernen durch Einsicht?",
+            "options": ["Eine Lösung wird mental geplant und plötzlich gefunden.", "Ein Verhalten wird nur durch Belohnung verstärkt.", "Ein Reiz wird mit einem anderen gekoppelt.", "Ein Jungtier folgt dem ersten bewegten Objekt."],
+            "correct": 0,
+            "explain": "Beim Lernen durch Einsicht wird die Situation innerlich modelliert. Die Lösung wird geplant und ist auf neue Situationen übertragbar."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "V6",
+            "prompt": "Welche Lernstrategie ist besonders effektiv?",
+            "options": ["Aktives Erinnern und verteiltes Wiederholen", "Nur wiederholtes Lesen", "Multitasking mit Handy", "Alles in einer Nacht lernen"],
+            "correct": 0,
+            "explain": "Aktives Erinnern und verteiltes Wiederholen sind evidenzbasiert. Reines Lesen und Multitasking sind oft ineffektiv."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Verhalten</dt><dd>Alles, was ein Lebewesen tut.</dd></div>
+<div class="glossary__row"><dt>Ethologie</dt><dd>Verhaltensbiologie; beobachtet und beschreibt Verhalten.</dd></div>
+<div class="glossary__row"><dt>angeboren</dt><dd>Genetisch vorbereitet, ohne Vorbild ausführbar.</dd></div>
+<div class="glossary__row"><dt>erlernt</dt><dd>Durch Erfahrung, Übung oder Beobachtung erworben.</dd></div>
+<div class="glossary__row"><dt>Reaktionsnorm</dt><dd>Spielraum, in dem Gene und Umwelt ein Merkmal ausprägen.</dd></div>
+<div class="glossary__row"><dt>Erbkoordination</dt><dd>Angeborenes Verhaltensmuster, das nach dem Auslösen meist vollständig abläuft.</dd></div>
+<div class="glossary__row"><dt>Schlüsselreiz</dt><dd>Merkmal, das eine artspezifische Reaktion auslöst.</dd></div>
+<div class="glossary__row"><dt>innere Handlungsbereitschaft</dt><dd>Motivation oder hormonelle Bereitschaft, ein Verhalten zu zeigen.</dd></div>
+<div class="glossary__row"><dt>Schwellenwert</dt><dd>Mindeststärke, ab der ein Verhalten ausgelöst wird.</dd></div>
+<div class="glossary__row"><dt>supernormaler Reiz</dt><dd>Übertriebene Attrappe mit stärkerer Wirkung als der natürliche Reiz.</dd></div>
+<div class="glossary__row"><dt>Attrappe</dt><dd>Künstliche Nachbildung eines Reizes.</dd></div>
+<div class="glossary__row"><dt>Attrappenversuch</dt><dd>Experiment mit künstlichen Reizen, um Schlüsselreize zu isolieren.</dd></div>
+<div class="glossary__row"><dt>Prägung</dt><dd>Dauerhaftes Lernen in einer sensiblen Phase.</dd></div>
+<div class="glossary__row"><dt>sensible Phase</dt><dd>Zeitfenster mit besonderer Lernbereitschaft.</dd></div>
+<div class="glossary__row"><dt>Kaspar-Hauser-Versuch</dt><dd>Isolationsversuch zur Trennung angeborener und erlernter Anteile.</dd></div>
+<div class="glossary__row"><dt>Deprivation</dt><dd>Entzug von Reizen oder sozialen Kontakten.</dd></div>
+<div class="glossary__row"><dt>klassische Konditionierung</dt><dd>Lernen durch Kopplung eines neutralen Reizes mit einem unbedingten Reiz.</dd></div>
+<div class="glossary__row"><dt>UCS</dt><dd>Unbedingter Reiz, z. B. Futter.</dd></div>
+<div class="glossary__row"><dt>UCR</dt><dd>Unbedingte Reaktion, z. B. Speichelfluss.</dd></div>
+<div class="glossary__row"><dt>NS</dt><dd>Neutraler Reiz vor der Konditionierung.</dd></div>
+<div class="glossary__row"><dt>CS</dt><dd>Bedingter Reiz nach der Konditionierung.</dd></div>
+<div class="glossary__row"><dt>CR</dt><dd>Bedingte Reaktion.</dd></div>
+<div class="glossary__row"><dt>Löschung</dt><dd>Abschwächung der bedingten Reaktion durch wiederholten CS ohne UCS.</dd></div>
+<div class="glossary__row"><dt>Generalisierung</dt><dd>Ähnliche Reize lösen ebenfalls die Reaktion aus.</dd></div>
+<div class="glossary__row"><dt>operante Konditionierung</dt><dd>Lernen aus den Folgen eines Verhaltens.</dd></div>
+<div class="glossary__row"><dt>Verstärkung</dt><dd>Konsequenz, die ein Verhalten wahrscheinlicher macht.</dd></div>
+<div class="glossary__row"><dt>Bestrafung</dt><dd>Konsequenz, die ein Verhalten unwahrscheinlicher macht.</dd></div>
+<div class="glossary__row"><dt>positive Verstärkung</dt><dd>Hinzufügen eines angenehmen Reizes.</dd></div>
+<div class="glossary__row"><dt>negative Verstärkung</dt><dd>Entfernen eines unangenehmen Reizes.</dd></div>
+<div class="glossary__row"><dt>Shaping</dt><dd>Schrittweises Verstärken von Annäherungen an ein Zielverhalten.</dd></div>
+<div class="glossary__row"><dt>Verstärkungsplan</dt><dd>Regel, wann eine Belohnung erfolgt.</dd></div>
+<div class="glossary__row"><dt>variable Ratio</dt><dd>Belohnung nach unvorhersehbarer Anzahl von Reaktionen.</dd></div>
+<div class="glossary__row"><dt>höhere Lernleistung</dt><dd>Flexibles Lernen durch Einsicht, Nachahmung oder Sprache.</dd></div>
+<div class="glossary__row"><dt>Nachahmung</dt><dd>Übernehmen eines beobachteten Verhaltens.</dd></div>
+<div class="glossary__row"><dt>Einsicht</dt><dd>Mentale Lösung eines Problems.</dd></div>
+<div class="glossary__row"><dt>Neuroplastizität</dt><dd>Veränderung von Nervenzellen und Verbindungen durch Lernen.</dd></div>
+<div class="glossary__row"><dt>Metakognition</dt><dd>Planen, Überwachen und Anpassen des eigenen Lernens.</dd></div>
+<div class="glossary__row"><dt>Spaced Repetition</dt><dd>Verteiltes Wiederholen über mehrere Tage.</dd></div>
+<div class="glossary__row"><dt>Active Recall</dt><dd>Aktives Abrufen von Wissen aus dem Gedächtnis.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 8</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/8/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 8</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

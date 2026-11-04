@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="de" data-grade="9" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Methoden | Biologie 9</title>
+<meta name="description" content="Interaktive Methodenwerkstatt für Biologie 9: Mikroskopie, Beobachten, Bestimmen, Experimente, Daten und Modelle.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: das Mikroskop und der Versuchsplaner · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the light sheet needs the tool wells to sit one step darker; theme.css sets the wells on paper-2 and keeps the ink band to one per page */
+/* Hallmark · answered F4 · the 9 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.obs-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); margin-top: var(--space-sm); }
+.obs-card p { font-size: var(--text-lg); line-height: 1.4; min-height: 3.2em; }
+.obs-actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-sm); }
+.exp8-grid { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--space-sm); align-items: center; margin: var(--space-md) 0; }
+.exp8-grid label { font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); }
+.source-grid, .model-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.source-card, .model-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.source-card h3, .model-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.source-card p, .model-card p { font-size: var(--text-sm); color: var(--color-ink-2); }
+.chart8 { width: 100%; height: auto; display: block; }
+.chart8 text { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.chart8 .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.chart8 .gridline { stroke: var(--color-rule); stroke-width: 1; }
+.chart8 .series { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.chart8 .point { fill: var(--color-accent); stroke: var(--color-paper-2); stroke-width: 2; }
+.micro-svg { width: 100%; height: auto; display: block; transition: filter var(--dur-short) var(--ease-out); }
+.micro-focus-bar { align-items: center; }
+.micro-focus-bar .range-row { flex: 1 1 16rem; margin-top: 0; }
+.micro-svg .field { fill: var(--color-paper-2); }
+.micro-svg .field-ring { fill: none; stroke: var(--color-rule-2); stroke-width: 3; }
+.micro-svg .cell { fill: var(--color-paper); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.micro-svg .nucleus { fill: var(--color-accent); opacity: 0.8; }
+.micro-svg .bacterium { fill: var(--color-accent); opacity: 0.75; }
+.micro-svg .yeast { fill: var(--color-paper); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.micro-svg .bud { fill: var(--color-accent); opacity: 0.6; }
+.micro-svg [data-micro-group] { transform-box: view-box; transform-origin: 320px 180px; transition: transform var(--dur-short) var(--ease-out), filter var(--dur-short) var(--ease-out); }
+.micro-svg.is-blurred [data-micro-group] { filter: blur(2px); }
+@media (max-width: 60rem) { .source-grid, .model-grid { grid-template-columns: minmax(0, 1fr); } .exp8-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); } }
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="9-1" data-grade="9">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 9">
+      <span class="brand__name">Biologie 9</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">01</span> Methoden</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Methoden</h2>
+      <p class="sidebar__deck">Mikroskopieren, beobachten, bestimmen, experimentieren, Daten und Modelle.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#mikroskop" data-station-link="mikroskop"><span class="station-nav__num">01</span><span>Mikroskopieren</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#beobachten" data-station-link="beobachten"><span class="station-nav__num">02</span><span>Beobachten und Fragen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#experimente" data-station-link="experimente"><span class="station-nav__num">03</span><span>Fragen und Experimente</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#modelle" data-station-link="modelle"><span class="station-nav__num">04</span><span>Modelle</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#daten" data-station-link="daten"><span class="station-nav__num">05</span><span>Daten und Diagramme</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#quellen" data-station-link="quellen"><span class="station-nav__num">06</span><span>Quellen und Entscheidungen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 9</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Methoden: Mikroskopieren, beobachten, prüfen.</h1>
+<p class="lead">Mikroskopieren, bestimmen, experimentieren, Daten lesen und Quellen prüfen. Die Werkzeuge für alle Lernbereiche.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="mikroskop" href="#mikroskop">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">M1</span><span>Du mikroskopierst Präparate, zeichnest beschriftete Strukturen und kennst die Grenzen von Vergrößerung und Auflösung.</span></li>
+<li><span class="cnum">M2</span><span>Du beobachtest Lebewesen, bestimmst sie mit Hilfsmitteln und unterscheidest Beobachtung von Deutung.</span></li>
+<li><span class="cnum">M3</span><span>Du formulierst Fragen und Hypothesen und planst Experimente mit klaren Variablen und quantitativen Daten.</span></li>
+<li><span class="cnum">M4</span><span>Du nutzt und kritisierst Modelle und erklärst ihre Stärken und Grenzen.</span></li>
+<li><span class="cnum">M5</span><span>Du liest Tabellen und Diagramme, prüfst Quellen und triffst begründete Entscheidungen.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzbereiche von Lernbereich 1 des LehrplanPLUS Biologie 9 zusammen.</small></p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Woran erkennst du, ob eine biologische Behauptung gut belegt ist?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="mikroskop" data-title="Mikroskopieren" data-track="true" id="mikroskop">
+<header class="station__head">
+<h2 id="mikroskop-title"><span class="station__num">01</span> Mikroskopieren: Aus Kleinem Großes machen</h2>
+<p class="lead">Ein Mikroskop vergrößert Strukturen, aber es zeigt nicht automatisch die Wahrheit. Präparat, Schärfe und Auflösung entscheiden.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Lichtmikroskop besteht aus Okular, Objektiven, Objekttisch, Lichtquelle und Fokussierung. Die Gesamtvergrößerung ist das Produkt aus Okular- und Objektivvergrößerung: Ein 10×-Okular mit einem 40×-Objektiv ergibt 400×. Vergrößerung allein sagt aber nicht, wie viel Detail du wirklich siehst. Die Auflösung begrenzt, wie nah zwei Punkte beieinanderliegen dürfen, damit sie noch getrennt erscheinen. Ein Lichtmikroskop löst etwa 0,2 Mikrometer auf; Elektronenmikroskope erreichen deutlich mehr.</p>
+<p>Ein gutes Präparat ist dünn, transparent und sauber. Ein Tropfen Wasser, ein Deckglas und eine gute Beleuchtung helfen; Luftblasen und zu dicke Schichten stören. Beim Zeichnen zeichnest du nur, was du wirklich siehst, mit Bleistift, klaren Linien und Beschriftungen. Dazu gehören die Vergrößerung und ein Maßstab. Erfinde keine Strukturen, die du erwartest, aber nicht erkennst.</p>
+<p>Mikroskopische Größenordnungen helfen bei der Orientierung: Bakterien sind etwa 1 bis 5 Mikrometer groß, Hefezellen etwa 5 bis 10 Mikrometer, Pflanzenzellen oft 20 bis 100 Mikrometer. Bei 40× siehst du eine Übersicht, bei 100× mehr Details und bei 400× einzelne Zellstrukturen. Höhere Vergrößerung bedeutet weniger Übersicht und eine stärkere Abhängigkeit von Präparat und Schärfe.</p>
+<figure class="tool" data-tool="microscope9">
+<div class="tool__head">
+<p class="tool__title">Mikroskopieren: Vergrößerung und Schärfe</p>
+<p class="tool__hint">Wähle ein Präparat und eine Vergrößerung. Stelle scharf und beschreibe, was du siehst.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-micro-specimen="onion" data-tip-title="Präparat: Zwiebelzellen" data-tip="Pflanzenzellen mit Zellwand, Zellkern und großer Vakuole. Sie sind regelmäßig angeordnet und gut zum Üben der Mikroskopie geeignet." type="button">Zwiebelzellen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro-specimen="bacteria" data-tip-title="Präparat: Bakterien" data-tip="Prokaryoten ohne echten Zellkern. Bei 400× erkennst du Stäbchenformen; für feine Details braucht es oft eine Färbung." type="button">Bakterien</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro-specimen="yeast" data-tip-title="Präparat: Hefe" data-tip="Eukaryotische Einzeller mit Zellkern und Knospen. Bei 400× lassen sich Sprossungen gut erkennen." type="button">Hefe</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-micro-zoom="40" data-tip-title="Vergrößerung 40×" data-tip="Übersicht: viele Zellen, wenig Detail. Die Gesamtvergrößerung ist Okular × Objektiv." type="button">40×</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro-zoom="100" data-tip-title="Vergrößerung 100×" data-tip="Mehr Detail: Zellwände und Zellkerne werden sichtbar. Der Ausschnitt wird kleiner." type="button">100×</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro-zoom="400" data-tip-title="Vergrößerung 400×" data-tip="Hohe Vergrößerung: einzelne Zellstrukturen, aber nur ein kleiner Ausschnitt. Die Schärfe wird wichtiger." type="button">400×</button>
+<button class="btn btn--quiet btn--small" data-micro-focus="" data-tip-title="Scharf stellen" data-tip="Verschiebt die Präparatebene in den Fokus. Ohne Schärfe zeigt auch eine hohe Vergrößerung keine Details." type="button">Scharf stellen</button>
+</div>
+<div class="sim-bar micro-focus-bar" aria-label="Feineinstellung der Schärfe">
+<span class="sim-bar__label">Schärfe</span>
+<div class="range-row">
+<label for="micro-focus-range">Fokus</label>
+<input id="micro-focus-range" type="range" min="0" max="100" step="1" value="0" data-micro-focus-range data-tip-title="Fokusregler" data-tip="Drehe langsam am Fokus. Erst bei etwa 80 bis 100 Prozent erscheint das Bild scharf; zu schnelles Drehen lässt die Struktur verschwinden.">
+<output data-micro-focus-value>unscharf</output>
+</div>
+<button class="btn btn--quiet btn--small" data-micro-reset data-tip-title="Mikroskop zurücksetzen" data-tip="Setzt Präparat, Vergrößerung und Fokus auf den Ausgangszustand zurück." type="button">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Mikroskopisches Sehfeld mit Zellen" class="micro-svg" role="img" viewbox="0 0 640 360">
+<defs><clippath id="micro-clip"><circle cx="320" cy="180" r="150"></circle></clippath></defs>
+<circle class="field" cx="320" cy="180" r="150"></circle>
+<g clip-path="url(#micro-clip)">
+<g data-micro-group="onion">
+<g class="cell-grid">
+<rect class="cell" height="70" width="90" x="180" y="60"></rect><rect class="cell" height="70" width="90" x="270" y="60"></rect><rect class="cell" height="70" width="90" x="360" y="60"></rect><rect class="cell" height="70" width="90" x="450" y="60"></rect>
+<rect class="cell" height="70" width="90" x="180" y="130"></rect><rect class="cell" height="70" width="90" x="270" y="130"></rect><rect class="cell" height="70" width="90" x="360" y="130"></rect><rect class="cell" height="70" width="90" x="450" y="130"></rect>
+<rect class="cell" height="70" width="90" x="180" y="200"></rect><rect class="cell" height="70" width="90" x="270" y="200"></rect><rect class="cell" height="70" width="90" x="360" y="200"></rect><rect class="cell" height="70" width="90" x="450" y="200"></rect>
+<rect class="cell" height="70" width="90" x="180" y="270"></rect><rect class="cell" height="70" width="90" x="270" y="270"></rect><rect class="cell" height="70" width="90" x="360" y="270"></rect><rect class="cell" height="70" width="90" x="450" y="270"></rect>
+</g>
+<circle class="nucleus" cx="225" cy="95" r="12"></circle><circle class="nucleus" cx="315" cy="165" r="12"></circle><circle class="nucleus" cx="405" cy="235" r="12"></circle><circle class="nucleus" cx="495" cy="95" r="12"></circle>
+</g>
+<g data-micro-group="bacteria" hidden="">
+<rect class="bacterium" height="20" rx="10" transform="rotate(-20 255 110)" width="70" x="220" y="100"></rect>
+<rect class="bacterium" height="20" rx="10" transform="rotate(15 365 90)" width="70" x="330" y="80"></rect>
+<rect class="bacterium" height="20" rx="10" transform="rotate(-35 435 170)" width="70" x="400" y="160"></rect>
+<rect class="bacterium" height="20" rx="10" transform="rotate(25 265 230)" width="70" x="230" y="220"></rect>
+<rect class="bacterium" height="20" rx="10" transform="rotate(-10 365 260)" width="70" x="330" y="250"></rect>
+<circle class="nucleus" cx="280" cy="180" r="4"></circle><circle class="nucleus" cx="360" cy="200" r="4"></circle>
+</g>
+<g data-micro-group="yeast" hidden="">
+<ellipse class="yeast" cx="250" cy="140" rx="38" ry="30"></ellipse>
+<ellipse class="yeast" cx="360" cy="110" rx="36" ry="28"></ellipse>
+<ellipse class="yeast" cx="420" cy="220" rx="40" ry="30"></ellipse>
+<ellipse class="yeast" cx="280" cy="250" rx="34" ry="26"></ellipse>
+<circle class="nucleus" cx="250" cy="140" r="8"></circle><circle class="nucleus" cx="360" cy="110" r="8"></circle><circle class="nucleus" cx="420" cy="220" r="8"></circle><circle class="nucleus" cx="280" cy="250" r="8"></circle>
+<circle class="bud" cx="290" cy="120" r="12"></circle><circle class="bud" cx="395" cy="95" r="10"></circle><circle class="bud" cx="455" cy="205" r="11"></circle>
+</g>
+</g>
+<circle class="field-ring" cx="320" cy="180" r="150"></circle>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Vergrößerung ist das Produkt aus Okular- und Objektivvergrößerung. Höhere Vergrößerung zeigt mehr Details, aber weniger Übersicht.</figcaption>
+</figure>
+<figure class="tool" data-tool="microscope3d">
+<div class="tool__head">
+<p class="tool__title">Das Lichtmikroskop im 3D-Modell</p>
+<p class="tool__hint">Drehe das Gerät und fahre über die Bauteile. Ein Klick erklärt ihre Funktion.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro3d-part="eyepiece" data-tip-title="Okular" data-tip="Die Linse, durch die du schaust. Das Okular vergrößert das Bild des Objektivs noch einmal." type="button">Okular</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro3d-part="objectives" data-tip-title="Objektive" data-tip="Die Linsen nahe am Präparat. Ein Klick wechselt die Vergrößerung im Mikroskop-Simulator oben." type="button">Objektive</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro3d-part="stage" data-tip-title="Objekttisch" data-tip="Er trägt den Objektträger mit dem Präparat. Klemmen halten ihn fest." type="button">Objekttisch</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro3d-part="focus" data-tip-title="Fokussierung" data-tip="Der Fokusknopf verschiebt den Objekttisch, bis das Bild scharf ist." type="button">Fokussierung</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-micro3d-part="light" data-tip-title="Lichtquelle" data-tip="Sie beleuchtet das Präparat von unten. Zu wenig Licht ergibt ein dunkles Bild." type="button">Lichtquelle</button>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="microscope" id="microscope-scene">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Lichtmikroskop mit Okular, Objektiven, Objekttisch, Fokusknopf und Lichtquelle" role="img" viewBox="0 0 640 320">
+<rect fill="var(--color-paper-2)" height="320" width="640" x="0" y="0"></rect>
+<rect fill="var(--color-ink-2)" height="18" rx="3" width="230" x="205" y="272"></rect>
+<rect fill="var(--color-paper-3)" height="190" rx="6" stroke="var(--color-rule-2)" stroke-width="3" width="30" x="228" y="86"></rect>
+<rect fill="var(--color-paper-3)" height="26" rx="4" stroke="var(--color-rule-2)" stroke-width="3" width="132" x="250" y="76"></rect>
+<rect fill="var(--color-paper)" height="16" rx="3" stroke="var(--color-rule-2)" stroke-width="3" width="128" x="320" y="150"></rect>
+<circle cx="382" cy="142" fill="var(--color-paper-3)" r="30" stroke="var(--color-rule-2)" stroke-width="3"></circle>
+<circle cx="382" cy="142" fill="var(--color-accent)" r="7"></circle>
+<rect fill="var(--color-paper-3)" height="54" rx="4" stroke="var(--color-rule-2)" stroke-width="3" width="26" x="368" y="165"></rect>
+<circle cx="292" cy="205" fill="var(--color-accent)" r="18"></circle>
+<circle cx="292" cy="205" fill="var(--color-paper-2)" r="7"></circle>
+<rect fill="var(--color-rule-2)" height="12" rx="2" width="66" x="352" y="248"></rect>
+<path d="M382 248 L382 218 L418 198 L418 182" fill="none" stroke="var(--color-accent)" stroke-width="3" opacity="0.5"></path>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="308">Okular · Objektive · Objekttisch · Fokus · Lichtquelle</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-micro3d-readout=""></div>
+<figcaption class="tool__caption">Das 3D-Modell ist schematisch. Es zeigt die optischen Bauteile und ihre Funktion, nicht jedes Mikroskop-Modell.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Zeichnen wie eine Biologin</summary>
+<p>Eine mikroskopische Zeichnung ist kein Kunstwerk, sondern ein Protokoll. Zeichne mit einem angespitzten Bleistift, nicht mit Kugelschreiber. Beginne mit den Umrissen und ergänze dann die inneren Strukturen. Beschrifte mit geraden Linien, die die Struktur nicht überdecken. Notiere Präparat, Vergrößerung, Datum und gegebenenfalls den Maßstab. Wenn du eine Struktur nicht sicher erkennst, schreibe „nicht sicher“ statt zu raten. Eine zweite Zeichnung bei anderer Vergrößerung kann helfen, Übersicht und Detail zu verbinden.</p>
+</details>
+<section aria-labelledby="mikroskop-check" class="checkpoint">
+<h3 id="mikroskop-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="mikroskop">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="mikroskop" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "mi1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Wie berechnet man die Gesamtvergrößerung eines Lichtmikroskops?",
+              "options": ["Okularvergrößerung mal Objektivvergrößerung", "Okularvergrößerung plus Objektivvergrößerung", "Nur Objektivvergrößerung", "Lichtstärke mal Auflösung"],
+              "correct": 0,
+              "explain": "Die Gesamtvergrößerung ist das Produkt aus Okular- und Objektivvergrößerung: 10× Okular und 40× Objektiv ergeben 400×."
+            },
+            {
+              "id": "mi2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Was bedeutet Auflösung?",
+              "options": ["Die Fähigkeit, zwei nahe Punkte noch getrennt darzustellen", "Die Zahl der Objektive", "Die Helligkeit der Lampe", "Die Größe des Okulars"],
+              "correct": 0,
+              "explain": "Auflösung ist die Fähigkeit, feine Details zu trennen. Höhere Vergrößerung allein garantiert keine höhere Auflösung."
+            },
+            {
+              "id": "mi3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Was gehört auf eine mikroskopische Zeichnung?",
+              "options": ["Beschriftungen, Vergrößerung und ein Maßstab", "Nur Farbe", "Nur der Titel", "Nur die eigene Unterschrift"],
+              "correct": 0,
+              "explain": "Eine Zeichnung ist ein Protokoll: Beschriftungen, Vergrößerung, Maßstab und Datum machen sie nachvollziehbar."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="mikroskop" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="beobachten" href="#beobachten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Gesamtvergrößerung = Okular × Objektiv. Vergrößerung und Auflösung sind nicht dasselbe.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Okular</dt><dd>Linse, durch die du schaust.</dd>
+<dt>Objektiv</dt><dd>Linse nahe am Präparat.</dd>
+<dt>Gesamtvergrößerung</dt><dd>Okular mal Objektiv.</dd>
+<dt>Auflösung</dt><dd>Fähigkeit, feine Details zu trennen.</dd>
+<dt>Präparat</dt><dd>vorbereiteter Gegenstand auf dem Objektträger.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Vergrößerung mit Auflösung verwechseln. Ein stark vergrößertes, unscharfes Bild zeigt nicht mehr Details.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="beobachten" data-title="Beobachten und Fragen" data-track="true" id="beobachten">
+<header class="station__head">
+<h2 id="beobachten-title"><span class="station__num">02</span> Beobachten, ohne zu viel zu behaupten</h2>
+<p class="lead">Eine gute Beobachtung beschreibt, was du siehst, hörst oder misst. Eine Deutung erklärt, was es bedeuten könnte.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Biologie beginnt mit genauer Beobachtung. Du beschreibst zum Beispiel, dass eine Pflanze zum Fenster wächst, dass auf Brot grüne Flecken entstehen oder dass der Puls nach dem Laufen höher ist. Diese Sätze enthalten nur, was du wahrnehmen oder messen kannst. Sie sind noch keine Erklärung.</p>
+<p>Eine Deutung fügt eine Erklärung hinzu: Die Pflanze „mag“ das Licht, der Schimmel kommt von der Feuchtigkeit, Sport ist gesund. Solche Sätze können richtig sein, aber sie brauchen Belege. Eine gute biologische Frage macht klar, was untersucht wird, und eine Hypothese sagt, welche Antwort du erwartest. Beobachtung und Deutung werden oft vermischt. Deshalb ist es wichtig, beide getrennt zu formulieren.</p>
+<p>Beim Bestimmen vergleichst du Merkmale mit einem Bestimmungsschlüssel. Du beginnst mit einem sicheren Merkmal und arbeitest dich Schritt für Schritt weiter. Notiere die Merkmale und die Quelle des Schlüssels; ein falsches Merkmal führt schnell zur falschen Art. Eine Bestimmung ist eine begründete Zuordnung, kein schneller Blick auf ein Bild.</p>
+<figure class="tool" data-tool="observation-sort">
+<div class="tool__head">
+<p class="tool__title">Beobachtung oder Deutung?</p>
+<p class="tool__hint">Wähle eine Aussage und entscheide, was sie ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="obs-card">
+<p data-obs-text="">Wähle eine Aussage.</p>
+<div class="obs-actions">
+<button class="btn btn--quiet btn--small" data-obs-answer="beobachtung" type="button">Beobachtung</button>
+<button class="btn btn--quiet btn--small" data-obs-answer="deutung" type="button">Deutung</button>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Eine Beobachtung kann man sehen, hören oder messen. Eine Deutung ist eine Erklärung, die geprüft werden muss.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Von der Beobachtung zur Frage</summary>
+<p>Aus einer Beobachtung wird eine gute Frage, wenn sie sich untersuchen lässt. „Warum wächst die Pflanze zum Fenster?“ ist noch sehr offen. „Wächst eine Pflanze bei seitlichem Licht stärker zum Licht als bei Licht von oben?“ ist eine Frage, die du mit einem Versuch beantworten kannst. Eine Hypothese wäre: „Pflanzen wachsen bei seitlichem Licht stärker in Richtung der Lichtquelle.“</p>
+<p>Eine Beobachtung kann auch täuschen. Ein einzelner Fall ist noch kein Beleg. Erst mehrere Beobachtungen, Messungen und Vergleiche machen eine Deutung belastbar.</p>
+</details>
+<section aria-labelledby="beobachten-check" class="checkpoint">
+<h3 id="beobachten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="beobachten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="beobachten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "b1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Welche Aussage ist eine Beobachtung?",
+              "options": ["Die Pflanze wächst zum Fenster.", "Die Pflanze mag das Licht.", "Die Pflanze ist glücklich.", "Licht ist immer gut."],
+              "correct": 0,
+              "explain": "„Die Pflanze wächst zum Fenster“ beschreibt, was man sehen kann. Die anderen Aussagen sind Deutungen oder Bewertungen."
+            },
+            {
+              "id": "b2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Warum ist eine Deutung noch kein Beweis?",
+              "options": ["Weil sie eine Erklärung ist, die erst durch Daten gestützt werden muss.", "Weil sie immer falsch ist.", "Weil man sie nicht aufschreiben kann.", "Weil sie nur bei Tieren vorkommt."],
+              "correct": 0,
+              "explain": "Eine Deutung kann richtig sein, aber sie braucht Belege. Erst Daten und Vergleiche entscheiden, ob sie tragfähig ist."
+            },
+            {
+              "id": "b3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Was gehört zu einer Bestimmung mit einem Schlüssel?",
+              "options": ["Merkmale schrittweise vergleichen und die Quelle nennen", "Nur die Farbe betrachten", "Den erstbesten Namen googeln", "Die Art raten"],
+              "correct": 0,
+              "explain": "Ein Bestimmungsschlüssel führt über Merkmale Schritt für Schritt zur Art. Die Quelle und die Merkmale werden dokumentiert."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="beobachten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="experimente" href="#experimente">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Erst beobachten, dann deuten. Eine Deutung braucht Belege, nicht nur eine gute Geschichte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Beobachtung</dt><dd>Was du siehst, hörst oder misst.</dd>
+<dt>Deutung</dt><dd>Eine Erklärung für eine Beobachtung.</dd>
+<dt>Hypothese</dt><dd>Eine begründete, prüfbare Vermutung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Eine Deutung als Beobachtung ausgeben. „Die Pflanze mag Licht“ kann man nicht sehen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="experimente" data-title="Fragen und Experimente" data-track="true" id="experimente">
+<header class="station__head">
+<h2 id="experimente-title"><span class="station__num">03</span> Fragen, Hypothesen, Experimente</h2>
+<p class="lead">Eine gute Untersuchung beginnt mit einer Frage, die du beantworten kannst, und einer Hypothese, die du prüfen kannst.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Hypothese ist eine begründete Vermutung. Sie muss so formuliert sein, dass du sie an Daten scheitern lassen kannst. „Pflanzen mögen Licht“ ist keine gute Hypothese, weil man sie kaum widerlegen kann. „Pflanzen mit seitlichem Licht wachsen stärker in Richtung Lichtquelle als Pflanzen mit Licht von oben“ ist prüfbar, weil sie eine Behandlung, eine Messgröße und einen Vergleich festlegt.</p>
+<p>Im Experiment veränderst du die unabhängige Variable und misst die abhängige Variable. Alle anderen Bedingungen müssen gleich bleiben. Eine Kontrollgruppe hilft dir zu sehen, was ohne die Behandlung passiert. Mehrere Wiederholungen sind wichtig, weil ein einzelner Fall vom Zufall abhängen kann. Fehlerquellen sind zum Beispiel eine zu kleine Stichprobe, ein zu kurzer Zeitraum oder eine ungleiche Behandlung der Gruppen.</p>
+<figure class="tool" data-tool="experiment8">
+<div class="tool__head">
+<p class="tool__title">Versuchsplaner</p>
+<p class="tool__hint">Wähle eine Frage und lege die Variablen fest. Das Werkzeug prüft, ob dein Plan testbar ist.</p>
+</div>
+<div class="tool__controls">
+<label>Frage <select class="select" data-exp8-question=""><option selected="" value="light">Pflanzen und Licht</option><option value="mold">Schimmel und Feuchtigkeit</option><option value="pulse">Puls und Sport</option></select></label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="exp8-grid">
+<label for="exp8-uv" data-tip-title="Unabhängige Variable" data-tip="Die Bedingung, die du gezielt veränderst, zum Beispiel die Lichtrichtung. Sie ist die Ursache, deren Wirkung du prüfen willst.">Unabhängige Variable</label>
+<select class="select" data-exp8-uv="" id="exp8-uv" data-tip-title="Unabhängige Variable" data-tip="Wähle die Bedingung, die du im Versuch veränderst. Es darf immer nur eine sein, sonst lässt sich die Wirkung nicht zuordnen."><option value="licht">Licht</option><option value="feuchtigkeit">Feuchtigkeit</option><option value="sport">Sport</option><option value="pflanzenhoehe">Pflanzenhöhe</option><option value="schimmel">Schimmelwachstum</option><option value="puls">Puls</option></select>
+<label for="exp8-av" data-tip-title="Abhängige Variable" data-tip="Die Größe, die du misst, zum Beispiel die Pflanzenhöhe in Zentimetern. Sie zeigt die Wirkung der unabhängigen Variable.">Abhängige Variable</label>
+<select class="select" data-exp8-av="" id="exp8-av" data-tip-title="Abhängige Variable" data-tip="Wähle die Messgröße mit Einheit. Sie muss zur Frage passen und zuverlässig messbar sein."><option value="pflanzenhoehe">Pflanzenhöhe</option><option value="schimmel">Schimmelwachstum</option><option value="puls">Puls</option><option value="licht">Licht</option><option value="feuchtigkeit">Feuchtigkeit</option><option value="sport">Sport</option></select>
+<label for="exp8-control" data-tip-title="Kontrolle der Störgrößen" data-tip="Alle anderen Bedingungen wie Temperatur, Wasser und Boden bleiben gleich. So ist die Veränderung auf die unabhängige Variable zurückführbar.">Kontrolle</label>
+<select class="select" data-exp8-control="" id="exp8-control" data-tip-title="Kontrolle der Störgrößen" data-tip="Nur wenn alle anderen Bedingungen gleich bleiben, ist der Versuch aussagekräftig. Sonst weißt du nicht, was die Wirkung verursacht hat."><option value="gleich">Alle anderen Bedingungen gleich halten</option><option value="aendern">Alle anderen Bedingungen verändern</option><option value="keine">Keine Kontrolle nötig</option></select>
+<label for="exp8-sample" data-tip-title="Stichprobe und Wiederholungen" data-tip="Mehrere Wiederholungen verringern den Einfluss des Zufalls. Eine einzelne Beobachtung reicht nicht als Beleg.">Stichprobe</label>
+<select class="select" data-exp8-sample="" id="exp8-sample" data-tip-title="Stichprobe und Wiederholungen" data-tip="Mehrere Pflanzen oder Messungen pro Gruppe machen das Ergebnis belastbarer. Ein Einzelfall kann täuschen."><option value="mehrere">Mehrere Wiederholungen</option><option value="eine">Eine Beobachtung</option><option value="zwei">Zwei Beobachtungen insgesamt</option></select>
+</div>
+<button class="btn btn--quiet btn--small" data-exp8-check="" type="button">Plan prüfen</button>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Plan ist testbar, wenn die unabhängige Variable verändert wird, die abhängige Variable gemessen wird und Störgrößen kontrolliert bleiben.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum eine Kontrollgruppe wichtig ist</summary>
+<p>Wenn du nur eine Gruppe untersuchst, weißt du nicht, ob eine Veränderung von deiner Behandlung oder von etwas anderem kommt. Eine Kontrollgruppe wird gleich behandelt, bekommt aber nicht die untersuchte Behandlung. So kannst du den Effekt der Behandlung besser abgrenzen. Bei Pflanzen wäre die Kontrollgruppe zum Beispiel eine Gruppe mit Licht von oben, während die Versuchsgruppe seitliches Licht bekommt.</p>
+</details>
+<section aria-labelledby="experimente-check" class="checkpoint">
+<h3 id="experimente-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="experimente">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="experimente" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "e1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Was ist eine prüfbare Hypothese?",
+              "options": ["Pflanzen mit seitlichem Licht wachsen stärker zum Licht als Pflanzen mit Licht von oben.", "Pflanzen mögen Licht.", "Licht ist schön.", "Alle Pflanzen sind gleich."],
+              "correct": 0,
+              "explain": "Die Hypothese legt eine Behandlung, eine Messgröße und einen Vergleich fest. Sie kann an Daten scheitern."
+            },
+            {
+              "id": "e2",
+              "type": "input",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Wie heißt die Variable, die du im Experiment gezielt veränderst?",
+              "accept": ["unabhängige variable", "unabhaengige variable", "uv", "unabhängige"],
+              "model": "unabhängige Variable",
+              "explain": "Die unabhängige Variable wird verändert. Die abhängige Variable wird gemessen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="experimente" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="modelle" href="#modelle">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Hypothese, Vorhersage und Ergebnis sind drei verschiedene Dinge. Die Hypothese ist die Vermutung, das Ergebnis ist der Befund.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>unabhängige Variable</dt><dd>wird verändert.</dd>
+<dt>abhängige Variable</dt><dd>wird gemessen.</dd>
+<dt>Kontrollgruppe</dt><dd>wird gleich behandelt, bekommt aber nicht die Behandlung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur eine Pflanze pro Gruppe testen. Ein Einzelfall kann eine Hypothese stützen, aber nicht zuverlässig prüfen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="modelle" data-title="Modelle" data-track="true" id="modelle">
+<header class="station__head">
+<h2 id="modelle-title"><span class="station__num">04</span> Modelle sind Werkzeuge, keine Kopien</h2>
+<p class="lead">Ein Modell vereinfacht. Genau deshalb kann es etwas erklären, und genau deshalb hat es Grenzen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Modell ist eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck. Ein Zellmodell zeigt dir die Organellen, aber es bewegt sich nicht und zeigt nicht alle Stoffwechselvorgänge. Ein Augenmodell zeigt den Weg des Lichts, aber nicht, wie das Gehirn das Bild verarbeitet. Ein Ökosystemmodell zeigt Nahrungsbeziehungen, aber nicht jede Art und jeden Einfluss.</p>
+<p>Modelle sind keine Lügen. Sie sind Werkzeuge, die eine Frage beantworten sollen. Wichtig ist, dass du den Zweck, die Vereinfachungen und die Grenzen nennst. Ein Modell, das alles zeigt, erklärt oft nichts. Für eine andere Frage brauchst du vielleicht ein anderes Modell.</p>
+<figure class="tool" data-tool="model8">
+<div class="tool__head">
+<p class="tool__title">Modellvergleich</p>
+<p class="tool__hint">Wähle ein Modell. Prüfe, welche Frage es beantwortet und wo es an seine Grenzen kommt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="model-grid">
+<div class="model-card"><h3>Zellmodell</h3><p>Zeigt Organellen und ihre Lage.</p></div>
+<div class="model-card"><h3>Augenmodell</h3><p>Zeigt Linse, Netzhaut und den Lichtweg.</p></div>
+<div class="model-card"><h3>Ökosystemmodell</h3><p>Zeigt Nahrungsbeziehungen und Stoffflüsse.</p></div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Modell ist gut, wenn es die Frage beantwortet, für die es gebaut wurde. Für eine andere Frage brauchst du vielleicht ein anderes Modell.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Wann ein Modell zu einfach ist</summary>
+<p>Ein Zellmodell mit starren Organellen zeigt nicht, wie sich die Zelle teilt oder wie Stoffe durch die Membran wandern. Das Modell bleibt nützlich, weil es die Grundstruktur anschaulich macht. Es wird problematisch, wenn du damit erklären willst, wie ein Enzym funktioniert oder wie eine Zelle auf einen Reiz reagiert. Dafür brauchst du ein anderes Modell.</p>
+</details>
+<section aria-labelledby="modelle-check" class="checkpoint">
+<h3 id="modelle-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="modelle">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="modelle" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "m1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Was ist ein Modell in der Biologie?",
+              "options": ["Eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck.", "Eine exakte Kopie der Wirklichkeit.", "Eine ungeprüfte Behauptung.", "Eine Messung ohne Fehler."],
+              "correct": 0,
+              "explain": "Ein Modell ist eine zweckgebundene Vereinfachung. Es kann materiell oder ideell sein und muss an der Wirklichkeit geprüft werden."
+            },
+            {
+              "id": "m2",
+              "type": "multi",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Welche Aussagen sind Grenzen eines Zellmodells mit starren Organellen?",
+              "options": ["Es zeigt keine dynamischen Vorgänge.", "Es zeigt nicht jede Zellart.", "Es macht die Grundstruktur anschaulich.", "Es ist keine Fotografie der Wirklichkeit."],
+              "correct": [0, 1, 3],
+              "explain": "Die Anschaulichkeit ist eine Stärke. Die fehlende Dynamik, die Vereinfachung und die fehlende Fotografie sind Grenzen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="modelle" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="daten" href="#daten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Jedes Modell ist für eine Frage gebaut. Nenne den Zweck, die Vereinfachung und die Grenze.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>materielles Modell</dt><dd>zum Beispiel ein Zellmodell aus Knete.</dd>
+<dt>ideelles Modell</dt><dd>zum Beispiel ein Diagramm oder eine Gleichung.</dd>
+<dt>Modellkritik</dt><dd>prüft, was das Modell zeigt und was es ausblendet.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Ein Modell mit der Wirklichkeit verwechseln. „Das Modell zeigt es so“ ist kein Beweis, dass es in der Natur genau so abläuft.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="daten" data-title="Daten und Diagramme" data-track="true" id="daten">
+<header class="station__head">
+<h2 id="daten-title"><span class="station__num">05</span> Daten lesen, ohne zu viel zu behaupten</h2>
+<p class="lead">Ein Diagramm zeigt ein Muster. Was das Muster bedeutet, entscheidest du nicht am Diagramm allein.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Daten werden in Tabellen und Diagrammen dargestellt. Eine gute Darstellung nennt die Messgröße, die Einheit und die Bedingungen. Ein Liniendiagramm zeigt, wie sich ein Wert über die Zeit verändert. Ein Balkendiagramm vergleicht Gruppen. Ein Punktdiagramm kann einen Zusammenhang zeigen, aber nicht automatisch eine Ursache beweisen.</p>
+<p>Bei der Auswertung unterscheidest du Beschreibung und Interpretation. „Die Pflanze war nach sechs Wochen 18 cm hoch“ ist eine Beschreibung. „Die Pflanze wächst immer gleich schnell“ ist eine Interpretation, die zu den Daten passen muss. Achte auf die Achsen, die Einheiten und die Skala. Eine abgeschnittene Achse kann Unterschiede größer wirken lassen, als sie sind.</p>
+<figure class="tool" data-tool="chart8">
+<div class="tool__head">
+<p class="tool__title">Diagramm lesen</p>
+<p class="tool__hint">Wähle eine Aussage. Das Werkzeug zeigt, ob sie von den Daten getragen wird.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Liniendiagramm: Pflanzenhöhe in Zentimetern über sechs Wochen. Die Kurve steigt zunächst steil und flacht dann ab." class="chart8" data-tip-title="Diagramm lesen" data-tip="Prüfe zuerst die Achsen: Was wurde gemessen, in welcher Einheit und in welchem Bereich? Die Kurve zeigt ein Muster, aber noch keine Ursache." role="img" viewbox="0 0 640 300">
+<line class="axis" x1="60" x2="600" y1="250" y2="250"></line>
+<line class="axis" x1="60" x2="60" y1="250" y2="30"></line>
+<line class="gridline" x1="60" x2="600" y1="190" y2="190"></line>
+<line class="gridline" x1="60" x2="600" y1="130" y2="130"></line>
+<line class="gridline" x1="60" x2="600" y1="70" y2="70"></line>
+<polyline class="series" points="60,238 150,180 240,135 330,105 420,85 510,75 600,70"></polyline>
+<circle class="point" cx="60" cy="238" r="4"></circle><circle class="point" cx="150" cy="180" r="4"></circle><circle class="point" cx="240" cy="135" r="4"></circle><circle class="point" cx="330" cy="105" r="4"></circle><circle class="point" cx="420" cy="85" r="4"></circle><circle class="point" cx="510" cy="75" r="4"></circle><circle class="point" cx="600" cy="70" r="4"></circle>
+<text x="330" y="285">Wochen</text>
+<text transform="rotate(-90 8 145)" x="8" y="145">Höhe in cm</text>
+<text x="580" y="245">6</text>
+<text x="55" y="268">0</text>
+<text x="50" y="75">20</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Kurve steigt zunächst steil und flacht dann ab. Das ist ein Muster, noch keine Erklärung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was ein Diagramm nicht verrät</summary>
+<p>Ein Diagramm zeigt nur die Daten, die erhoben wurden. Es sagt nicht, warum ein Wert steigt oder fällt. Vielleicht wurde die Pflanze größer, weil sie mehr Licht bekam, weil die Temperatur stieg oder weil sie einfach älter wurde. Für eine Ursache brauchst du einen Versuch mit klaren Variablen und eine Kontrollgruppe.</p>
+<p>Fehlerquellen sind zum Beispiel ungenaue Messungen, eine kleine Stichprobe oder ein zu kurzer Beobachtungszeitraum. Ein einzelner Ausreißer kann das Bild verzerren. Deshalb schaust du nicht nur auf einen Punkt, sondern auf den ganzen Verlauf.</p>
+</details>
+<section aria-labelledby="daten-check" class="checkpoint">
+<h3 id="daten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="daten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="daten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "d1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Was kannst du aus dem Diagramm sicher schließen?",
+              "options": ["Die Pflanze wächst in den ersten Wochen stärker als am Ende.", "Die Pflanze wächst immer gleich schnell.", "Mehr Licht ist die Ursache für das Wachstum.", "Die Pflanze ist gesund."],
+              "correct": 0,
+              "explain": "Die Kurve steigt zunächst steiler und flacht dann ab. Das ist eine Beschreibung des Musters. Ursache und Gesundheit sind zusätzliche Aussagen."
+            },
+            {
+              "id": "d2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Warum sind die Achsen und Einheiten wichtig?",
+              "options": ["Weil sie sagen, was gemessen wurde und in welchem Bereich die Werte liegen.", "Weil sie das Diagramm bunter machen.", "Weil sie die Ursache beweisen.", "Weil sie die Stichprobe vergrößern."],
+              "correct": 0,
+              "explain": "Achsen und Einheiten machen die Darstellung lesbar. Ohne sie weißt du nicht, was die Zahlen bedeuten."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="daten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="quellen" href="#quellen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Beschreibung und Interpretation trennen. Erst sagen, was gemessen wurde, dann, was es bedeuten könnte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Messgröße</dt><dd>was gemessen wird, mit Einheit.</dd>
+<dt>Trend</dt><dd>die Richtung des Zusammenhangs.</dd>
+<dt>Fehlerquelle</dt><dd>ein Umstand, der das Ergebnis verfälschen kann.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Von einem einzelnen Diagramm auf „alle“ oder „immer“ schließen. Die Reichweite einer Aussage muss zu den Daten passen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="quellen" data-title="Quellen und Entscheidungen" data-track="true" id="quellen">
+<header class="station__head">
+<h2 id="quellen-title"><span class="station__num">06</span> Quellen prüfen, Entscheidungen begründen</h2>
+<p class="lead">Nicht jede Information, die sich biologisch anhört, ist eine gute Quelle. Prüfe Herkunft, Methode und Interesse.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Primärquelle berichtet eine Untersuchung aus erster Hand, meist in einer Fachzeitschrift. Eine Sekundärquelle fasst zusammen, etwa ein Lehrbuch oder ein Wissenschaftsartikel. Eine Werbeanzeige, ein Social-Media-Post oder eine Produktseite kann über eine Studie berichten, ist aber nicht die Studie selbst.</p>
+<p>Zur Quellenprüfung gehören Autor und Institution, Datum, Methode, Stichprobe, Interessenkonflikt und die Frage, ob die Aussage durch die Daten gedeckt ist. Ein häufiger Fehler ist, eine Überschrift zu zitieren, ohne den Originalbefund zu prüfen. Ein anderer ist, eine Korrelation als Beweis für eine Ursache zu verkaufen. Bei Entscheidungen hilft es, Kriterien vorher festzulegen, zum Beispiel Gesundheit, Umwelt, Kosten und Fairness.</p>
+<figure class="tool" data-tool="source8">
+<div class="tool__head">
+<p class="tool__title">Quellenprüfung</p>
+<p class="tool__hint">Wähle eine Quelle. Das Werkzeug zeigt, wie tragfähig sie ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="source-grid">
+<div class="source-card"><h3>Originalstudie</h3><p>Fachzeitschrift, Methode und Stichprobe dokumentiert, Interessenkonflikt angegeben.</p></div>
+<div class="source-card"><h3>Gesundheitswebsite</h3><p>Fasst Studien zusammen, nennt Quellen, ist für ein breites Publikum geschrieben.</p></div>
+<div class="source-card"><h3>Werbeanzeige</h3><p>Verspricht schnelle Wirkung, nennt keine Studie und keine Stichprobe.</p></div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Eine Quelle ist nicht schon deshalb gut, weil sie wissenschaftlich klingt. Entscheidend sind Nachprüfbarkeit, Methode und Transparenz.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Entscheidungen mit Kriterien</summary>
+<p>Bei einer Entscheidung, zum Beispiel „Mit dem Rad oder mit dem Auto zur Schule?“, hilft eine Bewertungsmatrix. Du legst Kriterien fest, gewichtest sie und vergleichst die Optionen. Gesundheit, Umwelt, Kosten und Zeit können unterschiedlich wichtig sein. Die Matrix macht sichtbar, welche Kriterien du wie stark gewichtest. Sie ersetzt nicht die Begründung, sie strukturiert sie.</p>
+</details>
+<section aria-labelledby="quellen-check" class="checkpoint">
+<h3 id="quellen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="quellen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="quellen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "q1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Welche Quelle ist eine Primärquelle?",
+              "options": ["Eine Originalstudie in einer Fachzeitschrift.", "Ein Zeitungsartikel über eine Studie.", "Ein Lehrbuchkapitel.", "Eine Werbeanzeige."],
+              "correct": 0,
+              "explain": "Die Originalstudie berichtet die Untersuchung aus erster Hand. Die anderen Quellen fassen zusammen oder werben."
+            },
+            {
+              "id": "q2",
+              "type": "multi",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Welche Angaben helfen dir, eine Quelle zu prüfen?",
+              "options": ["Autor und Institution", "Methode und Stichprobe", "Datum und Interessenkonflikt", "Die Zahl der Likes"],
+              "correct": [0, 1, 2],
+              "explain": "Herkunft, Methode, Stichprobe, Datum und Interessen sind prüfbar. Likes sind kein wissenschaftliches Qualitätsmerkmal."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="quellen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Erst die Quelle prüfen, dann die Aussage. Eine Überschrift ist kein Befund.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Primärquelle</dt><dd>Originalarbeit mit Daten.</dd>
+<dt>Sekundärquelle</dt><dd>Zusammenfassung oder Überblick.</dd>
+<dt>Kriterium</dt><dd>Maßstab, nach dem du eine Entscheidung beurteilst.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Eine Studie aus einer Werbeanzeige zitieren, ohne die Originalarbeit zu prüfen. Die Überschrift ist oft stärker als der Befund.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Methoden</h2>
+<p class="lead">Neun Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du, welche Kompetenz sitzt und welche du noch üben solltest.</p>
+<div class="check" data-check="methoden9">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="methoden9" type="application/json">
+      {
+        "competencies": {
+          "M1": "Mikroskopieren, Beobachten und Deuten",
+          "M2": "Fragen, Hypothesen und Experimente planen",
+          "M3": "Modelle nutzen und ihre Grenzen benennen",
+          "M4": "Daten und Diagramme lesen",
+          "M5": "Quellen prüfen und Entscheidungen begründen"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "M1",
+            "prompt": "Welche Aussage ist eine Deutung?",
+            "options": ["Die Pflanze wächst zum Fenster.", "Die Pflanze mag das Licht.", "Der Puls ist nach dem Laufen höher.", "Auf dem Brot sind grüne Flecken."],
+            "correct": 1,
+            "explain": "„Die Pflanze mag das Licht“ ist eine Erklärung. Die anderen Aussagen kann man sehen oder messen."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Welche Formulierung ist eine prüfbare Hypothese?",
+            "options": ["Pflanzen mit seitlichem Licht wachsen stärker zum Licht als Pflanzen mit Licht von oben.", "Pflanzen mögen Licht.", "Licht ist schön.", "Alle Pflanzen sind gleich."],
+            "correct": 0,
+            "explain": "Die Hypothese legt Behandlung, Messgröße und Vergleich fest und kann an Daten scheitern."
+          },
+          {
+            "id": "c3",
+            "type": "input",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Wie heißt die Gruppe, die gleich behandelt wird, aber nicht die untersuchte Behandlung bekommt?",
+            "accept": ["kontrollgruppe", "kontrolle", "kontrollgruppe ohne behandlung"],
+            "model": "Kontrollgruppe",
+            "explain": "Die Kontrollgruppe dient als Vergleich. Ohne sie lässt sich der Effekt der Behandlung nicht isolieren."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "M3",
+            "prompt": "Was ist eine Stärke eines Modells?",
+            "options": ["Es macht einen Zusammenhang anschaulich, auch wenn es vereinfacht.", "Es zeigt die Wirklichkeit exakt.", "Es hat keine Grenzen.", "Es ersetzt jede Messung."],
+            "correct": 0,
+            "explain": "Ein Modell ist eine Vereinfachung. Seine Stärke ist die Anschaulichkeit für eine bestimmte Frage."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "M4",
+            "prompt": "Was gehört zu einer guten Diagrammachse?",
+            "options": ["Messgröße und Einheit", "Nur eine Farbe", "Eine Überschrift ohne Zahlen", "Möglichst viele Linien"],
+            "correct": 0,
+            "explain": "Die Achse muss sagen, was gemessen wurde und in welcher Einheit. Sonst sind die Zahlen nicht lesbar."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "M4",
+            "prompt": "Ein Diagramm zeigt einen Zusammenhang. Was kannst du daraus sicher schließen?",
+            "options": ["Dass die Daten in dem untersuchten Bereich ein Muster zeigen.", "Dass die eine Größe die andere verursacht.", "Dass das Muster für alle Organismen gilt.", "Dass die Messung fehlerfrei war."],
+            "correct": 0,
+            "explain": "Ein Diagramm zeigt zunächst ein Muster in den Daten. Kausalität und Verallgemeinerung brauchen zusätzliche Belege."
+          },
+          {
+            "id": "c7",
+            "type": "multi",
+            "level": "g",
+            "competency": "M5",
+            "prompt": "Welche Angaben helfen bei der Quellenprüfung?",
+            "options": ["Autor und Institution", "Methode und Stichprobe", "Datum und Interessenkonflikt", "Die Zahl der Likes"],
+            "correct": [0, 1, 2],
+            "explain": "Herkunft, Methode, Stichprobe, Datum und Interessen sind prüfbar. Likes sind kein Qualitätsmerkmal."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "M5",
+            "prompt": "Was gehört zu einer begründeten Entscheidung?",
+            "options": ["Kriterien festlegen, Optionen vergleichen und die Wahl begründen.", "Nur die eigene Meinung wiederholen.", "Die erstbeste Quelle zitieren.", "Alle Kriterien ignorieren."],
+            "correct": 0,
+            "explain": "Eine begründete Entscheidung legt Kriterien offen, vergleicht die Optionen und erklärt die Wahl."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "M1",
+            "prompt": "Ein Mikroskop hat ein 10×-Okular und ein 40×-Objektiv. Wie groß ist die Gesamtvergrößerung?",
+            "options": ["40×", "50×", "400×", "4000×"],
+            "correct": 2,
+            "explain": "Die Gesamtvergrößerung ist das Produkt: 10 × 40 = 400×."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Beobachtung</dt><dd>Was du siehst, hörst oder misst.</dd></div>
+<div class="glossary__row"><dt>Deutung</dt><dd>Eine Erklärung für eine Beobachtung.</dd></div>
+<div class="glossary__row"><dt>Hypothese</dt><dd>Eine begründete, prüfbare Vermutung.</dd></div>
+<div class="glossary__row"><dt>unabhängige Variable</dt><dd>Die Variable, die du veränderst.</dd></div>
+<div class="glossary__row"><dt>abhängige Variable</dt><dd>Die Variable, die du misst.</dd></div>
+<div class="glossary__row"><dt>Kontrollgruppe</dt><dd>Vergleichsgruppe ohne die untersuchte Behandlung.</dd></div>
+<div class="glossary__row"><dt>Stichprobe</dt><dd>Die Zahl der untersuchten Fälle oder Individuen.</dd></div>
+<div class="glossary__row"><dt>Modell</dt><dd>Eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck.</dd></div>
+<div class="glossary__row"><dt>Messgröße</dt><dd>Was gemessen wird, mit Einheit.</dd></div>
+<div class="glossary__row"><dt>Trend</dt><dd>Die Richtung eines Zusammenhangs.</dd></div>
+<div class="glossary__row"><dt>Fehlerquelle</dt><dd>Ein Umstand, der ein Ergebnis verfälschen kann.</dd></div>
+<div class="glossary__row"><dt>Primärquelle</dt><dd>Eine Originalarbeit, die Daten und Methode selbst berichtet.</dd></div>
+<div class="glossary__row"><dt>Sekundärquelle</dt><dd>Eine Zusammenfassung oder ein Überblick über Primärquellen.</dd></div>
+<div class="glossary__row"><dt>Kriterium</dt><dd>Ein Maßstab, nach dem du eine Entscheidung beurteilst.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 9</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/9/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 9</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

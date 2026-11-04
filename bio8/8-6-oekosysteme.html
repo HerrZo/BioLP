@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="de" data-grade="8" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Ökosysteme und Mensch | Biologie 8</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 8 zu Ökosystemen unter dem Einfluss des Menschen: Sukzession, Kulturlandschaft, Renaturierung und Nachhaltigkeit.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Hedgerow (deal 2/3, seed interaktive-lernwebsite-biologie-jugendliche-3f84·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: das 3D-Ökosystem und der Fußabdruck-Rechner · states: default, hover, focus, active, disabled, loading, empty, error · hedgerow: hedge
+ * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the dark sheet needs the tool wells to sit one step lighter; theme.css lifts the wells and keeps the sheet one step darker */
+/* Hallmark · answered F4 · the 8 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Prata; every figure is Manrope with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.foodweb-svg { width: 100%; height: auto; display: block; }
+.foodweb-svg .arrow { stroke: var(--color-rule-2); stroke-width: 2; fill: none; }
+.foodweb-svg .node { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: opacity var(--dur-short) var(--ease-out), fill var(--dur-short) var(--ease-out); }
+.foodweb-svg .node-label { font-family: var(--font-body); font-size: 12px; fill: var(--color-ink); text-anchor: middle; }
+.foodweb-svg [data-foodweb-node].is-selected .node { fill: var(--color-accent); stroke: var(--color-accent); }
+.foodweb-svg [data-foodweb-node].is-selected .node-label { fill: var(--color-accent-ink); }
+.foodweb-svg .node.is-removed { opacity: 0.25; stroke-dasharray: 4 4; }
+.landuse-card { display: grid; gap: var(--space-sm); }
+.landuse-card__name { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.landuse-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.landuse-card__list { margin: 0; padding-left: 1.2em; }
+.landuse-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.restore-svg { width: 100%; height: auto; display: block; }
+.restore-svg .sky { fill: var(--color-paper-2); }
+.restore-svg .field { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.restore-svg .river { fill: none; stroke: var(--color-water); stroke-width: 18; stroke-linecap: round; }
+.restore-svg .river--straight { stroke-width: 18; }
+.restore-svg .river--meander { stroke-width: 14; }
+.restore-svg .tree { fill: var(--color-muted); stroke: var(--color-rule-2); stroke-width: 1; }
+.restore-svg .tree-trunk { stroke: var(--color-ink-2); stroke-width: 2; }
+.restore-svg .pond { fill: var(--color-water); opacity: 0.8; }
+.restore-svg .floodplain { fill: var(--color-accent); opacity: 0.12; }
+.restore-svg .flower { fill: var(--color-accent); }
+.restore-svg .house { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.restore-svg .label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); }
+.footprint-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-sm) var(--space-md); margin-bottom: var(--space-md); }
+.footprint-grid label { display: grid; gap: var(--space-2xs); font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.footprint-grid select { min-height: 36px; }
+.footprint-gauge { display: grid; gap: var(--space-2xs); margin: var(--space-md) 0; }
+.footprint-gauge__track { position: relative; height: 14px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.footprint-gauge__fill { position: absolute; inset: 0 auto 0 0; width: 100%; background: var(--color-accent); transform: scaleX(0.5); transform-origin: left center; transition: transform var(--dur-short) var(--ease-out); }
+.footprint-gauge__marker { position: absolute; top: -5px; bottom: -5px; width: 2px; background: var(--color-ink); left: 50%; }
+.footprint-gauge__labels { display: flex; justify-content: space-between; font: 400 var(--text-xs)/1.3 var(--font-body); color: var(--color-muted); }
+.footprint-result { margin: 0; font: 700 var(--text-xl)/1.2 var(--font-display); }
+.tool[data-tool="landuse8"] .tool__stage { min-height: 0; }
+.mobile-hint { display: none; }
+@media (max-width: 60rem) {
+  .footprint-grid { grid-template-columns: minmax(0, 1fr); }
+  .tool[data-tool="foodweb8"] .tool__stage, .tool[data-tool="restore8"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="foodweb8"] .foodweb-svg, .tool[data-tool="restore8"] .restore-svg { min-width: 560px; }
+  .mobile-hint { display: block; margin-top: var(--space-2xs); font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="8-6" data-grade="8">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 8">
+      <span class="brand__name">Biologie 8</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">06</span> Ökosysteme und Mensch</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 5</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Ökosysteme und Mensch</h2>
+      <p class="sidebar__deck">Ökosystem, Sukzession, Kulturlandschaft, Eingriffe, Nachhaltigkeit und Fußabdruck.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 5</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#oekosystem" data-station-link="oekosystem"><span class="station-nav__num">01</span><span>Ökosystem und Nahrungsnetz</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#sukzession" data-station-link="sukzession"><span class="station-nav__num">02</span><span>Sukzession</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#kulturlandschaft" data-station-link="kulturlandschaft"><span class="station-nav__num">03</span><span>Kulturlandschaft</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#renaturierung" data-station-link="renaturierung"><span class="station-nav__num">04</span><span>Renaturierung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#nachhaltigkeit" data-station-link="nachhaltigkeit"><span class="station-nav__num">05</span><span>Nachhaltigkeit</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">06</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">07</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 8</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Ökosysteme und Mensch: Natur, Nutzung, Verantwortung.</h1>
+<p class="lead">Wie Ökosysteme sich verändern, wie der Mensch eingreift und was nachhaltige Entwicklung bedeutet.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="oekosystem" href="#oekosystem">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">Ö1</span><span>Du beschreibst Ökosysteme mit Biotop, Biozönose, Produzenten, Konsumenten und Destruenten und erklärst Nahrungsnetze.</span></li>
+<li><span class="cnum">Ö2</span><span>Du beschreibst Sukzession und unterscheidest natürliche Entwicklung von menschlichen Eingriffen.</span></li>
+<li><span class="cnum">Ö3</span><span>Du unterscheidest Wildnis und Kulturlandschaft und bewertest Eingriffe wie Landwirtschaft, Forstwirtschaft, Flussregulierung und Zersiedelung.</span></li>
+<li><span class="cnum">Ö4</span><span>Du erklärst Renaturierung und bewertest Maßnahmen für mehr Biodiversität.</span></li>
+<li><span class="cnum">Ö5</span><span>Du erklärst nachhaltige Entwicklung, berechnest deinen ökologischen Fußabdruck und leitest Handlungsoptionen ab.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 6 des LehrplanPLUS Biologie 8 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Ökosysteme sind dynamisch. Es gibt kaum eine Landschaft, die völlig ohne menschlichen Einfluss ist. Wir unterscheiden deshalb nicht „gut“ und „böse“, sondern fragen: Welche Funktionen erfüllt ein Ökosystem, wer nutzt es, und welche Folgen hat diese Nutzung? Nachhaltigkeit bedeutet, die Bedürfnisse der Gegenwart zu erfüllen, ohne die Möglichkeiten künftiger Generationen zu gefährden.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie können wir Ökosysteme nutzen, ohne ihre Grundlagen zu zerstören?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="oekosystem" data-title="Ökosystem und Nahrungsnetz" data-track="true" id="oekosystem">
+<header class="station__head">
+<h2 id="oekosystem-title"><span class="station__num">01</span> Ökosysteme: Lebewesen und Lebensraum</h2>
+<p class="lead">Ein Ökosystem besteht aus dem Lebensraum und allen Lebewesen, die in ihm miteinander und mit ihrer Umwelt wechselwirken.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Ökosystem setzt sich aus dem Biotop, dem unbelebten Lebensraum, und der Biozönose, der Gesamtheit aller Lebewesen, zusammen. Zwischen beiden gibt es ständige Wechselwirkungen: Pflanzen entziehen dem Boden Nährstoffe und Wasser, Tiere fressen Pflanzen oder andere Tiere, Destruenten bauen abgestorbene Stoffe ab und geben Nährstoffe zurück. Ein Ökosystem ist kein statisches Gebilde, sondern ein dynamisches System.</p>
+<p>Produzenten bilden aus anorganischen Stoffen organische Stoffe, meist durch Fotosynthese. Konsumenten nutzen organische Stoffe von anderen Lebewesen; man unterscheidet Primärkonsumenten (Pflanzenfresser), Sekundärkonsumenten (Fleischfresser) und Top-Prädatoren. Destruenten wie Pilze und Bakterien bauen abgestorbene organische Stoffe ab und mineralisieren sie. Nahrungsketten zeigen, wer wen frisst; Nahrungsnetze verbinden mehrere Ketten und machen sichtbar, wie stark Arten voneinander abhängen.</p>
+<p>Energie fließt in eine Richtung durch das System: von der Sonne zu den Produzenten und über die Konsumenten weiter. Auf jeder Stufe geht ein großer Teil der Energie als Wärme verloren; deshalb gibt es meist nur wenige trophische Ebenen. Stoffe dagegen kreisen: Kohlenstoff, Stickstoff, Wasser und Mineralstoffe werden immer wieder aufgenommen und freigesetzt. Biodiversität umfasst die Vielfalt der Arten, der genetischen Varianten und der Lebensräume. Sie macht Ökosysteme widerstandsfähiger gegen Störungen, garantiert aber nicht, dass sie jede Veränderung überstehen.</p>
+<figure class="tool" data-tool="foodweb8">
+<div class="tool__head">
+<p class="tool__title">Nahrungsnetz: Was passiert, wenn eine Art fehlt?</p>
+<p class="tool__hint">Wähle eine Art. Das Werkzeug zeigt direkte und indirekte Folgen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Nahrungsnetz mit Pflanzen, Insekten, Fröschen, Vögeln, Fuchs und Destruenten" class="foodweb-svg" role="img" viewbox="0 0 640 320">
+<defs><marker id="arrowhead" markerheight="6" markerwidth="8" orient="auto" refx="7" refy="3"><path d="M0,0 L8,3 L0,6 Z" fill="var(--color-rule-2)"></path></marker></defs>
+<line class="arrow" marker-end="url(#arrowhead)" x1="110" x2="210" y1="210" y2="150"></line>
+<line class="arrow" marker-end="url(#arrowhead)" x1="230" x2="330" y1="150" y2="200"></line>
+<line class="arrow" marker-end="url(#arrowhead)" x1="230" x2="430" y1="140" y2="120"></line>
+<line class="arrow" marker-end="url(#arrowhead)" x1="350" x2="430" y1="190" y2="130"></line>
+<line class="arrow" marker-end="url(#arrowhead)" x1="350" x2="530" y1="205" y2="210"></line>
+<line class="arrow" marker-end="url(#arrowhead)" x1="470" x2="540" y1="120" y2="195"></line>
+<line class="arrow" marker-end="url(#arrowhead)" x1="120" x2="210" y1="230" y2="270"></line>
+<line class="arrow" marker-end="url(#arrowhead)" stroke-dasharray="4 4" x1="230" x2="100" y1="280" y2="235"></line>
+<g data-foodweb-node="plants" data-tip="Pflanzen: Produzenten. Sie bilden mit Fotosynthese organische Stoffe und sind die Nahrungsgrundlage des Netzes." tabindex="0"><circle class="node" cx="90" cy="220" r="30"></circle><text class="node-label" x="90" y="224">Pflanzen</text></g>
+<g data-foodweb-node="insects" data-tip="Insekten: Primärkonsumenten. Sie fressen Pflanzen und werden von Fröschen und Vögeln gefressen." tabindex="0"><circle class="node" cx="230" cy="145" r="30"></circle><text class="node-label" x="230" y="149">Insekten</text></g>
+<g data-foodweb-node="frogs" data-tip="Frösche: Sekundärkonsumenten. Sie fressen Insekten und dienen Vögeln als Nahrung." tabindex="0"><circle class="node" cx="350" cy="200" r="30"></circle><text class="node-label" x="350" y="204">Frösche</text></g>
+<g data-foodweb-node="birds" data-tip="Vögel: Sie fressen Insekten und Frösche. Der Fuchs kann sie erbeuten." tabindex="0"><circle class="node" cx="460" cy="120" r="30"></circle><text class="node-label" x="460" y="124">Vögel</text></g>
+<g data-foodweb-node="fox" data-tip="Fuchs: Top-Prädator. Er hat im Modell keine Fressfeinde, reguliert aber die Populationen darunter." tabindex="0"><circle class="node" cx="550" cy="210" r="30"></circle><text class="node-label" x="550" y="214">Fuchs</text></g>
+<g data-foodweb-node="fungi" data-tip="Pilze und Bakterien: Destruenten. Sie bauen abgestorbene organische Stoffe ab und geben Nährstoffe an die Pflanzen zurück." tabindex="0"><circle class="node" cx="230" cy="280" r="30"></circle><text class="node-label" x="230" y="284">Pilze</text></g>
+<text class="label" fill="var(--color-muted)" font-family="var(--font-body)" font-size="11" text-anchor="middle" x="320" y="310">Pfeile zeigen den Energiefluss; gestrichelt: Nährstoffe aus abgestorbener Materie</text>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Nahrungsnetz ist ein Modell. Es zeigt die wichtigsten Beziehungen, nicht jede Art und nicht jede Wechselwirkung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Energiefluss und Stoffkreislauf</summary>
+<p>Pflanzen wandeln Lichtenergie in chemische Energie um. Ein Teil davon wird für den eigenen Stoffwechsel genutzt, ein Teil wird als Biomasse gespeichert. Wenn ein Pflanzenfresser die Pflanze frisst, kann er nur einen Teil der Energie nutzen; der Rest geht als Wärme verloren oder wird ausgeschieden. Deshalb nimmt die verfügbare Energie mit jeder trophischen Ebene stark ab. Stoffe dagegen werden im Kreis geführt: Destruenten bauen abgestorbene Organismen ab und setzen Mineralstoffe frei, die wieder von Pflanzen aufgenommen werden. Ohne Destruenten würde sich abgestorbene Materie anhäufen und die Nährstoffe würden fehlen.</p>
+</details>
+<section aria-labelledby="oekosystem-check" class="checkpoint">
+<h3 id="oekosystem-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="oekosystem">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="oekosystem" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "oe1",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö1",
+              "prompt": "Was ist ein Produzent?",
+              "options": ["Ein Lebewesen, das aus anorganischen Stoffen organische Stoffe bildet", "Ein Tier, das nur andere Tiere frisst", "Ein Pilz, der abgestorbene Stoffe abbaut", "Ein Lebewesen, das keine Energie braucht"],
+              "correct": 0,
+              "explain": "Produzenten bilden organische Stoffe, meist durch Fotosynthese. Pflanzen und Algen sind typische Produzenten."
+            },
+            {
+              "id": "oe2",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö1",
+              "prompt": "Was ist ein Nahrungsnetz?",
+              "options": ["Mehrere miteinander verbundene Nahrungsketten", "Eine einzelne Nahrungskette", "Die Gesamtheit aller Pflanzen", "Ein Kreislauf der Energie"],
+              "correct": 0,
+              "explain": "Ein Nahrungsnetz verbindet mehrere Nahrungsketten und zeigt, wie Arten voneinander abhängen."
+            },
+            {
+              "id": "oe3",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö1",
+              "prompt": "Warum nimmt die verfügbare Energie mit jeder trophischen Ebene ab?",
+              "options": ["Ein großer Teil geht als Wärme verloren oder wird ausgeschieden.", "Energie wird immer vollständig weitergegeben.", "Tiere produzieren Energie aus Licht.", "Destruenten speichern die gesamte Energie."],
+              "correct": 0,
+              "explain": "Auf jeder Stufe wird Energie für den Stoffwechsel genutzt und als Wärme abgegeben. Deshalb gibt es nur wenige trophische Ebenen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="oekosystem" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="sukzession" href="#sukzession">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Produzenten bilden, Konsumenten nutzen, Destruenten bauen ab. Energie fließt, Stoffe kreisen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Biotop</dt><dd>unbelebter Lebensraum.</dd>
+<dt>Biozönose</dt><dd>Gesamtheit aller Lebewesen in einem Lebensraum.</dd>
+<dt>Produzent</dt><dd>bildet organische Stoffe aus anorganischen.</dd>
+<dt>Konsument</dt><dd>nutzt organische Stoffe anderer Lebewesen.</dd>
+<dt>Destruent</dt><dd>baut abgestorbene Stoffe ab.</dd>
+<dt>Biodiversität</dt><dd>Vielfalt der Arten, Gene und Lebensräume.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nahrungsketten als starre Reihen verstehen. In einem Ökosystem gibt es viele Verbindungen und Alternativen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="sukzession" data-title="Sukzession" data-track="true" id="sukzession">
+<header class="station__head">
+<h2 id="sukzession-title"><span class="station__num">02</span> Sukzession: Ökosysteme verändern sich</h2>
+<p class="lead">Von Rohboden über Gras und Gebüsch zum Wald: Sukzession ist ein Prozess, kein Endzustand.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Sukzession bezeichnet die zeitliche Abfolge von Lebensgemeinschaften an einem Standort. Auf einem Rohboden siedeln zuerst Pionierarten wie Flechten, Moose und anspruchslose Gräser. Sie halten den Boden, speichern Wasser und schaffen Bedingungen für weitere Arten. Mit der Zeit kommen Kräuter, Sträucher und schließlich Bäume hinzu. Die Zusammensetzung verändert sich, bis eine vergleichsweise stabile Lebensgemeinschaft entsteht, die man als Klimax bezeichnen kann. Klimax ist aber kein unveränderlicher Endzustand: Störungen können die Entwicklung zurücksetzen oder in eine andere Richtung lenken.</p>
+<p>Primärsukzession beginnt auf einem unbewohnten Ausgangssubstrat, etwa auf Lavagestein, nach einem Gletscherrückzug oder auf einer neuen Sandbank. Sekundärsukzession beginnt auf einem bereits besiedelten Boden, nachdem eine Störung die bestehende Lebensgemeinschaft entfernt hat, zum Beispiel nach einem Brand, einer Rodung oder der Aufgabe eines Ackers. Weil Samen und Nährstoffe im Boden vorhanden sind, verläuft die Sekundärsukzession oft schneller.</p>
+<p>Der Mensch kann Sukzession unterbrechen, beschleunigen oder in eine andere Richtung lenken. Mahd und Beweidung halten eine Wiese offen; Landwirtschaft verhindert die natürliche Bewaldung. Flussregulierung, Entwässerung und Zersiedelung verändern die Standortbedingungen. Renaturierung kann natürliche Prozesse wieder in Gang setzen, aber sie braucht Zeit, Geduld und eine langfristige Planung.</p>
+<figure class="tool" data-tool="ecosystem">
+<div class="tool__head">
+<p class="tool__title">3D-Ökosystem: Sukzession und Eingriffe</p>
+<p class="tool__hint">Drehen zeigt den Lebensraum. Fahre über Bäume, Fluss oder Felder für ihre Rolle im Ökosystem. Wechsle die Sukzessionsstufe und prüfe menschliche Eingriffe.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-eco-stage="0" type="button" data-tip="Rohboden: kaum Vegetation. Pionierarten wie Flechten und Moose beginnen die Sukzession.">Rohboden</button>
+<button class="btn btn--quiet btn--small" data-eco-stage="1" type="button" data-tip="Grasland: Gräser und Kräuter bedecken den Boden und bereiten ihn für weitere Arten vor.">Grasland</button>
+<button class="btn btn--quiet btn--small" data-eco-stage="2" type="button" data-tip="Gebüsch: Sträucher und erste Bäume verdrängen das Gras.">Gebüsch</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-eco-stage="3" type="button" data-tip="Wald: Bäume dominieren. Die Sukzession ist ein Prozess und endet nicht starr im Wald.">Wald</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-eco-play="" type="button" data-tip="Lässt die Sukzession automatisch von Rohboden bis Wald ablaufen. Pause und Geschwindigkeit steuerst du oben rechts im Modell.">Sukzession abspielen</button>
+<label data-tip="Landwirtschaft entfernt Bäume und legt Felder an. Dadurch verändert sich die Artenzusammensetzung."><input data-eco-agriculture="" type="checkbox"/> Landwirtschaft</label>
+<label data-tip="Ein begradigter Fluss fließt schneller, zerstört Auen und verstärkt Hochwasser stromabwärts."><input data-eco-river="" type="checkbox"/> Fluss begradigt</label>
+</div>
+<div aria-label="Interaktives 3D-Modell eines Ökosystems. Ziehen dreht das Modell, Mausrad zoomt." class="tool__stage tool__stage--3d" data-scene="ecosystem" id="eco-scene" role="group">
+<div class="tool__fallback">
+<svg aria-label="Schematische Landschaft mit Wald, Fluss und Feldern" role="img" viewbox="0 0 640 280">
+<rect fill="var(--color-paper-2)" height="280" width="640" x="0" y="0"></rect>
+<path d="M0 210 Q160 170 320 200 T640 190 L640 280 L0 280 Z" fill="var(--color-paper-3)"></path>
+<path d="M0 250 Q120 220 260 235 T520 225 T640 240" fill="none" stroke="var(--color-water)" stroke-width="18"></path>
+<g fill="var(--color-muted)" stroke="var(--color-rule-2)" stroke-width="1">
+<polygon points="90,180 110,130 130,180"></polygon><polygon points="150,190 170,140 190,190"></polygon><polygon points="430,180 450,130 470,180"></polygon><polygon points="490,190 510,140 530,190"></polygon>
+</g>
+<rect fill="var(--color-paper-3)" height="50" stroke="var(--color-rule-2)" width="90" x="260" y="170"></rect>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="265">Wald, Fluss, Felder: ein Kulturlandschafts-Mosaik</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-eco-readout=""></div>
+<p class="tool__note">Modellhinweis: Die Landschaft ist stark vereinfacht. Sukzession verläuft je nach Klima, Boden, Wasser und Störungen unterschiedlich.</p>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-muted)"></span>Vegetation</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-water)"></span>Fluss</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch:var(--color-accent)"></span>Felder / Eingriff</span>
+</div>
+<figcaption class="tool__caption">Das Modell ist vereinfacht. Sukzession verläuft nicht überall gleich; Standort, Klima und Störungen bestimmen den Verlauf.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Primär- und Sekundärsukzession</summary>
+<p>Primärsukzession beginnt ohne Boden und ohne Samenbank. Auf Lavagestein oder nach einem Gletscherrückzug dauert es lange, bis sich ein Wald entwickelt. Sekundärsukzession beginnt auf einem bereits entwickelten Boden. Nach einem Brand oder der Aufgabe eines Ackers sind Samen, Wurzeln und Nährstoffe oft noch vorhanden; deshalb kann die Entwicklung schneller verlaufen. In beiden Fällen hängt der Verlauf von Klima, Boden, Wasser, Herbivoren und menschlichen Eingriffen ab. Eine „Klimax“ ist keine feste Endstation, sondern ein dynamisches Gleichgewicht, das sich verändern kann.</p>
+</details>
+<section aria-labelledby="sukzession-check" class="checkpoint">
+<h3 id="sukzession-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="sukzession">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="sukzession" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "su1",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö2",
+              "prompt": "Was ist Sukzession?",
+              "options": ["Die zeitliche Abfolge von Lebensgemeinschaften an einem Standort", "Ein einzelner Organismus", "Ein Kreislauf der Energie", "Eine einmalige Störung"],
+              "correct": 0,
+              "explain": "Sukzession beschreibt, wie sich die Artenzusammensetzung eines Standorts über die Zeit verändert."
+            },
+            {
+              "id": "su2",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö2",
+              "prompt": "Was ist ein Beispiel für Primärsukzession?",
+              "options": ["Besiedlung eines neuen Lavagesteins", "Regeneration nach einem Brand", "Ein aufgegebener Acker", "Eine gemähte Wiese"],
+              "correct": 0,
+              "explain": "Primärsukzession beginnt auf einem unbewohnten Ausgangssubstrat ohne Boden und Samenbank, etwa auf Lavagestein."
+            },
+            {
+              "id": "su3",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö2",
+              "prompt": "Wie kann der Mensch Sukzession beeinflussen?",
+              "options": ["Durch Mahd, Beweidung, Landwirtschaft oder Renaturierung", "Nur durch das Klima", "Gar nicht", "Nur durch das Wetter"],
+              "correct": 0,
+              "explain": "Mahd und Beweidung halten Wiesen offen; Landwirtschaft verhindert Bewaldung; Renaturierung kann natürliche Prozesse fördern."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="sukzession" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="kulturlandschaft" href="#kulturlandschaft">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Sukzession ist die zeitliche Abfolge von Lebensgemeinschaften. Sie ist ein Prozess, kein starrer Endzustand.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Sukzession</dt><dd>zeitliche Veränderung der Artenzusammensetzung.</dd>
+<dt>Primärsukzession</dt><dd>beginnt auf unbewohntem Ausgangssubstrat.</dd>
+<dt>Sekundärsukzession</dt><dd>beginnt nach einer Störung auf bereits besiedeltem Boden.</dd>
+<dt>Pionierart</dt><dd>anspruchslose Art, die einen Standort zuerst besiedelt.</dd>
+<dt>Klimax</dt><dd>vergleichsweise stabile Lebensgemeinschaft; kein unveränderlicher Endzustand.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Sukzession ende immer genau im Wald. Standort, Klima und Störungen bestimmen den Verlauf.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="kulturlandschaft" data-title="Kulturlandschaft" data-track="true" id="kulturlandschaft">
+<header class="station__head">
+<h2 id="kulturlandschaft-title"><span class="station__num">03</span> Wildnis und Kulturlandschaft</h2>
+<p class="lead">Der Mensch prägt fast jede Landschaft. Entscheidend ist, wie intensiv und mit welchen Folgen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Wildnis bezeichnet Landschaften, die sich weitgehend ohne menschliche Steuerung entwickeln. Kulturlandschaften sind vom Menschen geprägt: Äcker, Weiden, Forste, Siedlungen, Straßen und Flussregulierungen. Die Grenze ist fließend, denn auch scheinbar unberührte Landschaften wurden oft über Jahrhunderte genutzt. In Mitteleuropa gibt es kaum echte Wildnis; viele artenreiche Lebensräume sind Ergebnis extensiver Landwirtschaft, etwa Magerwiesen, Streuobstwiesen oder Heiden.</p>
+<p>Landwirtschaft sichert Nahrung, kann aber Biodiversität verringern, Böden verdichten, Wasser belasten und Treibhausgase freisetzen. Forstwirtschaft liefert Holz und speichert Kohlenstoff, doch Monokulturen sind anfälliger für Schädlinge und bieten weniger Lebensraum. Flussregulierung schützt Siedlungen vor Hochwasser und ermöglicht Schifffahrt, zerstört aber Auen, verändert den Wasserhaushalt und beschleunigt den Abfluss. Zersiedelung versiegelt Böden, zerschneidet Lebensräume und erhöht den Verkehr.</p>
+<p>Nachhaltige Entwicklung bedeutet, diese Nutzungen gegeneinander abzuwägen. Es geht nicht darum, jede Nutzung zu verbieten, sondern um eine kluge Kombination: extensive Landwirtschaft mit Blühstreifen, naturnahe Forstwirtschaft, Flussrenaturierung, kompakte Siedlungen und der Schutz wertvoller Lebensräume. Was „nachhaltig“ ist, hängt von Zielen, Werten und dem betrachteten Zeitraum ab. Deshalb sind solche Entscheidungen auch gesellschaftliche Aushandlungsprozesse.</p>
+<figure class="tool" data-tool="landuse8">
+<div class="tool__head">
+<p class="tool__title">Landnutzung: Was sind die Folgen?</p>
+<p class="tool__hint">Wähle eine Nutzung. Prüfe Folgen und Zielkonflikte.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="landuse-card">
+<p class="landuse-card__name" data-landuse-name="">Landwirtschaft</p>
+<p class="landuse-card__text" data-landuse-text="">Äcker und Weiden liefern Nahrung, können aber Biodiversität senken, Böden verdichten und Wasser belasten.</p>
+<ul class="landuse-card__list" data-landuse-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Jede Nutzung hat Folgen. Nachhaltigkeit heißt, die Folgen zu kennen und gegeneinander abzuwägen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Ist Wildnis ein sinnvolles Ziel?</summary>
+<p>Wildnis ist ein relativer Begriff. Für manche bedeutet er, die Natur sich selbst zu überlassen; für andere ist er ein Gegenbild zur intensiven Nutzung. Große Wildnisgebiete sind in Mitteleuropa selten, aber auch kleine Flächen können sich natürlich entwickeln, etwa Brachen, Moore oder Auwälder. Wildnis schützt nicht automatisch alle Arten: Manche Arten der Kulturlandschaft brauchen regelmäßige Mahd oder Beweidung. Deshalb ist Naturschutz kein einfaches „Nichts tun“, sondern eine bewusste Entscheidung über Prozesse, Arten und Nutzungen.</p>
+</details>
+<section aria-labelledby="kulturlandschaft-check" class="checkpoint">
+<h3 id="kulturlandschaft-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="kulturlandschaft">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="kulturlandschaft" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ku1",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö3",
+              "prompt": "Was ist eine Kulturlandschaft?",
+              "options": ["Eine vom Menschen geprägte Landschaft", "Eine Landschaft ohne menschlichen Einfluss", "Ein geschützter Urwald", "Eine Landschaft ohne Tiere"],
+              "correct": 0,
+              "explain": "Kulturlandschaften sind durch Landwirtschaft, Forstwirtschaft, Siedlungen, Verkehr oder Flussregulierung geprägt."
+            },
+            {
+              "id": "ku2",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö3",
+              "prompt": "Welche Folge hat die Regulierung eines Flusses?",
+              "options": ["Der Abfluss wird beschleunigt und Auen werden zerstört.", "Die Artenvielfalt steigt immer.", "Der Fluss mäandriert stärker.", "Es entstehen mehr Überschwemmungsflächen."],
+              "correct": 0,
+              "explain": "Begradigte Flüsse leiten Wasser schneller ab, zerstören Auen und können Hochwasser stromabwärts verstärken."
+            },
+            {
+              "id": "ku3",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö3",
+              "prompt": "Was bedeutet nachhaltige Entwicklung?",
+              "options": ["Gegenwärtige Bedürfnisse erfüllen, ohne künftige Generationen zu gefährden", "Jede Nutzung verbieten", "Nur wirtschaftliche Ziele verfolgen", "Alle Landschaften in Wildnis umwandeln"],
+              "correct": 0,
+              "explain": "Nachhaltige Entwicklung verbindet ökologische, ökonomische und soziale Ziele und berücksichtigt künftige Generationen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="kulturlandschaft" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="renaturierung" href="#renaturierung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Wildnis und Kulturlandschaft sind keine einfachen Gegensätze. Nachhaltigkeit heißt, Nutzen und Folgen abzuwägen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Wildnis</dt><dd>Landschaft, die sich weitgehend ohne menschliche Steuerung entwickelt.</dd>
+<dt>Kulturlandschaft</dt><dd>vom Menschen geprägte Landschaft.</dd>
+<dt>extensive Nutzung</dt><dd>geringere Intensität, oft mehr Biodiversität.</dd>
+<dt>Zersiedelung</dt><dd>Ausbreitung von Siedlungen und Verkehrsflächen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Wildnis mit Artenvielfalt gleichsetzen. Manche Kulturlandschaften sind artenreicher als junge Wälder.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="renaturierung" data-title="Renaturierung" data-track="true" id="renaturierung">
+<header class="station__head">
+<h2 id="renaturierung-title"><span class="station__num">04</span> Renaturierung: Funktionen wiederherstellen</h2>
+<p class="lead">Renaturierung macht Ökosysteme widerstandsfähiger. Sie ist ein langfristiger Prozess, kein einmaliger Eingriff.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Renaturierung bedeutet, ein geschädigtes Ökosystem so zu verändern, dass es seine natürlichen Funktionen besser erfüllen kann. Dazu gehören Hochwasserschutz, Wasserreinigung, Bodenbildung, Kohlenstoffspeicherung und Lebensraum für Arten. Renaturierung ist nicht immer eine Rückkehr zum ursprünglichen Zustand; oft geht es darum, die wichtigsten Funktionen und Prozesse wiederherzustellen. Das kann Jahrzehnte dauern und erfordert Geduld, Planung und Monitoring.</p>
+<p>Typische Maßnahmen sind der Rückbau von Uferbefestigungen, die Wiederanbindung von Auen, die Wiederherstellung von Mäandern, die Pflanzung standortgerechter Gehölze, die Anlage von Teichen und Feuchtflächen, die Reduktion von Pestiziden und die Wiedervernässung von Mooren. Auch die Beseitigung von Wanderbarrieren für Fische und die Schaffung von Trittsteinbiotopen gehören dazu. Wichtig ist, die Ursachen der Schädigung zu beseitigen, sonst kehren die Probleme zurück.</p>
+<p>Renaturierung kann Zielkonflikte auslösen: Flächen werden für den Hochwasserschutz oder die Natur gebraucht, Landwirtschaft und Siedlungen haben andere Interessen. Gute Projekte beziehen die betroffenen Menschen ein, klären über Nutzen und Kosten auf und planen langfristig. Erfolg lässt sich messen: Artenvielfalt, Wasserqualität, Grundwasserstand, Hochwasserrückhalt und die Stabilität der Lebensgemeinschaften.</p>
+<figure class="tool" data-tool="restore8">
+<div class="tool__head">
+<p class="tool__title">Renaturierung planen</p>
+<p class="tool__hint">Wähle Maßnahmen. Beobachte, wie sich die Landschaft verändert.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-restore="meander" type="button" data-tip="Fluss mäandern: Der Fluss bildet Schleifen, fließt langsamer und schafft Kiesbänke und Lebensräume.">Fluss mäandern</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-restore="trees" type="button" data-tip="Auwald pflanzen: Bäume stabilisieren die Ufer, spenden Schatten und bieten Lebensraum.">Auwald pflanzen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-restore="pond" type="button" data-tip="Teiche anlegen: Feuchtflächen schaffen Laichplätze für Amphibien und Lebensraum für Libellen.">Teiche anlegen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-restore="floodplain" type="button" data-tip="Überflutungsflächen: Sie geben dem Fluss Raum, damit Hochwasser abgefedert wird.">Überflutungsflächen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-restore="flowers" type="button" data-tip="Blühstreifen: Sie bieten Bestäubern Nahrung und verbinden Lebensräume.">Blühstreifen</button>
+<button class="btn btn--quiet btn--small" data-restore-reset="" type="button" data-tip="Setzt alle Renaturierungsmaßnahmen zurück.">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Renaturierte Flusslandschaft mit Mäander, Auwald, Teichen, Überflutungsflächen und Blühstreifen" class="restore-svg" role="img" viewbox="0 0 720 300">
+<rect class="sky" height="300" width="720" x="0" y="0"></rect>
+<rect class="field" height="90" width="180" x="40" y="50"></rect>
+<rect class="field" height="90" width="180" x="40" y="170"></rect>
+<rect class="field" height="90" width="180" x="500" y="50"></rect>
+<rect class="field" height="90" width="180" x="500" y="170"></rect>
+<path class="river river--straight" d="M360 20 L360 280" data-restore-river-straight=""></path>
+<path class="river river--meander" d="M360 20 C300 80 420 120 360 170 C300 220 420 250 360 280" data-restore-river-meander="" style="display:none"></path>
+<g data-restore-group="floodplain" style="display:none"><path class="floodplain" d="M260 30 L460 30 L460 285 L260 285 Z"></path></g>
+<g data-restore-group="trees" style="display:none">
+<g><line class="tree-trunk" x1="280" x2="280" y1="150" y2="170"></line><polygon class="tree" points="265,150 295,150 280,120"></polygon></g>
+<g><line class="tree-trunk" x1="300" x2="300" y1="120" y2="140"></line><polygon class="tree" points="285,120 315,120 300,90"></polygon></g>
+<g><line class="tree-trunk" x1="430" x2="430" y1="170" y2="190"></line><polygon class="tree" points="415,170 445,170 430,140"></polygon></g>
+<g><line class="tree-trunk" x1="450" x2="450" y1="120" y2="140"></line><polygon class="tree" points="435,120 465,120 450,90"></polygon></g>
+<g><line class="tree-trunk" x1="410" x2="410" y1="230" y2="250"></line><polygon class="tree" points="395,230 425,230 410,200"></polygon></g>
+</g>
+<g data-restore-group="pond" style="display:none">
+<ellipse class="pond" cx="170" cy="120" rx="50" ry="24"></ellipse>
+<ellipse class="pond" cx="560" cy="230" rx="55" ry="26"></ellipse>
+</g>
+<g data-restore-group="flowers" style="display:none">
+<circle class="flower" cx="80" cy="70" r="3"></circle><circle class="flower" cx="100" cy="80" r="3"></circle><circle class="flower" cx="120" cy="65" r="3"></circle><circle class="flower" cx="150" cy="85" r="3"></circle>
+<circle class="flower" cx="540" cy="200" r="3"></circle><circle class="flower" cx="570" cy="215" r="3"></circle><circle class="flower" cx="610" cy="195" r="3"></circle><circle class="flower" cx="640" cy="220" r="3"></circle>
+</g>
+<g class="house"><rect height="30" width="42" x="590" y="120"></rect><polygon points="585,120 611,100 637,120"></polygon></g>
+<text class="label" text-anchor="middle" x="360" y="292">Flusslandschaft</text>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Renaturierung stellt Funktionen wieder her. Sie ist ein Planungsprozess, kein einmaliger Eingriff.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Renaturierung ist mehr als „Natur sich selbst überlassen“</summary>
+<p>Viele Renaturierungsprojekte beginnen mit der Beseitigung einer Ursache: Uferbefestigungen werden entfernt, Entwässerungsgräben verfüllt, Barrieren für Fische beseitigt. Danach braucht es oft Initialmaßnahmen, etwa die Pflanzung standortgerechter Gehölze oder die Anlage von Flachwasserzonen. Monitoring zeigt, ob die gewünschten Arten zurückkehren und ob die Funktionen verbessert werden. Nicht immer ist das ursprüngliche Ökosystem wiederherstellbar; manchmal entsteht ein neues, ebenfalls wertvolles System. Wichtig ist, realistische Ziele zu setzen und die Menschen vor Ort einzubeziehen.</p>
+</details>
+<section aria-labelledby="renaturierung-check" class="checkpoint">
+<h3 id="renaturierung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="renaturierung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="renaturierung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "re1",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö4",
+              "prompt": "Was ist Renaturierung?",
+              "options": ["Ein geschädigtes Ökosystem so verändern, dass es seine Funktionen besser erfüllt", "Ein Ökosystem vollständig abreißen", "Nur das Pflanzen von Bäumen", "Das Verbot jeder Nutzung"],
+              "correct": 0,
+              "explain": "Renaturierung stellt Funktionen wie Hochwasserschutz, Wasserreinigung und Lebensraum wieder her. Sie ist ein langfristiger Prozess."
+            },
+            {
+              "id": "re2",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö4",
+              "prompt": "Welche Maßnahme hilft einem begradigten Fluss?",
+              "options": ["Uferbefestigungen entfernen und Auen wieder anbinden", "Das Ufer betonieren", "Den Fluss tiefer graben", "Mehr Straßen am Ufer bauen"],
+              "correct": 0,
+              "explain": "Der Rückbau von Uferbefestigungen und die Wiederanbindung von Auen geben dem Fluss Raum und schaffen Lebensräume."
+            },
+            {
+              "id": "re3",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö4",
+              "prompt": "Warum ist Monitoring bei Renaturierung wichtig?",
+              "options": ["Es zeigt, ob die gewünschten Arten und Funktionen zurückkehren.", "Es ersetzt die Planung.", "Es verhindert jede Veränderung.", "Es macht die Maßnahmen billiger."],
+              "correct": 0,
+              "explain": "Monitoring prüft den Erfolg, erkennt Probleme und ermöglicht Anpassungen. Renaturierung ist ein Lernprozess."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="renaturierung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="nachhaltigkeit" href="#nachhaltigkeit">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Renaturierung stellt Funktionen wieder her. Sie braucht Ursachenbekämpfung, Geduld und Monitoring.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Renaturierung</dt><dd>Wiederherstellung natürlicher Funktionen und Lebensräume.</dd>
+<dt>Aue</dt><dd>Überflutungsbereich eines Flusses.</dd>
+<dt>Mäander</dt><dd>natürliche Flussschleife.</dd>
+<dt>Monitoring</dt><dd>systematische Beobachtung der Entwicklung.</dd>
+<dt>Trittsteinbiotop</dt><dd>kleiner Lebensraum, der größere Gebiete verbindet.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Renaturierung als einmaliges „Zurückbauen“ verstehen. Sie ist ein langfristiger Prozess mit Planung und Kontrolle.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="nachhaltigkeit" data-title="Nachhaltigkeit" data-track="true" id="nachhaltigkeit">
+<header class="station__head">
+<h2 id="nachhaltigkeit-title"><span class="station__num">05</span> Nachhaltigkeit und ökologischer Fußabdruck</h2>
+<p class="lead">Nachhaltige Entwicklung verbindet ökologische, ökonomische und soziale Ziele. Jeder Konsum hat Folgen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Nachhaltige Entwicklung bedeutet, die Bedürfnisse der Gegenwart zu erfüllen, ohne die Möglichkeiten künftiger Generationen zu gefährden. Sie verbindet drei Ziele: ökologische Tragfähigkeit, wirtschaftliche Leistungsfähigkeit und soziale Gerechtigkeit. Das Konzept stammt aus dem Bericht „Unsere gemeinsame Zukunft“ der Brundtland-Kommission von 1987 und ist heute Grundlage vieler politischer Entscheidungen. Nachhaltigkeit ist kein Zustand, sondern ein Prozess des Abwägens.</p>
+<p>Der ökologische Fußabdruck schätzt die Fläche, die ein Mensch oder eine Gesellschaft für Ressourcen und die Aufnahme von Emissionen benötigt. Er wird oft in globalen Hektar oder in „Erden“ angegeben. Wenn alle Menschen so leben würden wie der Durchschnitt in Deutschland, wären mehrere Erden nötig. Der Fußabdruck ist ein Modell: Er vereinfacht, zeigt aber die Größenordnung und die großen Hebel auf, etwa Mobilität, Ernährung, Wohnen und Konsum.</p>
+<p>Veränderung ist auf mehreren Ebenen möglich. Individuell können wir Flüge vermeiden, öfter Rad oder ÖPNV nutzen, mehr pflanzlich essen, Lebensmittel verschwenden vermeiden, reparieren und teilen sowie Energie sparen. Systemisch braucht es politische Rahmenbedingungen, Infrastruktur, Preise, Bildung und Regeln. Individuelle Verantwortung und strukturelle Veränderung gegeneinander auszuspielen, hilft nicht: Beide sind nötig. Und niemand muss perfekt sein, um anzufangen.</p>
+<figure class="tool" data-tool="footprint8">
+<div class="tool__head">
+<p class="tool__title">Ökologischer Fußabdruck</p>
+<p class="tool__hint">Wähle Optionen. Der Rechner zeigt ein stark vereinfachtes Ergebnis in „Erden“.</p>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="footprint-grid">
+<label data-tip="Wohnen: Heizung, Strom und Wohnfläche beeinflussen den Energieverbrauch.">Wohnen
+              <select class="select" data-footprint="wohnen">
+<option value="1">Kleine Wohnung, wenig Heizung</option>
+<option selected="" value="2">Mittlere Wohnung</option>
+<option value="3">Großes Haus, viel Heizung</option>
+</select>
+</label>
+<label data-tip="Mobilität: Flüge und tägliche Autofahrten sind oft die größten Posten im Fußabdruck.">Mobilität
+              <select class="select" data-footprint="mobilitaet">
+<option value="1">Fahrrad, zu Fuß, ÖPNV</option>
+<option selected="" value="2">Auto gelegentlich</option>
+<option value="3">Auto täglich, viele Flüge</option>
+</select>
+</label>
+<label data-tip="Ernährung: Pflanzliche und regionale Lebensmittel verbrauchen meist weniger Fläche und Energie.">Ernährung
+              <select class="select" data-footprint="ernaehrung">
+<option value="1">Viel pflanzlich, regional</option>
+<option selected="" value="2">Gemischt</option>
+<option value="3">Viel Fleisch, importiert</option>
+</select>
+</label>
+<label data-tip="Konsum: Reparieren, teilen und Secondhand verlängern die Nutzungsdauer von Dingen.">Konsum
+              <select class="select" data-footprint="konsum">
+<option value="1">Reparieren, Secondhand</option>
+<option selected="" value="2">Mittel</option>
+<option value="3">Viel Neues, oft online</option>
+</select>
+</label>
+</div>
+<div class="footprint-gauge">
+<div class="footprint-gauge__track"><div class="footprint-gauge__fill" data-footprint-fill=""></div><div class="footprint-gauge__marker" data-footprint-marker=""></div></div>
+<div class="footprint-gauge__labels"><span>1 Erde</span><span>2 Erden</span><span>3 Erden</span></div>
+</div>
+<p class="footprint-result" data-footprint-result="">2,0 Erden</p>
+<button class="btn btn--quiet btn--small" data-footprint-reset type="button" data-tip="Setzt alle vier Bereiche auf die mittlere Auswahl zurück.">Ausgangswerte</button>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Der Rechner ist ein stark vereinfachtes Modell. Er ersetzt keine wissenschaftliche Bilanz.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was kann ich tun?</summary>
+<p>Die größten Hebel im Alltag sind oft Mobilität, Ernährung und Wohnen. Flüge vermeiden, öfter Rad oder ÖPNV fahren, mehr pflanzlich und regional essen, Lebensmittelabfälle reduzieren, Energie sparen und Dinge reparieren statt neu kaufen. Auch gemeinschaftliches Engagement wirkt: Schulprojekte, Naturschutzgruppen, politische Beteiligung, Bewusstsein in Familie und Freundeskreis. Wichtig ist, realistische Schritte zu wählen und dranzubleiben. Perfektion ist kein Ziel; Veränderung ist ein Prozess.</p>
+</details>
+<section aria-labelledby="nachhaltigkeit-check" class="checkpoint">
+<h3 id="nachhaltigkeit-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="nachhaltigkeit">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="nachhaltigkeit" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "na1",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö5",
+              "prompt": "Was bedeutet nachhaltige Entwicklung?",
+              "options": ["Gegenwärtige Bedürfnisse erfüllen, ohne künftige Generationen zu gefährden", "Jede Nutzung verbieten", "Nur wirtschaftliche Ziele verfolgen", "Alle Landschaften in Wildnis umwandeln"],
+              "correct": 0,
+              "explain": "Nachhaltige Entwicklung verbindet ökologische, ökonomische und soziale Ziele und berücksichtigt künftige Generationen."
+            },
+            {
+              "id": "na2",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö5",
+              "prompt": "Was misst der ökologische Fußabdruck?",
+              "options": ["Die Fläche, die für Ressourcen und Emissionen benötigt wird", "Die Zahl der Arten in einem Gebiet", "Die Menge an Recyclingpapier", "Die Geschwindigkeit des Klimawandels"],
+              "correct": 0,
+              "explain": "Der ökologische Fußabdruck schätzt die Fläche, die ein Lebensstil für Ressourcen und die Aufnahme von Emissionen beansprucht."
+            },
+            {
+              "id": "na3",
+              "type": "mc",
+              "level": "g",
+              "competency": "Ö5",
+              "prompt": "Welche Handlung reduziert den ökologischen Fußabdruck meist deutlich?",
+              "options": ["Weniger fliegen und öfter pflanzlich essen", "Mehr neue Kleidung kaufen", "Mehr Lebensmittel wegwerfen", "Häufiger mit dem Auto fahren"],
+              "correct": 0,
+              "explain": "Mobilität und Ernährung gehören zu den größten Hebeln. Weniger Flüge und mehr pflanzliche Ernährung reduzieren den Fußabdruck deutlich."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="nachhaltigkeit" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Nachhaltigkeit verbindet Ökologie, Wirtschaft und Soziales. Der Fußabdruck ist ein Modell, kein Urteil.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>nachhaltige Entwicklung</dt><dd>Bedürfnisse der Gegenwart erfüllen, ohne künftige Generationen zu gefährden.</dd>
+<dt>ökologischer Fußabdruck</dt><dd>Fläche, die ein Lebensstil für Ressourcen und Emissionen beansprucht.</dd>
+<dt>Sufficiency</dt><dd>genug statt immer mehr.</dd>
+<dt>Effizienz</dt><dd>weniger Ressourcen für den gleichen Nutzen.</dd>
+<dt>Konsistenz</dt><dd>Stoffe so nutzen, dass sie in Kreisläufen bleiben.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nachhaltigkeit nur als individuellen Lebensstil verstehen. Auch Politik, Infrastruktur und Wirtschaft müssen sich ändern.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">06</span> Kompetenzcheck Ökosysteme und Mensch</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="oekosysteme8">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="oekosysteme8" type="application/json">
+      {
+        "competencies": {
+          "Ö1": "Ökosystem, Nahrungsnetz und Biodiversität",
+          "Ö2": "Sukzession",
+          "Ö3": "Wildnis, Kulturlandschaft und Eingriffe",
+          "Ö4": "Renaturierung",
+          "Ö5": "Nachhaltigkeit und ökologischer Fußabdruck"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö1",
+            "prompt": "Was ist ein Produzent?",
+            "options": ["Ein Lebewesen, das aus anorganischen Stoffen organische Stoffe bildet", "Ein Tier, das nur andere Tiere frisst", "Ein Pilz, der abgestorbene Stoffe abbaut", "Ein Lebewesen, das keine Energie braucht"],
+            "correct": 0,
+            "explain": "Produzenten bilden organische Stoffe, meist durch Fotosynthese. Pflanzen und Algen sind typische Produzenten."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö1",
+            "prompt": "Was ist ein Nahrungsnetz?",
+            "options": ["Mehrere miteinander verbundene Nahrungsketten", "Eine einzelne Nahrungskette", "Die Gesamtheit aller Pflanzen", "Ein Kreislauf der Energie"],
+            "correct": 0,
+            "explain": "Ein Nahrungsnetz verbindet mehrere Nahrungsketten und zeigt, wie Arten voneinander abhängen."
+          },
+          {
+            "id": "c3",
+            "type": "input",
+            "level": "g",
+            "competency": "Ö1",
+            "prompt": "Wie heißt die Gesamtheit aller Lebewesen in einem Lebensraum?",
+            "accept": ["biozönose", "biozoenose", "biozönose"],
+            "model": "Biozönose",
+            "explain": "Die Biozönose ist die Gesamtheit aller Lebewesen in einem Lebensraum. Zusammen mit dem Biotop bildet sie das Ökosystem."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö2",
+            "prompt": "Was ist Sukzession?",
+            "options": ["Die zeitliche Abfolge von Lebensgemeinschaften an einem Standort", "Ein einzelner Organismus", "Ein Kreislauf der Energie", "Eine einmalige Störung"],
+            "correct": 0,
+            "explain": "Sukzession beschreibt, wie sich die Artenzusammensetzung eines Standorts über die Zeit verändert."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö2",
+            "prompt": "Was ist ein Beispiel für Primärsukzession?",
+            "options": ["Besiedlung eines neuen Lavagesteins", "Regeneration nach einem Brand", "Ein aufgegebener Acker", "Eine gemähte Wiese"],
+            "correct": 0,
+            "explain": "Primärsukzession beginnt auf einem unbewohnten Ausgangssubstrat ohne Boden und Samenbank, etwa auf Lavagestein."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö3",
+            "prompt": "Was ist eine Kulturlandschaft?",
+            "options": ["Eine vom Menschen geprägte Landschaft", "Eine Landschaft ohne menschlichen Einfluss", "Ein geschützter Urwald", "Eine Landschaft ohne Tiere"],
+            "correct": 0,
+            "explain": "Kulturlandschaften sind durch Landwirtschaft, Forstwirtschaft, Siedlungen, Verkehr oder Flussregulierung geprägt."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö3",
+            "prompt": "Welche Folge hat die Regulierung eines Flusses?",
+            "options": ["Der Abfluss wird beschleunigt und Auen werden zerstört.", "Die Artenvielfalt steigt immer.", "Der Fluss mäandriert stärker.", "Es entstehen mehr Überschwemmungsflächen."],
+            "correct": 0,
+            "explain": "Begradigte Flüsse leiten Wasser schneller ab, zerstören Auen und können Hochwasser stromabwärts verstärken."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö4",
+            "prompt": "Was ist Renaturierung?",
+            "options": ["Ein geschädigtes Ökosystem so verändern, dass es seine Funktionen besser erfüllt", "Ein Ökosystem vollständig abreißen", "Nur das Pflanzen von Bäumen", "Das Verbot jeder Nutzung"],
+            "correct": 0,
+            "explain": "Renaturierung stellt Funktionen wie Hochwasserschutz, Wasserreinigung und Lebensraum wieder her. Sie ist ein langfristiger Prozess."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö4",
+            "prompt": "Welche Maßnahme hilft einem begradigten Fluss?",
+            "options": ["Uferbefestigungen entfernen und Auen wieder anbinden", "Das Ufer betonieren", "Den Fluss tiefer graben", "Mehr Straßen am Ufer bauen"],
+            "correct": 0,
+            "explain": "Der Rückbau von Uferbefestigungen und die Wiederanbindung von Auen geben dem Fluss Raum und schaffen Lebensräume."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö5",
+            "prompt": "Was bedeutet nachhaltige Entwicklung?",
+            "options": ["Gegenwärtige Bedürfnisse erfüllen, ohne künftige Generationen zu gefährden", "Jede Nutzung verbieten", "Nur wirtschaftliche Ziele verfolgen", "Alle Landschaften in Wildnis umwandeln"],
+            "correct": 0,
+            "explain": "Nachhaltige Entwicklung verbindet ökologische, ökonomische und soziale Ziele und berücksichtigt künftige Generationen."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö5",
+            "prompt": "Was misst der ökologische Fußabdruck?",
+            "options": ["Die Fläche, die für Ressourcen und Emissionen benötigt wird", "Die Zahl der Arten in einem Gebiet", "Die Menge an Recyclingpapier", "Die Geschwindigkeit des Klimawandels"],
+            "correct": 0,
+            "explain": "Der ökologische Fußabdruck schätzt die Fläche, die ein Lebensstil für Ressourcen und die Aufnahme von Emissionen beansprucht."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "Ö5",
+            "prompt": "Welche Handlung reduziert den ökologischen Fußabdruck meist deutlich?",
+            "options": ["Weniger fliegen und öfter pflanzlich essen", "Mehr neue Kleidung kaufen", "Mehr Lebensmittel wegwerfen", "Häufiger mit dem Auto fahren"],
+            "correct": 0,
+            "explain": "Mobilität und Ernährung gehören zu den größten Hebeln. Weniger Flüge und mehr pflanzliche Ernährung reduzieren den Fußabdruck deutlich."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">07</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Ökosystem</dt><dd>Lebensraum mit allen Lebewesen und den Wechselwirkungen zwischen ihnen.</dd></div>
+<div class="glossary__row"><dt>Biotop</dt><dd>Unbelebter Lebensraum eines Ökosystems.</dd></div>
+<div class="glossary__row"><dt>Biozönose</dt><dd>Gesamtheit aller Lebewesen in einem Lebensraum.</dd></div>
+<div class="glossary__row"><dt>Produzent</dt><dd>Lebewesen, das aus anorganischen Stoffen organische Stoffe bildet.</dd></div>
+<div class="glossary__row"><dt>Konsument</dt><dd>Lebewesen, das organische Stoffe anderer Lebewesen nutzt.</dd></div>
+<div class="glossary__row"><dt>Destruent</dt><dd>Lebewesen, das abgestorbene organische Stoffe abbaut und mineralisiert.</dd></div>
+<div class="glossary__row"><dt>Nahrungskette</dt><dd>Abfolge von Lebewesen, bei der jedes das vorherige frisst.</dd></div>
+<div class="glossary__row"><dt>Nahrungsnetz</dt><dd>Mehrere miteinander verbundene Nahrungsketten.</dd></div>
+<div class="glossary__row"><dt>trophische Ebene</dt><dd>Stufe in der Nahrungskette, z. B. Produzent oder Primärkonsument.</dd></div>
+<div class="glossary__row"><dt>Biodiversität</dt><dd>Vielfalt der Arten, Gene und Lebensräume.</dd></div>
+<div class="glossary__row"><dt>Sukzession</dt><dd>Zeitliche Abfolge von Lebensgemeinschaften an einem Standort.</dd></div>
+<div class="glossary__row"><dt>Primärsukzession</dt><dd>Sukzession auf einem unbewohnten Ausgangssubstrat.</dd></div>
+<div class="glossary__row"><dt>Sekundärsukzession</dt><dd>Sukzession nach einer Störung auf bereits besiedeltem Boden.</dd></div>
+<div class="glossary__row"><dt>Pionierart</dt><dd>Anspruchslose Art, die einen Standort zuerst besiedelt.</dd></div>
+<div class="glossary__row"><dt>Klimax</dt><dd>Vergleichsweise stabile Lebensgemeinschaft; kein unveränderlicher Endzustand.</dd></div>
+<div class="glossary__row"><dt>Wildnis</dt><dd>Landschaft, die sich weitgehend ohne menschliche Steuerung entwickelt.</dd></div>
+<div class="glossary__row"><dt>Kulturlandschaft</dt><dd>Vom Menschen geprägte Landschaft.</dd></div>
+<div class="glossary__row"><dt>extensive Nutzung</dt><dd>Geringere Intensität, oft mehr Biodiversität.</dd></div>
+<div class="glossary__row"><dt>intensive Nutzung</dt><dd>Hohe Erträge pro Fläche, oft mit größeren Umweltfolgen.</dd></div>
+<div class="glossary__row"><dt>Zersiedelung</dt><dd>Ausbreitung von Siedlungen und Verkehrsflächen.</dd></div>
+<div class="glossary__row"><dt>Flussregulierung</dt><dd>Begradigung und technischer Ausbau eines Flusses.</dd></div>
+<div class="glossary__row"><dt>Renaturierung</dt><dd>Wiederherstellung natürlicher Funktionen und Lebensräume.</dd></div>
+<div class="glossary__row"><dt>Aue</dt><dd>Überflutungsbereich eines Flusses.</dd></div>
+<div class="glossary__row"><dt>Mäander</dt><dd>Natürliche Flussschleife.</dd></div>
+<div class="glossary__row"><dt>Monitoring</dt><dd>Systematische Beobachtung der Entwicklung.</dd></div>
+<div class="glossary__row"><dt>Trittsteinbiotop</dt><dd>Kleiner Lebensraum, der größere Gebiete verbindet.</dd></div>
+<div class="glossary__row"><dt>nachhaltige Entwicklung</dt><dd>Bedürfnisse der Gegenwart erfüllen, ohne künftige Generationen zu gefährden.</dd></div>
+<div class="glossary__row"><dt>ökologischer Fußabdruck</dt><dd>Fläche, die ein Lebensstil für Ressourcen und Emissionen beansprucht.</dd></div>
+<div class="glossary__row"><dt>Sufficiency</dt><dd>Genug statt immer mehr.</dd></div>
+<div class="glossary__row"><dt>Effizienz</dt><dd>Weniger Ressourcen für den gleichen Nutzen.</dd></div>
+<div class="glossary__row"><dt>Konsistenz</dt><dd>Stoffe so nutzen, dass sie in Kreisläufen bleiben.</dd></div>
+<div class="glossary__row"><dt>Resilienz</dt><dd>Fähigkeit eines Systems, Störungen zu verkraften und sich zu erholen.</dd></div>
+<div class="glossary__row"><dt>Landwirtschaft</dt><dd>Nutzung von Flächen für Nahrung, Futter und Rohstoffe.</dd></div>
+<div class="glossary__row"><dt>Forstwirtschaft</dt><dd>Nutzung von Wäldern für Holz und andere Leistungen.</dd></div>
+<div class="glossary__row"><dt>Hochwasserschutz</dt><dd>Maßnahmen, die Schäden durch Hochwasser verringern.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 8</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/8/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 8</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

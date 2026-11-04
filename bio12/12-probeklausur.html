@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="de" data-grade="12" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Probeklausur | Biologie 12</title>
+<meta name="description" content="Probeklausur Biologie 12 mit gemischten Aufgaben aus Genetik, Evolution und Verhaltensökologie, Auswertung und Lösungswegen.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Almanac (deal 2/3, seed interaktive-lernwebsite-biologie-genetik-96db·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die gemischte Klausur mit Lösungswegen · states: default, hover, focus, active, disabled, loading, empty, error
+ * axes: mid/grotesk-sans/chromatic-magenta · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 · weakest: E, the 3D stage needs a still fallback and a pause; the fallback SVG is in the markup and the scenes run only on request */
+/* Hallmark · answered F4 · the G/R segmented control is a state selector, not a primary action; one filled action per screen */
+/* Hallmark · answered F6 · the heading face has no tabular figures; every number uses IBM Plex Mono */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("lab.css?v=2026-11-04b");
+.exam-timer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin: var(--space-md) 0 var(--space-lg); padding: var(--space-sm) 0; border-top: var(--rule-bar) solid var(--color-rule-2); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.exam-timer__time { font-family: var(--font-outlier); font-size: var(--text-2xl); font-variant-numeric: tabular-nums; color: var(--color-ink); margin-right: var(--space-md); }
+.exam-timer__time.is-low { color: var(--color-error); }
+.exam-timer__time.is-critical { font-weight: 500; }
+.exam-timer__state { display: grid; gap: var(--space-2xs); flex: 1 1 11rem; min-width: 9rem; }
+.exam-timer__status { font: 500 var(--text-xs)/1.2 var(--font-outlier); text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-muted); }
+.exam-timer__status.is-low { color: var(--color-error); }
+.exam-timer__track { display: block; height: 2px; background: var(--color-rule); }
+.exam-timer__track i { display: block; height: 100%; width: 100%; background: var(--color-accent); transition: width 1s linear, background-color var(--dur-micro) var(--ease-out); }
+.exam-timer__track i.is-low { background: var(--color-error); }
+.exam-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); margin-top: var(--space-md); }
+.exam-grid > div { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.exam-grid h2 { font-size: var(--text-lg); margin: 0 0 var(--space-xs); }
+body[data-page="12-exam"] [data-progress],
+body[data-page="12-exam"] [data-progress-inline] { display: none; }
+@media (max-width: 60rem) { .exam-grid { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+<script>
+  (function () {
+    try {
+      var level = localStorage.getItem("bio12-level");
+      if (level === "r" || level === "g") document.documentElement.dataset.level = level;
+    } catch (error) {}
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body data-page="12-exam" data-grade="12">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 12">
+      <span class="brand__name">Biologie 12</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">05</span> Probeklausur</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 0</span>
+      <div class="level-toggle" role="group" aria-label="Anforderungsniveau">
+        <button type="button" data-level-set="g" aria-pressed="true" aria-label="Grundlegendes Anforderungsniveau">G</button>
+        <button type="button" data-level-set="r" aria-pressed="false" aria-label="Erhöhtes Anforderungsniveau">R</button>
+      </div>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Probeklausur</h2>
+      <p class="sidebar__deck">Gemischte Aufgaben aus Genetik, Evolution und Verhalten.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 0</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#klausur" data-station-link="klausur"><span class="station-nav__num">01</span><span>Klausur</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 12</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Probeklausur Biologie 12.</h1>
+<p class="lead">Gemischte Aufgaben aus Genetik, Evolution und Verhaltensökologie. Mit Zeitvorschlag, Auswertung und Lösungswegen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der Aufgabenpool umfasst 16 Aufgaben. Im grundlegenden Niveau werden 12 Aufgaben gezeigt, im erhöhten Niveau alle 16. Der Zeitvorschlag beträgt 90 Minuten. Du kannst die Aufgaben in einer Sitzung bearbeiten oder einzelne Aufgaben überspringen und später zurückkommen.</p>
+<div class="exam-grid">
+<div>
+<h2>So arbeitest du</h2>
+<ol>
+<li>Starte die Zeit, wenn du bereit bist.</li>
+<li>Beantworte die Aufgaben ohne Hilfsmittel.</li>
+<li>Werte am Ende aus und lies die Lösungswege.</li>
+</ol>
+</div>
+<div>
+<h2>Was geprüft wird</h2>
+<ul>
+<li>Genetik und Gentechnik</li>
+<li>Evolution</li>
+<li>Verhaltensökologie</li>
+<li>Fachsprache und Bewertung</li>
+</ul>
+</div>
+</div>
+<a class="btn" data-go="klausur" href="#klausur">Klausur öffnen</a>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Hinweis</p>
+<p>Die Auswertung dient dem Üben. Sie ersetzt keine Note und keine Rückmeldung durch die Lehrkraft.</p>
+</div>
+<div class="note">
+<p class="note__title">G und R</p>
+<p>Im grundlegenden Niveau werden die Aufgaben ohne R-Markierung gewertet. Im erhöhten Niveau kommen die R-Aufgaben hinzu.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Klausur" data-station="klausur" data-title="Klausur" id="klausur">
+<header class="station__head">
+<h2 id="klausur-title"><span class="station__num">01</span> Klausur</h2>
+<p class="lead">Nimm dir Zeit. Lies jede Aufgabe vollständig, bevor du antwortest.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<div class="exam-timer" data-exam-timer="">
+<span aria-live="polite" class="exam-timer__time" data-exam-time="" data-tip="Der Timer ist eine Orientierung. Er stoppt nicht automatisch die Bearbeitung; die Zeit läuft nur, wenn du sie startest.">90:00</span>
+<div class="exam-timer__state">
+<span class="exam-timer__status" data-exam-status="">bereit</span>
+<span aria-hidden="true" class="exam-timer__track"><i data-exam-bar="" style="width:100%"></i></span>
+</div>
+<button class="btn btn--quiet btn--small" data-exam-start="" type="button" data-tip="Startet die 90 Minuten. Während der Laufzeit ist der Startknopf gesperrt; mit Pause hältst du an.">Start</button>
+<button class="btn btn--quiet btn--small" data-exam-pause="" disabled="" type="button" data-tip="Hält den Timer an. Die bereits verstrichene Zeit bleibt erhalten; mit Start läuft er weiter.">Pause</button>
+<button class="btn btn--quiet btn--small" data-exam-reset="" type="button" data-tip="Setzt den Timer auf 90 Minuten zurück. Deine Antworten bleiben erhalten.">Zurücksetzen</button>
+</div>
+<div class="check" data-check="probeklausur">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="probeklausur" type="application/json">
+      {
+        "competencies": {
+          "G": "Genetik und Gentechnik",
+          "E": "Evolution",
+          "V": "Verhaltensökologie",
+          "M": "Fachsprache und Bewertung"
+        },
+        "questions": [
+          {
+            "id": "pk1",
+            "type": "mc",
+            "level": "g",
+            "competency": "G",
+            "prompt": "Warum ist die DNA als Langzeitspeicher besser geeignet als mRNA?",
+            "options": ["Weil die DNA doppelsträngig und chemisch stabiler ist.", "Weil die DNA Uracil enthält.", "Weil die DNA nur im Zellplasma vorkommt.", "Weil die DNA keine Basenpaarung hat."],
+            "correct": 0,
+            "explain": "Die Doppelstrangstruktur und die Desoxyribose machen die DNA stabiler. mRNA ist für kurzfristige Botenfunktionen gebaut."
+          },
+          {
+            "id": "pk2",
+            "type": "input",
+            "level": "g",
+            "competency": "G",
+            "prompt": "Wie viele Basen bilden ein Codon?",
+            "accept": ["3", "drei"],
+            "model": "3",
+            "explain": "Ein Codon besteht aus drei Basen und codiert eine Aminosäure oder ein Stoppsignal."
+          },
+          {
+            "id": "pk3",
+            "type": "mc",
+            "level": "g",
+            "competency": "G",
+            "prompt": "Was bewirkt eine DNA-Methylierung an CpG-Inseln häufig?",
+            "options": ["Sie unterdrückt die Genexpression.", "Sie verdoppelt die DNA.", "Sie verändert die Basensequenz.", "Sie entfernt Introns."],
+            "correct": 0,
+            "explain": "Methylierung kann Gene abschalten, ohne die Sequenz zu verändern. Sie ist ein epigenetischer Mechanismus."
+          },
+          {
+            "id": "pk4",
+            "type": "mc",
+            "level": "g",
+            "competency": "G",
+            "prompt": "Was ist der Unterschied zwischen Replikation und PCR?",
+            "options": ["Die Replikation läuft in der Zelle, die PCR im Reagenzglas und amplifiziert eine Zielsequenz.", "Die PCR verdoppelt das ganze Genom, die Replikation nur ein Gen.", "Die Replikation braucht keine Polymerase.", "Die PCR findet nur in Bakterien statt."],
+            "correct": 0,
+            "explain": "Die Replikation kopiert das gesamte Genom in der Zelle. Die PCR vervielfältigt einen definierten Abschnitt im Labor."
+          },
+          {
+            "id": "pk5",
+            "type": "mc",
+            "level": "g",
+            "competency": "G",
+            "prompt": "Was ist das Ergebnis der Meiose?",
+            "options": ["Vier haploide Zellen", "Zwei diploide Zellen", "Eine Zelle mit doppelter Chromosomenzahl", "Vier identische diploide Zellen"],
+            "correct": 0,
+            "explain": "Die Meiose halbiert die Chromosomenzahl und erzeugt vier haploide Keimzellen."
+          },
+          {
+            "id": "pk6",
+            "type": "mc",
+            "level": "g",
+            "competency": "G",
+            "prompt": "Zwei heterozygote Eltern (Aa x Aa) werden gekreuzt. Wie hoch ist die Wahrscheinlichkeit für ein Kind mit dem rezessiven Phänotyp?",
+            "options": ["25 %", "50 %", "75 %", "100 %"],
+            "correct": 0,
+            "explain": "Nur aa zeigt den rezessiven Phänotyp. Die Wahrscheinlichkeit ist 1 von 4, also 25 %."
+          },
+          {
+            "id": "pk7",
+            "type": "mc",
+            "level": "g",
+            "competency": "E",
+            "prompt": "Was ist ein homologes Organ?",
+            "options": ["Ein Organ mit gemeinsamem Grundbau und gemeinsamer Abstammung", "Ein Organ mit gleicher Funktion ohne gemeinsame Abstammung", "Ein Organ, das nur bei Fossilien vorkommt", "Ein Organ, das nicht vererbt wird"],
+            "correct": 0,
+            "explain": "Homologe Organe haben einen gemeinsamen Grundbau. Analoge Organe haben dieselbe Funktion, aber keine gemeinsame Abstammung."
+          },
+          {
+            "id": "pk8",
+            "type": "mc",
+            "level": "g",
+            "competency": "E",
+            "prompt": "Was ist natürliche Selektion?",
+            "options": ["Unterschiedlicher Fortpflanzungserfolg von Varianten", "Zufällige Veränderung der DNA", "Die Verdopplung der Chromosomen", "Die Wanderung von Individuen"],
+            "correct": 0,
+            "explain": "Selektion bedeutet, dass Varianten mit höherer Fitness mehr Nachkommen haben und ihre Allele häufiger weitergeben."
+          },
+          {
+            "id": "pk9",
+            "type": "mc",
+            "level": "g",
+            "competency": "E",
+            "prompt": "Was ist eine reproduktive Barriere?",
+            "options": ["Eine Barriere, die erfolgreiche Fortpflanzung zwischen Gruppen verhindert", "Eine geographische Mauer", "Eine Mutation", "Ein Fossil"],
+            "correct": 0,
+            "explain": "Reproduktive Isolation verhindert den Genfluss zwischen Populationen und macht Artbildung dauerhaft."
+          },
+          {
+            "id": "pk10",
+            "type": "mc",
+            "level": "g",
+            "competency": "V",
+            "prompt": "Was ist Gesamtfitness?",
+            "options": ["Direkte plus indirekte Fitness", "Nur die Zahl der eigenen Nachkommen", "Nur die Körpergröße", "Die Zahl der Artgenossen"],
+            "correct": 0,
+            "explain": "Gesamtfitness ist die Summe aus direkter Fitness durch eigene Nachkommen und indirekter Fitness über Verwandte."
+          },
+          {
+            "id": "pk11",
+            "type": "mc",
+            "level": "g",
+            "competency": "V",
+            "prompt": "Was besagt Hamiltons Regel?",
+            "options": ["rB > C", "rB < C", "B > rC", "C > rB"],
+            "correct": 0,
+            "explain": "Altruismus wird begünstigt, wenn der Verwandtschaftskoeffizient mal Nutzen größer ist als die Kosten."
+          },
+          {
+            "id": "pk12",
+            "type": "mc",
+            "level": "g",
+            "competency": "V",
+            "prompt": "Warum sind teure Signale oft ehrlich?",
+            "options": ["Weil nur fitte Sender sie tragen können", "Weil sie keine Kosten haben", "Weil sie immer vom Empfänger bezahlt werden", "Weil sie nicht beobachtet werden"],
+            "correct": 0,
+            "explain": "Teure Signale sind schwer zu fälschen. Das macht sie verlässlich."
+          },
+          {
+            "id": "pk13",
+            "type": "mc",
+            "level": "r",
+            "competency": "G",
+            "prompt": "Warum erhöht alternatives Spleißen die Proteinvielfalt?",
+            "options": ["Weil aus einer prä-mRNA verschiedene Exon-Kombinationen entstehen können", "Weil die DNA dabei verdoppelt wird", "Weil alle Introns im Protein bleiben", "Weil die Ribosomen größer werden"],
+            "correct": 0,
+            "explain": "Unterschiedliche Spleißmuster erzeugen verschiedene reife mRNAs und damit verschiedene Proteinvarianten."
+          },
+          {
+            "id": "pk14",
+            "type": "mc",
+            "level": "r",
+            "competency": "M",
+            "prompt": "Welche Abwägung gehört zu einer ethischen Bewertung der Gentherapie?",
+            "options": ["Chancen, Risiken, Autonomie und Gerechtigkeit gegeneinander abwägen", "Nur die technische Machbarkeit prüfen", "Nur die Kosten zählen", "Die Meinung der Mehrheit ungeprüft übernehmen"],
+            "correct": 0,
+            "explain": "Eine ethische Bewertung betrachtet Chancen, Risiken, Selbstbestimmung und Gerechtigkeit. Technische Machbarkeit allein reicht nicht."
+          },
+          {
+            "id": "pk15",
+            "type": "mc",
+            "level": "r",
+            "competency": "E",
+            "prompt": "Warum ist antagonistische Koevolution ein Wettrüsten?",
+            "options": ["Weil Anpassungen der einen Seite den Selektionsdruck auf die andere erhöhen", "Weil beide Seiten immer kooperieren", "Weil nur eine Seite sich verändert", "Weil es keine Selektion gibt"],
+            "correct": 0,
+            "explain": "Bessere Verteidigung erhöht den Druck auf den Angreifer, bessere Angriffe zu entwickeln. Die Anpassungen treiben sich gegenseitig."
+          },
+          {
+            "id": "pk16",
+            "type": "mc",
+            "level": "r",
+            "competency": "V",
+            "prompt": "Warum ist eine einseitig biologistische Erklärung menschlichen Verhaltens problematisch?",
+            "options": ["Sie blendet soziale und kulturelle Ursachen aus.", "Sie verwendet keine Daten.", "Sie ist immer falsch.", "Sie erklärt zu viele Gene."],
+            "correct": 0,
+            "explain": "Menschliches Verhalten entsteht aus biologischen, sozialen und kulturellen Faktoren. Eine rein biologische Erklärung greift zu kurz."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Zeit</p>
+<p>Der Timer ist eine Orientierung. Er stoppt nicht automatisch die Bearbeitung.</p>
+</div>
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Die Auswertung zeigt dir pro Bereich, was sitzt. Die Lösungswege erscheinen nach dem Auswerten und im Druck.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 12</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/grundlegend" target="_blank" rel="noopener" class="g-only">LehrplanPLUS Biologie 12, grundlegend</a>
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/erhoeht" target="_blank" rel="noopener" class="r-only">LehrplanPLUS Biologie 12, erhöht</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js?v=2026-11-04"></script>
+<script src="./assets/tools.js?v=2026-11-04"></script>
+<script src="./assets/three-scenes.js"></script>
+<script src="lab.js?v=2026-11-04b"></script>
+
+</body>
+</html>

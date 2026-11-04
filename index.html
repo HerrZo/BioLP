@@ -349,9 +349,9 @@
       // 1. KONFIGURATION & DATEN (Jahrgangsstufen & Unterseiten)
       // ============================================================================
       // Um eine neue Jahrgangsstufen-Unterseite freizuschalten oder hinzuzufügen:
-      // 1. Unterordner im Repo anlegen (z. B. "Bio8/index.html")
-      // 2. Unten bei der entsprechenden Karte `link: "Bio8/index.html"` prüfen und
-      //    optional `subpages: [{ title: "LB 2: ...", link: "Bio8/..." }]` ergänzen.
+      // 1. Unterordner im Repo anlegen (z. B. "bio8/index.html")
+      // 2. Unten bei der entsprechenden Karte `link: "bio8/index.html"` prüfen und
+      //    optional `subpages: [{ title: "LB 1: ...", link: "bio8/..." }]` ergänzen.
       // ============================================================================
 
       const categories = [
@@ -373,10 +373,11 @@
           subtitle: "Säugetiere, Mensch & Blütenpflanzen",
           description:
             "Einführung in das naturwissenschaftliche Arbeiten, Kennzeichen des Lebendigen, Bau und Leistung des menschlichen Körpers sowie Samenpflanzen im Jahreslauf.",
-          link: "NUT5/index.html",
+          link: "nut5/index.html",
           tag: "NuT 5",
           iconType: "leaf",
-          folderHint: "NUT5",
+          folderHint: "nut5",
+          isLive: false,
           topics: [
             "Naturwissenschaftliches Arbeiten & Mikroskopie",
             "Der Mensch: Bewegungssystem, Ernährung, Atmung & Blutkreislauf",
@@ -392,10 +393,11 @@
           subtitle: "Wirbeltierklassen, Fotosynthese & Ökosystem Gewässer",
           description:
             "Stammesgeschichtliche Verwandtschaft der Wirbeltiere (Fische, Amphibien, Reptilien, Vögel), Fotosynthese der grünen Pflanzen und wirbellose Tiere.",
-          link: "NUT6/index.html",
+          link: "nut6/index.html",
           tag: "NuT 6",
           iconType: "fish",
-          folderHint: "NUT6",
+          folderHint: "nut6",
+          isLive: false,
           topics: [
             "Fische, Amphibien, Reptilien & Vögel im Vergleich",
             "Fotosynthese & Zellatmung als Wortgleichungen",
@@ -407,58 +409,87 @@
         {
           id: "bio8",
           title: "Biologie 8",
-          subtitle: "Information, Hormone, Sexualität & Evolution der Tiere",
+          subtitle: "Sinne & Nerven, Hormone, Fortpflanzung, Verhalten, Sucht & Ökosysteme",
           description:
-            "Informationsaufnahme und -verarbeitung beim Menschen (Sinnesorgane, Nervensystem, Hormonsystem), Fortpflanzung sowie Vielfalt von Gliederfüßern und Weichtieren.",
-          link: "Bio8/index.html",
+            "Interaktive Lernwebsite zu den sechs Lernbereichen der 8. Jahrgangsstufe: Vom Erkenntnisweg über Sinnesorgane, Nerven- und Hormonsystem bis hin zu Verhalten, Suchtprävention, Ökosystemen und 3D-Funktionsmodellen.",
+          link: "bio8/index.html",
           tag: "Biologie 8",
           iconType: "eye",
-          folderHint: "Bio8",
+          folderHint: "bio8",
+          isLive: true,
           topics: [
-            "LB 2: Sinnesorgane (Auge, Ohr) & Nervensystem",
-            "LB 3: Hormonsystem, Blutzuckerregulation & Stress",
-            "LB 4: Fortpflanzung, Individualentwicklung & Sexualität",
-            "LB 5: Gliederfüßer, Weichtiere & Parasitismus",
-            "LB 6: Evolutionsprozesse & Artbildung",
+            "LB 1: Methoden – Beobachtung, Hypothese, Experiment, Mikroskopie & Modelle",
+            "LB 2: Sinne, Nerven und Hormone – Reiz-Reaktion, Auge, Ohr, Synapse & Blutzucker",
+            "LB 3: Fortpflanzung und Entwicklung – Pubertät, Zyklus, Schwangerschaft & Verhütung",
+            "LB 4: Verhalten – Angeborenes Verhalten, Schlüsselreize, Prägung & Konditionierung",
+            "LB 5: Sucht und Gesundheit – Belohnungssystem, Dopamin, Risiken & Lebenskompetenz",
+            "LB 6: Ökosysteme und Mensch – Nahrungsnetze, Sukzession, Nachhaltigkeit & Biodiversität",
           ],
-          subpages: [],
+          subpages: [
+            { title: "Übersicht Biologie 8", link: "bio8/index.html" },
+            { title: "01 Methoden", link: "bio8/8-1-methoden.html" },
+            { title: "02 Sinne, Nerven & Hormone", link: "bio8/8-2-sinne-nerven-hormone.html" },
+            { title: "03 Fortpflanzung", link: "bio8/8-3-fortpflanzung.html" },
+            { title: "04 Verhalten", link: "bio8/8-4-verhalten.html" },
+            { title: "05 Sucht & Gesundheit", link: "bio8/8-5-sucht.html" },
+            { title: "06 Ökosysteme & Mensch", link: "bio8/8-6-oekosysteme.html" },
+            { title: "3D-Labor: Auge", link: "bio8/klasse_8_biologie/modell_auge_3d.html" },
+            { title: "3D-Labor: Ohr", link: "bio8/klasse_8_biologie/modell_ohr_3d.html" },
+          ],
         },
         {
           id: "bio9",
           title: "Biologie 9",
-          subtitle: "Immunbiologie, Zellbiologie, Genetik & Ökologie",
+          subtitle: "Mikroorganismen, Genetik & Gentechnik, Evolution, Wirbellose & Boden",
           description:
-            "Mikroorganismen und Viren, spezifische und unspezifische Immunabwehr, Zellkern und Chromosomen, Proteinbiosynthese sowie angewandte Ökologie.",
-          link: "Bio9/index.html",
+            "Interaktive Lernwebsite zu den sechs Lernbereichen der 9. Jahrgangsstufe: Mikroorganismen und Biotechnologie, DNA und Zellteilung, Evolution, Insekten sowie das Ökosystem Boden mit 3D-Modellen.",
+          link: "bio9/index.html",
           tag: "Biologie 9",
           iconType: "dna",
-          folderHint: "Bio9",
+          folderHint: "bio9",
+          isLive: true,
           topics: [
-            "LB 2: Bakterien, Viren, Infektionskrankheiten & Immunsystem",
-            "LB 3: Zelluläre Grundlagen, Mitose, Meiose & Karyogramm",
-            "LB 4: Molekulare Genetik – DNA, Transkription & Translation",
-            "LB 5: Klassische Genetik & Humangenetik",
-            "LB 6: Ökosysteme, Stoffkreisläufe & Nachhaltigkeit",
+            "LB 1: Methoden – Erkenntnisweg, Mikroskopieren, Präparieren & Bestimmen",
+            "LB 2: Mikroorganismen & Biotechnologie – Bakterien, Hefen, Gärung & Konservierung",
+            "LB 3: Genetik & Gentechnik – DNA, Proteinbiosynthese, Mitose, Meiose & Karyogramm",
+            "LB 4: Evolution – Fossilien, Brückentiere, Evolutionsfaktoren & Artbildung",
+            "LB 5: Wirbellose – Bau und Lebensweise der Insekten, Metamorphose & Staatenbildung",
+            "LB 6: Boden – Bodenhorizonte, Bodenlebewesen, Kohlenstoffkreislauf & Bodenschutz",
           ],
-          subpages: [],
+          subpages: [
+            { title: "Übersicht Biologie 9", link: "bio9/index.html" },
+            { title: "01 Methoden", link: "bio9/9-1-methoden.html" },
+            { title: "02 Mikroorganismen", link: "bio9/9-2-mikroorganismen.html" },
+            { title: "03 Genetik & Gentechnik", link: "bio9/9-3-genetik.html" },
+            { title: "04 Evolution", link: "bio9/9-4-evolution.html" },
+            { title: "05 Wirbellose", link: "bio9/9-5-wirbellose.html" },
+            { title: "06 Boden", link: "bio9/9-6-boden.html" },
+          ],
         },
         {
           id: "bio10",
           title: "Biologie 10",
-          subtitle: "Stoffwechsel, Enzyme, Kreislaufsystem & Evolution",
+          subtitle: "Ökosystem Mensch, Immunsystem, Stoffwechsel & Humanevolution",
           description:
-            "Biokatalyse durch Enzyme, Dissimilation und Zellatmung, innere Organe des Menschen, Leistungsphysiologie sowie Geschichte und Mechanismen der Evolution.",
-          link: "Bio10/index.html",
+            "Interaktive Lernwebsite zu den vier Lernbereichen der 10. Jahrgangsstufe: Krankheitserreger und Immunabwehr, Ernährung, Enzyme, Verdauung, Atmung, Blutkreislauf sowie die Evolution des Menschen.",
+          link: "bio10/index.html",
           tag: "Biologie 10",
           iconType: "seedling",
-          folderHint: "Bio10",
+          folderHint: "bio10",
+          isLive: true,
           topics: [
-            "LB 2: Biomembranen, Stofftransport & Enzyme als Biokatalysatoren",
-            "LB 3: Ernährung, Verdauung, Atmung, Herz-Kreislauf & Sport",
-            "LB 4: Zellatmung, Gärung & ATP als universeller Energieträger",
-            "LB 5: Evolutionstheorien, Belege der Evolution & Humanevolution",
+            "LB 1: Methoden – Hypothesen, Variablenkontrolle, Modelle, Daten & Bewertung",
+            "LB 2: Ökosystem Mensch – Bakterien, Viren, Immunsystem, Impfung & Resistenzen",
+            "LB 3: Stoff- & Energieumwandlung – Nährstoffe, Enzyme, Verdauung, Herz & Zellatmung",
+            "LB 4: Vergangenheit & Zukunft des Menschen – Hominiden, aufrechter Gang & Kultur",
           ],
-          subpages: [],
+          subpages: [
+            { title: "Übersicht Biologie 10", link: "bio10/index.html" },
+            { title: "01 Methoden", link: "bio10/10-1-methoden.html" },
+            { title: "02 Ökosystem Mensch", link: "bio10/10-2-oekosystem-mensch.html" },
+            { title: "03 Stoffwechsel", link: "bio10/10-3-stoffwechsel.html" },
+            { title: "04 Evolution des Menschen", link: "bio10/10-4-evolution-mensch.html" },
+          ],
         },
         {
           id: "bio11",
@@ -466,10 +497,11 @@
           subtitle: "Zytologie, Stoffwechselphysiologie & Ökologie",
           description:
             "Feinbau der Zelle und Biomembranen, molekulare Grundlagen von Fotosynthese und Dissimilation sowie Wechselbeziehungen in Ökosystemen.",
-          link: "Bio11/index.html",
+          link: "bio11/index.html",
           tag: "Biologie 11",
           iconType: "tree",
-          folderHint: "Bio11",
+          folderHint: "bio11",
+          isLive: false,
           topics: [
             "LB 2: Struktur & Funktion von Zellen, Organellen & Biomembranen",
             "LB 3: Enzymkinetik, Hemmungstypen & Stoffwechselregulation",
@@ -481,36 +513,45 @@
         {
           id: "bio12",
           title: "Biologie 12",
-          subtitle: "Genetik, Gentechnik & Ökologie",
+          subtitle: "Methoden, Genetik & Gentechnik, Evolution & Verhaltensökologie (gA / eA)",
           description:
-            "Molekulargenetik, Genregulation, Humangenetik, moderne molekularbiologische Methoden (PCR, Sequenzierung, CRISPR/Cas) sowie Populationsökologie.",
-          link: "Bio12/index.html",
+            "Interaktive Lernwebsite für die 12. Jahrgangsstufe mit umschaltbarem Anforderungsniveau (G/R), 3D-Simulationen und Probeklausur: Erkenntnisgewinnung, Molekulargenetik, Evolution und Verhaltensökologie.",
+          link: "bio12/index.html",
           tag: "Biologie 12",
           iconType: "dna",
-          folderHint: "Bio12",
+          folderHint: "bio12",
+          isLive: true,
           topics: [
-            "LB 2: Speicherung & Realisierung genetischer Information, Epigenetik",
-            "LB 3: Mutationen, Chromosomenaberrationen & Stammbaumanalyse",
-            "LB 4: Gentechnik, PCR, Gelelektrophorese & DNA-Sequenzierung",
-            "LB 5: Autökologie, Populationsdynamik & Synökologie",
+            "LB 1: Methoden – Systemebenen, Basiskonzepte, Modelle, Quellen & ethische Bewertung",
+            "LB 2: Genetik & Gentechnik – DNA, Proteinbiosynthese, Genregulation, PCR, Mendel & CRISPR",
+            "LB 3: Evolution – Stammbäume, Selektionsformen, Isolation, Artbildung & Koevolution",
+            "LB 4: Verhaltensökologie – Fitnesslandschaft, Optimalität, Kooperation (Hamilton) & Spieltheorie",
           ],
-          subpages: [],
+          subpages: [
+            { title: "Übersicht Biologie 12", link: "bio12/index.html" },
+            { title: "01 Methoden", link: "bio12/12-1-methoden.html" },
+            { title: "02 Genetik & Gentechnik", link: "bio12/12-2-genetik.html" },
+            { title: "03 Evolution", link: "bio12/12-3-evolution.html" },
+            { title: "04 Verhaltensökologie", link: "bio12/12-4-verhalten.html" },
+            { title: "Probeklausur (G/R)", link: "bio12/12-probeklausur.html" },
+          ],
         },
         {
           id: "bio13",
           title: "Biologie 13",
-          subtitle: "Neurobiologie, Verhaltensbiologie & Evolution",
+          subtitle: "Neurobiologie, Stoffwechsel & Ökologie (gA / eA)",
           description:
-            "Ruhe- und Aktionspotential, Synapsen und Wirkstoffe, Leistungen des ZNS, Verhaltensökologie sowie Synthetische Evolutionstheorie und Phylogenie.",
-          link: "Bio13/index.html",
+            "Ruhe- und Aktionspotential, Synapsen und Wirkstoffe, Leistungen des ZNS sowie weiterführende Themen der Oberstufe im grundlegenden und erhöhten Anforderungsniveau.",
+          link: "bio13/index.html",
           tag: "Biologie 13",
           iconType: "brain",
-          folderHint: "Bio13",
+          folderHint: "bio13",
+          isLive: false,
           topics: [
-            "LB 2: Erregungsentstehung, Erregungsleitung & Synapsenprozesse",
-            "LB 3: Sinneszellen, Signaltransduktion, Gehirn & Gedächtnis",
-            "LB 4: Verhaltensbiologie – Proximate & ultimate Ursachen",
-            "LB 5: Evolutionsfaktoren, Artbildung, Koevolution & Stammbäume",
+            "Erregungsentstehung, Erregungsleitung & Synapsenprozesse",
+            "Sinneszellen, Signaltransduktion, Gehirn & Gedächtnis",
+            "Stoffwechselphysiologie & Ökologie der Oberstufe",
+            "Umschaltbar zwischen grundlegendem (gA) und erhöhtem Anforderungsniveau (eA)",
           ],
           subpages: [],
         },
@@ -606,15 +647,15 @@
         const subpagesHTML =
           project.subpages && project.subpages.length > 0
             ? `
-              <div class="mb-5 pt-3 border-t border-slate-100">
-                <div class="text-xs font-semibold uppercase tracking-wider text-forest-700 mb-2">
-                  Direkt zu den Lernbereichen:
+              <div class="mb-5 pt-3 border-t border-forest-100">
+                <div class="text-xs font-bold uppercase tracking-wider text-forest-800 mb-2">
+                  Direkt zu den Lernbereichen &amp; Kapiteln:
                 </div>
                 <div class="flex flex-wrap gap-1.5">
                   ${project.subpages
                     .map(
                       (sp) => `
-                        <a href="${escapeHTML(sp.link)}" class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-forest-50 text-forest-800 hover:bg-forest-600 hover:text-white border border-forest-200/70 transition-colors">
+                        <a href="${escapeHTML(sp.link)}" class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-forest-50 text-forest-800 hover:bg-forest-600 hover:text-white border border-forest-200 transition-colors shadow-sm">
                           ${escapeHTML(sp.title)}
                         </a>
                       `
@@ -625,13 +666,21 @@
             `
             : "";
 
+        const statusBadge = project.isLive
+          ? `<span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full border border-emerald-200">
+               <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+               Online
+             </span>`
+          : "";
+
         return `
-          <article class="bg-white/95 rounded-2xl p-5 md:p-6 border border-forest-100 card-hover flex flex-col h-full hover:border-forest-300 transition-all duration-300 animate-fadeIn">
-            <div class="flex items-center justify-between mb-4">
+          <article class="bg-white/95 rounded-2xl p-5 md:p-6 border ${project.isLive ? "border-forest-300 ring-2 ring-forest-400/30" : "border-forest-100"} card-hover flex flex-col h-full hover:border-forest-300 transition-all duration-300 animate-fadeIn">
+            <div class="flex items-center justify-between mb-4 gap-2 flex-wrap">
               <div class="p-3 bg-forest-50 rounded-xl text-forest-700 border border-forest-100">
                 ${getIconSvg(project.iconType)}
               </div>
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
+                ${statusBadge}
                 <span class="text-xs font-mono text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-100" title="Ordnername im Repository">
                   /${escapeHTML(project.folderHint || project.id)}
                 </span>
@@ -666,7 +715,7 @@
             <a href="${escapeHTML(project.link)}"
                class="inline-flex items-center justify-center w-full px-4 py-2.5 md:py-3 text-sm font-semibold text-white transition-all bg-forest-700 rounded-xl hover:bg-forest-600 group shadow-sm hover:shadow-forest-500/30 mt-auto"
                aria-label="${escapeHTML(project.title)} öffnen">
-              Jahrgangsstufe öffnen
+              ${project.isLive ? `Lernpfad ${escapeHTML(project.title)} öffnen` : "Jahrgangsstufe öffnen"}
               <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
               </svg>
@@ -691,7 +740,8 @@
               (p.subtitle && p.subtitle.toLowerCase().includes(q)) ||
               p.description.toLowerCase().includes(q) ||
               p.tag.toLowerCase().includes(q) ||
-              (p.topics && p.topics.some((t) => t.toLowerCase().includes(q)))
+              (p.topics && p.topics.some((t) => t.toLowerCase().includes(q))) ||
+              (p.subpages && p.subpages.some((s) => s.title.toLowerCase().includes(q)))
           );
         }
 

@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="de" data-grade="10" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Methoden | Biologie 10</title>
+<meta name="description" content="Interaktive Methodenwerkstatt für Biologie 10: Labor, Hypothesen, Experimente, Daten, Modelle, Quellen und Entscheidungen.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Riso (deal 2/3, seed interaktive-lernwebsite-biologie-mensch-deb1·d40053e4·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der Versuchsplaner und die Entscheidungsmatrix · states: default, hover, focus, active, disabled, loading, empty, error · riso: two drums
+ * axes: light/grotesk-heavy/chromatic-pink · posture: committed · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the pink drum must fill without becoming a candy surface; theme.css keeps the fills to controls, one band and the overprint, and the blue writes every word */
+/* Hallmark · answered F4 · the 10 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Cabinet Grotesk; every figure is Literata with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.obs-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); margin-top: var(--space-sm); }
+.obs-card p { font-size: var(--text-lg); line-height: 1.4; min-height: 3.2em; }
+.obs-actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-sm); }
+.exp8-grid { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--space-sm); align-items: center; margin: var(--space-md) 0; }
+.exp8-grid label { font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); }
+.source-grid, .model-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.source-card, .model-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.source-card h3, .model-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.source-card p, .model-card p { font-size: var(--text-sm); color: var(--color-ink-2); }
+.chart8 { width: 100%; height: auto; display: block; }
+.chart8 text { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.chart8 .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.chart8 .gridline { stroke: var(--color-rule); stroke-width: 1; }
+.chart8 .series { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.chart8 .point { fill: var(--color-accent); stroke: var(--color-paper-2); stroke-width: 2; }
+.micro-svg { width: 100%; height: auto; display: block; }
+.micro-svg .field { fill: var(--color-paper-2); }
+.micro-svg .field-ring { fill: none; stroke: var(--color-rule-2); stroke-width: 3; }
+.micro-svg .cell { fill: var(--color-paper); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.micro-svg .nucleus { fill: var(--color-accent); opacity: 0.8; }
+.micro-svg .bacterium { fill: var(--color-accent); opacity: 0.75; }
+.micro-svg .yeast { fill: var(--color-paper); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.micro-svg .bud { fill: var(--color-accent); opacity: 0.6; }
+.micro-svg [data-micro-group] { transform-box: view-box; transform-origin: 320px 180px; transition: transform var(--dur-short) var(--ease-out), filter var(--dur-short) var(--ease-out); }
+.micro-svg.is-blurred [data-micro-group] { filter: blur(2px); }
+.decision-card { display: grid; gap: var(--space-sm); }
+.decision-card__title { margin: 0; font: 800 var(--text-xl)/1.15 var(--font-display); }
+.decision-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.decision-matrix { overflow-x: auto; }
+.decision-matrix table { width: 100%; border-collapse: collapse; font: 400 var(--text-sm)/1.4 var(--font-body); }
+.decision-matrix th, .decision-matrix td { padding: var(--space-xs); border-bottom: var(--rule-hair) solid var(--color-rule); text-align: left; vertical-align: top; }
+.decision-matrix th { font: 500 var(--text-xs)/1.3 var(--font-body); color: var(--color-muted); }
+.decision-matrix td.is-best { background: var(--color-paper-2); font-weight: 800; }
+@media (max-width: 60rem) { .source-grid, .model-grid { grid-template-columns: minmax(0, 1fr); } .exp8-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); } .decision-matrix table { min-width: 560px; } }
+
+</style>
+<link rel="stylesheet" href="./assets/enhance.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="10-1" data-grade="10">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 10">
+      <span class="brand__name">Biologie 10</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">01</span> Methoden</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 7</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Methoden</h2>
+      <p class="sidebar__deck">Labor, Hypothesen, Experimente, Daten, Modelle, Quellen und Entscheidungen.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 7</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#labor" data-station-link="labor"><span class="station-nav__num">01</span><span>Labor und Sicherheit</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#beobachten" data-station-link="beobachten"><span class="station-nav__num">02</span><span>Beobachten und Fragen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#experimente" data-station-link="experimente"><span class="station-nav__num">03</span><span>Fragen und Experimente</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#modelle" data-station-link="modelle"><span class="station-nav__num">04</span><span>Modelle</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#daten" data-station-link="daten"><span class="station-nav__num">05</span><span>Daten und Diagramme</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#quellen" data-station-link="quellen"><span class="station-nav__num">06</span><span>Quellen und Entscheidungen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#entscheidung" data-station-link="entscheidung"><span class="station-nav__num">07</span><span>Entscheidungen treffen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">08</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">09</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 10</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Methoden: Forschen, prüfen, <span class="misreg" data-text="entscheiden">entscheiden</span>.</h1>
+<p class="lead">Hypothesen, Experimente, Daten, Modelle, Quellen und Entscheidungen. Die Werkzeuge für alle Lernbereiche.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="labor" href="#labor">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">M1</span><span>Du leitest aus komplexen Phänomenen biologische Fragen ab und formulierst prüfbare Hypothesen.</span></li>
+<li><span class="cnum">M2</span><span>Du planst und führst Untersuchungen durch, kontrollierst Variablen und erkennst Fehlerquellen.</span></li>
+<li><span class="cnum">M3</span><span>Du wertest Daten aus, liest Diagramme mit mehreren Datenreihen und beschreibst Trends und Beziehungen.</span></li>
+<li><span class="cnum">M4</span><span>Du nutzt Modelle, vergleichst alternative Modelle und beurteilst ihre Stärken und Grenzen.</span></li>
+<li><span class="cnum">M5</span><span>Du prüfst Quellen, wägst Kriterien ab und formulierst begründete Handlungsoptionen.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzbereiche von Lernbereich 1 des LehrplanPLUS Biologie 10 zusammen.</small></p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Woran erkennst du, ob eine biologische Behauptung gut belegt ist, und wie triffst du eine begründete Entscheidung?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="labor" data-title="Labor und Sicherheit" data-track="true" id="labor">
+<header class="station__head">
+<h2 id="labor-title"><span class="station__num">01</span> Labor und Sicherheit: Sauber und aufmerksam arbeiten</h2>
+<p class="lead">Gute Forschung beginnt mit sicherem Arbeiten. Regeln schützen dich, andere und die Ergebnisse.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Im Labor arbeitest du mit Geräten, Glas, Hitze und manchmal mit Chemikalien. Bevor du beginnst, klärst du den Versuchsaufbau, die Gefahren und die Schutzmaßnahmen. Schutzbrille, Kittel und gegebenenfalls Handschuhe gehören dazu. Lange Haare werden zusammengebunden, offene Flammen und brennbare Stoffe werden getrennt, und der Arbeitsplatz bleibt frei von Taschen und Getränken.</p>
+<p>Glasgeräte werden vor und nach dem Gebrauch geprüft. Risse oder Splitter sind ein Sicherheitsrisiko. Beim Erhitzen hältst du das Gefäß mit einer Klammer und richtest die Öffnung nicht auf dich oder andere. Chemikalien werden nie in den Mund genommen oder ohne Beschriftung aufbewahrt. Abfälle kommen in die vorgesehenen Behälter, nicht in den Ausguss. Nach dem Versuch werden Hände gewaschen und Geräte gereinigt.</p>
+<p>Dokumentation gehört zur Sicherheit: Notiere Datum, Versuchsaufbau, Beobachtungen und Abweichungen. Erfinde keine Werte und verschweige keine Fehler. Wenn etwas unklar ist oder ein Unfall passiert, informierst du sofort die Lehrkraft. Sicherheit ist keine Formalität, sondern Teil des wissenschaftlichen Arbeitens.</p>
+<table class="data-table">
+<caption>Laborregeln und ihr Zweck</caption>
+<thead><tr><th>Regel</th><th>Warum sie wichtig ist</th></tr></thead>
+<tbody>
+<tr><td>Schutzbrille tragen</td><td>Schützt die Augen vor Spritzern, Splittern und Dämpfen.</td></tr>
+<tr><td>Nicht essen oder trinken</td><td>Verhindert die Aufnahme von Chemikalien und Erregern.</td></tr>
+<tr><td>Gefäße beschriften</td><td>Verwechslungen können gefährlich sein.</td></tr>
+<tr><td>Erhitzen mit Klammer</td><td>Schützt vor Verbrennungen und Glasbruch.</td></tr>
+<tr><td>Abfälle trennen</td><td>Schützt Umwelt und Entsorgung.</td></tr>
+<tr><td>Unfälle sofort melden</td><td>Ermöglicht schnelle Hilfe und Dokumentation.</td></tr>
+</tbody>
+</table>
+<details class="deep">
+<summary>Mehr im Detail: Gefahrensymbole lesen</summary>
+<p>Gefahrensymbole stehen auf Verpackungen von Chemikalien. Sie warnen zum Beispiel vor ätzenden, entzündbaren, giftigen oder umweltgefährlichen Stoffen. Die Symbole ersetzen nicht die Gebrauchsanweisung: Lies das Sicherheitsdatenblatt und die Anweisung der Lehrkraft. Wenn ein Stoff unbekannt ist, behandle ihn vorsichtig und frage nach, statt zu raten.</p>
+</details>
+<section aria-labelledby="labor-check" class="checkpoint">
+<h3 id="labor-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="labor">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="labor" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "la1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Warum trägt man im Labor eine Schutzbrille?",
+              "options": ["Sie schützt die Augen vor Spritzern, Splittern und Dämpfen.", "Sie verbessert die Sicht auf das Mikroskop.", "Sie ersetzt die Händewaschung.", "Sie macht Chemikalien ungiftig."],
+              "correct": 0,
+              "explain": "Schutzbrillen schützen die Augen vor mechanischen und chemischen Gefahren. Sie sind Teil der persönlichen Schutzausrüstung."
+            },
+            {
+              "id": "la2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Was tust du, wenn ein Glasgefäß einen Riss hat?",
+              "options": ["Nicht verwenden und die Lehrkraft informieren.", "Weiterverwenden, wenn es nur klein ist.", "Mit Klebeband reparieren.", "Sofort erhitzen."],
+              "correct": 0,
+              "explain": "Beschädigte Glasgeräte können brechen. Sie werden aussortiert und die Lehrkraft informiert."
+            },
+            {
+              "id": "la3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Warum müssen Abweichungen und Fehler dokumentiert werden?",
+              "options": ["Weil sie die Ergebnisse beeinflussen und nachvollziehbar bleiben müssen.", "Weil sie automatisch verschwinden.", "Weil nur perfekte Ergebnisse zählen.", "Weil die Lehrkraft sonst nicht korrigieren kann."],
+              "correct": 0,
+              "explain": "Ehrliche Dokumentation macht Ergebnisse nachvollziehbar. Fehler zu verschweigen wäre wissenschaftlich falsch."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="labor" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="beobachten" href="#beobachten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Sicherheit geht vor Ergebnis. Schutzausrüstung, saubere Geräte und ehrliche Dokumentation gehören zusammen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Schutzausrüstung</dt><dd>Brille, Kittel, Handschuhe und andere Schutzmittel.</dd>
+<dt>Gefahrensymbol</dt><dd>Piktogramm, das auf eine Gefahr hinweist.</dd>
+<dt>Sicherheitsdatenblatt</dt><dd>Informationsblatt zu Gefahren und Schutzmaßnahmen eines Stoffes.</dd>
+<dt>Dokumentation</dt><dd>Nachvollziehbare Aufzeichnung von Versuch und Ergebnissen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Regeln als lästig abtun. Sie schützen Menschen und machen Ergebnisse vergleichbar.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="beobachten" data-title="Beobachten und Fragen" data-track="true" id="beobachten">
+<header class="station__head">
+<h2 id="beobachten-title"><span class="station__num">02</span> Beobachten, ohne zu viel zu behaupten</h2>
+<p class="lead">Eine gute Beobachtung beschreibt, was du siehst, hörst oder misst. Eine Deutung erklärt, was es bedeuten könnte.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Biologie beginnt mit genauer Beobachtung. Du beschreibst zum Beispiel, dass eine Pflanze zum Fenster wächst, dass auf Brot grüne Flecken entstehen oder dass der Puls nach dem Laufen höher ist. Diese Sätze enthalten nur, was du wahrnehmen oder messen kannst. Sie sind noch keine Erklärung.</p>
+<p>Eine Deutung fügt eine Erklärung hinzu: Die Pflanze „mag“ das Licht, der Schimmel kommt von der Feuchtigkeit, Sport ist gesund. Solche Sätze können richtig sein, aber sie brauchen Belege. Eine gute biologische Frage macht klar, was untersucht wird, und eine Hypothese sagt, welche Antwort du erwartest. Beobachtung und Deutung werden oft vermischt. Deshalb ist es wichtig, beide getrennt zu formulieren.</p>
+<p>Beim Bestimmen vergleichst du Merkmale mit einem Bestimmungsschlüssel. Du beginnst mit einem sicheren Merkmal und arbeitest dich Schritt für Schritt weiter. Notiere die Merkmale und die Quelle des Schlüssels; ein falsches Merkmal führt schnell zur falschen Art. Eine Bestimmung ist eine begründete Zuordnung, kein schneller Blick auf ein Bild.</p>
+<figure class="tool" data-tool="observation-sort">
+<div class="tool__head">
+<p class="tool__title">Beobachtung oder Deutung?</p>
+<p class="tool__hint">Wähle eine Aussage und entscheide, was sie ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="obs-card">
+<p data-obs-text="">Wähle eine Aussage.</p>
+<div class="obs-actions">
+<button class="btn btn--quiet btn--small" data-obs-answer="beobachtung" type="button">Beobachtung</button>
+<button class="btn btn--quiet btn--small" data-obs-answer="deutung" type="button">Deutung</button>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Eine Beobachtung kann man sehen, hören oder messen. Eine Deutung ist eine Erklärung, die geprüft werden muss.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Von der Beobachtung zur Frage</summary>
+<p>Aus einer Beobachtung wird eine gute Frage, wenn sie sich untersuchen lässt. „Warum wächst die Pflanze zum Fenster?“ ist noch sehr offen. „Wächst eine Pflanze bei seitlichem Licht stärker zum Licht als bei Licht von oben?“ ist eine Frage, die du mit einem Versuch beantworten kannst. Eine Hypothese wäre: „Pflanzen wachsen bei seitlichem Licht stärker in Richtung der Lichtquelle.“</p>
+<p>Eine Beobachtung kann auch täuschen. Ein einzelner Fall ist noch kein Beleg. Erst mehrere Beobachtungen, Messungen und Vergleiche machen eine Deutung belastbar.</p>
+</details>
+<section aria-labelledby="beobachten-check" class="checkpoint">
+<h3 id="beobachten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="beobachten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="beobachten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "b1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Welche Aussage ist eine Beobachtung?",
+              "options": ["Die Pflanze wächst zum Fenster.", "Die Pflanze mag das Licht.", "Die Pflanze ist glücklich.", "Licht ist immer gut."],
+              "correct": 0,
+              "explain": "„Die Pflanze wächst zum Fenster“ beschreibt, was man sehen kann. Die anderen Aussagen sind Deutungen oder Bewertungen."
+            },
+            {
+              "id": "b2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Warum ist eine Deutung noch kein Beweis?",
+              "options": ["Weil sie eine Erklärung ist, die erst durch Daten gestützt werden muss.", "Weil sie immer falsch ist.", "Weil man sie nicht aufschreiben kann.", "Weil sie nur bei Tieren vorkommt."],
+              "correct": 0,
+              "explain": "Eine Deutung kann richtig sein, aber sie braucht Belege. Erst Daten und Vergleiche entscheiden, ob sie tragfähig ist."
+            },
+            {
+              "id": "b3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Was gehört zu einer Bestimmung mit einem Schlüssel?",
+              "options": ["Merkmale schrittweise vergleichen und die Quelle nennen", "Nur die Farbe betrachten", "Den erstbesten Namen googeln", "Die Art raten"],
+              "correct": 0,
+              "explain": "Ein Bestimmungsschlüssel führt über Merkmale Schritt für Schritt zur Art. Die Quelle und die Merkmale werden dokumentiert."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="beobachten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="experimente" href="#experimente">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Erst beobachten, dann deuten. Eine Deutung braucht Belege, nicht nur eine gute Geschichte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Beobachtung</dt><dd>Was du siehst, hörst oder misst.</dd>
+<dt>Deutung</dt><dd>Eine Erklärung für eine Beobachtung.</dd>
+<dt>Hypothese</dt><dd>Eine begründete, prüfbare Vermutung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Eine Deutung als Beobachtung ausgeben. „Die Pflanze mag Licht“ kann man nicht sehen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="experimente" data-title="Fragen und Experimente" data-track="true" id="experimente">
+<header class="station__head">
+<h2 id="experimente-title"><span class="station__num">03</span> Fragen, Hypothesen, Experimente</h2>
+<p class="lead">Eine gute Untersuchung beginnt mit einer Frage, die du beantworten kannst, und einer Hypothese, die du prüfen kannst.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Hypothese ist eine begründete Vermutung. Sie muss so formuliert sein, dass du sie an Daten scheitern lassen kannst. „Pflanzen mögen Licht“ ist keine gute Hypothese, weil man sie kaum widerlegen kann. „Pflanzen mit seitlichem Licht wachsen stärker in Richtung Lichtquelle als Pflanzen mit Licht von oben“ ist prüfbar, weil sie eine Behandlung, eine Messgröße und einen Vergleich festlegt.</p>
+<p>Im Experiment veränderst du die unabhängige Variable und misst die abhängige Variable. Alle anderen Bedingungen müssen gleich bleiben. Eine Kontrollgruppe hilft dir zu sehen, was ohne die Behandlung passiert. Mehrere Wiederholungen sind wichtig, weil ein einzelner Fall vom Zufall abhängen kann. Fehlerquellen sind zum Beispiel eine zu kleine Stichprobe, ein zu kurzer Zeitraum oder eine ungleiche Behandlung der Gruppen.</p>
+<figure class="tool" data-tool="experiment8">
+<div class="tool__head">
+<p class="tool__title">Versuchsplaner</p>
+<p class="tool__hint">Wähle eine Frage und lege die Variablen fest. Das Werkzeug prüft, ob dein Plan testbar ist.</p>
+</div>
+<div class="tool__controls">
+<label>Frage <select class="select" data-exp8-question="" data-tip-title="Forschungsfrage" data-tip="Die Frage legt fest, was untersucht wird. Eine gute Frage ist so eng, dass du sie mit einem Versuch beantworten kannst."><option selected="" value="light">Pflanzen und Licht</option><option value="mold">Schimmel und Feuchtigkeit</option><option value="pulse">Puls und Sport</option></select></label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="exp8-grid">
+<label for="exp8-uv">Unabhängige Variable</label>
+<select class="select" data-exp8-uv="" id="exp8-uv" data-tip-title="Unabhängige Variable" data-tip="Sie wird gezielt verändert – hier die Lichtrichtung. Pro Versuch gibt es genau eine unabhängige Variable."><option value="licht">Licht</option><option value="feuchtigkeit">Feuchtigkeit</option><option value="sport">Sport</option><option value="pflanzenhoehe">Pflanzenhöhe</option><option value="schimmel">Schimmelwachstum</option><option value="puls">Puls</option></select>
+<label for="exp8-av">Abhängige Variable</label>
+<select class="select" data-exp8-av="" id="exp8-av" data-tip-title="Abhängige Variable" data-tip="Sie wird gemessen – hier die Pflanzenhöhe. Sie zeigt, ob sich die unabhängige Variable auswirkt."><option value="pflanzenhoehe">Pflanzenhöhe</option><option value="schimmel">Schimmelwachstum</option><option value="puls">Puls</option><option value="licht">Licht</option><option value="feuchtigkeit">Feuchtigkeit</option><option value="sport">Sport</option></select>
+<label for="exp8-control">Kontrolle</label>
+<select class="select" data-exp8-control="" id="exp8-control" data-tip-title="Kontrollierte Bedingungen" data-tip="Alle anderen Bedingungen bleiben gleich. Nur so kannst du den Effekt eindeutig der veränderten Variable zuordnen."><option value="gleich">Alle anderen Bedingungen gleich halten</option><option value="aendern">Alle anderen Bedingungen verändern</option><option value="keine">Keine Kontrolle nötig</option></select>
+<label for="exp8-sample">Stichprobe</label>
+<select class="select" data-exp8-sample="" id="exp8-sample" data-tip-title="Stichprobe" data-tip="Mehrere Wiederholungen schützen vor Zufallsergebnissen. Ein einzelner Fall kann eine Hypothese stützen, aber nicht zuverlässig prüfen."><option value="mehrere">Mehrere Wiederholungen</option><option value="eine">Eine Beobachtung</option><option value="zwei">Zwei Beobachtungen insgesamt</option></select>
+</div>
+<button class="btn btn--quiet btn--small" data-exp8-check="" type="button">Plan prüfen</button>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Plan ist testbar, wenn die unabhängige Variable verändert wird, die abhängige Variable gemessen wird und Störgrößen kontrolliert bleiben.</figcaption>
+</figure>
+<figure class="tool" data-tool="experiment3d">
+<div class="tool__head">
+<p class="tool__title">3D-Versuch: Pflanzen im Lichtvergleich</p>
+<p class="tool__hint tool__hint--scene">Drehe den Aufbau, fahre über ein Bauteil und prüfe, welche Rolle es im Experiment hat.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-photo-light="" type="button" data-tip-title="Unabhängige Variable" data-tip="Mit diesem Schalter veränderst du die Lichtrichtung. Die Versuchsgruppe bekommt seitliches Licht, die Kontrollgruppe Licht von oben.">Seitliches Licht einschalten</button>
+<button class="btn btn--quiet btn--small" data-photo-play="" type="button" data-tip-title="Animation" data-tip="Pausiere die Bewegung, wenn du die Pflanzen in Ruhe vergleichen willst. Die Kamera bleibt weiterhin bedienbar.">Pause</button>
+<button class="btn btn--quiet btn--small" data-photo-reset="" type="button" data-tip-title="Ansicht zurücksetzen" data-tip="Kamerasicht und Pflanzenstellung fahren weich in den Ausgangszustand zurück.">Ansicht zurücksetzen</button>
+</div>
+<div class="scene-toolbar">
+<span class="scene-toolbar__label">Tempo</span>
+<span class="scene-toolbar__group" role="group" aria-label="Animationstempo">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-photo-speed="0.5" type="button" data-tip-title="Tempo 0,5×" data-tip="Halbe Geschwindigkeit: gut zum genauen Beobachten der Biegung.">0,5×</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-photo-speed="1" type="button" data-tip-title="Tempo 1×" data-tip="Normale Geschwindigkeit für den Vergleich der beiden Gruppen.">1×</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-photo-speed="2" type="button" data-tip-title="Tempo 2×" data-tip="Doppelte Geschwindigkeit: du siehst die Reaktion schneller, aber weniger genau.">2×</button>
+</span>
+<span class="scene-status" data-photo-status="">Animation läuft</span>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="phototropism" id="phototropism-scene" role="img" aria-label="Schematischer 3D-Versuch mit zwei Pflanzen: eine Versuchsgruppe mit seitlichem Licht und eine Kontrollgruppe mit Licht von oben.">
+<div class="tool__fallback">
+<svg aria-label="Zwei Pflanzen im Vergleich: links mit seitlichem Licht, rechts mit Licht von oben" class="chart8" role="img" viewBox="0 0 640 280">
+<rect fill="var(--color-paper-2)" height="280" width="640" x="0" y="0"></rect>
+<line stroke="var(--color-rule)" stroke-width="2" x1="40" x2="600" y1="232" y2="232"></line>
+<rect fill="var(--color-paper-3)" height="48" stroke="var(--color-rule-2)" stroke-width="2" width="58" x="132" y="184"></rect>
+<rect fill="var(--color-paper-3)" height="48" stroke="var(--color-rule-2)" stroke-width="2" width="58" x="450" y="184"></rect>
+<path d="M161 184 C150 150 138 118 112 92" fill="none" stroke="var(--color-accent)" stroke-width="6" stroke-linecap="round"></path>
+<path d="M145 154 C128 148 116 138 108 124" fill="none" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round"></path>
+<path d="M138 126 C154 118 166 108 174 96" fill="none" stroke="var(--color-accent)" stroke-width="4" stroke-linecap="round"></path>
+<path d="M479 184 L479 92" fill="none" stroke="var(--color-ink)" stroke-width="6" stroke-linecap="round"></path>
+<path d="M462 154 C446 146 438 136 436 124" fill="none" stroke="var(--color-ink)" stroke-width="4" stroke-linecap="round"></path>
+<path d="M496 126 C512 118 520 108 522 96" fill="none" stroke="var(--color-ink)" stroke-width="4" stroke-linecap="round"></path>
+<line stroke="var(--color-accent)" stroke-width="2" x1="76" x2="112" y1="58" y2="92"></line>
+<line stroke="var(--color-accent)" stroke-width="2" x1="76" x2="76" y1="58" y2="92"></line>
+<line stroke="var(--color-accent)" stroke-width="2" x1="112" x2="112" y1="58" y2="92"></line>
+<circle cx="76" cy="58" fill="var(--color-accent)" r="12"></circle>
+<line stroke="var(--color-muted)" stroke-width="2" x1="479" x2="479" y1="48" y2="28"></line>
+<circle cx="479" cy="48" fill="var(--color-accent)" r="12"></circle>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="161" y="258">Versuchsgruppe: seitliches Licht</text>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="479" y="258">Kontrollgruppe: Licht von oben</text>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" x="320" y="28">schematischer Aufbau</text>
+</svg>
+</div>
+</div>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-accent)"></span>Versuchsgruppe: seitliches Licht</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-ink)"></span>Kontrollgruppe: Licht von oben</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-paper-3)"></span>Messlatte: Höhe in cm</span>
+</div>
+<div aria-live="polite" class="tool__readout" data-photo-readout=""></div>
+<figcaption class="tool__caption">Das Modell ist schematisch: Die Biegung ist übertrieben dargestellt. Im Experiment müssen Lichtstärke, Wasser, Erde, Temperatur und Beobachtungsdauer bei beiden Gruppen gleich bleiben.</figcaption>
+<p class="tool__scene-note">Fachbegriffe: Die Lichtrichtung ist die unabhängige Variable, die Pflanzenhöhe die abhängige Variable. Die Kontrollgruppe zeigt den Vergleich ohne die seitliche Lichtquelle.</p>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum eine Kontrollgruppe wichtig ist</summary>
+<p>Wenn du nur eine Gruppe untersuchst, weißt du nicht, ob eine Veränderung von deiner Behandlung oder von etwas anderem kommt. Eine Kontrollgruppe wird gleich behandelt, bekommt aber nicht die untersuchte Behandlung. So kannst du den Effekt der Behandlung besser abgrenzen. Bei Pflanzen wäre die Kontrollgruppe zum Beispiel eine Gruppe mit Licht von oben, während die Versuchsgruppe seitliches Licht bekommt.</p>
+</details>
+<section aria-labelledby="experimente-check" class="checkpoint">
+<h3 id="experimente-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="experimente">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="experimente" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "e1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Was ist eine prüfbare Hypothese?",
+              "options": ["Pflanzen mit seitlichem Licht wachsen stärker zum Licht als Pflanzen mit Licht von oben.", "Pflanzen mögen Licht.", "Licht ist schön.", "Alle Pflanzen sind gleich."],
+              "correct": 0,
+              "explain": "Die Hypothese legt eine Behandlung, eine Messgröße und einen Vergleich fest. Sie kann an Daten scheitern."
+            },
+            {
+              "id": "e2",
+              "type": "input",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Wie heißt die Variable, die du im Experiment gezielt veränderst?",
+              "accept": ["unabhängige variable", "unabhaengige variable", "uv", "unabhängige"],
+              "model": "unabhängige Variable",
+              "explain": "Die unabhängige Variable wird verändert. Die abhängige Variable wird gemessen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="experimente" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="modelle" href="#modelle">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Hypothese, Vorhersage und Ergebnis sind drei verschiedene Dinge. Die Hypothese ist die Vermutung, das Ergebnis ist der Befund.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>unabhängige Variable</dt><dd>wird verändert.</dd>
+<dt>abhängige Variable</dt><dd>wird gemessen.</dd>
+<dt>Kontrollgruppe</dt><dd>wird gleich behandelt, bekommt aber nicht die Behandlung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur eine Pflanze pro Gruppe testen. Ein Einzelfall kann eine Hypothese stützen, aber nicht zuverlässig prüfen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="modelle" data-title="Modelle" data-track="true" id="modelle">
+<header class="station__head">
+<h2 id="modelle-title"><span class="station__num">04</span> Modelle sind Werkzeuge, keine Kopien</h2>
+<p class="lead">Ein Modell vereinfacht. Genau deshalb kann es etwas erklären, und genau deshalb hat es Grenzen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Modell ist eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck. Ein Zellmodell zeigt dir die Organellen, aber es bewegt sich nicht und zeigt nicht alle Stoffwechselvorgänge. Ein Augenmodell zeigt den Weg des Lichts, aber nicht, wie das Gehirn das Bild verarbeitet. Ein Ökosystemmodell zeigt Nahrungsbeziehungen, aber nicht jede Art und jeden Einfluss.</p>
+<p>Modelle sind keine Lügen. Sie sind Werkzeuge, die eine Frage beantworten sollen. Wichtig ist, dass du den Zweck, die Vereinfachungen und die Grenzen nennst. Ein Modell, das alles zeigt, erklärt oft nichts. Für eine andere Frage brauchst du vielleicht ein anderes Modell.</p>
+<figure class="tool" data-tool="model8">
+<div class="tool__head">
+<p class="tool__title">Modellvergleich</p>
+<p class="tool__hint">Wähle ein Modell. Prüfe, welche Frage es beantwortet und wo es an seine Grenzen kommt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="model-grid">
+<div class="model-card"><h3>Zellmodell</h3><p>Zeigt Organellen und ihre Lage.</p></div>
+<div class="model-card"><h3>Augenmodell</h3><p>Zeigt Linse, Netzhaut und den Lichtweg.</p></div>
+<div class="model-card"><h3>Ökosystemmodell</h3><p>Zeigt Nahrungsbeziehungen und Stoffflüsse.</p></div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Modell ist gut, wenn es die Frage beantwortet, für die es gebaut wurde. Für eine andere Frage brauchst du vielleicht ein anderes Modell.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Wann ein Modell zu einfach ist</summary>
+<p>Ein Zellmodell mit starren Organellen zeigt nicht, wie sich die Zelle teilt oder wie Stoffe durch die Membran wandern. Das Modell bleibt nützlich, weil es die Grundstruktur anschaulich macht. Es wird problematisch, wenn du damit erklären willst, wie ein Enzym funktioniert oder wie eine Zelle auf einen Reiz reagiert. Dafür brauchst du ein anderes Modell.</p>
+</details>
+<section aria-labelledby="modelle-check" class="checkpoint">
+<h3 id="modelle-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="modelle">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="modelle" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "m1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Was ist ein Modell in der Biologie?",
+              "options": ["Eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck.", "Eine exakte Kopie der Wirklichkeit.", "Eine ungeprüfte Behauptung.", "Eine Messung ohne Fehler."],
+              "correct": 0,
+              "explain": "Ein Modell ist eine zweckgebundene Vereinfachung. Es kann materiell oder ideell sein und muss an der Wirklichkeit geprüft werden."
+            },
+            {
+              "id": "m2",
+              "type": "multi",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Welche Aussagen sind Grenzen eines Zellmodells mit starren Organellen?",
+              "options": ["Es zeigt keine dynamischen Vorgänge.", "Es zeigt nicht jede Zellart.", "Es macht die Grundstruktur anschaulich.", "Es ist keine Fotografie der Wirklichkeit."],
+              "correct": [0, 1, 3],
+              "explain": "Die Anschaulichkeit ist eine Stärke. Die fehlende Dynamik, die Vereinfachung und die fehlende Fotografie sind Grenzen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="modelle" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="daten" href="#daten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Jedes Modell ist für eine Frage gebaut. Nenne den Zweck, die Vereinfachung und die Grenze.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>materielles Modell</dt><dd>zum Beispiel ein Zellmodell aus Knete.</dd>
+<dt>ideelles Modell</dt><dd>zum Beispiel ein Diagramm oder eine Gleichung.</dd>
+<dt>Modellkritik</dt><dd>prüft, was das Modell zeigt und was es ausblendet.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Ein Modell mit der Wirklichkeit verwechseln. „Das Modell zeigt es so“ ist kein Beweis, dass es in der Natur genau so abläuft.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="daten" data-title="Daten und Diagramme" data-track="true" id="daten">
+<header class="station__head">
+<h2 id="daten-title"><span class="station__num">05</span> Daten lesen, ohne zu viel zu behaupten</h2>
+<p class="lead">Ein Diagramm zeigt ein Muster. Was das Muster bedeutet, entscheidest du nicht am Diagramm allein.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Daten werden in Tabellen und Diagrammen dargestellt. Eine gute Darstellung nennt die Messgröße, die Einheit und die Bedingungen. Ein Liniendiagramm zeigt, wie sich ein Wert über die Zeit verändert. Ein Balkendiagramm vergleicht Gruppen. Ein Punktdiagramm kann einen Zusammenhang zeigen, aber nicht automatisch eine Ursache beweisen.</p>
+<p>Bei der Auswertung unterscheidest du Beschreibung und Interpretation. „Die Pflanze war nach sechs Wochen 18 cm hoch“ ist eine Beschreibung. „Die Pflanze wächst immer gleich schnell“ ist eine Interpretation, die zu den Daten passen muss. Achte auf die Achsen, die Einheiten und die Skala. Eine abgeschnittene Achse kann Unterschiede größer wirken lassen, als sie sind.</p>
+<figure class="tool" data-tool="chart8">
+<div class="tool__head">
+<p class="tool__title">Diagramm lesen</p>
+<p class="tool__hint">Wähle eine Aussage. Das Werkzeug zeigt, ob sie von den Daten getragen wird.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Liniendiagramm: Pflanzenhöhe in Zentimetern über sechs Wochen. Die Kurve steigt zunächst steil und flacht dann ab." class="chart8" role="img" viewBox="0 0 640 300">
+<line class="axis" x1="60" x2="600" y1="250" y2="250"></line>
+<line class="axis" x1="60" x2="60" y1="250" y2="30"></line>
+<line class="gridline" x1="60" x2="600" y1="190" y2="190"></line>
+<line class="gridline" x1="60" x2="600" y1="130" y2="130"></line>
+<line class="gridline" x1="60" x2="600" y1="70" y2="70"></line>
+<polyline class="series" points="60,238 150,180 240,135 330,105 420,85 510,75 600,70"></polyline>
+<circle class="point" cx="60" cy="238" r="4"></circle><circle class="point" cx="150" cy="180" r="4"></circle><circle class="point" cx="240" cy="135" r="4"></circle><circle class="point" cx="330" cy="105" r="4"></circle><circle class="point" cx="420" cy="85" r="4"></circle><circle class="point" cx="510" cy="75" r="4"></circle><circle class="point" cx="600" cy="70" r="4"></circle>
+<text x="330" y="285">Wochen</text>
+<text transform="rotate(-90 8 145)" x="8" y="145">Höhe in cm</text>
+<text x="580" y="245">6</text>
+<text x="55" y="268">0</text>
+<text x="50" y="75">20</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Kurve steigt zunächst steil und flacht dann ab. Das ist ein Muster, noch keine Erklärung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was ein Diagramm nicht verrät</summary>
+<p>Ein Diagramm zeigt nur die Daten, die erhoben wurden. Es sagt nicht, warum ein Wert steigt oder fällt. Vielleicht wurde die Pflanze größer, weil sie mehr Licht bekam, weil die Temperatur stieg oder weil sie einfach älter wurde. Für eine Ursache brauchst du einen Versuch mit klaren Variablen und eine Kontrollgruppe.</p>
+<p>Fehlerquellen sind zum Beispiel ungenaue Messungen, eine kleine Stichprobe oder ein zu kurzer Beobachtungszeitraum. Ein einzelner Ausreißer kann das Bild verzerren. Deshalb schaust du nicht nur auf einen Punkt, sondern auf den ganzen Verlauf.</p>
+</details>
+<section aria-labelledby="daten-check" class="checkpoint">
+<h3 id="daten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="daten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="daten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "d1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Was kannst du aus dem Diagramm sicher schließen?",
+              "options": ["Die Pflanze wächst in den ersten Wochen stärker als am Ende.", "Die Pflanze wächst immer gleich schnell.", "Mehr Licht ist die Ursache für das Wachstum.", "Die Pflanze ist gesund."],
+              "correct": 0,
+              "explain": "Die Kurve steigt zunächst steiler und flacht dann ab. Das ist eine Beschreibung des Musters. Ursache und Gesundheit sind zusätzliche Aussagen."
+            },
+            {
+              "id": "d2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Warum sind die Achsen und Einheiten wichtig?",
+              "options": ["Weil sie sagen, was gemessen wurde und in welchem Bereich die Werte liegen.", "Weil sie das Diagramm bunter machen.", "Weil sie die Ursache beweisen.", "Weil sie die Stichprobe vergrößern."],
+              "correct": 0,
+              "explain": "Achsen und Einheiten machen die Darstellung lesbar. Ohne sie weißt du nicht, was die Zahlen bedeuten."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="daten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="quellen" href="#quellen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Beschreibung und Interpretation trennen. Erst sagen, was gemessen wurde, dann, was es bedeuten könnte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Messgröße</dt><dd>was gemessen wird, mit Einheit.</dd>
+<dt>Trend</dt><dd>die Richtung des Zusammenhangs.</dd>
+<dt>Fehlerquelle</dt><dd>ein Umstand, der das Ergebnis verfälschen kann.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Von einem einzelnen Diagramm auf „alle“ oder „immer“ schließen. Die Reichweite einer Aussage muss zu den Daten passen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="quellen" data-title="Quellen und Entscheidungen" data-track="true" id="quellen">
+<header class="station__head">
+<h2 id="quellen-title"><span class="station__num">06</span> Quellen prüfen, Entscheidungen begründen</h2>
+<p class="lead">Nicht jede Information, die sich biologisch anhört, ist eine gute Quelle. Prüfe Herkunft, Methode und Interesse.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Primärquelle berichtet eine Untersuchung aus erster Hand, meist in einer Fachzeitschrift. Eine Sekundärquelle fasst zusammen, etwa ein Lehrbuch oder ein Wissenschaftsartikel. Eine Werbeanzeige, ein Social-Media-Post oder eine Produktseite kann über eine Studie berichten, ist aber nicht die Studie selbst.</p>
+<p>Zur Quellenprüfung gehören Autor und Institution, Datum, Methode, Stichprobe, Interessenkonflikt und die Frage, ob die Aussage durch die Daten gedeckt ist. Ein häufiger Fehler ist, eine Überschrift zu zitieren, ohne den Originalbefund zu prüfen. Ein anderer ist, eine Korrelation als Beweis für eine Ursache zu verkaufen. Bei Entscheidungen hilft es, Kriterien vorher festzulegen, zum Beispiel Gesundheit, Umwelt, Kosten und Fairness.</p>
+<figure class="tool" data-tool="source8">
+<div class="tool__head">
+<p class="tool__title">Quellenprüfung</p>
+<p class="tool__hint">Wähle eine Quelle. Das Werkzeug zeigt, wie tragfähig sie ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="source-grid">
+<div class="source-card"><h3>Originalstudie</h3><p>Fachzeitschrift, Methode und Stichprobe dokumentiert, Interessenkonflikt angegeben.</p></div>
+<div class="source-card"><h3>Gesundheitswebsite</h3><p>Fasst Studien zusammen, nennt Quellen, ist für ein breites Publikum geschrieben.</p></div>
+<div class="source-card"><h3>Werbeanzeige</h3><p>Verspricht schnelle Wirkung, nennt keine Studie und keine Stichprobe.</p></div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Eine Quelle ist nicht schon deshalb gut, weil sie wissenschaftlich klingt. Entscheidend sind Nachprüfbarkeit, Methode und Transparenz.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Entscheidungen mit Kriterien</summary>
+<p>Bei einer Entscheidung, zum Beispiel „Mit dem Rad oder mit dem Auto zur Schule?“, hilft eine Bewertungsmatrix. Du legst Kriterien fest, gewichtest sie und vergleichst die Optionen. Gesundheit, Umwelt, Kosten und Zeit können unterschiedlich wichtig sein. Die Matrix macht sichtbar, welche Kriterien du wie stark gewichtest. Sie ersetzt nicht die Begründung, sie strukturiert sie.</p>
+</details>
+<section aria-labelledby="quellen-check" class="checkpoint">
+<h3 id="quellen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="quellen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="quellen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "q1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Welche Quelle ist eine Primärquelle?",
+              "options": ["Eine Originalstudie in einer Fachzeitschrift.", "Ein Zeitungsartikel über eine Studie.", "Ein Lehrbuchkapitel.", "Eine Werbeanzeige."],
+              "correct": 0,
+              "explain": "Die Originalstudie berichtet die Untersuchung aus erster Hand. Die anderen Quellen fassen zusammen oder werben."
+            },
+            {
+              "id": "q2",
+              "type": "multi",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Welche Angaben helfen dir, eine Quelle zu prüfen?",
+              "options": ["Autor und Institution", "Methode und Stichprobe", "Datum und Interessenkonflikt", "Die Zahl der Likes"],
+              "correct": [0, 1, 2],
+              "explain": "Herkunft, Methode, Stichprobe, Datum und Interessen sind prüfbar. Likes sind kein wissenschaftliches Qualitätsmerkmal."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="quellen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Erst die Quelle prüfen, dann die Aussage. Eine Überschrift ist kein Befund.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Primärquelle</dt><dd>Originalarbeit mit Daten.</dd>
+<dt>Sekundärquelle</dt><dd>Zusammenfassung oder Überblick.</dd>
+<dt>Kriterium</dt><dd>Maßstab, nach dem du eine Entscheidung beurteilst.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Eine Studie aus einer Werbeanzeige zitieren, ohne die Originalarbeit zu prüfen. Die Überschrift ist oft stärker als der Befund.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="entscheidung" data-title="Entscheidungen treffen" data-track="true" id="entscheidung">
+<header class="station__head">
+<h2 id="entscheidung-title"><span class="station__num">07</span> Entscheidungen systematisch treffen</h2>
+<p class="lead">Biologische Fragen haben oft mehrere Antworten. Gute Entscheidungen trennen Fakten von Werten und legen die Kriterien offen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Viele biologische Themen betreffen Entscheidungen: Impfen, Ernährung, Bildschirmzeit, Antibiotika oder Umweltschutz. Eine Entscheidung ist nicht dasselbe wie eine Meinung. Sie wird begründet, indem man Optionen vergleicht, Kriterien festlegt und Folgen abwägt. Kriterien können wissenschaftlich messbar sein, etwa Wirksamkeit oder Risiko, oder gesellschaftlich, etwa Gerechtigkeit, Freiheit oder Kosten.</p>
+<p>Ein hilfreiches Vorgehen: Problem klären, Optionen sammeln, Kriterien festlegen, jede Option pro Kriterium bewerten, Kriterien gewichten und die Folgen abwägen. Danach wird entschieden und die Entscheidung begründet. Wichtig ist, Fakten und Werte nicht zu vermischen. „Wie wirksam ist eine Impfung?“ ist eine empirische Frage; „Wie wichtig ist Herdenschutz?“ ist eine Wertefrage. Beide gehören zu einer guten Entscheidung.</p>
+<p>Unsicherheit bleibt oft bestehen. Dann hilft es, die Annahmen offenzulegen, die wichtigsten Unsicherheiten zu benennen und zu fragen, wie sich die Entscheidung ändern würde, wenn neue Daten auftauchen. Eine Entscheidung kann revidiert werden, wenn die Grundlage sich ändert. Das ist kein Zeichen von Schwäche, sondern Teil rationalen Handelns.</p>
+<figure class="tool" data-tool="decision10">
+<div class="tool__head">
+<p class="tool__title">Entscheidungsmatrix</p>
+<p class="tool__hint">Wähle ein Beispiel. Prüfe Kriterien, Bewertungen und die Empfehlung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="decision-card">
+<p class="decision-card__title" data-decision-title="">Impfung</p>
+<div class="decision-matrix" data-decision-matrix=""></div>
+<p class="decision-card__text" data-decision-text=""></p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Matrix ist ein Denkwerkzeug. Sie ersetzt keine ärztliche Beratung und keine persönliche Abwägung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Fakten, Werte und Unsicherheit</summary>
+<p>Eine Entscheidungsmatrix macht Annahmen sichtbar. Wenn zwei Menschen dieselben Fakten kennen, aber unterschiedliche Werte gewichten, können sie zu unterschiedlichen Entscheidungen kommen. Das ist kein Widerspruch. Wichtig ist, die Werte zu benennen und nicht als Fakten auszugeben. In der Wissenschaft werden Unsicherheiten mit Wahrscheinlichkeiten oder Spannen angegeben. In politischen Entscheidungen kommen Fragen der Gerechtigkeit, der Freiheit und der Verantwortung hinzu.</p>
+</details>
+<section aria-labelledby="entscheidung-check" class="checkpoint">
+<h3 id="entscheidung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="entscheidung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="entscheidung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "en1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Was ist ein Kriterium in einer Entscheidung?",
+              "options": ["Ein Maßstab, an dem Optionen bewertet werden", "Eine beliebige Meinung", "Ein Messfehler", "Eine Hypothese ohne Daten"],
+              "correct": 0,
+              "explain": "Kriterien sind Maßstäbe wie Wirksamkeit, Risiko, Kosten oder Gerechtigkeit. Sie machen eine Entscheidung nachvollziehbar."
+            },
+            {
+              "id": "en2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Warum sollten Fakten und Werte getrennt werden?",
+              "options": ["Weil Fakten prüfbar sind, Werte aber begründet und offengelegt werden müssen", "Weil Werte keine Rolle spielen", "Weil Fakten immer subjektiv sind", "Weil nur Mehrheiten entscheiden"],
+              "correct": 0,
+              "explain": "Fakten lassen sich empirisch prüfen. Werte sind Entscheidungen darüber, was wichtig ist. Beide sollten offengelegt werden."
+            },
+            {
+              "id": "en3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M5",
+              "prompt": "Was tun, wenn eine Entscheidung auf unsicheren Daten beruht?",
+              "options": ["Annahmen offenlegen, Unsicherheiten benennen und die Entscheidung bei neuen Daten prüfen", "Die Unsicherheit verschweigen", "Einfach die erste Meinung nehmen", "Die Daten ignorieren"],
+              "correct": 0,
+              "explain": "Unsicherheit gehört zu vielen Entscheidungen. Transparente Annahmen und die Bereitschaft zur Revision machen die Entscheidung robuster."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="entscheidung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Entscheidungen brauchen Kriterien, Optionen und eine Begründung. Fakten und Werte werden getrennt und dann zusammengeführt.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Kriterium</dt><dd>Maßstab, an dem Optionen bewertet werden.</dd>
+<dt>Handlungsoption</dt><dd>Mögliche Entscheidung oder Verhaltensweise.</dd>
+<dt>Unsicherheit</dt><dd>Unvollständiges Wissen über Ergebnisse oder Folgen.</dd>
+<dt>Wertefrage</dt><dd>Frage danach, was wichtig und gerecht ist.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Eine Meinung als Ergebnis einer Entscheidungsmatrix ausgeben. Die Matrix macht Kriterien sichtbar, sie ersetzt die Abwägung nicht.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">08</span> Kompetenzcheck Methoden</h2>
+<p class="lead">Zehn Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du, welche Kompetenz sitzt und welche du noch üben solltest.</p>
+<div class="check" data-check="methoden10">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="methoden10" type="application/json">
+      {
+        "competencies": {
+          "M1": "Fragen und Hypothesen",
+          "M2": "Untersuchungen planen und sicher arbeiten",
+          "M3": "Daten und Diagramme auswerten",
+          "M4": "Modelle nutzen und beurteilen",
+          "M5": "Quellen prüfen und Entscheidungen treffen"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "M1",
+            "prompt": "Was ist eine Hypothese?",
+            "options": [
+              "Eine begründete, prüfbare Vermutung",
+              "Ein bewiesenes Gesetz",
+              "Eine beliebige Meinung",
+              "Ein Messwert"
+            ],
+            "correct": 0,
+            "explain": "Eine Hypothese ist eine begründete Vermutung, die durch Daten geprüft werden kann."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Wozu dient eine Kontrollgruppe in einem Experiment?",
+            "options": [
+              "Sie zeigt, was ohne die geprüfte Behandlung passiert.",
+              "Sie macht das Experiment schneller.",
+              "Sie ersetzt die Hypothese.",
+              "Sie liefert immer bessere Werte."
+            ],
+            "correct": 0,
+            "explain": "Die Kontrollgruppe ermöglicht den Vergleich: Der Effekt der Behandlung wird gegen den Zustand ohne Behandlung geprüft."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Was tust du, wenn ein Glasgefäß im Labor einen Riss hat?",
+            "options": [
+              "Nicht verwenden und die Lehrkraft informieren.",
+              "Weiterverwenden, wenn der Riss klein ist.",
+              "Mit Klebeband reparieren.",
+              "Sofort erhitzen."
+            ],
+            "correct": 0,
+            "explain": "Beschädigte Glasgeräte können brechen. Sie werden aussortiert und die Lehrkraft informiert."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "M3",
+            "prompt": "Ein Diagramm zeigt zwei Kurven. Woran erkennst du einen Trend?",
+            "options": [
+              "An der Richtung und Stärke der Veränderung über die x-Achse",
+              "An der Farbe der Kurven",
+              "Am Titel des Diagramms",
+              "An der Anzahl der Achsen"
+            ],
+            "correct": 0,
+            "explain": "Ein Trend beschreibt, wie sich eine Größe über die unabhängige Variable verändert. Farbe und Titel allein sagen nichts über den Verlauf."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "M3",
+            "prompt": "Warum reicht ein einzelner Messwert nicht für eine Aussage?",
+            "options": [
+              "Weil Streuung und Messfehler berücksichtigt werden müssen.",
+              "Weil Messwerte immer falsch sind.",
+              "Weil man nur ganze Zahlen verwenden darf.",
+              "Weil Diagramme keine Daten zeigen."
+            ],
+            "correct": 0,
+            "explain": "Einzelne Werte können durch Zufall oder Messfehler abweichen. Mehrere Messungen und Streuungsmaße machen Aussagen belastbarer."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "M4",
+            "prompt": "Was ist eine wichtige Grenze eines Modells?",
+            "options": [
+              "Es vereinfacht und zeigt nicht alle Aspekte der Wirklichkeit.",
+              "Es ist immer genauer als die Wirklichkeit.",
+              "Es braucht keine Annahmen.",
+              "Es kann nie verändert werden."
+            ],
+            "correct": 0,
+            "explain": "Modelle sind vereinfachte Darstellungen. Ihre Annahmen und Grenzen müssen bei der Interpretation berücksichtigt werden."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "M5",
+            "prompt": "Welche Quelle ist für eine biologische Fachfrage am zuverlässigsten?",
+            "options": [
+              "Ein begutachteter Fachartikel in einer wissenschaftlichen Zeitschrift",
+              "Ein beliebiger Social-Media-Post",
+              "Eine Werbeanzeige",
+              "Ein anonymer Kommentar in einem Forum"
+            ],
+            "correct": 0,
+            "explain": "Begutachtete Fachartikel werden von Fachleuten geprüft. Soziale Medien, Werbung und anonyme Kommentare sind oft nicht verlässlich."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "M5",
+            "prompt": "Was gehört zu einer begründeten Entscheidung?",
+            "options": [
+              "Kriterien offenlegen, Optionen vergleichen und Folgen abwägen",
+              "Nur die erste Idee nehmen",
+              "Sich auf das Bauchgefühl verlassen",
+              "Alle Optionen ignorieren"
+            ],
+            "correct": 0,
+            "explain": "Eine begründete Entscheidung nennt Kriterien, vergleicht Alternativen und erklärt die Wahl."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Welche Fehlerquelle kann ein Experiment verfälschen?",
+            "options": [
+              "Eine nicht kontrollierte Variable",
+              "Eine klare Hypothese",
+              "Eine ausreichende Wiederholung",
+              "Eine dokumentierte Beobachtung"
+            ],
+            "correct": 0,
+            "explain": "Wenn eine Variable nicht kontrolliert wird, lässt sich der Effekt nicht eindeutig zuordnen."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "M1",
+            "prompt": "Welche Aussage ist eine Beobachtung und keine Deutung?",
+            "options": [
+              "Die Pflanze wächst in Richtung des Fensters.",
+              "Die Pflanze mag das Licht.",
+              "Die Pflanze ist glücklich.",
+              "Licht ist immer gut."
+            ],
+            "correct": 0,
+            "explain": "Eine Beobachtung beschreibt, was messbar oder sichtbar ist. Deutungen erklären oder bewerten."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">09</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Beobachtung</dt><dd>Was du siehst, hörst oder misst.</dd></div>
+<div class="glossary__row"><dt>Deutung</dt><dd>Eine Erklärung für eine Beobachtung.</dd></div>
+<div class="glossary__row"><dt>Hypothese</dt><dd>Eine begründete, prüfbare Vermutung.</dd></div>
+<div class="glossary__row"><dt>unabhängige Variable</dt><dd>Die Variable, die du veränderst.</dd></div>
+<div class="glossary__row"><dt>abhängige Variable</dt><dd>Die Variable, die du misst.</dd></div>
+<div class="glossary__row"><dt>Kontrollgruppe</dt><dd>Vergleichsgruppe ohne die untersuchte Behandlung.</dd></div>
+<div class="glossary__row"><dt>Stichprobe</dt><dd>Die Zahl der untersuchten Fälle oder Individuen.</dd></div>
+<div class="glossary__row"><dt>Modell</dt><dd>Eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck.</dd></div>
+<div class="glossary__row"><dt>Messgröße</dt><dd>Was gemessen wird, mit Einheit.</dd></div>
+<div class="glossary__row"><dt>Trend</dt><dd>Die Richtung eines Zusammenhangs.</dd></div>
+<div class="glossary__row"><dt>Fehlerquelle</dt><dd>Ein Umstand, der ein Ergebnis verfälschen kann.</dd></div>
+<div class="glossary__row"><dt>Primärquelle</dt><dd>Eine Originalarbeit, die Daten und Methode selbst berichtet.</dd></div>
+<div class="glossary__row"><dt>Sekundärquelle</dt><dd>Eine Zusammenfassung oder ein Überblick über Primärquellen.</dd></div>
+<div class="glossary__row"><dt>Kriterium</dt><dd>Ein Maßstab, nach dem du eine Entscheidung beurteilst.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 10</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/10/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 10</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/enhance.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="de" data-grade="9" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Boden | Biologie 9</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 9 zum Ökosystem Boden: Bodenprofil, Bodenleben, Humus, Kohlenstoffkreislauf und nachhaltige Nutzung.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: das 3D-Bodenprofil und der Kohlenstoffkreislauf · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the light sheet needs the tool wells to sit one step darker; theme.css sets the wells on paper-2 and keeps the ink band to one per page */
+/* Hallmark · answered F4 · the 9 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.soilfood-card, .impact-card, .manage-card { display: grid; gap: var(--space-sm); }
+.soilfood-card__title, .impact-card__title, .manage-card__title { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.soilfood-card__text, .impact-card__text, .manage-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.soilfood-card__list, .impact-card__list, .manage-card__list { margin: 0; padding-left: 1.2em; }
+.soilfood-card__list li, .impact-card__list li, .manage-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.carbon-svg { width: 100%; height: auto; display: block; }
+.carbon-svg .box { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.carbon-svg .arrow { fill: none; stroke: var(--color-rule-2); stroke-width: 3; }
+.carbon-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-ink); text-anchor: middle; }
+.carbon-svg [data-carbon-path] { opacity: 0.22; transition: opacity var(--dur-short) var(--ease-out); }
+.carbon-svg [data-carbon-path].is-active { opacity: 1; }
+.carbon-svg [data-carbon-path].is-active .arrow { stroke: var(--color-accent); }
+.tool[data-tool="soilfoodweb9"] .tool__stage, .tool[data-tool="soilimpact9"] .tool__stage, .tool[data-tool="soilmanage9"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="carbon9"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="carbon9"] .carbon-svg { min-width: 560px; }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="9-6" data-grade="9">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 9">
+      <span class="brand__name">Biologie 9</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">06</span> Boden</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 5</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Boden</h2>
+      <p class="sidebar__deck">Bodenprofil, Bodenleben, Humus, Kohlenstoffkreislauf und nachhaltige Nutzung.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 5</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#bodenprofil" data-station-link="bodenprofil"><span class="station-nav__num">01</span><span>Bodenprofil</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#bodenleben" data-station-link="bodenleben"><span class="station-nav__num">02</span><span>Bodenleben</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#humus" data-station-link="humus"><span class="station-nav__num">03</span><span>Humus und Kohlenstoff</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#mensch" data-station-link="mensch"><span class="station-nav__num">04</span><span>Menschliche Einflüsse</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#nachhaltigkeit" data-station-link="nachhaltigkeit"><span class="station-nav__num">05</span><span>Nachhaltige Bodennutzung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">06</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">07</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 9</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Boden: Das unterschätzte Ökosystem.</h1>
+<p class="lead">Boden entsteht langsam, ist voller Leben und trägt unsere Ernährung. Er lässt sich nicht beliebig nachfüllen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="bodenprofil" href="#bodenprofil">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">B1</span><span>Du beschreibst Bodenprofil, Korngrößen und Wasserkapazität als Eigenschaften des Bodens.</span></li>
+<li><span class="cnum">B2</span><span>Du erklärst das Bodenleben und seine Rolle bei Abbau, Humusbildung und Nährstoffkreislauf.</span></li>
+<li><span class="cnum">B3</span><span>Du stellst den Kohlenstoffkreislauf und die Bedeutung des Bodens als Kohlenstoffspeicher dar.</span></li>
+<li><span class="cnum">B4</span><span>Du bewertest menschliche Einflüsse wie Düngung, Verdichtung, Versiegelung und Erosion.</span></li>
+<li><span class="cnum">B5</span><span>Du leitest Maßnahmen einer nachhaltigen Bodenbewirtschaftung ab.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 6 des LehrplanPLUS Biologie 9 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Boden ist mehr als „Dreck“. Er filtert Wasser, speichert Kohlenstoff, bietet Lebensraum und bildet die Grundlage für Nahrung. Ein Zentimeter fruchtbarer Boden kann Jahrhunderte brauchen, um zu entstehen. Deshalb ist Bodenschutz eine langfristige Aufgabe.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie können wir Boden nutzen, ohne seine Fruchtbarkeit und seine Funktionen zu zerstören?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="bodenprofil" data-title="Bodenprofil" data-track="true" id="bodenprofil">
+<header class="station__head">
+<h2 id="bodenprofil-title"><span class="station__num">01</span> Bodenprofil: Schichten und Eigenschaften</h2>
+<p class="lead">Boden entsteht aus Gestein, abgestorbenen Pflanzen und der Arbeit von Organismen. Im Profil werden die Horizonte sichtbar.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Boden entsteht durch Verwitterung von Gestein, Ablagerung von organischer Substanz und die Tätigkeit von Organismen. Das dauert sehr lange. Im Bodenprofil unterscheidet man Horizonte: Der O-Horizont ist die Streuauflage aus Blättern und abgestorbenen Pflanzenteilen. Der A-Horizont ist der humusreiche Oberboden mit Wurzeln und Bodenleben. Der B-Horizont ist der Unterboden, in den Ton und Nährstoffe eingewaschen werden. Der C-Horizont besteht aus verwittertem Ausgangsgestein; darunter liegt das feste Gestein.</p>
+<p>Die Korngröße bestimmt viele Eigenschaften. Sandkörner sind groß, Wasser läuft schnell ab, und die Wasserkapazität ist gering. Tonkörner sind sehr klein, halten Wasser und Nährstoffe gut, können aber verdichten; dann kann sich Wasser stauen. Schluff liegt dazwischen. Ein guter Boden hat eine Mischung aus Sand, Schluff und Ton sowie Humus. Humus verbessert die Wasserhaltung, die Belüftung und die Nährstoffspeicherung.</p>
+<p>Die Wasserkapazität beschreibt, wie viel Wasser ein Boden halten kann. Sie hängt von Korngröße, Porenraum und Humusgehalt ab. Verdichtung verringert den Porenraum; Wasser und Luft können schlechter eindringen. Der pH-Wert beeinflusst, welche Nährstoffe verfügbar sind und welche Pflanzen wachsen. Boden ist also ein komplexes System aus mineralischen Bestandteilen, organischer Substanz, Wasser, Luft und Lebewesen.</p>
+<figure class="tool" data-tool="soil">
+<div class="tool__head">
+<p class="tool__title">3D-Bodenprofil</p>
+<p class="tool__hint">Drehen zeigt die Schichten. Wähle einen Horizont und prüfe seine Funktion.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-soil-layer="o" data-tip-title="O-Horizont" data-tip="Streuauflage aus Blättern, Nadeln und abgestorbenen Pflanzenteilen. Hier beginnt der Abbau durch Bodenorganismen." type="button">O-Horizont</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-soil-layer="a" data-tip-title="A-Horizont" data-tip="Humusreicher Oberboden mit Wurzeln und Bodenleben. Hier ist die biologische Aktivität am größten." type="button">A-Horizont</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-soil-layer="b" data-tip-title="B-Horizont" data-tip="Unterboden, in den Ton und Nährstoffe eingewaschen werden. Weniger Humus und weniger Bodenleben." type="button">B-Horizont</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-soil-layer="c" data-tip-title="C-Horizont" data-tip="Verwittertes Ausgangsgestein. Hier beginnt die Bodenbildung; die Verwitterung dauert sehr lange." type="button">C-Horizont</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-soil-layer="life" data-tip-title="Bodenleben" data-tip="Bakterien, Pilze, Regenwürmer und kleine Gliederfüßer zersetzen Streu, bilden Humus und durchmischen den Boden." type="button">Bodenleben</button>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="soil" id="soil-scene">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Bodenprofil mit Streuauflage, Oberboden, Unterboden und Ausgangsgestein" role="img" viewbox="0 0 640 280">
+<rect fill="var(--color-paper-2)" height="280" width="640" x="0" y="0"></rect>
+<rect fill="var(--color-ink-2)" height="35" width="460" x="90" y="50"></rect>
+<rect fill="var(--color-muted)" height="60" width="460" x="90" y="85"></rect>
+<rect fill="var(--color-paper-3)" height="65" width="460" x="90" y="145"></rect>
+<rect fill="var(--color-rule-2)" height="45" width="460" x="90" y="210"></rect>
+<g fill="var(--color-muted)">
+<polygon points="120,50 126,30 132,50"></polygon><polygon points="160,50 166,25 172,50"></polygon><polygon points="200,50 206,30 212,50"></polygon><polygon points="240,50 246,25 252,50"></polygon>
+</g>
+<path d="M300 85 C295 110 310 130 300 155" fill="none" stroke="var(--color-accent)" stroke-width="6"></path>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="270">O, A, B, C: Horizonte des Bodens</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-soil-readout=""></div>
+<figcaption class="tool__caption">Das Modell ist schematisch. Reale Bodenprofile variieren stark nach Klima, Gestein, Relief und Nutzung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Korngrößen und Wasserkapazität</summary>
+<table class="data-table">
+<caption>Korngrößen im Boden</caption>
+<thead><tr><th>Fraktion</th><th>Korngröße</th><th>Eigenschaft</th></tr></thead>
+<tbody>
+<tr><td>Sand</td><td>0,063 bis 2 mm</td><td>große Poren, schneller Wasserabfluss, geringe Nährstoffspeicherung</td></tr>
+<tr><td>Schluff</td><td>0,002 bis 0,063 mm</td><td>mittlere Poren, gute Wasserhaltung</td></tr>
+<tr><td>Ton</td><td>unter 0,002 mm</td><td>sehr kleine Poren, hohe Wasser- und Nährstoffspeicherung, Verdichtungsgefahr</td></tr>
+</tbody>
+</table>
+</details>
+<section aria-labelledby="bodenprofil-check" class="checkpoint">
+<h3 id="bodenprofil-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="bodenprofil">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="bodenprofil" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "bp1",
+              "type": "mc",
+              "level": "g",
+              "competency": "B1",
+              "prompt": "Was ist der A-Horizont?",
+              "options": ["Der humusreiche Oberboden mit Wurzeln und Bodenleben", "Die Streuauflage", "Das feste Gestein", "Der Unterboden ohne Leben"],
+              "correct": 0,
+              "explain": "Der A-Horizont ist der Oberboden. Er enthält Humus, Wurzeln und die größte biologische Aktivität."
+            },
+            {
+              "id": "bp2",
+              "type": "mc",
+              "level": "g",
+              "competency": "B1",
+              "prompt": "Welche Korngröße hält Wasser und Nährstoffe besonders gut, kann aber leicht verdichten?",
+              "options": ["Ton", "Sand", "Kies", "Humus"],
+              "correct": 0,
+              "explain": "Tonpartikel sind sehr klein und haben eine große Oberfläche. Sie halten Wasser und Nährstoffe, können aber verdichten."
+            },
+            {
+              "id": "bp3",
+              "type": "mc",
+              "level": "g",
+              "competency": "B1",
+              "prompt": "Warum ist Humus für den Boden wichtig?",
+              "options": ["Er verbessert Wasserhaltung, Belüftung und Nährstoffspeicherung.", "Er macht den Boden steril.", "Er verhindert jedes Pflanzenwachstum.", "Er besteht nur aus Sand."],
+              "correct": 0,
+              "explain": "Humus ist abgestorbene organische Substanz. Er verbessert die Bodenstruktur und speichert Wasser und Nährstoffe."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="bodenprofil" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="bodenleben" href="#bodenleben">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Boden entsteht langsam. O-, A-, B- und C-Horizont haben unterschiedliche Funktionen. Korngröße und Humus bestimmen Wasser- und Nährstoffhaushalt.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Bodenhorizont</dt><dd>Schicht im Bodenprofil.</dd>
+<dt>Humus</dt><dd>abgestorbene organische Substanz im Boden.</dd>
+<dt>Korngröße</dt><dd>Größe der mineralischen Bodenpartikel.</dd>
+<dt>Wasserkapazität</dt><dd>Wassermenge, die ein Boden halten kann.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Boden als tote Materie sehen. Ein gesunder Boden ist voller Leben und ständig in Veränderung.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="bodenleben" data-title="Bodenleben" data-track="true" id="bodenleben">
+<header class="station__head">
+<h2 id="bodenleben-title"><span class="station__num">02</span> Bodenleben: Ein Netz aus Zersetzern und Partnern</h2>
+<p class="lead">Bakterien, Pilze, Regenwürmer und viele kleine Tiere machen aus Streu Humus und Nährstoffe.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Teelöffel Boden kann Milliarden von Bakterien und viele Pilzfäden enthalten. Bakterien und Pilze sind die wichtigsten Destruenten. Sie bauen abgestorbene organische Substanz ab und mineralisieren Nährstoffe, die Pflanzen wieder aufnehmen können. Pilze können mit Pflanzen eine Mykorrhiza bilden: Die Pilzfäden vergrößern die Nährstoffaufnahme, die Pflanze liefert Zucker. Regenwürmer fressen Streu und Boden, durchmischen die Horizonte und hinterlassen nährstoffreiche Ausscheidungen.</p>
+<p>Milben, Springschwänze, Nematoden und andere kleine Tiere zerkleinern Streu und fressen Pilze oder Bakterien. Sie beschleunigen den Abbau und sind selbst Nahrung für Räuber wie Laufkäfer oder Spinnen. Das Bodenleben ist ein Nahrungsnetz, in dem viele Organismen voneinander abhängen. Störungen können Kettenreaktionen auslösen: Weniger Regenwürmer bedeuten weniger Durchmischung; weniger Pilze bedeuten schlechtere Nährstoffaufnahme.</p>
+<p>Humus entsteht, wenn organische Substanz nur teilweise abgebaut wird und stabile Verbindungen bildet. Humus speichert Wasser und Nährstoffe, verbessert die Bodenstruktur und bindet Kohlenstoff. Mineralisierung setzt Nährstoffe frei. Humusbildung und Mineralisierung laufen gleichzeitig; das Gleichgewicht hängt von Temperatur, Feuchtigkeit, Bodenleben und Nutzung ab. Ein Boden ist kein Lager, sondern ein Prozess.</p>
+<figure class="tool" data-tool="soilfoodweb9">
+<div class="tool__head">
+<p class="tool__title">Bodenleben und Nahrungsnetz</p>
+<p class="tool__hint">Wähle eine Gruppe. Prüfe ihre Rolle im Boden.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="soilfood-card">
+<p class="soilfood-card__title" data-soilfood-title="">Bakterien und Pilze</p>
+<p class="soilfood-card__text" data-soilfood-text="">Sie bauen organische Stoffe ab und mineralisieren Nährstoffe.</p>
+<ul class="soilfood-card__list" data-soilfood-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Nahrungsnetz im Boden ist komplex. Die Darstellung zeigt typische Gruppen, nicht jede Art.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Regenwürmer als Bodeningenieure</summary>
+<p>Regenwürmer fressen abgestorbene Pflanzenteile und Bodenpartikel. Ihr Darm mischt beides, und ihre Ausscheidungen enthalten Nährstoffe in gut verfügbarer Form. Ihre Gänge lockern den Boden, verbessern die Wasserinfiltration und belüften ihn. Auf einer gesunden Weide können mehrere Millionen Regenwürmer pro Hektar leben. Pflügen, Verdichtung und Pestizide können ihre Zahl verringern. Weniger Regenwürmer bedeuten nicht sofort einen toten Boden, aber die Bodenfunktionen werden schwächer.</p>
+</details>
+<section aria-labelledby="bodenleben-check" class="checkpoint">
+<h3 id="bodenleben-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="bodenleben">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="bodenleben" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "bl1",
+              "type": "mc",
+              "level": "g",
+              "competency": "B2",
+              "prompt": "Welche Rolle haben Bakterien und Pilze im Boden?",
+              "options": ["Sie bauen organische Stoffe ab und mineralisieren Nährstoffe.", "Sie produzieren nur Sauerstoff.", "Sie ersetzen die Pflanzen.", "Sie verhindern jede Zersetzung."],
+              "correct": 0,
+              "explain": "Bakterien und Pilze sind Destruenten. Sie zersetzen abgestorbene Substanz und setzen Nährstoffe frei."
+            },
+            {
+              "id": "bl2",
+              "type": "mc",
+              "level": "g",
+              "competency": "B2",
+              "prompt": "Warum sind Regenwürmer wichtig für den Boden?",
+              "options": ["Sie durchmischen Boden und Streu und verbessern die Wasserinfiltration.", "Sie fressen nur Steine.", "Sie machen den Boden steril.", "Sie verhindern das Pflanzenwachstum."],
+              "correct": 0,
+              "explain": "Regenwürmer fressen Streu und Boden, durchmischen die Horizonte und schaffen Gänge für Wasser und Luft."
+            },
+            {
+              "id": "bl3",
+              "type": "mc",
+              "level": "g",
+              "competency": "B2",
+              "prompt": "Was ist Humus?",
+              "options": ["Abgestorbene organische Substanz im Boden", "Frisches Gestein", "Reiner Sand", "Ein Lebewesen"],
+              "correct": 0,
+              "explain": "Humus ist abgestorbene organische Substanz, die teilweise abgebaut ist. Er speichert Wasser und Nährstoffe."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="bodenleben" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="humus" href="#humus">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Bodenleben zersetzt Streu, bildet Humus und mineralisiert Nährstoffe. Regenwürmer durchmischen und belüften den Boden.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Destruent</dt><dd>Organismus, der abgestorbene Stoffe abbaut.</dd>
+<dt>Mineralisierung</dt><dd>Freisetzung anorganischer Nährstoffe.</dd>
+<dt>Mykorrhiza</dt><dd>Symbiose von Pilz und Pflanzenwurzel.</dd>
+<dt>Humus</dt><dd>abgestorbene organische Substanz im Boden.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur Regenwürmer als Bodenleben sehen. Bakterien, Pilze und Mikroarthropoden sind mindestens genauso wichtig.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="humus" data-title="Humus und Kohlenstoff" data-track="true" id="humus">
+<header class="station__head">
+<h2 id="humus-title"><span class="station__num">03</span> Humus und Kohlenstoffkreislauf</h2>
+<p class="lead">Boden speichert Kohlenstoff. Humus ist ein wichtiger Teil dieses Speichers.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Pflanzen nehmen Kohlenstoffdioxid aus der Luft auf und bauen daraus organische Stoffe. Ein Teil wird von Tieren gefressen, ein Teil wird abgebaut, und ein Teil bleibt als Humus im Boden. Bodenorganismen setzen bei der Zellatmung CO₂ frei. Humus kann über lange Zeit gespeichert bleiben, besonders in Mooren, Wäldern und Grünland. Wird der Boden bearbeitet, trockengelegt oder erodiert, kann dieser Kohlenstoff als CO₂ freigesetzt werden.</p>
+<p>Der Kohlenstoffkreislauf verbindet Atmosphäre, Pflanzen, Tiere, Boden und Gewässer. Photosynthese entzieht der Atmosphäre CO₂; Zellatmung und Zersetzung geben es zurück. Verbrennung fossiler Brennstoffe setzt Kohlenstoff frei, der über Millionen Jahre gespeichert war. Dadurch steigt der CO₂-Gehalt der Atmosphäre. Böden können einen Teil des Kohlenstoffs speichern, aber sie sind keine unbegrenzte Senke.</p>
+<p>Humusaufbau braucht Zeit und organisches Material. Maßnahmen wie Mulch, Zwischenfrüchte, reduzierte Bodenbearbeitung und organische Düngung können Humus fördern. Gleichzeitig darf der Boden nicht überdüngt werden, und Moore sollten nicht trockengelegt werden. Klimaschutz und Bodenschutz hängen zusammen: Ein gesunder Boden ist ein langfristiger Kohlenstoffspeicher.</p>
+<figure class="tool" data-tool="carbon9">
+<div class="tool__head">
+<p class="tool__title">Kohlenstoffkreislauf</p>
+<p class="tool__hint">Wähle einen Prozess. Prüfe, wohin der Kohlenstoff fließt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="carbon-card">
+<svg aria-label="Kohlenstoffkreislauf mit Atmosphäre, Pflanzen, Tieren, Boden und Verbrennung" class="carbon-svg" data-tip-title="Kohlenstoffkreislauf" data-tip="Photosynthese entzieht der Atmosphäre CO₂. Zellatmung, Abbau und Verbrennung setzen es wieder frei. Humus speichert Kohlenstoff langfristig." role="img" viewbox="0 0 720 320">
+<rect class="box" height="55" rx="4" width="180" x="270" y="20"></rect>
+<text class="label" x="360" y="52">Atmosphäre: CO₂</text>
+<rect class="box" height="55" rx="4" width="150" x="60" y="130"></rect>
+<text class="label" x="135" y="162">Pflanzen</text>
+<rect class="box" height="55" rx="4" width="150" x="510" y="130"></rect>
+<text class="label" x="585" y="162">Tiere</text>
+<rect class="box" height="55" rx="4" width="180" x="270" y="240"></rect>
+<text class="label" x="360" y="272">Boden und Humus</text>
+<g data-carbon-path="photosynthesis"><path class="arrow" d="M285 70 C220 80 180 110 145 128" marker-end="url(#carbon-arrow)"></path><text class="label" x="205" y="90">Photosynthese</text></g>
+<g data-carbon-path="respiration"><path class="arrow" d="M145 130 C180 100 220 80 285 70" marker-end="url(#carbon-arrow)"></path><path class="arrow" d="M575 130 C540 100 500 80 435 70" marker-end="url(#carbon-arrow)"></path><text class="label" x="505" y="95">Zellatmung</text></g>
+<g data-carbon-path="decomposition"><path class="arrow" d="M585 185 C520 210 440 230 370 238" marker-end="url(#carbon-arrow)"></path><text class="label" x="500" y="220">Abbau</text></g>
+<g data-carbon-path="humus"><path class="arrow" d="M360 240 L360 185" marker-end="url(#carbon-arrow)" stroke-dasharray="6 4"></path><text class="label" x="400" y="215">Humus</text></g>
+<g data-carbon-path="combustion"><path class="arrow" d="M360 185 L360 80" marker-end="url(#carbon-arrow)"></path><text class="label" x="400" y="125">Verbrennung</text></g>
+<defs><marker id="carbon-arrow" markerheight="6" markerwidth="8" orient="auto" refx="7" refy="3"><path d="M0,0 L8,3 L0,6 Z" fill="var(--color-rule-2)"></path></marker></defs>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Der Kreislauf ist vereinfacht. Kohlenstoff kann in Biomasse, Humus, Gestein, Ozeanen und fossilen Lagerstätten gespeichert sein.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Moore als Kohlenstoffspeicher</summary>
+<p>Moore speichern große Mengen Kohlenstoff, weil abgestorbene Pflanzen unter Wasser nur langsam abgebaut werden. Werden Moore trockengelegt, gelangt Sauerstoff an den Torf, und die Zersetzung setzt CO₂ frei. Deshalb ist der Schutz von Mooren ein wichtiger Beitrag zum Klimaschutz. Auch Wälder und Grünland speichern Kohlenstoff, aber die Menge hängt von Nutzung, Alter und Standort ab. Ein Boden kann Kohlenstoff aufnehmen, aber diese Senke ist begrenzt.</p>
+</details>
+<section aria-labelledby="humus-check" class="checkpoint">
+<h3 id="humus-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="humus">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="humus" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "h1",
+              "type": "mc",
+              "level": "g",
+              "competency": "B3",
+              "prompt": "Wie gelangt Kohlenstoff aus der Atmosphäre in Pflanzen?",
+              "options": ["Durch Photosynthese", "Durch Zellatmung", "Durch Verbrennung", "Durch Erosion"],
+              "correct": 0,
+              "explain": "Pflanzen nehmen CO₂ auf und bauen es mithilfe von Lichtenergie in organische Stoffe ein."
+            },
+            {
+              "id": "h2",
+              "type": "mc",
+              "level": "g",
+              "competency": "B3",
+              "prompt": "Was passiert mit einem Teil des Kohlenstoffs im Boden?",
+              "options": ["Er wird als Humus gespeichert.", "Er verschwindet vollständig.", "Er wird zu Gestein.", "Er wird zu Sauerstoff."],
+              "correct": 0,
+              "explain": "Ein Teil der organischen Substanz wird zu Humus und bleibt länger im Boden gespeichert."
+            },
+            {
+              "id": "h3",
+              "type": "mc",
+              "level": "g",
+              "competency": "B3",
+              "prompt": "Warum ist die Trockenlegung von Mooren klimatisch problematisch?",
+              "options": ["Gespeicherter Kohlenstoff wird als CO₂ freigesetzt.", "Moore produzieren zu viel Sauerstoff.", "Moore speichern kein Wasser.", "Torf ist ein erneuerbarer Rohstoff."],
+              "correct": 0,
+              "explain": "Im trockengelegten Moor wird der Torf abgebaut; dabei wird CO₂ freigesetzt. Moore sind wichtige Kohlenstoffspeicher."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="humus" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="mensch" href="#mensch">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Photosynthese entzieht CO₂, Zellatmung und Abbau setzen es frei. Humus speichert Kohlenstoff langfristig.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Kohlenstoffkreislauf</dt><dd>Kreislauf des Kohlenstoffs zwischen Atmosphäre, Organismen und Boden.</dd>
+<dt>Humus</dt><dd>abgestorbene organische Substanz im Boden.</dd>
+<dt>Mineralisierung</dt><dd>Freisetzung anorganischer Nährstoffe.</dd>
+<dt>Kohlenstoffsenke</dt><dd>System, das mehr Kohlenstoff aufnimmt als abgibt.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Boden sei eine unbegrenzte Kohlenstoffsenke. Speicherkapazität und Zeit spielen eine Rolle.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="mensch" data-title="Menschliche Einflüsse" data-track="true" id="mensch">
+<header class="station__head">
+<h2 id="mensch-title"><span class="station__num">04</span> Menschliche Einflüsse auf den Boden</h2>
+<p class="lead">Landwirtschaft, Verkehr und Siedlungen verändern den Boden. Die Folgen reichen weit über das Feld hinaus.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der Mensch nutzt Boden für Landwirtschaft, Forstwirtschaft, Siedlungen und Verkehr. Düngung steigert Erträge, kann aber Nährstoffe in Grundwasser und Gewässer bringen. Pestizide bekämpfen Schädlinge, können aber Nützlinge und Bodenleben schädigen. Schwere Maschinen verdichten den Boden, besonders wenn er feucht ist. Versiegelung durch Straßen und Gebäude zerstört Bodenfunktionen dauerhaft. Erosion durch Wasser und Wind trägt die fruchtbare Oberbodenschicht ab.</p>
+<p>Die Folgen sind oft miteinander verkettet. Verdichtung verringert die Wasseraufnahme; das Wasser läuft oberflächlich ab und verstärkt Erosion. Erosion verringert die Fruchtbarkeit; Landwirte düngen mehr, um die Erträge zu halten, und belasten damit das Grundwasser. Monokulturen können Schädlinge fördern und die Bodenfruchtbarkeit verringern. Diese Ketten zeigen, warum Bodenschutz nicht nur ein Problem einzelner Felder ist.</p>
+<p>Bodenschutz braucht mehrere Ebenen: Landwirtschaft, Raumplanung, Verbraucherverhalten und Politik. Fruchtwechsel, Zwischenfrüchte, reduzierte Bodenbearbeitung, organische Düngung und der Schutz von Mooren und Auen sind wichtige Maßnahmen. Auch die Nachfrage nach Produkten beeinflusst die Landnutzung. Nachhaltige Bodenbewirtschaftung bedeutet, die Fruchtbarkeit langfristig zu erhalten, nicht nur kurzfristige Erträge zu maximieren.</p>
+<figure class="tool" data-tool="soilimpact9">
+<div class="tool__head">
+<p class="tool__title">Einflüsse und Folgen</p>
+<p class="tool__hint">Wähle einen Einfluss. Prüfe Folgen und mögliche Gegenmaßnahmen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="impact-card">
+<p class="impact-card__title" data-impact-title="">Düngung</p>
+<p class="impact-card__text" data-impact-text="">Nährstoffe steigern Erträge, können aber ins Grundwasser gelangen.</p>
+<ul class="impact-card__list" data-impact-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Folgen hängen von Standort, Menge, Zeitpunkt und Bewirtschaftung ab. Pauschale Urteile helfen selten.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Erosion und Verdichtung</summary>
+<p>Erosion tritt besonders auf geneigten, unbedeckten Flächen auf. Regentropfen zerschlagen Bodenaggregate, Wasser fließt oberflächlich ab und trägt Bodenpartikel mit. Wind kann trockene, feine Partikel verwehen. Bodenbedeckung, Hecken, Terrassen und eine gute Bodenstruktur verringern die Erosion. Verdichtung entsteht durch schwere Maschinen und zu feuchte Böden. Sie verringert den Porenraum, sodass Wasser und Luft schlechter eindringen und Wurzeln schlechter wachsen. Beide Prozesse sind oft schwer rückgängig zu machen.</p>
+</details>
+<section aria-labelledby="mensch-check" class="checkpoint">
+<h3 id="mensch-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="mensch">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="mensch" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "me1",
+              "type": "mc",
+              "level": "g",
+              "competency": "B4",
+              "prompt": "Was ist eine Folge der Bodenversiegelung?",
+              "options": ["Bodenfunktionen gehen verloren, und Oberflächenwasser fließt schneller ab.", "Die Fruchtbarkeit steigt immer.", "Es entstehen mehr Poren.", "Die Erosion nimmt ab."],
+              "correct": 0,
+              "explain": "Versiegelung bedeckt den Boden. Wasser kann nicht versickern, Lebensraum geht verloren, und Bodenfunktionen entfallen."
+            },
+            {
+              "id": "me2",
+              "type": "mc",
+              "level": "g",
+              "competency": "B4",
+              "prompt": "Warum kann Überdüngung Gewässer belasten?",
+              "options": ["Nährstoffe gelangen in Grundwasser und Gewässer und fördern Algenwachstum.", "Dünger tötet alle Pflanzen sofort.", "Dünger erhöht immer die Bodenfruchtbarkeit.", "Nährstoffe verdunsten vollständig."],
+              "correct": 0,
+              "explain": "Stickstoff und Phosphat können ausgewaschen werden. In Gewässern fördern sie Eutrophierung und Algenblüten."
+            },
+            {
+              "id": "me3",
+              "type": "mc",
+              "level": "g",
+              "competency": "B4",
+              "prompt": "Wie entsteht Bodenverdichtung?",
+              "options": ["Durch schwere Maschinen und Befahrung feuchter Böden", "Durch Regenwürmer", "Durch Mulch", "Durch Fruchtwechsel"],
+              "correct": 0,
+              "explain": "Schwere Maschinen pressen Bodenporen zusammen, besonders wenn der Boden feucht ist. Wasser und Luft können dann schlechter eindringen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="mensch" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="nachhaltigkeit" href="#nachhaltigkeit">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Düngung, Pestizide, Verdichtung, Versiegelung und Erosion gefährden Bodenfunktionen. Die Folgen sind oft verkettet.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Erosion</dt><dd>Abtragung von Boden durch Wasser oder Wind.</dd>
+<dt>Verdichtung</dt><dd>Zunahme der Bodendichte, oft durch Maschinen.</dd>
+<dt>Versiegelung</dt><dd>Bedeckung des Bodens durch Gebäude oder Straßen.</dd>
+<dt>Eutrophierung</dt><dd>Nährstoffanreicherung in Gewässern.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur die Landwirtschaft verantwortlich machen. Auch Siedlungen, Verkehr und Konsum verändern Böden.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="nachhaltigkeit" data-title="Nachhaltige Bodennutzung" data-track="true" id="nachhaltigkeit">
+<header class="station__head">
+<h2 id="nachhaltigkeit-title"><span class="station__num">05</span> Nachhaltige Bodennutzung</h2>
+<p class="lead">Bodenschutz ist kein Verzicht, sondern eine Investition in die Zukunft.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Nachhaltige Bodennutzung erhält die Fruchtbarkeit, die Bodenstruktur und die Biodiversität langfristig. Fruchtwechsel unterbricht Schädlingszyklen und verteilt die Nährstoffansprüche verschiedener Kulturen. Zwischenfrüchte bedecken den Boden nach der Ernte, schützen vor Erosion und binden Nährstoffe. Mulch hält Feuchtigkeit, reduziert Unkraut und bietet Bodenleben Nahrung. Organische Düngung mit Kompost oder Mist baut Humus auf, wenn sie bedarfsgerecht erfolgt.</p>
+<p>Reduzierte Bodenbearbeitung schont die Bodenstruktur und das Bodenleben. Agroforst kombiniert Bäume mit Ackerbau und schützt vor Wind und Erosion. Renaturierung von Mooren, Auen und Brachen verbessert den Wasserhaushalt und speichert Kohlenstoff. Wichtig ist, Maßnahmen langfristig zu planen und ihre Wirkung zu messen. Bodenschutz braucht Geduld: Ein Zentimeter Boden entsteht nicht in einem Jahr.</p>
+<p>Auch Verbraucherinnen und Verbraucher können beitragen: Lebensmittelverschwendung vermeiden, regionale und saisonale Produkte wählen, auf nachhaltige Anbauweise achten und politische Entscheidungen unterstützen, die Bodenschutz ernst nehmen. Bodenschutz ist eine Gemeinschaftsaufgabe. Er verbindet Landwirtschaft, Klima, Wasser, Biodiversität und Ernährungssicherheit.</p>
+<figure class="tool" data-tool="soilmanage9">
+<div class="tool__head">
+<p class="tool__title">Bodenschutz planen</p>
+<p class="tool__hint">Wähle eine Maßnahme. Prüfe ihren Nutzen und ihre Grenzen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="manage-card">
+<p class="manage-card__title" data-manage-title="">Fruchtwechsel</p>
+<p class="manage-card__text" data-manage-text="">Verschiedene Kulturen in Folge brechen Schädlingszyklen und schonen Nährstoffe.</p>
+<ul class="manage-card__list" data-manage-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Es gibt keine Patentlösung. Die passende Maßnahme hängt von Boden, Klima, Betrieb und Zielen ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Bodenschutz ist Klimaschutz</summary>
+<p>Ein gesunder Boden speichert Kohlenstoff und Wasser. Wird er degradiert, kann er diese Funktionen verlieren. Der Schutz von Mooren, Wäldern und Grünland ist deshalb auch Klimaschutz. Gleichzeitig kann Bodenschutz die Anpassung an den Klimawandel unterstützen: Böden mit guter Struktur halten Wasser besser und sind widerstandsfähiger gegen Trockenheit. Bodenschutz ist damit ein Beispiel für die Verbindung von ökologischen, ökonomischen und sozialen Zielen.</p>
+</details>
+<section aria-labelledby="nachhaltigkeit-check" class="checkpoint">
+<h3 id="nachhaltigkeit-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="nachhaltigkeit">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="nachhaltigkeit" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "na1",
+              "type": "mc",
+              "level": "g",
+              "competency": "B5",
+              "prompt": "Warum ist Fruchtwechsel eine nachhaltige Maßnahme?",
+              "options": ["Er unterbricht Schädlingszyklen und verteilt Nährstoffansprüche.", "Er erhöht immer den Pestizideinsatz.", "Er verdichtet den Boden.", "Er verringert die Vielfalt."],
+              "correct": 0,
+              "explain": "Verschiedene Kulturen in Folge reduzieren Schädlinge und schonen den Nährstoffhaushalt."
+            },
+            {
+              "id": "na2",
+              "type": "mc",
+              "level": "g",
+              "competency": "B5",
+              "prompt": "Was bewirken Zwischenfrüchte?",
+              "options": ["Sie bedecken den Boden, schützen vor Erosion und binden Nährstoffe.", "Sie versiegeln den Boden.", "Sie töten alle Bodenorganismen.", "Sie erhöhen die Verdichtung."],
+              "correct": 0,
+              "explain": "Zwischenfrüchte schützen den Boden zwischen den Hauptkulturen und binden Nährstoffe."
+            },
+            {
+              "id": "na3",
+              "type": "mc",
+              "level": "g",
+              "competency": "B5",
+              "prompt": "Warum ist Bodenschutz auch Klimaschutz?",
+              "options": ["Gesunde Böden speichern Kohlenstoff und Wasser.", "Böden produzieren kein CO₂.", "Bodenschutz hat keinen Einfluss auf das Klima.", "Nur Wälder speichern Kohlenstoff."],
+              "correct": 0,
+              "explain": "Böden speichern Kohlenstoff, besonders als Humus und in Mooren. Degradierte Böden können diese Funktion verlieren."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="nachhaltigkeit" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fruchtwechsel, Zwischenfrüchte, Mulch, organische Düngung und reduzierte Bearbeitung schützen den Boden.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Fruchtwechsel</dt><dd>Wechsel verschiedener Kulturen auf einer Fläche.</dd>
+<dt>Zwischenfrucht</dt><dd>Pflanze zwischen zwei Hauptkulturen.</dd>
+<dt>Mulch</dt><dd>Schutzschicht aus organischem Material.</dd>
+<dt>Agroforst</dt><dd>Kombination von Bäumen und Ackerbau.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Bodenschutz nur als Aufgabe der Landwirtschaft sehen. Auch Konsum, Raumplanung und Politik sind gefragt.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">06</span> Kompetenzcheck Boden</h2>
+<p class="lead">Zehn Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="boden9">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="boden9" type="application/json">
+      {
+        "competencies": {
+          "B1": "Bodenprofil und Eigenschaften",
+          "B2": "Bodenleben und Humusbildung",
+          "B3": "Kohlenstoffkreislauf",
+          "B4": "Menschliche Einflüsse",
+          "B5": "Nachhaltige Bodennutzung"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "B1",
+            "prompt": "Was ist der A-Horizont?",
+            "options": ["Der humusreiche Oberboden mit Wurzeln und Bodenleben", "Die Streuauflage", "Das feste Gestein", "Der Unterboden ohne Leben"],
+            "correct": 0,
+            "explain": "Der A-Horizont ist der Oberboden. Er enthält Humus, Wurzeln und die größte biologische Aktivität."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "B1",
+            "prompt": "Welche Korngröße hält Wasser und Nährstoffe besonders gut, kann aber leicht verdichten?",
+            "options": ["Ton", "Sand", "Kies", "Humus"],
+            "correct": 0,
+            "explain": "Tonpartikel sind sehr klein und haben eine große Oberfläche. Sie halten Wasser und Nährstoffe, können aber verdichten."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "B2",
+            "prompt": "Welche Rolle haben Bakterien und Pilze im Boden?",
+            "options": ["Sie bauen organische Stoffe ab und mineralisieren Nährstoffe.", "Sie produzieren nur Sauerstoff.", "Sie ersetzen die Pflanzen.", "Sie verhindern jede Zersetzung."],
+            "correct": 0,
+            "explain": "Bakterien und Pilze sind Destruenten. Sie zersetzen abgestorbene Substanz und setzen Nährstoffe frei."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "B2",
+            "prompt": "Warum sind Regenwürmer wichtig für den Boden?",
+            "options": ["Sie durchmischen Boden und Streu und verbessern die Wasserinfiltration.", "Sie fressen nur Steine.", "Sie machen den Boden steril.", "Sie verhindern das Pflanzenwachstum."],
+            "correct": 0,
+            "explain": "Regenwürmer fressen Streu und Boden, durchmischen die Horizonte und schaffen Gänge für Wasser und Luft."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "B3",
+            "prompt": "Wie gelangt Kohlenstoff aus der Atmosphäre in Pflanzen?",
+            "options": ["Durch Photosynthese", "Durch Zellatmung", "Durch Verbrennung", "Durch Erosion"],
+            "correct": 0,
+            "explain": "Pflanzen nehmen CO₂ auf und bauen es mithilfe von Lichtenergie in organische Stoffe ein."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "B3",
+            "prompt": "Was passiert mit einem Teil des Kohlenstoffs im Boden?",
+            "options": ["Er wird als Humus gespeichert.", "Er verschwindet vollständig.", "Er wird zu Gestein.", "Er wird zu Sauerstoff."],
+            "correct": 0,
+            "explain": "Ein Teil der organischen Substanz wird zu Humus und bleibt länger im Boden gespeichert."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "B4",
+            "prompt": "Was ist eine Folge der Bodenversiegelung?",
+            "options": ["Bodenfunktionen gehen verloren, und Oberflächenwasser fließt schneller ab.", "Die Fruchtbarkeit steigt immer.", "Es entstehen mehr Poren.", "Die Erosion nimmt ab."],
+            "correct": 0,
+            "explain": "Versiegelung bedeckt den Boden. Wasser kann nicht versickern, Lebensraum geht verloren, und Bodenfunktionen entfallen."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "B4",
+            "prompt": "Warum kann Überdüngung Gewässer belasten?",
+            "options": ["Nährstoffe gelangen in Grundwasser und Gewässer und fördern Algenwachstum.", "Dünger tötet alle Pflanzen sofort.", "Dünger erhöht immer die Bodenfruchtbarkeit.", "Nährstoffe verdunsten vollständig."],
+            "correct": 0,
+            "explain": "Stickstoff und Phosphat können ausgewaschen werden. In Gewässern fördern sie Eutrophierung und Algenblüten."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "B5",
+            "prompt": "Warum ist Fruchtwechsel eine nachhaltige Maßnahme?",
+            "options": ["Er unterbricht Schädlingszyklen und verteilt Nährstoffansprüche.", "Er erhöht immer den Pestizideinsatz.", "Er verdichtet den Boden.", "Er verringert die Vielfalt."],
+            "correct": 0,
+            "explain": "Verschiedene Kulturen in Folge reduzieren Schädlinge und schonen den Nährstoffhaushalt."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "B5",
+            "prompt": "Warum ist Bodenschutz auch Klimaschutz?",
+            "options": ["Gesunde Böden speichern Kohlenstoff und Wasser.", "Böden produzieren kein CO₂.", "Bodenschutz hat keinen Einfluss auf das Klima.", "Nur Wälder speichern Kohlenstoff."],
+            "correct": 0,
+            "explain": "Böden speichern Kohlenstoff, besonders als Humus und in Mooren. Degradierte Böden können diese Funktion verlieren."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">07</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Boden</dt><dd>Oberste, belebte Schicht der Erdkruste.</dd></div>
+<div class="glossary__row"><dt>Bodenhorizont</dt><dd>Schicht im Bodenprofil mit typischen Eigenschaften.</dd></div>
+<div class="glossary__row"><dt>Humus</dt><dd>Abgestorbene organische Substanz im Boden.</dd></div>
+<div class="glossary__row"><dt>Mineralisierung</dt><dd>Abbau organischer Stoffe zu anorganischen Nährstoffen.</dd></div>
+<div class="glossary__row"><dt>Bodenleben</dt><dd>Organismen, die im Boden leben und ihn umgestalten.</dd></div>
+<div class="glossary__row"><dt>Regenwurm</dt><dd>Wichtiger Bodenbewohner, der Streu frisst und den Boden durchmischt.</dd></div>
+<div class="glossary__row"><dt>Mykorrhiza</dt><dd>Symbiose von Pilz und Pflanzenwurzel.</dd></div>
+<div class="glossary__row"><dt>Kohlenstoffkreislauf</dt><dd>Kreislauf des Kohlenstoffs zwischen Atmosphäre, Organismen und Boden.</dd></div>
+<div class="glossary__row"><dt>Kohlenstoffsenke</dt><dd>System, das mehr Kohlenstoff aufnimmt als abgibt.</dd></div>
+<div class="glossary__row"><dt>Erosion</dt><dd>Abtragung von Boden durch Wasser oder Wind.</dd></div>
+<div class="glossary__row"><dt>Verdichtung</dt><dd>Zunahme der Bodendichte, oft durch schwere Maschinen.</dd></div>
+<div class="glossary__row"><dt>Versiegelung</dt><dd>Bedeckung des Bodens durch Gebäude oder Straßen.</dd></div>
+<div class="glossary__row"><dt>Düngung</dt><dd>Zufuhr von Nährstoffen für Pflanzen.</dd></div>
+<div class="glossary__row"><dt>Eutrophierung</dt><dd>Nährstoffanreicherung in Gewässern.</dd></div>
+<div class="glossary__row"><dt>Fruchtwechsel</dt><dd>Wechsel verschiedener Kulturen auf einer Fläche.</dd></div>
+<div class="glossary__row"><dt>Zwischenfrucht</dt><dd>Pflanze zwischen zwei Hauptkulturen.</dd></div>
+<div class="glossary__row"><dt>Mulch</dt><dd>Schutzschicht aus organischem Material.</dd></div>
+<div class="glossary__row"><dt>Agroforst</dt><dd>Kombination von Bäumen und Ackerbau.</dd></div>
+<div class="glossary__row"><dt>nachhaltige Bodenbewirtschaftung</dt><dd>Nutzung des Bodens, die seine Funktionen langfristig erhält.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 9</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/9/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 9</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

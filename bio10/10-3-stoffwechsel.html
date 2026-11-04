@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="de" data-grade="10" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Stoff- und Energieumwandlung | Biologie 10</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 10 zu Stoff- und Energieumwandlung: Nährstoffe, Enzyme, Verdauung, Atmung, Kreislauf und ATP.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Riso (deal 2/3, seed interaktive-lernwebsite-biologie-mensch-deb1·d40053e4·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die Enzymkinetik und das 3D-Herz · states: default, hover, focus, active, disabled, loading, empty, error · riso: two drums
+ * axes: light/grotesk-heavy/chromatic-pink · posture: committed · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the pink drum must fill without becoming a candy surface; theme.css keeps the fills to controls, one band and the overprint, and the blue writes every word */
+/* Hallmark · answered F4 · the 10 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Cabinet Grotesk; every figure is Literata with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.nutrient-card, .enzyme-card, .digestion-card, .breathing-card, .atp-card { display: grid; gap: var(--space-sm); }
+.nutrient-card__title, .enzyme-card__title, .digestion-card__title, .breathing-card__title, .atp-card__title { margin: 0; font: 800 var(--text-xl)/1.15 var(--font-display); }
+.nutrient-card__text, .enzyme-card__text, .digestion-card__text, .breathing-card__text, .atp-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.nutrient-card__list, .enzyme-card__list, .digestion-card__list, .breathing-card__list, .atp-card__list { margin: 0; padding-left: 1.2em; }
+.nutrient-card__list li, .enzyme-card__list li, .digestion-card__list li, .breathing-card__list li, .atp-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.enzyme-svg, .breathing-svg, .atp-svg { width: 100%; height: auto; display: block; }
+.enzyme-svg .axis, .atp-svg .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.enzyme-svg .grid, .atp-svg .grid { stroke: var(--color-rule); stroke-width: 1; }
+.enzyme-svg .curve, .atp-svg .curve { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.enzyme-svg .marker, .atp-svg .marker { stroke: var(--color-ink); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.enzyme-svg .label, .atp-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.enzyme-slider { display: flex; align-items: center; gap: var(--space-xs); font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.enzyme-slider input { width: 12rem; accent-color: var(--color-accent); }
+.enzyme-slider output { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.digestion-svg { width: 100%; height: auto; display: block; }
+.digestion-svg .body { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.digestion-svg .organ { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out); }
+.digestion-svg .organ.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.digestion-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.breathing-svg .alveolus { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.breathing-svg .capillary { fill: none; stroke: var(--color-accent); stroke-width: 16; stroke-linecap: round; opacity: 0.5; }
+.breathing-svg .o2 { fill: var(--color-accent); }
+.breathing-svg .co2 { fill: var(--color-ink); }
+.breathing-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.atp-bars { display: grid; gap: var(--space-xs); }
+.atp-bar { display: grid; grid-template-columns: 8rem minmax(0, 1fr) 3.5rem; gap: var(--space-sm); align-items: center; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.atp-bar__track { height: 12px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.atp-bar__track i { display: block; height: 100%; width: 100%; background: var(--color-accent); transform: scaleX(0.3); transform-origin: left center; transition: transform var(--dur-short) var(--ease-out); }
+.atp-bar__track i.is-anaerobic { background: var(--color-ink); }
+.atp-bar output { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.heart-fallback { width: 100%; height: 100%; }
+.tool[data-tool="nutrients10"] .tool__stage, .tool[data-tool="digestion10"] .tool__stage, .tool[data-tool="breathing10"] .tool__stage, .tool[data-tool="atp10"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="enzyme10"] .tool__stage, .tool[data-tool="digestion10"] .tool__stage, .tool[data-tool="breathing10"] .tool__stage, .tool[data-tool="atp10"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="enzyme10"] .enzyme-svg, .tool[data-tool="digestion10"] .digestion-svg, .tool[data-tool="breathing10"] .breathing-svg, .tool[data-tool="atp10"] .atp-svg { min-width: 560px; }
+  .atp-bar { grid-template-columns: 6rem minmax(0, 1fr) 3rem; }
+}
+
+</style>
+<link rel="stylesheet" href="./assets/enhance.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="10-3" data-grade="10">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 10">
+      <span class="brand__name">Biologie 10</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">03</span> Stoff- und Energieumwandlung</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Stoff- und Energieumwandlung</h2>
+      <p class="sidebar__deck">Nährstoffe, Enzyme, Verdauung, Gasaustausch, Herz-Kreislauf und ATP.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#biomolekuele" data-station-link="biomolekuele"><span class="station-nav__num">01</span><span>Biomoleküle</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#enzyme" data-station-link="enzyme"><span class="station-nav__num">02</span><span>Enzyme</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#verdauung" data-station-link="verdauung"><span class="station-nav__num">03</span><span>Verdauung und Resorption</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#atmung" data-station-link="atmung"><span class="station-nav__num">04</span><span>Gasaustausch</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#herz" data-station-link="herz"><span class="station-nav__num">05</span><span>Herz und Kreislauf</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#energie" data-station-link="energie"><span class="station-nav__num">06</span><span>Energiebereitstellung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 10</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Stoff- und Energieumwandlung: Was der Körper aus <span class="misreg" data-text="Nahrung">Nahrung</span> macht.</h1>
+<p class="lead">Nährstoffe, Enzyme, Verdauung, Atmung, Kreislauf und ATP. Wie der Körper Stoffe umbaut und Energie gewinnt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="biomolekuele" href="#biomolekuele">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">E1</span><span>Du beschreibst den Menschen als offenes System und ordnest Makro- und Mikronährstoffe ihren Funktionen zu.</span></li>
+<li><span class="cnum">E2</span><span>Du erklärst die Wirkung von Enzymen mit dem Schlüssel-Schloss-Modell und beschreibst die Abhängigkeit der Aktivität von Temperatur, pH-Wert und Substratkonzentration.</span></li>
+<li><span class="cnum">E3</span><span>Du erklärst den stufenweisen Abbau der Nährstoffe und die Resorption im Dünndarm.</span></li>
+<li><span class="cnum">E4</span><span>Du erklärst Gasaustausch und Herz-Kreislauf-System als Transportsystem und leitest Maßnahmen für die Gesundheit ab.</span></li>
+<li><span class="cnum">E5</span><span>Du vergleichst aeroben und anaeroben Glucoseabbau und erklärst die Bedeutung von ATP für die Energiebereitstellung.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 3 des LehrplanPLUS Biologie 10 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Essen und Körper sind sensible Themen. Hier geht es um biologische Funktionen, nicht um Ideale oder Bewertungen. Menschen haben unterschiedliche Bedürfnisse, Allergien, Unverträglichkeiten und Erkrankungen. Diese Seite ersetzt keine Ernährungs- oder Arztberatung. Sprich mit einer Fachperson, wenn du dir Sorgen um Essen, Gewicht oder Verdauung machst.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie werden aus Nahrung Baustoffe und Energie, und welche Organe sind daran beteiligt?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="biomolekuele" data-title="Biomoleküle" data-track="true" id="biomolekuele">
+<header class="station__head">
+<h2 id="biomolekuele-title"><span class="station__num">01</span> Biomoleküle: Energieträger und Baustoffe</h2>
+<p class="lead">Kohlenhydrate, Fette und Proteine liefern Energie und Baumaterial. Vitamine und Mineralsalze sind Mikronährstoffe.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der Mensch ist ein offenes System. Er nimmt Stoffe und Energie aus der Umgebung auf und gibt Stoffe und Wärme an sie ab. Makronährstoffe sind Kohlenhydrate, Fette und Proteine. Sie liefern Energie und Bausteine für Wachstum, Reparatur und Regulation. Mikronährstoffe sind Vitamine und Mineralsalze; sie liefern keine Energie, sind aber für viele Reaktionen unentbehrlich. Ballaststoffe werden weitgehend unverdaut, unterstützen aber die Verdauung und die Darmflora.</p>
+<p>Kohlenhydrate bestehen aus Zuckermolekülen. Monosaccharide wie Glucose und Fructose sind Einfachzucker; Disaccharide wie Saccharose und Lactose bestehen aus zwei Zuckern; Polysaccharide wie Stärke und Glykogen aus vielen. Glucose ist der wichtigste Energieträger der Zelle. Glykogen speichert Glucose in Leber und Muskeln. Fette bestehen aus Glycerin und Fettsäuren. Sie sind energiereich und speichern Energie langfristig. Gesättigte und ungesättigte Fettsäuren unterscheiden sich in ihren Bindungen; essenzielle Fettsäuren muss der Körper aufnehmen.</p>
+<p>Proteine bestehen aus Aminosäuren. Jede Aminosäure hat eine Aminogruppe, eine Carboxygruppe und einen Rest. Die Reihenfolge der Aminosäuren bestimmt die Form und Funktion des Proteins. Proteine wirken als Enzyme, Transportmoleküle, Strukturbildner oder Signalstoffe. Essenzielle Aminosäuren kann der Körper nicht selbst bilden. Eine ausgewogene Ernährung enthält alle nötigen Bausteine in angemessener Menge; „mehr“ ist nicht automatisch „besser“.</p>
+<figure class="tool" data-tool="nutrients10">
+<div class="tool__head">
+<p class="tool__title">Nährstoffe im Überblick</p>
+<p class="tool__hint">Wähle eine Nährstoffgruppe. Prüfe Bausteine, Energie und Funktion.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="nutrient-card">
+<p class="nutrient-card__title" data-nutrient-title="">Kohlenhydrate</p>
+<p class="nutrient-card__text" data-nutrient-text=""></p>
+<ul class="nutrient-card__list" data-nutrient-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Angaben sind allgemeine Informationen. Der individuelle Bedarf hängt von Alter, Geschlecht, Aktivität und Gesundheitszustand ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Energiegehalt und Nährstoffdichte</summary>
+<p>Fette liefern pro Gramm mehr als doppelt so viel Energie wie Kohlenhydrate oder Proteine. Das bedeutet nicht, dass Fett „schlecht“ ist: Fette sind essenziell für Zellmembranen, Hormone und die Aufnahme fettlöslicher Vitamine. Entscheidend sind Menge, Qualität und Gesamternährung. Stark verarbeitete Lebensmittel enthalten oft viel Zucker, Salz und gesättigte Fette bei geringer Nährstoffdichte. Eine ausgewogene Ernährung setzt auf Vielfalt, frisches Obst und Gemüse, Vollkorn, Hülsenfrüchte und moderate Mengen an tierischen Produkten.</p>
+</details>
+<section aria-labelledby="biomolekuele-check" class="checkpoint">
+<h3 id="biomolekuele-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="biomolekuele">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="biomolekuele" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "bm1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Was sind Makronährstoffe?",
+              "options": ["Kohlenhydrate, Fette und Proteine", "Nur Vitamine", "Nur Mineralsalze", "Nur Wasser"],
+              "correct": 0,
+              "explain": "Makronährstoffe werden in großen Mengen gebraucht. Sie liefern Energie und Baustoffe."
+            },
+            {
+              "id": "bm2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Aus welchen Bausteinen bestehen Proteine?",
+              "options": ["Aminosäuren", "Fettsäuren", "Monosacchariden", "Mineralsalzen"],
+              "correct": 0,
+              "explain": "Proteine sind Ketten aus Aminosäuren. Ihre Reihenfolge bestimmt die Form und Funktion."
+            },
+            {
+              "id": "bm3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Warum sind Vitamine Mikronährstoffe?",
+              "options": ["Sie werden in kleinen Mengen gebraucht und liefern keine Energie.", "Sie liefern viel Energie.", "Sie bestehen aus vielen Zuckern.", "Sie sind nur in tierischen Produkten enthalten."],
+              "correct": 0,
+              "explain": "Vitamine sind für viele Reaktionen nötig, werden aber nur in kleinen Mengen gebraucht und liefern keine Energie."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="biomolekuele" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="enzyme" href="#enzyme">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Makronährstoffe liefern Energie und Baustoffe. Mikronährstoffe sind für Reaktionen nötig, liefern aber keine Energie.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Makronährstoff</dt><dd>Nährstoff in großen Mengen: Kohlenhydrate, Fette, Proteine.</dd>
+<dt>Mikronährstoff</dt><dd>Nährstoff in kleinen Mengen: Vitamine, Mineralsalze.</dd>
+<dt>Monosaccharid</dt><dd>Einfachzucker, z. B. Glucose.</dd>
+<dt>essenzielle Aminosäure</dt><dd>Aminosäure, die der Körper nicht selbst bilden kann.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Fett pauschal als ungesund abtun. Fette sind essenziell; Qualität und Menge entscheiden.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="enzyme" data-title="Enzyme" data-track="true" id="enzyme">
+<header class="station__head">
+<h2 id="enzyme-title"><span class="station__num">02</span> Enzyme: Biokatalysatoren mit Schlüssel und Schloss</h2>
+<p class="lead">Enzyme beschleunigen Reaktionen, ohne verbraucht zu werden. Ihre Aktivität hängt von Temperatur, pH-Wert und Substrat ab.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Enzyme sind Proteine, die als Biokatalysatoren wirken. Sie senken die Aktivierungsenergie einer Reaktion und beschleunigen sie, ohne selbst verbraucht zu werden. Ein Enzym hat ein aktives Zentrum, in das nur ein passendes Substrat bindet. Dieses Schlüssel-Schloss-Modell erklärt die Substrat- und Wirkungsspezifität: Ein Enzym setzt nur bestimmte Stoffe um und katalysiert nur eine bestimmte Reaktion. Nach der Reaktion werden die Produkte freigesetzt, und das Enzym steht erneut zur Verfügung.</p>
+<p>Die Aktivität eines Enzyms hängt von den Bedingungen ab. Bei steigender Temperatur läuft die Reaktion zunächst schneller, bis zu einem Optimum. Darüber denaturiert das Protein: Die räumliche Struktur verändert sich, das aktive Zentrum passt nicht mehr, und die Aktivität sinkt stark. Auch der pH-Wert beeinflusst die Struktur. Pepsin arbeitet im sauren Magen, Amylase im neutralen Mund und Dünndarm, Trypsin im schwach basischen Dünndarm. Die Substratkonzentration begrenzt die Geschwindigkeit, wenn alle Enzyme besetzt sind.</p>
+<p>Verdauungsenzyme spalten große Moleküle in resorbierbare Bausteine: Amylase spaltet Stärke zu Zuckern, Proteasen spalten Proteine zu Aminosäuren, Lipasen spalten Fette zu Fettsäuren und Glycerin. Die Enzyme werden an verschiedenen Orten gebildet: Speicheldrüsen, Magenschleimhaut, Bauchspeicheldrüse und Dünndarmwand. Ihre optimale Umgebung passt zum jeweiligen Verdauungsraum.</p>
+<figure class="tool" data-tool="enzyme10">
+<div class="tool__head">
+<p class="tool__title">Enzymaktivität: Temperatur, pH-Wert, Substrat</p>
+<p class="tool__hint">Wähle Enzym und Einflussgröße. Bewege den Regler und beobachte die Reaktionsgeschwindigkeit.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-enzyme-type="amylase" type="button" data-tip-title="Amylase" data-tip="Verdauungsenzym im Speichel und Dünndarm. Es spaltet Stärke zu Zuckern; sein pH-Optimum liegt etwa im neutralen Bereich.">Amylase</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-enzyme-type="pepsin" type="button" data-tip-title="Pepsin" data-tip="Proteinspaltendes Enzym im Magen. Es hat sein Optimum im sauren Bereich bei etwa pH 2.">Pepsin</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-enzyme-type="trypsin" type="button" data-tip-title="Trypsin" data-tip="Proteinspaltendes Enzym aus der Bauchspeicheldrüse. Es arbeitet im schwach basischen Dünndarm.">Trypsin</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-enzyme-variable="temperature" type="button" data-tip-title="Temperatur" data-tip="Zeigt die Enzymaktivität in Abhängigkeit von der Temperatur. Zu hohe Werte denaturieren das Protein.">Temperatur</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-enzyme-variable="ph" type="button" data-tip-title="pH-Wert" data-tip="Zeigt die Abhängigkeit vom pH-Wert. Jedes Enzym hat ein eigenes Optimum, passend zu seinem Verdauungsort.">pH-Wert</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-enzyme-variable="substrate" type="button" data-tip-title="Substratkonzentration" data-tip="Zeigt die Sättigungskurve. Bei hoher Substratkonzentration sind alle aktiven Zentren besetzt; mehr Substrat bringt kaum mehr Geschwindigkeit.">Substrat</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="enzyme-card">
+<svg aria-label="Kurve der Enzymaktivität in Abhängigkeit von Temperatur, pH-Wert oder Substratkonzentration" class="enzyme-svg" role="img" viewBox="0 0 720 300">
+<line class="grid" x1="70" x2="660" y1="70" y2="70"></line>
+<line class="grid" x1="70" x2="660" y1="130" y2="130"></line>
+<line class="grid" x1="70" x2="660" y1="190" y2="190"></line>
+<line class="axis" x1="70" x2="660" y1="250" y2="250"></line>
+<line class="axis" x1="70" x2="70" y1="40" y2="250"></line>
+<polyline class="curve" data-enzyme-line="" points=""></polyline>
+<line class="marker" data-enzyme-marker="" x1="300" x2="300" y1="40" y2="250"></line>
+<circle cx="300" cy="100" data-enzyme-dot="" fill="var(--color-accent)" r="5"></circle>
+<text class="label" data-enzyme-xlabel="" text-anchor="middle" x="365" y="285">Temperatur (°C)</text>
+<text class="label" transform="rotate(-90 18 145)" x="18" y="145">Aktivität</text>
+</svg>
+<label class="enzyme-slider"><span data-enzyme-slider-label="">Temperatur</span>
+<input aria-label="Einflussgröße" data-enzyme-range="" max="100" min="0" step="1" type="range" value="37" data-tip-title="Einflussgröße" data-tip="Bewege den Regler und beobachte die Aktivitätskurve. Die Einheit wechselt je nach gewählter Größe: °C, pH oder Prozent."/>
+<output data-enzyme-value="" data-tip-title="Aktueller Wert" data-tip="Der Wert gilt für das gewählte Enzym und die gewählte Einflussgröße. Die Kurve ist schematisch.">37 °C</output>
+</label>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Kurven sind schematisch. Enzyme verschiedener Organismen haben unterschiedliche Optima.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: RGT-Regel und Denaturierung</summary>
+<p>Die RGT-Regel besagt, dass die Reaktionsgeschwindigkeit mit der Temperatur steigt, solange die Enzyme stabil bleiben. Bei zu hoher Temperatur verliert das Protein seine räumliche Struktur; Wasserstoffbrücken und andere Wechselwirkungen brechen. Dieser Prozess ist meist nicht umkehrbar. Deshalb sterben viele Organismen bei hohen Temperaturen, und Fieber kann gefährlich werden. Kälte senkt die Aktivität, zerstört das Enzym aber nicht unbedingt; nach dem Auftauen kann es wieder arbeiten.</p>
+</details>
+<section aria-labelledby="enzyme-check" class="checkpoint">
+<h3 id="enzyme-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="enzyme">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="enzyme" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "en1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E2",
+              "prompt": "Was ist ein Enzym?",
+              "options": ["Ein Biokatalysator aus Protein", "Ein Zucker", "Ein Fett", "Ein Mineralsalz"],
+              "correct": 0,
+              "explain": "Enzyme sind Proteine, die Reaktionen beschleunigen, ohne verbraucht zu werden."
+            },
+            {
+              "id": "en2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E2",
+              "prompt": "Was passiert bei der Denaturierung eines Enzyms?",
+              "options": ["Die räumliche Struktur verändert sich, und das aktive Zentrum passt nicht mehr.", "Das Enzym wird größer.", "Die DNA wird verdoppelt.", "Das Substrat wird größer."],
+              "correct": 0,
+              "explain": "Bei Hitze oder extremem pH-Wert verliert das Protein seine Struktur. Das aktive Zentrum funktioniert nicht mehr."
+            },
+            {
+              "id": "en3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E2",
+              "prompt": "Warum wirkt Pepsin vor allem im Magen?",
+              "options": ["Es hat sein Optimum im sauren Bereich.", "Es hat sein Optimum im basischen Bereich.", "Es braucht kein Substrat.", "Es wird nur im Mund gebildet."],
+              "correct": 0,
+              "explain": "Pepsin ist an den sauren pH-Wert des Magens angepasst. Amylase und Trypsin haben andere Optima."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="enzyme" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="verdauung" href="#verdauung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Enzyme senken die Aktivierungsenergie. Ihr Optimum hängt von Temperatur und pH-Wert ab; zu viel Hitze denaturiert.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Biokatalysator</dt><dd>Biologischer Katalysator, meist ein Enzym.</dd>
+<dt>aktives Zentrum</dt><dd>Bereich, an dem das Substrat bindet.</dd>
+<dt>Denaturierung</dt><dd>Verlust der räumlichen Struktur eines Proteins.</dd>
+<dt>RGT-Regel</dt><dd>Reaktionsgeschwindigkeit steigt mit der Temperatur bis zum Optimum.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Enzyme würden bei der Reaktion verbraucht. Sie gehen unverändert daraus hervor.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="verdauung" data-title="Verdauung und Resorption" data-track="true" id="verdauung">
+<header class="station__head">
+<h2 id="verdauung-title"><span class="station__num">03</span> Verdauung: Vom Brot zum Baustein</h2>
+<p class="lead">Verdauung zerlegt große Moleküle in resorbierbare Bausteine. Resorption bringt sie ins Blut.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Verdauung beginnt im Mund. Zähne zerkleinern die Nahrung, Speichel befeuchtet sie und enthält Amylase, die Stärke zu Zuckern spaltet. Die Zunge formt den Bissen, und die Peristaltik transportiert ihn durch die Speiseröhre in den Magen. Dort tötet Salzsäure viele Keime ab, und Pepsin beginnt den Proteinabbau. Der saure Speisebrei gelangt in den Dünndarm, wo Bauchspeicheldrüsenenzyme und Galle wirken. Galle emulgiert Fette, damit Lipasen sie besser angreifen können.</p>
+<p>Im Dünndarm werden Kohlenhydrate zu Monosacchariden, Proteine zu Aminosäuren und Fette zu Fettsäuren und Glycerin abgebaut. Die Dünndarmwand ist mit Darmzotten und Mikrovilli stark vergrößert. Dadurch steht eine große Fläche für die Resorption zur Verfügung. Monosaccharide und Aminosäuren gelangen über Kapillaren ins Blut; Fettsäuren werden in der Darmwand wieder zu Fetten verpackt und über Lymphgefäße transportiert. Wasser und Mineralsalze werden ebenfalls resorbiert.</p>
+<p>Resorption kann passiv durch Diffusion oder aktiv über Carrier erfolgen. Aktiver Transport braucht Energie und kann Stoffe auch gegen ein Konzentrationsgefälle aufnehmen. Ballaststoffe werden nicht verdaut, halten den Darminhalt weich und fördern die Darmflora. Der Dickdarm entzieht Wasser und Mineralsalze; die Reste werden ausgeschieden. Erkrankungen wie Lactoseintoleranz oder Zöliakie zeigen, wie wichtig die richtige Enzymausstattung und eine intakte Darmschleimhaut sind.</p>
+<figure class="tool" data-tool="digestion10">
+<div class="tool__head">
+<p class="tool__title">Verdauungsorgane und Enzyme</p>
+<p class="tool__hint">Wähle ein Organ. Prüfe pH-Wert, Enzyme und Funktion.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="digestion-card">
+<svg aria-label="Schematische Darstellung des Verdauungssystems mit Mund, Speiseröhre, Magen, Dünndarm, Dickdarm, Leber und Bauchspeicheldrüse" class="digestion-svg" role="img" viewBox="0 0 640 420">
+<path class="body" d="M250 20 C200 20 190 60 200 100 L210 160 C180 200 190 260 220 300 L250 390 L390 390 L420 300 C450 260 460 200 430 160 L440 100 C450 60 440 20 390 20 Z"></path>
+<rect class="organ" data-digest-organ="mouth" height="60" rx="16" width="40" x="300" y="55"></rect>
+<rect class="organ" data-digest-organ="esophagus" height="90" width="16" x="312" y="115"></rect>
+<path class="organ" d="M280 205 C260 205 250 230 260 255 C270 280 300 285 320 270 C340 255 340 225 320 212 C310 206 295 205 280 205 Z" data-digest-organ="stomach"></path>
+<path class="organ" d="M300 285 C260 300 250 340 270 370 C290 395 350 395 370 370 C390 340 380 300 340 285 Z" data-digest-organ="small"></path>
+<path class="organ" d="M300 285 L300 380 M340 285 L340 380" fill="none" stroke="var(--color-rule-2)" stroke-width="2"></path>
+<path class="organ" d="M240 220 C220 210 210 230 220 250 C230 270 250 270 260 255" data-digest-organ="liver"></path>
+<path class="organ" d="M380 230 C400 220 410 240 400 260 C390 280 370 280 360 265" data-digest-organ="pancreas"></path>
+<text class="label" text-anchor="middle" x="320" y="410">Mund, Speiseröhre, Magen, Dünndarm, Leber, Bauchspeicheldrüse</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Die Darstellung ist schematisch. Lage und Form der Organe sind vereinfacht.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Oberflächenvergrößerung im Dünndarm</summary>
+<p>Die Dünndarmwand hat ringförmige Falten, Darmzotten und Mikrovilli. Diese drei Ebenen vergrößern die resorbierende Oberfläche enorm. In jeder Zotte verlaufen Kapillaren und ein Lymphgefäß. Nährstoffe können so schnell ins Blut oder in die Lymphe gelangen. Die enge Verbindung von Struktur und Funktion ist ein Beispiel für das Struktur-Funktions-Konzept: Eine große, dünne und gut durchblutete Oberfläche ist für die Resorption optimal.</p>
+</details>
+<section aria-labelledby="verdauung-check" class="checkpoint">
+<h3 id="verdauung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="verdauung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="verdauung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "vd1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E3",
+              "prompt": "Wo beginnt die Verdauung von Stärke?",
+              "options": ["Im Mund durch Amylase", "Im Magen durch Pepsin", "Im Dickdarm", "In der Speiseröhre"],
+              "correct": 0,
+              "explain": "Speichel enthält Amylase, die Stärke zu Zuckern spaltet. Die Verdauung beginnt also schon im Mund."
+            },
+            {
+              "id": "vd2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E3",
+              "prompt": "Wozu dient die Oberflächenvergrößerung im Dünndarm?",
+              "options": ["Zur besseren Resorption von Nährstoffen", "Zur Produktion von Magensäure", "Zur Speicherung von Wasser", "Zur Bildung von roten Blutkörperchen"],
+              "correct": 0,
+              "explain": "Darmzotten und Mikrovilli vergrößern die Oberfläche. Dadurch können mehr Nährstoffe aufgenommen werden."
+            },
+            {
+              "id": "vd3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E3",
+              "prompt": "Was macht Galle?",
+              "options": ["Sie emulgiert Fette, damit Lipasen sie besser spalten können.", "Sie spaltet Proteine.", "Sie tötet alle Bakterien.", "Sie bildet Magensäure."],
+              "correct": 0,
+              "explain": "Galle zerlegt große Fetttröpfchen in kleinere Tröpfchen. So können Lipasen die Fette besser angreifen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="verdauung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="atmung" href="#atmung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Verdauung spaltet Makromoleküle, Resorption nimmt die Bausteine auf. Der Dünndarm ist der Hauptort beider Prozesse.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Peristaltik</dt><dd>Wellenförmige Muskelbewegung des Verdauungstrakts.</dd>
+<dt>Darmzotte</dt><dd>Fingerförmige Ausstülpung der Dünndarmwand.</dd>
+<dt>Mikrovilli</dt><dd>Feine Ausstülpungen der Darmzellen.</dd>
+<dt>Resorption</dt><dd>Aufnahme von Nährstoffen ins Blut oder Lymphsystem.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Verdauung finde nur im Magen statt. Mund, Dünndarm und Bauchspeicheldrüse sind ebenso wichtig.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="atmung" data-title="Gasaustausch" data-track="true" id="atmung">
+<header class="station__head">
+<h2 id="atmung-title"><span class="station__num">04</span> Gasaustausch: Sauerstoff rein, Kohlendioxid raus</h2>
+<p class="lead">Diffusion treibt den Gasaustausch an. Entscheidend sind Konzentrationsunterschied, Oberfläche und Diffusionsstrecke.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der Gasaustausch in der Lunge beruht auf Diffusion. Sauerstoff bewegt sich vom Ort höherer Konzentration in den Alveolen zum Ort niedrigerer Konzentration im Blut. Kohlendioxid diffundiert in die entgegengesetzte Richtung. Die Alveolen haben eine große Oberfläche und eine sehr dünne Wand; die Kapillaren liegen direkt an. Dadurch ist die Diffusionsstrecke kurz. Ein Konzentrationsgefälle bleibt erhalten, weil das Blut ständig abfließt und die Atmung die Luft austauscht.</p>
+<p>Sauerstoff wird im Blut größtenteils an Hämoglobin in den roten Blutkörperchen gebunden. Hämoglobin kann Sauerstoff aufnehmen und in Geweben wieder abgeben. Kohlendioxid wird teilweise im Blutplasma als Hydrogencarbonat transportiert und teilweise an Hämoglobin gebunden. Die Bindung hängt von Konzentration, pH-Wert und Temperatur ab. In belasteten Geweben gibt Hämoglobin mehr Sauerstoff ab, weil dort mehr Kohlendioxid und Säure entstehen.</p>
+<p>Die Atmung wird durch das Zwerchfell und die Zwischenrippenmuskeln angetrieben. Ein vergrößerter Brustraum senkt den Druck, Luft strömt ein. Rauchen, Feinstaub und Erkrankungen schädigen die Alveolen und die Schleimhaut. Bewegung und eine rauchfreie Umgebung unterstützen die Lungenfunktion. Bei Atemnot, Brustschmerz oder blauen Lippen ist sofort ärztliche Hilfe nötig.</p>
+<figure class="tool" data-tool="breathing10">
+<div class="tool__head">
+<p class="tool__title">Gasaustausch in der Alveole</p>
+<p class="tool__hint">Wähle eine Situation. Prüfe, wie sich die Diffusion verändert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="breathing-card">
+<svg aria-label="Alveole mit Kapillare und Diffusion von Sauerstoff und Kohlendioxid" class="breathing-svg" role="img" viewBox="0 0 720 300">
+<circle class="alveolus" cx="240" cy="150" r="110"></circle>
+<path class="capillary" d="M80 260 C200 260 300 220 420 220 C540 220 620 260 700 260"></path>
+<g data-breathing-o2="">
+<circle class="o2" cx="200" cy="90" r="7"></circle><circle class="o2" cx="230" cy="80" r="7"></circle><circle class="o2" cx="260" cy="100" r="7"></circle><circle class="o2" cx="280" cy="120" r="7"></circle>
+</g>
+<g data-breathing-co2="">
+<circle class="co2" cx="200" cy="220" r="7"></circle><circle class="co2" cx="230" cy="235" r="7"></circle><circle class="co2" cx="260" cy="215" r="7"></circle><circle class="co2" cx="290" cy="230" r="7"></circle>
+</g>
+<text class="label" text-anchor="middle" x="240" y="285">Alveole (Luft)</text>
+<text class="label" text-anchor="middle" x="560" y="245">Kapillare (Blut)</text>
+<text class="label" x="140" y="70">O₂</text>
+<text class="label" x="140" y="230">CO₂</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Die Darstellung ist schematisch. Die tatsächliche Diffusion hängt von vielen Faktoren ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Lunge so eine große Oberfläche hat</summary>
+<p>Die Lunge enthält Millionen kleiner Alveolen. Ihre Gesamtoberfläche ist etwa so groß wie ein Tennisplatz. Die Wand der Alveolen ist nur wenige Mikrometer dick, und die Kapillaren liegen direkt daran. Diese Struktur ist eine Anpassung an die Diffusion: große Fläche, kurze Strecke, steiles Konzentrationsgefälle. Bei einer Lungenentzündung füllen sich Alveolen mit Flüssigkeit; die Diffusionsstrecke wird länger, und der Gasaustausch verschlechtert sich.</p>
+</details>
+<section aria-labelledby="atmung-check" class="checkpoint">
+<h3 id="atmung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="atmung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="atmung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "at1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Was treibt den Gasaustausch in der Lunge an?",
+              "options": ["Diffusion aufgrund von Konzentrationsunterschieden", "Aktiver Transport durch das Herz", "Die Peristaltik", "Die Produktion von Magensäure"],
+              "correct": 0,
+              "explain": "Sauerstoff und Kohlendioxid diffundieren entlang ihres Konzentrationsgefälles. Die Lunge bietet dafür eine große, dünne Oberfläche."
+            },
+            {
+              "id": "at2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Welche Rolle spielt Hämoglobin?",
+              "options": ["Es transportiert Sauerstoff im Blut.", "Es spaltet Fette.", "Es bildet Magensäure.", "Es produziert Insulin."],
+              "correct": 0,
+              "explain": "Hämoglobin bindet Sauerstoff in der Lunge und gibt ihn in den Geweben wieder ab."
+            },
+            {
+              "id": "at3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Warum ist die Diffusionsstrecke in der Lunge kurz?",
+              "options": ["Weil die Alveolenwand dünn und die Kapillaren direkt angelagert sind.", "Weil die Lunge klein ist.", "Weil das Blut langsam fließt.", "Weil die Alveolen mit Wasser gefüllt sind."],
+              "correct": 0,
+              "explain": "Eine dünne Wand und direkt anliegende Kapillaren verkürzen die Strecke, die Sauerstoff und Kohlendioxid zurücklegen müssen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="atmung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="herz" href="#herz">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Gasaustausch beruht auf Diffusion. Große Oberfläche, kurze Diffusionsstrecke und Konzentrationsgefälle machen ihn effizient.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Alveole</dt><dd>Lungenbläschen; Ort des Gasaustauschs.</dd>
+<dt>Diffusion</dt><dd>Bewegung vom Ort höherer zur niedrigerer Konzentration.</dd>
+<dt>Hämoglobin</dt><dd>Eisenhaltiges Transportprotein in roten Blutkörperchen.</dd>
+<dt>Konzentrationsgefälle</dt><dd>Unterschied in der Konzentration zwischen zwei Orten.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, die Lunge „pumpe“ Sauerstoff aktiv ins Blut. Der Gasaustausch läuft über Diffusion.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="herz" data-title="Herz und Kreislauf" data-track="true" id="herz">
+<header class="station__head">
+<h2 id="herz-title"><span class="station__num">05</span> Herz und Kreislauf: Das Transportsystem</h2>
+<p class="lead">Das Herz pumpt Blut durch Lungen- und Körperkreislauf. Es versorgt alle Zellen mit Sauerstoff und Nährstoffen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Das Herz ist eine Muskelpumpe mit vier Kammern. Der rechte Vorhof sammelt sauerstoffarmes Blut aus dem Körper, die rechte Kammer pumpt es in die Lunge. Dort wird das Blut mit Sauerstoff beladen und gelangt über den linken Vorhof in die linke Kammer. Die linke Kammer pumpt es über die Aorta in den Körper. Herzklappen verhindern den Rückfluss. Man unterscheidet den Lungenkreislauf und den Körperkreislauf; beide sind hintereinandergeschaltet.</p>
+<p>Der Herzzyklus besteht aus Systole und Diastole. In der Systole ziehen sich die Kammern zusammen und treiben Blut aus; in der Diastole entspannen sie sich und füllen sich. Der Blutdruck entsteht durch die Pumpkraft des Herzens und den Widerstand der Gefäße. Arterien führen Blut vom Herzen weg, Venen zum Herzen zurück, Kapillaren sind die feinsten Gefäße für den Stoffaustausch. Klappen in den Venen unterstützen den Rückfluss.</p>
+<p>Herz-Kreislauf-Erkrankungen sind häufig. Arteriosklerose entsteht durch Ablagerungen in den Arterien; sie verengt Gefäße und erhöht das Risiko für Herzinfarkt und Schlaganfall. Rauchen, Bewegungsmangel, ungesunde Ernährung und Bluthochdruck erhöhen das Risiko. Bewegung, rauchfreie Umgebung und regelmäßige Vorsorge schützen. Bei Verdacht auf Herzinfarkt zählt jede Minute: Notruf 112, die Person beruhigen und bei Bewusstlosigkeit die Atmung prüfen. Blut- und Organspende können Leben retten.</p>
+<figure class="tool" data-tool="heart">
+<div class="tool__head">
+<p class="tool__title">3D-Herz: Kammern, Klappen und Gefäße</p>
+<p class="tool__hint">Drehen zeigt den Aufbau. Wähle eine Struktur und prüfe ihre Funktion.</p>
+</div>
+<div class="tool__controls" role="group" aria-label="Bauteile des Herzens">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-heart-part="right-atrium" type="button" data-tip-title="Rechter Vorhof" data-tip="Sammelt sauerstoffarmes Blut aus dem Körper und gibt es an die rechte Kammer weiter.">Rechter Vorhof</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-part="right-ventricle" type="button" data-tip-title="Rechte Kammer" data-tip="Pumpt sauerstoffarmes Blut über die Lungenarterie in die Lunge. Ihre Wand ist dünner als die der linken Kammer.">Rechte Kammer</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-part="left-atrium" type="button" data-tip-title="Linker Vorhof" data-tip="Sammelt sauerstoffreiches Blut aus der Lunge und gibt es an die linke Kammer weiter.">Linker Vorhof</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-part="left-ventricle" type="button" data-tip-title="Linke Kammer" data-tip="Pumpt sauerstoffreiches Blut über die Aorta in den Körper. Ihre kräftige Wand erzeugt den hohen Druck.">Linke Kammer</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-part="valves" type="button" data-tip-title="Herzklappen" data-tip="Sie wirken wie Rückschlagventile und verhindern, dass Blut in die falsche Richtung fließt.">Klappen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-part="aorta" type="button" data-tip-title="Aorta" data-tip="Hauptschlagader: führt sauerstoffreiches Blut aus der linken Kammer in den Körperkreislauf.">Aorta</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-part="pulmonary" type="button" data-tip-title="Lungenarterie" data-tip="Führt sauerstoffarmes Blut zur Lunge. Sie ist die Ausnahme von der Regel, dass Arterien sauerstoffreiches Blut führen.">Lungenarterie</button>
+<button class="btn btn--quiet btn--small" data-heart-pulse="" type="button" data-tip-title="Einzelner Herzschlag" data-tip="Löst einen einzelnen Herzzyklus aus: Systole mit Kontraktion, danach Diastole mit Entspannung.">Herzschlag</button>
+</div>
+<div class="scene-toolbar">
+<button class="btn btn--quiet btn--small" data-heart-play="" type="button" data-tip-title="Herzzyklus" data-tip="Pausiere den automatischen Herzzyklus, wenn du die Anatomie in Ruhe betrachten willst.">Pause</button>
+<span class="scene-toolbar__label">Tempo</span>
+<span class="scene-toolbar__group" role="group" aria-label="Tempo des Herzzyklus">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-speed="0.5" type="button" data-tip-title="Tempo 0,5×" data-tip="Langsamer Herzzyklus: gut zum Beobachten von Systole und Diastole.">0,5×</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-heart-speed="1" type="button" data-tip-title="Tempo 1×" data-tip="Normale Geschwindigkeit für den Vergleich mit dem Ruhepuls.">1×</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-heart-speed="2" type="button" data-tip-title="Tempo 2×" data-tip="Schnellerer Herzzyklus: du siehst die Kontraktion schneller, aber weniger Details.">2×</button>
+</span>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-heart-auto="" type="button" data-tip-title="Automatik" data-tip="Der Herzzyklus läuft fortlaufend. Wenn du die Automatik ausschaltest, kannst du einzelne Herzschläge auslösen.">Automatik</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-heart-flow="" type="button" data-tip-title="Blutfluss" data-tip="Zeigt sauerstoffarmes Blut (blau) zur Lunge und sauerstoffreiches Blut (pink) in den Körper.">Blutfluss</button>
+<button class="btn btn--quiet btn--small" data-heart-reset="" type="button" data-tip-title="Ansicht zurücksetzen" data-tip="Kamera, Auswahl, Tempo und Animation fahren weich in den Ausgangszustand zurück.">Ansicht zurücksetzen</button>
+<span class="scene-status" data-heart-status="">Herzzyklus läuft</span>
+<span class="scene-status" data-heart-phase="">Diastole</span>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="heart" id="heart-scene" role="img" aria-label="3D-Modell des Herzens mit vier Kammern, Klappen, Aorta und Lungenarterie. Fahre über eine Struktur, um ihre Funktion zu lesen.">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Herz mit vier Kammern und großen Gefäßen" class="heart-fallback" role="img" viewBox="0 0 640 300">
+<rect fill="var(--color-paper-2)" height="300" width="640" x="0" y="0"></rect>
+<path d="M320 40 C250 40 210 100 220 160 C230 220 290 260 320 270 C350 260 410 220 420 160 C430 100 390 40 320 40 Z" fill="var(--color-paper-3)" stroke="var(--color-rule-2)" stroke-width="3"></path>
+<line stroke="var(--color-rule-2)" stroke-width="3" x1="320" x2="320" y1="60" y2="250"></line>
+<line stroke="var(--color-rule-2)" stroke-width="3" x1="240" x2="400" y1="150" y2="150"></line>
+<rect fill="var(--color-accent)" height="70" opacity="0.5" width="30" x="270" y="20"></rect>
+<rect fill="var(--color-ink)" height="70" opacity="0.5" width="30" x="340" y="20"></rect>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="292">Vier Kammern, zwei Kreisläufe</text>
+</svg>
+</div>
+</div>
+<p class="tool__scene-note">Tipp: Fahre mit dem Zeiger über eine Struktur und klicke sie an. Die blauen Partikel zeigen sauerstoffarmes Blut zur Lunge, die pinken Partikel sauerstoffreiches Blut in den Körper.</p>
+<div aria-live="polite" class="tool__readout" data-heart-readout=""></div>
+<figcaption class="tool__caption">Das Modell ist schematisch. Das Herz ist ein Muskel mit vier Kammern und einem komplexen Klappensystem.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Blutdruck und Gefäßtypen</summary>
+<p>Der Blutdruck wird als systolischer und diastolischer Wert angegeben, zum Beispiel 120 zu 80 mmHg. Der systolische Wert entsteht, wenn sich die linke Kammer zusammenzieht; der diastolische Wert bleibt in der Entspannungsphase. Arterien haben eine elastische Wand und halten den Druck aus. Venen haben dünnere Wände und Klappen, die den Rückfluss unterstützen. Kapillaren sind nur eine Zellschicht dick; hier findet der Stoffaustausch statt. Bluthochdruck belastet Gefäße und Herz und bleibt oft lange unbemerkt.</p>
+</details>
+<section aria-labelledby="herz-check" class="checkpoint">
+<h3 id="herz-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="herz">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="herz" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "hz1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Welche Kammer pumpt Blut in den Körperkreislauf?",
+              "options": ["Die linke Kammer", "Die rechte Kammer", "Der rechte Vorhof", "Der linke Vorhof"],
+              "correct": 0,
+              "explain": "Die linke Kammer pumpt sauerstoffreiches Blut über die Aorta in den Körper. Die rechte Kammer pumpt in die Lunge."
+            },
+            {
+              "id": "hz2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Was ist die Systole?",
+              "options": ["Die Anspannungsphase des Herzens", "Die Entspannungsphase", "Die Phase der Lungenbelüftung", "Die Bildung roter Blutkörperchen"],
+              "correct": 0,
+              "explain": "In der Systole ziehen sich die Kammern zusammen und treiben Blut aus. In der Diastole entspannen sie sich."
+            },
+            {
+              "id": "hz3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Was ist Arteriosklerose?",
+              "options": ["Ablagerungen in Arterien, die Gefäße verengen", "Eine Entzündung der Lunge", "Ein Mangel an Hämoglobin", "Eine Erkrankung der Nieren"],
+              "correct": 0,
+              "explain": "Arteriosklerose entsteht durch Ablagerungen in der Gefäßwand. Sie erhöht das Risiko für Herzinfarkt und Schlaganfall."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="herz" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="energie" href="#energie">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Rechte Kammer in die Lunge, linke Kammer in den Körper. Systole ist Anspannung, Diastole Entspannung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Systole</dt><dd>Anspannungsphase des Herzens.</dd>
+<dt>Diastole</dt><dd>Entspannungsphase des Herzens.</dd>
+<dt>Arterie</dt><dd>Gefäß vom Herzen weg.</dd>
+<dt>Vene</dt><dd>Gefäß zum Herzen hin.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Alle Arterien als sauerstoffreich bezeichnen. Die Lungenarterie führt sauerstoffarmes Blut zur Lunge.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="energie" data-title="Energiebereitstellung" data-track="true" id="energie">
+<header class="station__head">
+<h2 id="energie-title"><span class="station__num">06</span> Energiebereitstellung: ATP, aerob und anaerob</h2>
+<p class="lead">ATP ist der universelle Energieträger. Glucose kann mit oder ohne Sauerstoff abgebaut werden.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>ATP ist der mobile und universelle Energieträger der Zelle. Bei der Hydrolyse von ATP zu ADP und Phosphat wird Energie frei, die für Reaktionen genutzt werden kann. ADP wird durch Energiezufuhr wieder zu ATP aufgebaut. Der ATP-Vorrat in der Zelle ist klein und reicht nur für wenige Sekunden. Deshalb muss ATP ständig nachgebildet werden, vor allem durch den Abbau von Glucose.</p>
+<p>Bei der aeroben Zellatmung wird Glucose mit Sauerstoff zu Kohlenstoffdioxid und Wasser abgebaut. Dabei wird viel Energie frei und in ATP gespeichert. Bei der anaeroben Milchsäuregärung wird Glucose zu Milchsäure abgebaut, ohne Sauerstoff. Das liefert weniger Energie pro Glucose, aber schnell. In Muskelzellen kann Milchsäure bei intensiver Belastung entstehen; nach der Belastung wird sie abgebaut oder umgewandelt. Die Sauerstoffschuld beschreibt den zusätzlichen Sauerstoffbedarf nach anaerober Arbeit.</p>
+<p>Der Körper nutzt verschiedene Energiesysteme. Der ATP-Vorrat deckt nur kurze, explosive Belastungen. Die anaerobe Glykolyse liefert Energie für einige Sekunden bis wenige Minuten. Die aerobe Zellatmung dominiert bei längerer, moderater Belastung. Training verbessert die Sauerstoffversorgung, die Kapillarisierung und die Mitochondrienzahl. Die optimale Energiebereitstellung hängt von Dauer, Intensität und Trainingszustand ab.</p>
+<figure class="tool" data-tool="atp10">
+<div class="tool__head">
+<p class="tool__title">Energiesysteme im Vergleich</p>
+<p class="tool__hint">Wähle eine Belastung. Prüfe, welches System wie viel Energie liefert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="atp-card">
+<div class="atp-bars">
+<div class="atp-bar"><span data-tip-title="ATP-Vorrat" data-tip="Der gespeicherte ATP-Vorrat in der Zelle reicht nur für wenige Sekunden. Danach muss ATP nachgebildet werden.">ATP-Vorrat</span><div class="atp-bar__track" data-tip-title="ATP-Vorrat" data-tip="Anteil, den der kurzfristige ATP-Speicher an der Energiebereitstellung hat."><i data-atp-store=""></i></div><output data-atp-store-value="" data-tip-title="ATP-Vorrat" data-tip="Modellwert in Prozent. Er zeigt den Anteil am Energiebedarf, nicht die absolute ATP-Menge.">10 %</output></div>
+<div class="atp-bar"><span data-tip-title="Anaerob" data-tip="Energiegewinnung ohne Sauerstoff, zum Beispiel über die Milchsäuregärung. Sie ist schnell, liefert aber weniger ATP pro Glucose.">anaerob</span><div class="atp-bar__track" data-tip-title="Anaerobe Energiebereitstellung" data-tip="Anteil der Energie, der ohne Sauerstoff bereitgestellt wird."><i class="is-anaerobic" data-atp-anaerobic=""></i></div><output data-atp-anaerobic-value="" data-tip-title="Anaerober Anteil" data-tip="Modellwert in Prozent. Bei kurzen, intensiven Belastungen ist dieser Anteil besonders hoch.">30 %</output></div>
+<div class="atp-bar"><span data-tip-title="Aerob" data-tip="Energiegewinnung mit Sauerstoff. Die Zellatmung liefert deutlich mehr ATP pro Glucose als die Gärung.">aerob</span><div class="atp-bar__track" data-tip-title="Aerobe Energiebereitstellung" data-tip="Anteil der Energie, der mit Sauerstoff über die Zellatmung bereitgestellt wird."><i data-atp-aerobic=""></i></div><output data-atp-aerobic-value="" data-tip-title="Aerober Anteil" data-tip="Modellwert in Prozent. Bei längerer, moderater Belastung dominiert dieser Anteil.">60 %</output></div>
+</div>
+<p class="atp-card__text" data-atp-text=""></p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Anteile sind schematisch. Die tatsächliche Energiebereitstellung ist ein Kontinuum und hängt von vielen Faktoren ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum anaerobe Energiegewinnung begrenzt ist</summary>
+<p>Bei der Milchsäuregärung wird nur ein Teil der Energie aus Glucose genutzt; der Rest bleibt in der Milchsäure gebunden. Außerdem sinkt der pH-Wert in der Muskelzelle, was Enzyme und Muskelkontraktion beeinträchtigen kann. Deshalb kann anaerobe Arbeit nicht lange aufrechterhalten werden. Die aerobe Zellatmung liefert deutlich mehr ATP pro Glucose, braucht aber Sauerstoff und funktioniert nur, solange die Versorgung ausreicht. Training verbessert die Sauerstoffaufnahme und die Effizienz der Mitochondrien.</p>
+</details>
+<section aria-labelledby="energie-check" class="checkpoint">
+<h3 id="energie-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="energie">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="energie" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "eg1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E5",
+              "prompt": "Was ist ATP?",
+              "options": ["Der universelle Energieträger der Zelle", "Ein Protein", "Ein Zucker", "Ein Vitamin"],
+              "correct": 0,
+              "explain": "ATP speichert Energie kurzfristig und gibt sie bei der Hydrolyse zu ADP und Phosphat frei."
+            },
+            {
+              "id": "eg2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E5",
+              "prompt": "Was entsteht bei der anaeroben Milchsäuregärung?",
+              "options": ["Milchsäure", "Nur Sauerstoff", "Ethanol und CO₂", "Glucose und ATP"],
+              "correct": 0,
+              "explain": "Bei der Milchsäuregärung wird Glucose ohne Sauerstoff zu Milchsäure abgebaut. Dabei wird weniger Energie frei als bei der Zellatmung."
+            },
+            {
+              "id": "eg3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E5",
+              "prompt": "Warum liefert die aerobe Zellatmung mehr Energie als die Gärung?",
+              "options": ["Weil Glucose vollständig zu CO₂ und Wasser abgebaut wird.", "Weil sie ohne Sauerstoff abläuft.", "Weil sie nur im Muskel stattfindet.", "Weil sie kein ATP bildet."],
+              "correct": 0,
+              "explain": "Bei der aeroben Zellatmung wird Glucose vollständig abgebaut. Bei der Gärung bleiben energiereiche Produkte wie Milchsäure übrig."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="energie" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>ATP ist der universelle Energieträger. Aerob liefert mehr Energie, anaerob geht es schneller, aber weniger effizient.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>ATP</dt><dd>Universeller Energieträger der Zelle.</dd>
+<dt>aerob</dt><dd>Mit Sauerstoff ablaufend.</dd>
+<dt>anaerob</dt><dd>Ohne Sauerstoff ablaufend.</dd>
+<dt>Sauerstoffschuld</dt><dd>Zusätzlicher Sauerstoffbedarf nach anaerober Belastung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, anaerobe Energiegewinnung sei „schlechter“. Sie ist schnell und für kurze Belastungen sinnvoll.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Stoff- und Energieumwandlung</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="stoffwechsel10">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="stoffwechsel10" type="application/json">
+      {
+        "competencies": {
+          "E1": "Biomoleküle und Ernährung",
+          "E2": "Enzyme und Enzymaktivität",
+          "E3": "Verdauung und Resorption",
+          "E4": "Gasaustausch und Herz-Kreislauf",
+          "E5": "ATP und Energiebereitstellung"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "E1",
+            "prompt": "Was sind Makronährstoffe?",
+            "options": ["Kohlenhydrate, Fette und Proteine", "Nur Vitamine", "Nur Mineralsalze", "Nur Wasser"],
+            "correct": 0,
+            "explain": "Makronährstoffe werden in großen Mengen gebraucht. Sie liefern Energie und Baustoffe."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "E1",
+            "prompt": "Aus welchen Bausteinen bestehen Proteine?",
+            "options": ["Aminosäuren", "Fettsäuren", "Monosacchariden", "Mineralsalzen"],
+            "correct": 0,
+            "explain": "Proteine sind Ketten aus Aminosäuren. Ihre Reihenfolge bestimmt die Form und Funktion."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "E2",
+            "prompt": "Was ist ein Enzym?",
+            "options": ["Ein Biokatalysator aus Protein", "Ein Zucker", "Ein Fett", "Ein Mineralsalz"],
+            "correct": 0,
+            "explain": "Enzyme sind Proteine, die Reaktionen beschleunigen, ohne verbraucht zu werden."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "E2",
+            "prompt": "Was passiert bei der Denaturierung eines Enzyms?",
+            "options": ["Die räumliche Struktur verändert sich, und das aktive Zentrum passt nicht mehr.", "Das Enzym wird größer.", "Die DNA wird verdoppelt.", "Das Substrat wird größer."],
+            "correct": 0,
+            "explain": "Bei Hitze oder extremem pH-Wert verliert das Protein seine Struktur. Das aktive Zentrum funktioniert nicht mehr."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "E2",
+            "prompt": "Warum wirkt Pepsin vor allem im Magen?",
+            "options": ["Es hat sein Optimum im sauren Bereich.", "Es hat sein Optimum im basischen Bereich.", "Es braucht kein Substrat.", "Es wird nur im Mund gebildet."],
+            "correct": 0,
+            "explain": "Pepsin ist an den sauren pH-Wert des Magens angepasst. Amylase und Trypsin haben andere Optima."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "E3",
+            "prompt": "Wo beginnt die Verdauung von Stärke?",
+            "options": ["Im Mund durch Amylase", "Im Magen durch Pepsin", "Im Dickdarm", "In der Speiseröhre"],
+            "correct": 0,
+            "explain": "Speichel enthält Amylase, die Stärke zu Zuckern spaltet. Die Verdauung beginnt also schon im Mund."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "E3",
+            "prompt": "Wozu dient die Oberflächenvergrößerung im Dünndarm?",
+            "options": ["Zur besseren Resorption von Nährstoffen", "Zur Produktion von Magensäure", "Zur Speicherung von Wasser", "Zur Bildung von roten Blutkörperchen"],
+            "correct": 0,
+            "explain": "Darmzotten und Mikrovilli vergrößern die Oberfläche. Dadurch können mehr Nährstoffe aufgenommen werden."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "E4",
+            "prompt": "Was treibt den Gasaustausch in der Lunge an?",
+            "options": ["Diffusion aufgrund von Konzentrationsunterschieden", "Aktiver Transport durch das Herz", "Die Peristaltik", "Die Produktion von Magensäure"],
+            "correct": 0,
+            "explain": "Sauerstoff und Kohlendioxid diffundieren entlang ihres Konzentrationsgefälles. Die Lunge bietet dafür eine große, dünne Oberfläche."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "E4",
+            "prompt": "Welche Kammer pumpt Blut in den Körperkreislauf?",
+            "options": ["Die linke Kammer", "Die rechte Kammer", "Der rechte Vorhof", "Der linke Vorhof"],
+            "correct": 0,
+            "explain": "Die linke Kammer pumpt sauerstoffreiches Blut über die Aorta in den Körper. Die rechte Kammer pumpt in die Lunge."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "E5",
+            "prompt": "Was ist ATP?",
+            "options": ["Der universelle Energieträger der Zelle", "Ein Protein", "Ein Zucker", "Ein Vitamin"],
+            "correct": 0,
+            "explain": "ATP speichert Energie kurzfristig und gibt sie bei der Hydrolyse zu ADP und Phosphat frei."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "E5",
+            "prompt": "Was entsteht bei der anaeroben Milchsäuregärung?",
+            "options": ["Milchsäure", "Nur Sauerstoff", "Ethanol und CO₂", "Glucose und ATP"],
+            "correct": 0,
+            "explain": "Bei der Milchsäuregärung wird Glucose ohne Sauerstoff zu Milchsäure abgebaut. Dabei wird weniger Energie frei als bei der Zellatmung."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "E5",
+            "prompt": "Warum liefert die aerobe Zellatmung mehr Energie als die Gärung?",
+            "options": ["Weil Glucose vollständig zu CO₂ und Wasser abgebaut wird.", "Weil sie ohne Sauerstoff abläuft.", "Weil sie nur im Muskel stattfindet.", "Weil sie kein ATP bildet."],
+            "correct": 0,
+            "explain": "Bei der aeroben Zellatmung wird Glucose vollständig abgebaut. Bei der Gärung bleiben energiereiche Produkte wie Milchsäure übrig."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>offenes System</dt><dd>System, das Stoffe und Energie mit der Umgebung austauscht.</dd></div>
+<div class="glossary__row"><dt>Makronährstoff</dt><dd>Nährstoff in großen Mengen: Kohlenhydrate, Fette, Proteine.</dd></div>
+<div class="glossary__row"><dt>Mikronährstoff</dt><dd>Nährstoff in kleinen Mengen: Vitamine, Mineralsalze.</dd></div>
+<div class="glossary__row"><dt>Monosaccharid</dt><dd>Einfachzucker, z. B. Glucose oder Fructose.</dd></div>
+<div class="glossary__row"><dt>Disaccharid</dt><dd>Zweifachzucker, z. B. Saccharose oder Lactose.</dd></div>
+<div class="glossary__row"><dt>Polysaccharid</dt><dd>Vielfachzucker, z. B. Stärke oder Glykogen.</dd></div>
+<div class="glossary__row"><dt>Glykogen</dt><dd>Energiespeicher aus Glucose in Leber und Muskeln.</dd></div>
+<div class="glossary__row"><dt>Fettsäure</dt><dd>Baustein der Fette; gesättigt oder ungesättigt.</dd></div>
+<div class="glossary__row"><dt>essenzielle Fettsäure</dt><dd>Fettsäure, die der Körper nicht selbst bilden kann.</dd></div>
+<div class="glossary__row"><dt>Aminosäure</dt><dd>Baustein der Proteine.</dd></div>
+<div class="glossary__row"><dt>essenzielle Aminosäure</dt><dd>Aminosäure, die der Körper nicht selbst bilden kann.</dd></div>
+<div class="glossary__row"><dt>Enzym</dt><dd>Biokatalysator aus Protein.</dd></div>
+<div class="glossary__row"><dt>aktives Zentrum</dt><dd>Bereich eines Enzyms, an dem das Substrat bindet.</dd></div>
+<div class="glossary__row"><dt>Substrat</dt><dd>Stoff, der von einem Enzym umgesetzt wird.</dd></div>
+<div class="glossary__row"><dt>Schlüssel-Schloss-Modell</dt><dd>Modell der räumlichen Passung von Enzym und Substrat.</dd></div>
+<div class="glossary__row"><dt>Aktivierungsenergie</dt><dd>Energie, die nötig ist, damit eine Reaktion startet.</dd></div>
+<div class="glossary__row"><dt>Denaturierung</dt><dd>Verlust der räumlichen Struktur eines Proteins.</dd></div>
+<div class="glossary__row"><dt>RGT-Regel</dt><dd>Reaktionsgeschwindigkeit steigt mit der Temperatur bis zum Optimum.</dd></div>
+<div class="glossary__row"><dt>Peristaltik</dt><dd>Wellenförmige Muskelbewegung des Verdauungstrakts.</dd></div>
+<div class="glossary__row"><dt>Darmzotte</dt><dd>Fingerförmige Ausstülpung der Dünndarmwand.</dd></div>
+<div class="glossary__row"><dt>Mikrovilli</dt><dd>Feine Ausstülpungen der Darmzellen.</dd></div>
+<div class="glossary__row"><dt>Resorption</dt><dd>Aufnahme von Nährstoffen ins Blut oder Lymphsystem.</dd></div>
+<div class="glossary__row"><dt>Diffusion</dt><dd>Bewegung von Teilchen vom Ort höherer zur niedrigerer Konzentration.</dd></div>
+<div class="glossary__row"><dt>aktiver Transport</dt><dd>Stofftransport mit Energieverbrauch.</dd></div>
+<div class="glossary__row"><dt>Alveole</dt><dd>Lungenbläschen; Ort des Gasaustauschs.</dd></div>
+<div class="glossary__row"><dt>Hämoglobin</dt><dd>Eisenhaltiges Transportprotein in roten Blutkörperchen.</dd></div>
+<div class="glossary__row"><dt>Systole</dt><dd>Anspannungsphase des Herzens.</dd></div>
+<div class="glossary__row"><dt>Diastole</dt><dd>Entspannungsphase des Herzens.</dd></div>
+<div class="glossary__row"><dt>Arterie</dt><dd>Blutgefäß, das Blut vom Herzen weg transportiert.</dd></div>
+<div class="glossary__row"><dt>Vene</dt><dd>Blutgefäß, das Blut zum Herzen zurück transportiert.</dd></div>
+<div class="glossary__row"><dt>Arteriosklerose</dt><dd>Ablagerungen in Arterien; erhöht das Risiko für Herzinfarkt.</dd></div>
+<div class="glossary__row"><dt>ATP</dt><dd>Universeller Energieträger der Zelle.</dd></div>
+<div class="glossary__row"><dt>aerob</dt><dd>Mit Sauerstoff ablaufend.</dd></div>
+<div class="glossary__row"><dt>anaerob</dt><dd>Ohne Sauerstoff ablaufend.</dd></div>
+<div class="glossary__row"><dt>Milchsäuregärung</dt><dd>Abbau von Glucose zu Milchsäure ohne Sauerstoff.</dd></div>
+<div class="glossary__row"><dt>Sauerstoffschuld</dt><dd>Zusätzlicher Sauerstoffbedarf nach anaerober Belastung.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 10</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/10/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 10</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/enhance.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

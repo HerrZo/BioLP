@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="de" data-grade="9" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Genetik und Gentechnik | Biologie 9</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 9 zu Genetik und Gentechnik: DNA, Proteinbiosynthese, Zellteilung, Meiose, Mutationen und Gentechnik.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der DNA-Baukasten und die Proteinbiosynthese · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the light sheet needs the tool wells to sit one step darker; theme.css sets the wells on paper-2 and keeps the ink band to one per page */
+/* Hallmark · answered F4 · the 9 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.dna-card, .synth-card, .cycle-card, .meiosis-card, .karyo-card, .genetech-card { display: grid; gap: var(--space-sm); }
+.dna-pairs { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-sm); min-height: 3.4rem; align-items: center; }
+.dna-pair { display: grid; gap: var(--space-3xs); text-align: center; font: 700 var(--text-sm)/1 var(--font-outlier); }
+.dna-pair span { display: block; min-width: 2ch; padding: var(--space-2xs) var(--space-xs); border: var(--rule-hair) solid var(--color-rule-2); background: var(--color-paper); }
+.dna-pair i { display: block; height: 1px; background: var(--color-rule-2); }
+.synth-flow { display: grid; gap: var(--space-2xs); }
+.synth-row { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: var(--space-sm); align-items: center; padding: var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
+.synth-row__label { font: 500 var(--text-xs)/1 var(--font-body); color: var(--color-muted); }
+.synth-row__seq { font: 500 var(--text-md)/1.4 var(--font-outlier); letter-spacing: 0.06em; color: var(--color-ink); }
+.synth-row.is-done .synth-row__seq { color: var(--color-accent); }
+.synth-arrow { padding-left: 4.5rem; font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
+.dna-card__strand, .dna-card__partner { margin: 0; font: 500 var(--text-md)/1.4 var(--font-outlier); letter-spacing: 0.08em; color: var(--color-ink); }
+.dna-card__text, .synth-card p, .genetech-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.dna-card__text { min-height: 2.8em; }
+.synth-card p { font-family: var(--font-outlier); font-size: var(--text-md); color: var(--color-ink); }
+.synth-card p span { color: var(--color-accent); }
+.cycle-svg, .meiosis-svg, .karyo-svg { width: 100%; height: auto; display: block; }
+.cycle-svg .ring { fill: none; stroke: var(--color-rule-2); stroke-width: 18; }
+.cycle-svg .phase-arc { fill: none; stroke: var(--color-paper-3); stroke-width: 18; transition: stroke var(--dur-short) var(--ease-out); }
+.cycle-svg .phase-arc.is-active { stroke: var(--color-accent); }
+.cycle-svg .phase-label { font-family: var(--font-body); font-size: 13px; fill: var(--color-ink); text-anchor: middle; }
+.cycle-svg .cell { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.cycle-svg .chromosome { stroke: var(--color-ink); stroke-width: 4; stroke-linecap: round; }
+.meiosis-svg .track { stroke: var(--color-rule); stroke-width: 2; }
+.meiosis-svg .stage { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.meiosis-svg .stage.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.meiosis-svg .stage-label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.meiosis-svg .stage.is-active + .stage-label { fill: var(--color-ink); }
+.karyo-svg .pair { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 1.5; }
+.karyo-svg .pair.is-highlighted { fill: var(--color-accent); stroke: var(--color-accent); }
+.karyo-svg .extra { fill: var(--color-accent); stroke: var(--color-accent); }
+.karyo-svg .pair-label { font-family: var(--font-outlier); font-size: 10px; fill: var(--color-muted); text-anchor: middle; }
+.genetech-card__title { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.genetech-card__list { margin: 0; padding-left: 1.2em; }
+.genetech-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.tool[data-tool="dna9"] .tool__stage, .tool[data-tool="proteinsynth9"] .tool__stage, .tool[data-tool="genetech9"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="cellcycle9"] .tool__stage, .tool[data-tool="meiosis9"] .tool__stage, .tool[data-tool="karyogram9"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="cellcycle9"] .cycle-svg, .tool[data-tool="meiosis9"] .meiosis-svg, .tool[data-tool="karyogram9"] .karyo-svg { min-width: 560px; }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="9-3" data-grade="9">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 9">
+      <span class="brand__name">Biologie 9</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">03</span> Genetik und Gentechnik</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Genetik und Gentechnik</h2>
+      <p class="sidebar__deck">DNA, Proteinbiosynthese, Replikation, Mitose, Meiose, Mutationen und Gentechnik.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#dna-proteine" data-station-link="dna-proteine"><span class="station-nav__num">01</span><span>DNA und Proteine</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#proteinbiosynthese" data-station-link="proteinbiosynthese"><span class="station-nav__num">02</span><span>Proteinbiosynthese</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#zellteilung" data-station-link="zellteilung"><span class="station-nav__num">03</span><span>Zellzyklus und Mitose</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#meiose" data-station-link="meiose"><span class="station-nav__num">04</span><span>Meiose</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#mutationen" data-station-link="mutationen"><span class="station-nav__num">05</span><span>Mutationen und Karyogramm</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#gentechnik" data-station-link="gentechnik"><span class="station-nav__num">06</span><span>Gentechnik</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 9</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Genetik: Vom Gen zum Merkmal.</h1>
+<p class="lead">DNA, Proteine, Zellteilung, Meiose, Mutationen und Gentechnik. Wie Information weitergegeben und umgesetzt wird.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="dna-proteine" href="#dna-proteine">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">G1</span><span>Du beschreibst den Bau der DNA und erklärst die Basenpaarung als Grundlage der Informationsspeicherung.</span></li>
+<li><span class="cnum">G2</span><span>Du erklärst die Proteinbiosynthese und die Rolle von Proteinen bei der Merkmalsausbildung.</span></li>
+<li><span class="cnum">G3</span><span>Du beschreibst Replikation, Zellzyklus und Mitose und erklärst ihre Bedeutung für Wachstum und Reparatur.</span></li>
+<li><span class="cnum">G4</span><span>Du erklärst Meiose und Befruchtung als Grundlage genetischer Vielfalt.</span></li>
+<li><span class="cnum">G5</span><span>Du erklärst Mutationen und Genommutationen und bewertest genetische Diagnostik und Gentechnik ethisch.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 3 des LehrplanPLUS Biologie 9 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Genetik erklärt, wie Information gespeichert, weitergegeben und umgesetzt wird. Gene sind keine Schicksalsformel: Umwelt, Zufall und Entwicklung wirken mit. Bei genetischen Diagnosen geht es um persönliche Entscheidungen, Datenschutz und die Frage, wie eine Gesellschaft mit Unterschieden umgeht. Menschen mit einer genetischen Besonderheit sind nicht weniger wert.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie wird aus der Information in der DNA ein Merkmal, und wo liegen die Grenzen der Beeinflussung?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="dna-proteine" data-title="DNA und Proteine" data-track="true" id="dna-proteine">
+<header class="station__head">
+<h2 id="dna-proteine-title"><span class="station__num">01</span> DNA und Proteine: Information und Funktion</h2>
+<p class="lead">Die DNA speichert Information. Proteine führen die meisten Aufgaben im Körper aus.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Proteine sind vielseitige Makromoleküle. Sie wirken als Enzyme, transportieren Stoffe, bilden Strukturen, übertragen Signale oder erkennen Erreger. Ihre Funktion hängt von ihrer Form ab, und die Form wird durch die Reihenfolge der Aminosäuren bestimmt. Die Information für diese Reihenfolge liegt in der DNA. Ein Gen ist ein Abschnitt der DNA, der die Information für ein Protein oder eine RNA enthält.</p>
+<p>Die DNA besteht aus zwei Strängen, die sich wie eine Doppelhelix umeinander winden. Jeder Strang ist eine Kette aus Nukleotiden. Ein Nukleotid besteht aus Zucker (Desoxyribose), Phosphat und einer Base. Die vier Basen sind Adenin (A), Thymin (T), Guanin (G) und Cytosin (C). A paart sich mit T über zwei Wasserstoffbrücken, G mit C über drei. Die Basenpaarung sorgt dafür, dass die beiden Stränge komplementär sind und die Information kopiert werden kann.</p>
+<p>Die Reihenfolge der Basen bildet den genetischen Code. Abschnitte davon werden in RNA umgeschrieben und am Ribosom in eine Aminosäuresequenz übersetzt. Proteine falten sich anschließend zu ihrer funktionellen Form. Viele Gene wirken nicht direkt auf ein Merkmal, sondern über Enzyme und Stoffwechselwege. Diese Kette von der DNA über das Protein zum Merkmal nennt man Genwirkkette. Umweltfaktoren können einzelne Schritte beeinflussen.</p>
+<figure class="tool" data-tool="dna9">
+<div class="tool__head">
+<p class="tool__title">DNA-Baukasten: Basenpaarung</p>
+<p class="tool__hint">Wähle Basen für den einen Strang. Der komplementäre Strang wird ergänzt.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-dna-base="A" data-tip-title="Adenin (A)" data-tip="Adenin paart mit Thymin. Zwischen A und T liegen zwei Wasserstoffbrücken." type="button">A</button>
+<button class="btn btn--quiet btn--small" data-dna-base="T" data-tip-title="Thymin (T)" data-tip="Thymin paart mit Adenin. In der RNA wird Thymin durch Uracil ersetzt." type="button">T</button>
+<button class="btn btn--quiet btn--small" data-dna-base="G" data-tip-title="Guanin (G)" data-tip="Guanin paart mit Cytosin. Zwischen G und C liegen drei Wasserstoffbrücken; das Paar ist etwas stabiler." type="button">G</button>
+<button class="btn btn--quiet btn--small" data-dna-base="C" data-tip-title="Cytosin (C)" data-tip="Cytosin paart mit Guanin. Die Basenpaarung macht die Stränge komplementär." type="button">C</button>
+<button class="btn btn--quiet btn--small" data-dna-reset="" data-tip-title="DNA-Strang zurücksetzen" data-tip="Löscht den gebauten Strang und beginnt von vorn." type="button">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="dna-card">
+<div aria-hidden="true" class="dna-pairs" data-dna-pairs=""></div>
+<p class="dna-card__strand" data-dna-strand="">5′ … 3′</p>
+<p class="dna-card__partner" data-dna-partner="">3′ … 5′</p>
+<p class="dna-card__text" data-dna-text="">Wähle eine Base. A paart mit T, G mit C.</p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Basenpaarung ist komplementär. Sie erklärt, wie die DNA kopiert und in RNA umgeschrieben werden kann.</figcaption>
+</figure>
+<figure class="tool" data-tool="dna3d">
+<div class="tool__head">
+<p class="tool__title">Die DNA-Doppelhelix im 3D-Modell</p>
+<p class="tool__hint">Drehe die Helix und tippe ein Basenpaar an. Ein Klick übernimmt die Base in den Baukasten.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-dna3d-filter="all" data-tip-title="Alle Basenpaare" data-tip="Zeigt A–T und G–C gemeinsam. Die Reihenfolge der Basen trägt die Erbinformation." type="button">Alle Paare</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-dna3d-filter="at" data-tip-title="A–T-Paare" data-tip="Adenin und Thymin sind komplementär. Zwischen ihnen liegen zwei Wasserstoffbrücken." type="button">A–T zeigen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-dna3d-filter="gc" data-tip-title="G–C-Paare" data-tip="Guanin und Cytosin sind komplementär. Zwischen ihnen liegen drei Wasserstoffbrücken." type="button">G–C zeigen</button>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="dna" id="dna-scene">
+<div class="tool__fallback">
+<svg aria-label="Schematische DNA-Doppelhelix mit zwei Strängen und Basenpaaren" role="img" viewBox="0 0 640 320">
+<rect fill="var(--color-paper-2)" height="320" width="640" x="0" y="0"></rect>
+<path d="M220 40 C300 80 140 130 220 170 C300 210 140 260 220 300" fill="none" stroke="var(--color-ink)" stroke-width="5"></path>
+<path d="M420 40 C340 80 500 130 420 170 C340 210 500 260 420 300" fill="none" stroke="var(--color-muted)" stroke-width="5"></path>
+<g stroke="var(--color-accent)" stroke-width="4">
+<line x1="232" x2="408" y1="62" y2="62"></line>
+<line x1="268" x2="372" y1="92" y2="92"></line>
+<line x1="220" x2="420" y1="128" y2="128"></line>
+<line x1="196" x2="444" y1="162" y2="162"></line>
+<line x1="220" x2="420" y1="198" y2="198"></line>
+<line x1="268" x2="372" y1="232" y2="232"></line>
+<line x1="232" x2="408" y1="270" y2="270"></line>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="315">Zucker-Phosphat-Rückgrat und Basenpaare</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-dna3d-readout=""></div>
+<figcaption class="tool__caption">Die Helix ist schematisch. Die Basen zeigen nach innen; Wasserstoffbrücken halten die beiden Stränge zusammen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Doppelhelix so stabil ist</summary>
+<p>Die beiden Stränge werden durch Wasserstoffbrücken zwischen den Basen zusammengehalten. Jede einzelne Bindung ist schwach, aber viele Bindungen zusammen stabilisieren die Helix. Gleichzeitig können die Stränge für die Replikation und Transkription getrennt werden. Die Zucker-Phosphat-Ketten bilden das Rückgrat; die Basen zeigen nach innen. Die komplementäre Struktur ist der Grund, warum eine Kopie der DNA mit hoher Genauigkeit möglich ist.</p>
+</details>
+<section aria-labelledby="dna-check" class="checkpoint">
+<h3 id="dna-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="dna">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="dna" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "d1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G1",
+              "prompt": "Welche Basen paaren sich in der DNA?",
+              "options": ["A mit T, G mit C", "A mit G, T mit C", "A mit C, T mit G", "Alle Basen mit allen"],
+              "correct": 0,
+              "explain": "Adenin paart mit Thymin, Guanin mit Cytosin. Die Paarung ist komplementär."
+            },
+            {
+              "id": "d2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G1",
+              "prompt": "Was ist ein Gen?",
+              "options": ["Ein Abschnitt der DNA mit der Information für ein Protein oder eine RNA", "Ein ganzes Chromosom", "Ein Protein", "Eine Zelle"],
+              "correct": 0,
+              "explain": "Ein Gen ist ein Abschnitt der DNA. Es enthält die Information für ein Protein oder eine funktionelle RNA."
+            },
+            {
+              "id": "d3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G1",
+              "prompt": "Warum bestimmt die Aminosäuresequenz die Funktion eines Proteins?",
+              "options": ["Sie bestimmt die Form und damit die Funktion.", "Sie bestimmt nur die Farbe.", "Sie hat keine Wirkung.", "Sie bestimmt die DNA-Menge."],
+              "correct": 0,
+              "explain": "Die Reihenfolge der Aminosäuren bestimmt, wie sich das Protein faltet. Die Form ist für die Funktion entscheidend."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="dna-proteine" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="proteinbiosynthese" href="#proteinbiosynthese">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>DNA speichert Information, Proteine führen Funktionen aus. A paart mit T, G mit C.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Nukleotid</dt><dd>Baustein der DNA aus Zucker, Phosphat und Base.</dd>
+<dt>Basenpaar</dt><dd>A mit T oder G mit C.</dd>
+<dt>Gen</dt><dd>DNA-Abschnitt mit Information für ein Protein oder eine RNA.</dd>
+<dt>Genwirkkette</dt><dd>Weg vom Gen über Proteine zum Merkmal.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, ein Gen bestimme ein Merkmal direkt. Meist wirken viele Gene, Proteine und Umweltfaktoren zusammen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="proteinbiosynthese" data-title="Proteinbiosynthese" data-track="true" id="proteinbiosynthese">
+<header class="station__head">
+<h2 id="proteinbiosynthese-title"><span class="station__num">02</span> Proteinbiosynthese: Von der DNA zum Protein</h2>
+<p class="lead">Transkription und Translation übersetzen die Information eines Gens in eine Aminosäuresequenz.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Proteinbiosynthese beginnt im Zellkern. Bei der Transkription wird ein Abschnitt der DNA in mRNA umgeschrieben. Die RNA-Polymerase trennt die Stränge, liest den codogenen Strang und baut einen komplementären RNA-Strang. Statt Thymin enthält RNA Uracil. Die mRNA verlässt den Zellkern und gelangt zu den Ribosomen.</p>
+<p>Bei der Translation wird die mRNA in eine Aminosäuresequenz übersetzt. Jeweils drei Basen bilden ein Codon. Die tRNA bringt die passende Aminosäure zum Ribosom; ihre Anticodon-Sequenz paart mit dem Codon. Das Ribosom verknüpft die Aminosäuren zu einer Kette. Ein Startcodon (AUG) beginnt die Übersetzung, ein Stoppcodon beendet sie. Anschließend faltet sich das Protein zu seiner funktionellen Form.</p>
+<p>Der genetische Code ist redundant: Mehrere Codons können dieselbe Aminosäure codieren. Das schützt bis zu einem gewissen Grad vor Mutationen. Die Proteinbiosynthese ist ein Beispiel für eine Genwirkkette: DNA → mRNA → Protein → Merkmal. Störungen in einzelnen Schritten können die Funktion des Proteins verändern.</p>
+<figure class="tool" data-tool="proteinsynth9">
+<div class="tool__head">
+<p class="tool__title">Transkription und Translation</p>
+<p class="tool__hint">Starte mit der DNA-Sequenz. Führe die Transkription und dann die Translation aus.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-synth-step="transcription" data-tip-title="Transkription" data-tip="Die DNA wird im Zellkern in mRNA umgeschrieben. Statt Thymin enthält RNA Uracil." type="button">Transkription</button>
+<button class="btn btn--quiet btn--small" data-synth-step="translation" data-tip-title="Translation" data-tip="Am Ribosom wird die mRNA in eine Aminosäuresequenz übersetzt. Drei Basen bilden ein Codon." type="button">Translation</button>
+<button class="btn btn--quiet btn--small" data-synth-reset="" data-tip-title="Proteinbiosynthese zurücksetzen" data-tip="Setzt Transkription und Translation auf den Start zurück." type="button">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="synth-card">
+<div class="synth-flow">
+<div class="synth-row is-done" data-synth-row="dna">
+<span class="synth-row__label">DNA</span>
+<span class="synth-row__seq" data-synth-dna="">tac aaa ggg</span>
+</div>
+<div class="synth-arrow">↓ Transkription</div>
+<div class="synth-row" data-synth-row="mrna">
+<span class="synth-row__label">mRNA</span>
+<span class="synth-row__seq" data-synth-mrna="">…</span>
+</div>
+<div class="synth-arrow">↓ Translation</div>
+<div class="synth-row" data-synth-row="protein">
+<span class="synth-row__label">Protein</span>
+<span class="synth-row__seq" data-synth-protein="">…</span>
+</div>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Beispiel ist vereinfacht. In der Zelle laufen Transkription und Translation mit vielen Enzymen und Kontrollschritten ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Der genetische Code</summary>
+<p>Der genetische Code ordnet jedem Basentriplett eine Aminosäure zu. 64 Codons codieren 20 Aminosäuren und drei Stoppsignale. Weil mehrere Codons dieselbe Aminosäure codieren können, ist der Code redundant. Die Leserichtung ist festgelegt, und der Code ist fast universell: Er gilt für Bakterien, Pflanzen und Tiere. Das ist ein starkes Argument für die gemeinsame Abstammung aller Lebewesen.</p>
+</details>
+<section aria-labelledby="proteinbiosynthese-check" class="checkpoint">
+<h3 id="proteinbiosynthese-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="proteinbiosynthese">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="proteinbiosynthese" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "p1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G2",
+              "prompt": "Was passiert bei der Transkription?",
+              "options": ["DNA wird in mRNA umgeschrieben.", "mRNA wird in Protein übersetzt.", "DNA wird verdoppelt.", "Proteine werden abgebaut."],
+              "correct": 0,
+              "explain": "Bei der Transkription liest die RNA-Polymerase die DNA und baut eine komplementäre mRNA."
+            },
+            {
+              "id": "p2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G2",
+              "prompt": "Was passiert bei der Translation?",
+              "options": ["Die mRNA wird am Ribosom in eine Aminosäuresequenz übersetzt.", "Die DNA wird verdoppelt.", "Die mRNA wird abgebaut.", "Die Zelle teilt sich."],
+              "correct": 0,
+              "explain": "Am Ribosom paaren tRNA-Anticodons mit mRNA-Codons. Die Aminosäuren werden zu einer Kette verknüpft."
+            },
+            {
+              "id": "p3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G2",
+              "prompt": "Warum ist der genetische Code redundant?",
+              "options": ["Mehrere Codons können dieselbe Aminosäure codieren.", "Jedes Codon codiert ein ganzes Protein.", "Es gibt nur vier Codons.", "Die DNA hat keine Basen."],
+              "correct": 0,
+              "explain": "64 Codons codieren 20 Aminosäuren und Stoppsignale. Mehrere Codons können dieselbe Aminosäure codieren."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="proteinbiosynthese" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="zellteilung" href="#zellteilung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Transkription: DNA → mRNA. Translation: mRNA → Protein. Drei Basen bilden ein Codon.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Transkription</dt><dd>Umschreiben der DNA in mRNA.</dd>
+<dt>Translation</dt><dd>Übersetzen der mRNA in eine Aminosäuresequenz.</dd>
+<dt>Codon</dt><dd>Basentriplett der mRNA.</dd>
+<dt>Anticodon</dt><dd>passendes Triplett der tRNA.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Transkription und Translation verwechseln. Transkription ist das Umschreiben, Translation das Übersetzen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="zellteilung" data-title="Zellzyklus und Mitose" data-track="true" id="zellteilung">
+<header class="station__head">
+<h2 id="zellteilung-title"><span class="station__num">03</span> Zellzyklus und Mitose</h2>
+<p class="lead">Vor jeder Zellteilung wird die DNA verdoppelt. Mitose erzeugt zwei genetisch gleiche Tochterzellen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der Zellzyklus besteht aus der Interphase und der Mitose. In der Interphase wächst die Zelle und verdoppelt ihre DNA. Die Interphase wird in G1-, S- und G2-Phase unterteilt. In der S-Phase wird die DNA repliziert. Danach folgt die Mitose mit Prophase, Metaphase, Anaphase und Telophase; anschließend teilt sich das Zellplasma (Cytokinese). Aus einer Mutterzelle entstehen zwei Tochterzellen mit identischem Chromosomensatz.</p>
+<p>Die Replikation ist semikonservativ: Die Doppelhelix wird getrennt, und jeder Strang dient als Vorlage für einen neuen komplementären Strang. So enthält jede Tochter-DNA einen alten und einen neuen Strang. Die Basenpaarung sorgt für Genauigkeit; Reparaturenzyme korrigieren viele Fehler. Trotzdem können Mutationen entstehen.</p>
+<p>Mitose ist die Grundlage für Wachstum, Reparatur und ungeschlechtliche Fortpflanzung. Bei vielzelligen Organismen entstehen aus einer befruchteten Eizelle durch viele Mitosen alle Körperzellen. Kontrollpunkte im Zellzyklus prüfen, ob die DNA vollständig und korrekt kopiert ist. Versagen diese Kontrollen, können sich Zellen unkontrolliert teilen; das ist ein Kennzeichen von Krebs.</p>
+<figure class="tool" data-tool="cellcycle9">
+<div class="tool__head">
+<p class="tool__title">Der Zellzyklus</p>
+<p class="tool__hint">Wähle eine Phase. Prüfe, was in der Zelle passiert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="cycle-card">
+<svg aria-label="Zellzyklus mit G1, S, G2 und Mitose" class="cycle-svg" role="img" viewbox="0 0 640 340">
+<circle class="ring" cx="320" cy="160" r="110"></circle>
+<path class="phase-arc" d="M320 50 A110 110 0 0 1 430 160" data-cycle-phase="g1"></path>
+<path class="phase-arc" d="M430 160 A110 110 0 0 1 320 270" data-cycle-phase="s"></path>
+<path class="phase-arc" d="M320 270 A110 110 0 0 1 210 160" data-cycle-phase="g2"></path>
+<path class="phase-arc" d="M210 160 A110 110 0 0 1 320 50" data-cycle-phase="m"></path>
+<text class="phase-label" x="390" y="90">G1</text>
+<text class="phase-label" x="390" y="240">S</text>
+<text class="phase-label" x="250" y="240">G2</text>
+<text class="phase-label" x="250" y="90">M</text>
+<circle class="cell" cx="320" cy="160" r="55"></circle>
+<line class="chromosome" x1="300" x2="300" y1="140" y2="180"></line>
+<line class="chromosome" x1="320" x2="320" y1="135" y2="185"></line>
+<line class="chromosome" x1="340" x2="340" y1="140" y2="180"></line>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+</div>
+<figcaption class="tool__caption">Der Zellzyklus ist ein Modell. Die Dauer der Phasen ist je nach Zelltyp sehr unterschiedlich.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Mitose in vier Schritten</summary>
+<p>In der Prophase verdichten sich die Chromosomen, die Kernhülle löst sich auf, und der Spindelapparat entsteht. In der Metaphase ordnen sich die Chromosomen in der Äquatorialebene an. In der Anaphase werden die Schwesterchromatiden getrennt und zu den Polen gezogen. In der Telophase bilden sich neue Kernhüllen, und die Chromosomen entspannen sich. Danach teilt die Cytokinese das Zellplasma. Die Reihenfolge ist entscheidend, damit jede Tochterzelle einen vollständigen Chromosomensatz erhält.</p>
+</details>
+<section aria-labelledby="zellteilung-check" class="checkpoint">
+<h3 id="zellteilung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="zellteilung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="zellteilung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "z1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Wann wird die DNA im Zellzyklus verdoppelt?",
+              "options": ["In der S-Phase der Interphase", "In der Mitose", "In der G1-Phase", "Nach der Cytokinese"],
+              "correct": 0,
+              "explain": "Die S-Phase ist die Synthesephase. Dort wird die DNA repliziert, bevor die Mitose beginnt."
+            },
+            {
+              "id": "z2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Was ist das Ergebnis der Mitose?",
+              "options": ["Zwei genetisch gleiche Tochterzellen", "Vier haploide Keimzellen", "Eine Zelle mit halbem Chromosomensatz", "Eine Zelle ohne DNA"],
+              "correct": 0,
+              "explain": "Die Mitose erzeugt zwei Tochterzellen mit dem gleichen Chromosomensatz wie die Mutterzelle."
+            },
+            {
+              "id": "z3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Warum ist Mitose für vielzellige Organismen wichtig?",
+              "options": ["Sie ermöglicht Wachstum, Reparatur und ungeschlechtliche Fortpflanzung.", "Sie erzeugt genetische Vielfalt durch Crossing-over.", "Sie halbiert den Chromosomensatz.", "Sie ersetzt die Proteinbiosynthese."],
+              "correct": 0,
+              "explain": "Durch Mitose entstehen neue Körperzellen für Wachstum und Reparatur. Bei ungeschlechtlicher Fortpflanzung entstehen Klone."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="zellteilung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="meiose" href="#meiose">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Replikation in der S-Phase, Mitose für zwei gleiche Tochterzellen. Mitose dient Wachstum, Reparatur und ungeschlechtlicher Fortpflanzung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Interphase</dt><dd>Wachstum und DNA-Verdopplung zwischen Teilungen.</dd>
+<dt>Replikation</dt><dd>Verdopplung der DNA.</dd>
+<dt>Mitose</dt><dd>Kernteilung mit zwei gleichen Tochterzellen.</dd>
+<dt>Cytokinese</dt><dd>Teilung des Zellplasmas.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Mitose und Meiose verwechseln. Mitose erhält den Chromosomensatz, Meiose halbiert ihn.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="meiose" data-title="Meiose" data-track="true" id="meiose">
+<header class="station__head">
+<h2 id="meiose-title"><span class="station__num">04</span> Meiose: Vielfalt durch Reifeteilung</h2>
+<p class="lead">Meiose halbiert den Chromosomensatz und erzeugt genetisch vielfältige Keimzellen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bei der Meiose entstehen aus einer diploiden Zelle vier haploide Keimzellen. Sie besteht aus zwei Reifeteilungen. In der Meiose I trennen sich die homologen Chromosomen; in der Meiose II werden die Schwesterchromatiden getrennt. Vor der Meiose wird die DNA einmal repliziert. Deshalb enthält jede Keimzelle am Ende einen einfachen Chromosomensatz.</p>
+<p>In der Prophase I paaren sich homologe Chromosomen und bilden Tetraden. Dabei kann es zu Crossing-over kommen: Abschnitte der Chromatiden werden ausgetauscht. Zusammen mit der zufälligen Verteilung der homologen Chromosomen in der Anaphase I entsteht eine große genetische Vielfalt. Bei der Befruchtung verschmelzen zwei haploide Keimzellen; die Zygote ist wieder diploid. Die Kombination der elterlichen Gene ist einzigartig.</p>
+<p>Meiosefehler können zu Chromosomenaberrationen in den Keimzellen führen. Bleibt ein Chromosomenpaar in der Anaphase I zusammen oder trennen sich Schwesterchromatiden in der Meiose II nicht, entstehen Keimzellen mit einer zusätzlichen oder fehlenden Chromosomenkopie. Nach der Befruchtung kann daraus eine Genommutation wie die Trisomie 21 entstehen.</p>
+<figure class="tool" data-tool="meiosis9">
+<div class="tool__head">
+<p class="tool__title">Meiose: zwei Teilungen</p>
+<p class="tool__hint">Wähle einen Abschnitt. Prüfe, was mit den Chromosomen passiert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="meiosis-card">
+<svg aria-label="Meiose mit Meiose I und Meiose II" class="meiosis-svg" role="img" viewbox="0 0 720 300">
+<line class="track" x1="70" x2="650" y1="150" y2="150"></line>
+<g data-meiosis-stage="prophase1"><circle class="stage" cx="100" cy="150" r="30"></circle><text class="stage-label" x="100" y="205">Prophase I</text></g>
+<g data-meiosis-stage="metaphase1"><circle class="stage" cx="230" cy="150" r="30"></circle><text class="stage-label" x="230" y="205">Metaphase I</text></g>
+<g data-meiosis-stage="anaphase1"><circle class="stage" cx="360" cy="150" r="30"></circle><text class="stage-label" x="360" y="205">Anaphase I</text></g>
+<g data-meiosis-stage="meiosis2"><circle class="stage" cx="490" cy="150" r="30"></circle><text class="stage-label" x="490" y="205">Meiose II</text></g>
+<g data-meiosis-stage="gametes"><circle class="stage" cx="620" cy="150" r="30"></circle><text class="stage-label" x="620" y="205">4 Keimzellen</text></g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+</div>
+<figcaption class="tool__caption">Die Meiose ist vereinfacht dargestellt. Crossing-over und die zufällige Verteilung der Chromosomen erzeugen genetische Vielfalt.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Mitose und Meiose im Vergleich</summary>
+<table class="data-table">
+<caption>Mitose und Meiose</caption>
+<thead><tr><th>Merkmal</th><th>Mitose</th><th>Meiose</th></tr></thead>
+<tbody>
+<tr><td>Teilungen</td><td>eine</td><td>zwei</td></tr>
+<tr><td>Tochterzellen</td><td>zwei, diploid</td><td>vier, haploid</td></tr>
+<tr><td>Genetische Vielfalt</td><td>gering, Klone</td><td>hoch, Crossing-over und Rekombination</td></tr>
+<tr><td>Bedeutung</td><td>Wachstum, Reparatur</td><td>Keimzellen, geschlechtliche Fortpflanzung</td></tr>
+</tbody>
+</table>
+</details>
+<section aria-labelledby="meiose-check" class="checkpoint">
+<h3 id="meiose-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="meiose">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="meiose" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "m1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G4",
+              "prompt": "Was ist das Ergebnis der Meiose?",
+              "options": ["Vier haploide Keimzellen", "Zwei diploide Tochterzellen", "Eine Zelle mit doppeltem Chromosomensatz", "Eine Zelle ohne Chromosomen"],
+              "correct": 0,
+              "explain": "Nach zwei Reifeteilungen entstehen vier Keimzellen mit einfachem Chromosomensatz."
+            },
+            {
+              "id": "m2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G4",
+              "prompt": "Was passiert beim Crossing-over?",
+              "options": ["Homologe Chromatiden tauschen Abschnitte aus.", "Die DNA wird verdoppelt.", "Die Zelle teilt sich ohne DNA-Replikation.", "Proteine werden abgebaut."],
+              "correct": 0,
+              "explain": "Beim Crossing-over in der Prophase I werden Abschnitte zwischen homologen Chromatiden ausgetauscht. Das erhöht die genetische Vielfalt."
+            },
+            {
+              "id": "m3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G4",
+              "prompt": "Warum ist die Meiose für die geschlechtliche Fortpflanzung wichtig?",
+              "options": ["Sie halbiert den Chromosomensatz, damit die Befruchtung wieder diploid wird.", "Sie verdoppelt den Chromosomensatz.", "Sie erzeugt identische Klone.", "Sie verhindert Mutationen."],
+              "correct": 0,
+              "explain": "Keimzellen müssen haploid sein, damit nach der Befruchtung wieder ein diploider Chromosomensatz entsteht."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="meiose" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="mutationen" href="#mutationen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Meiose: zwei Teilungen, vier haploide Keimzellen. Crossing-over und zufällige Verteilung erzeugen Vielfalt.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Meiose</dt><dd>Reifeteilung, die Keimzellen mit halbem Chromosomensatz bildet.</dd>
+<dt>Crossing-over</dt><dd>Austausch von Abschnitten homologer Chromatiden.</dd>
+<dt>haploid</dt><dd>einfacher Chromosomensatz.</dd>
+<dt>diploid</dt><dd>doppelter Chromosomensatz.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Meiose sei nur eine Mitose mit zwei Schritten. Die homologen Chromosomen werden getrennt, und es entstehen haploide Zellen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="mutationen" data-title="Mutationen und Karyogramm" data-track="true" id="mutationen">
+<header class="station__head">
+<h2 id="mutationen-title"><span class="station__num">05</span> Mutationen: Veränderungen der Erbinformation</h2>
+<p class="lead">Mutationen können neutral, schädlich oder günstig sein. Genommutationen verändern die Chromosomenzahl.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Mutationen sind dauerhafte Veränderungen der DNA. Sie entstehen durch Fehler bei der Replikation, durch Strahlung, Chemikalien oder Viren. Man unterscheidet Genmutationen (Veränderung einzelner Basen), Chromosomenmutationen (Veränderung von Chromosomenabschnitten) und Genommutationen (Veränderung der Chromosomenzahl). Viele Mutationen werden repariert oder bleiben ohne Wirkung; manche verändern ein Protein und damit ein Merkmal.</p>
+<p>Genommutationen entstehen oft durch Fehler in der Meiose. Bei der Trisomie 21 bleibt zum Beispiel ein Chromosom 21 in der Keimzelle, sodass nach der Befruchtung drei Kopien vorliegen. Das Karyogramm zeigt die Chromosomen geordnet nach Größe und Form. Ein Karyogramm kann eine Genommutation sichtbar machen, sagt aber nicht automatisch, wie sich ein Mensch entwickelt. Phänotyp und Krankheit sind nicht dasselbe.</p>
+<p>Genetische Diagnostik kann während der Schwangerschaft (Pränataldiagnostik) oder vor der Einnistung (Präimplantationsdiagnostik) eingesetzt werden. Sie kann Unsicherheit reduzieren, wirft aber ethische Fragen auf: Was wird untersucht, wer entscheidet, wie gehen Gesellschaften mit Behinderung und Vielfalt um? Menschen mit einer genetischen Besonderheit haben ein Recht auf Respekt und Unterstützung. Diagnostik sollte freiwillig, informiert und begleitet sein.</p>
+<figure class="tool" data-tool="karyogram9">
+<div class="tool__head">
+<p class="tool__title">Karyogramm: Chromosomen zählen</p>
+<p class="tool__hint">Vergleiche ein typisches Karyogramm mit dem Karyogramm bei Trisomie 21.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-karyo-mode="normal" data-tip-title="Typisches Karyogramm" data-tip="23 Chromosomenpaare: 22 Autosomenpaare und ein Geschlechtschromosomenpaar. Die Darstellung ist schematisch." type="button">Typisch</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-karyo-mode="trisomy21" data-tip-title="Trisomie 21" data-tip="Drei Kopien des Chromosoms 21. Die Ursache liegt meist in einer fehlerhaften Chromosomentrennung während der Meiose." type="button">Trisomie 21</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="karyo-card">
+<svg aria-label="Karyogramm mit 23 Chromosomenpaaren" class="karyo-svg" role="img" viewbox="0 0 720 260">
+<g data-karyo-pairs=""></g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+</div>
+<figcaption class="tool__caption">Das Karyogramm ist schematisch. Die Chromosomen sind nach Größe und Form geordnet; die Darstellung ersetzt keine genetische Beratung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum „anders“ nicht „weniger wert“ bedeutet</summary>
+<p>Eine genetische Besonderheit kann mit gesundheitlichen Herausforderungen verbunden sein, aber sie definiert einen Menschen nicht. Unterstützung, Bildung, Barrierefreiheit und medizinische Versorgung machen einen großen Unterschied. Genetische Diagnostik sollte nicht dazu führen, Menschen mit Behinderung abzuwerten. Ethische Fragen betreffen Selbstbestimmung, Datenschutz, Zugang zu Beratung und den gesellschaftlichen Umgang mit Vielfalt.</p>
+</details>
+<section aria-labelledby="mutationen-check" class="checkpoint">
+<h3 id="mutationen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="mutationen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="mutationen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "mu1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Was ist eine Genommutation?",
+              "options": ["Eine Veränderung der Chromosomenzahl", "Eine Veränderung einzelner Basen", "Eine Veränderung eines Proteins", "Eine Zellteilung"],
+              "correct": 0,
+              "explain": "Genommutationen verändern die Zahl der Chromosomen, z. B. Trisomie 21."
+            },
+            {
+              "id": "mu2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Wie entsteht Trisomie 21 häufig?",
+              "options": ["Durch eine fehlerhafte Trennung der Chromosomen in der Meiose", "Durch zu viel Protein", "Durch eine Mitose ohne DNA-Replikation", "Durch eine Impfung"],
+              "correct": 0,
+              "explain": "Bleibt ein Chromosom 21 in der Meiose in einer Keimzelle, entsteht nach der Befruchtung eine zusätzliche Kopie."
+            },
+            {
+              "id": "mu3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Warum ist eine genetische Diagnose nicht dasselbe wie eine Krankheit?",
+              "options": ["Ein Karyogramm zeigt eine Besonderheit, aber nicht den ganzen Verlauf oder die Lebensqualität.", "Jede genetische Besonderheit ist immer harmlos.", "Diagnostik ist immer verboten.", "Gene haben keine Wirkung."],
+              "correct": 0,
+              "explain": "Genetische Befunde können mit Gesundheit zusammenhängen, definieren aber nicht den Wert oder die gesamte Entwicklung eines Menschen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="mutationen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="gentechnik" href="#gentechnik">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Mutationen verändern die DNA. Genommutationen verändern die Chromosomenzahl. Ein genetischer Befund ist nicht dasselbe wie eine Krankheit.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Genmutation</dt><dd>Veränderung einzelner Basen.</dd>
+<dt>Chromosomenmutation</dt><dd>Veränderung von Chromosomenabschnitten.</dd>
+<dt>Genommutation</dt><dd>Veränderung der Chromosomenzahl.</dd>
+<dt>Karyogramm</dt><dd>geordnete Darstellung der Chromosomen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Mutationen immer als schädlich ansehen. Viele sind neutral; einige können unter bestimmten Bedingungen günstig sein.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="gentechnik" data-title="Gentechnik" data-track="true" id="gentechnik">
+<header class="station__head">
+<h2 id="gentechnik-title"><span class="station__num">06</span> Gentechnik: Erbinformation gezielt verändern</h2>
+<p class="lead">Gentechnik kann Gene zwischen Organismen übertragen. Chancen und Risiken müssen getrennt bewertet werden.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Gentechnik bezeichnet die gezielte Veränderung der Erbinformation eines Organismus. Ein häufiges Verfahren ist die Übertragung eines Gens in ein Bakterium. Dazu wird das Gen mit Restriktionsenzymen aus der DNA geschnitten, in ein Plasmid eingefügt und in Bakterien eingebracht. Ein Selektionsmarker hilft, die erfolgreich veränderten Bakterien zu finden. Die Bakterien vermehren sich und produzieren das gewünschte Protein, das anschließend gereinigt wird.</p>
+<p>Anwendungen sind zum Beispiel die Herstellung von Insulin, Impfstoffen und Enzymen, die Diagnostik und die Pflanzenzüchtung. Gentechnik kann medizinische Fortschritte ermöglichen, aber auch Risiken bergen: unerwünschte Effekte im Organismus, Ausbreitung von Resistenzgenen, Fragen des Patentschutzes und der globalen Gerechtigkeit. Die Bewertung muss Nutzen, Risiken, Alternativen und die Rechte der Betroffenen abwägen.</p>
+<p>In der Diskussion ist wichtig, zwischen verschiedenen Anwendungen zu unterscheiden: Medizin, Landwirtschaft, Forschung und Umwelt. Pauschale Urteile werden der Komplexität nicht gerecht. Ethische Fragen betreffen den Umgang mit Tieren, die informationelle Selbstbestimmung, den Zugang zu Therapien und die Frage, welche Eingriffe eine Gesellschaft zulassen will. Wissenschaftliche Fakten und gesellschaftliche Werte müssen getrennt und dann gemeinsam diskutiert werden.</p>
+<figure class="tool" data-tool="genetech9">
+<div class="tool__head">
+<p class="tool__title">Gentechnik: Schritt für Schritt</p>
+<p class="tool__hint">Wähle einen Schritt. Prüfe, was dabei passiert und welche Fragen entstehen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="genetech-card">
+<p class="genetech-card__title" data-genetech-title="">1. Gen identifizieren</p>
+<p class="genetech-card__text" data-genetech-text="">Zuerst muss bekannt sein, welches Gen das gewünschte Protein codiert.</p>
+<ul class="genetech-card__list" data-genetech-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Schema ist vereinfacht. In der Praxis sind viele Kontrollen, Sicherheitsmaßnahmen und rechtliche Vorgaben nötig.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Chancen und Risiken abwägen</summary>
+<p>Bei der Bewertung hilft eine Pro-Kontra-Tabelle. Pro: neue Therapien, weniger Tierleid durch Zellkulturen, resistente Pflanzen, schnellere Diagnostik. Kontra: unerwünschte Nebenwirkungen, ökologische Risiken, Konzentration von Macht und Eigentum, Fragen des Zugangs und derinformationellen Selbstbestimmung. Wichtig ist, nicht alle Anwendungen über einen Kamm zu scheren. Ein gentechnisch hergestelltes Medikament ist etwas anderes als ein gentechnisch veränderter Organismus in der Umwelt.</p>
+</details>
+<section aria-labelledby="gentechnik-check" class="checkpoint">
+<h3 id="gentechnik-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="gentechnik">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="gentechnik" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "gt1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Was ist ein Plasmid?",
+              "options": ["Ein kleines ringförmiges DNA-Molekül, das als Vektor dienen kann", "Ein Protein", "Ein Chromosom des Menschen", "Ein Ribosom"],
+              "correct": 0,
+              "explain": "Plasmide sind kleine ringförmige DNA-Moleküle in Bakterien. Sie können fremde Gene aufnehmen und als Vektor dienen."
+            },
+            {
+              "id": "gt2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Wozu dienen Restriktionsenzyme in der Gentechnik?",
+              "options": ["Sie schneiden DNA an bestimmten Sequenzen.", "Sie kleben Proteine zusammen.", "Sie teilen die Zelle.", "Sie produzieren ATP."],
+              "correct": 0,
+              "explain": "Restriktionsenzyme erkennen spezifische DNA-Sequenzen und schneiden dort. So lassen sich Gene gezielt isolieren."
+            },
+            {
+              "id": "gt3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Warum müssen gentechnische Anwendungen unterschiedlich bewertet werden?",
+              "options": ["Medizin, Landwirtschaft und Umwelt haben unterschiedliche Risiken und Chancen.", "Alle Anwendungen sind gleich riskant.", "Gentechnik ist immer verboten.", "Es gibt keine ethischen Fragen."],
+              "correct": 0,
+              "explain": "Die Bewertung hängt von Anwendung, Organismus, Freisetzung, Nutzen und Alternativen ab. Pauschale Urteile helfen nicht."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="gentechnik" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Gentechnik ist ein Werkzeug. Chancen und Risiken hängen von der konkreten Anwendung ab.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Gentechnik</dt><dd>gezielte Veränderung der Erbinformation.</dd>
+<dt>Restriktionsenzym</dt><dd>schneidet DNA an bestimmten Sequenzen.</dd>
+<dt>Plasmid</dt><dd>kleiner DNA-Vektor.</dd>
+<dt>Transformation</dt><dd>Aufnahme fremder DNA durch eine Zelle.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Gentechnik mit Klonen oder Stammzellforschung gleichsetzen. Das sind unterschiedliche Verfahren mit eigenen Fragen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Genetik</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="genetik9">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="genetik9" type="application/json">
+      {
+        "competencies": {
+          "G1": "DNA, Gene und Proteine",
+          "G2": "Proteinbiosynthese",
+          "G3": "Replikation, Zellzyklus und Mitose",
+          "G4": "Meiose und genetische Vielfalt",
+          "G5": "Mutationen, Diagnostik und Gentechnik"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "G1",
+            "prompt": "Welche Basen paaren sich in der DNA?",
+            "options": ["A mit T, G mit C", "A mit G, T mit C", "A mit C, T mit G", "Alle Basen mit allen"],
+            "correct": 0,
+            "explain": "Adenin paart mit Thymin, Guanin mit Cytosin. Die Paarung ist komplementär."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "G1",
+            "prompt": "Was ist ein Gen?",
+            "options": ["Ein Abschnitt der DNA mit der Information für ein Protein oder eine RNA", "Ein ganzes Chromosom", "Ein Protein", "Eine Zelle"],
+            "correct": 0,
+            "explain": "Ein Gen ist ein Abschnitt der DNA. Es enthält die Information für ein Protein oder eine funktionelle RNA."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "G2",
+            "prompt": "Was passiert bei der Transkription?",
+            "options": ["DNA wird in mRNA umgeschrieben.", "mRNA wird in Protein übersetzt.", "DNA wird verdoppelt.", "Proteine werden abgebaut."],
+            "correct": 0,
+            "explain": "Bei der Transkription liest die RNA-Polymerase die DNA und baut eine komplementäre mRNA."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "G2",
+            "prompt": "Was passiert bei der Translation?",
+            "options": ["Die mRNA wird am Ribosom in eine Aminosäuresequenz übersetzt.", "Die DNA wird verdoppelt.", "Die mRNA wird abgebaut.", "Die Zelle teilt sich."],
+            "correct": 0,
+            "explain": "Am Ribosom paaren tRNA-Anticodons mit mRNA-Codons. Die Aminosäuren werden zu einer Kette verknüpft."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "G3",
+            "prompt": "Wann wird die DNA im Zellzyklus verdoppelt?",
+            "options": ["In der S-Phase der Interphase", "In der Mitose", "In der G1-Phase", "Nach der Cytokinese"],
+            "correct": 0,
+            "explain": "Die S-Phase ist die Synthesephase. Dort wird die DNA repliziert, bevor die Mitose beginnt."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "G3",
+            "prompt": "Was ist das Ergebnis der Mitose?",
+            "options": ["Zwei genetisch gleiche Tochterzellen", "Vier haploide Keimzellen", "Eine Zelle mit halbem Chromosomensatz", "Eine Zelle ohne DNA"],
+            "correct": 0,
+            "explain": "Die Mitose erzeugt zwei Tochterzellen mit dem gleichen Chromosomensatz wie die Mutterzelle."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "G4",
+            "prompt": "Was ist das Ergebnis der Meiose?",
+            "options": ["Vier haploide Keimzellen", "Zwei diploide Tochterzellen", "Eine Zelle mit doppeltem Chromosomensatz", "Eine Zelle ohne Chromosomen"],
+            "correct": 0,
+            "explain": "Nach zwei Reifeteilungen entstehen vier Keimzellen mit einfachem Chromosomensatz."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "G4",
+            "prompt": "Was passiert beim Crossing-over?",
+            "options": ["Homologe Chromatiden tauschen Abschnitte aus.", "Die DNA wird verdoppelt.", "Die Zelle teilt sich ohne DNA-Replikation.", "Proteine werden abgebaut."],
+            "correct": 0,
+            "explain": "Beim Crossing-over in der Prophase I werden Abschnitte zwischen homologen Chromatiden ausgetauscht. Das erhöht die genetische Vielfalt."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "G5",
+            "prompt": "Was ist eine Genommutation?",
+            "options": ["Eine Veränderung der Chromosomenzahl", "Eine Veränderung einzelner Basen", "Eine Veränderung eines Proteins", "Eine Zellteilung"],
+            "correct": 0,
+            "explain": "Genommutationen verändern die Zahl der Chromosomen, z. B. Trisomie 21."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "G5",
+            "prompt": "Wie entsteht Trisomie 21 häufig?",
+            "options": ["Durch eine fehlerhafte Trennung der Chromosomen in der Meiose", "Durch zu viel Protein", "Durch eine Mitose ohne DNA-Replikation", "Durch eine Impfung"],
+            "correct": 0,
+            "explain": "Bleibt ein Chromosom 21 in der Meiose in einer Keimzelle, entsteht nach der Befruchtung eine zusätzliche Kopie."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "G5",
+            "prompt": "Was ist ein Plasmid?",
+            "options": ["Ein kleines ringförmiges DNA-Molekül, das als Vektor dienen kann", "Ein Protein", "Ein Chromosom des Menschen", "Ein Ribosom"],
+            "correct": 0,
+            "explain": "Plasmide sind kleine ringförmige DNA-Moleküle in Bakterien. Sie können fremde Gene aufnehmen und als Vektor dienen."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "G5",
+            "prompt": "Warum müssen gentechnische Anwendungen unterschiedlich bewertet werden?",
+            "options": ["Medizin, Landwirtschaft und Umwelt haben unterschiedliche Risiken und Chancen.", "Alle Anwendungen sind gleich riskant.", "Gentechnik ist immer verboten.", "Es gibt keine ethischen Fragen."],
+            "correct": 0,
+            "explain": "Die Bewertung hängt von Anwendung, Organismus, Freisetzung, Nutzen und Alternativen ab. Pauschale Urteile helfen nicht."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>DNA</dt><dd>Desoxyribonukleinsäure; Träger der Erbinformation.</dd></div>
+<div class="glossary__row"><dt>Nukleotid</dt><dd>Baustein der DNA aus Zucker, Phosphat und Base.</dd></div>
+<div class="glossary__row"><dt>Basenpaar</dt><dd>A mit T oder G mit C.</dd></div>
+<div class="glossary__row"><dt>Gen</dt><dd>DNA-Abschnitt mit Information für ein Protein oder eine RNA.</dd></div>
+<div class="glossary__row"><dt>Chromosom</dt><dd>Struktur aus DNA und Proteinen.</dd></div>
+<div class="glossary__row"><dt>Protein</dt><dd>Makromolekül aus Aminosäuren.</dd></div>
+<div class="glossary__row"><dt>Aminosäure</dt><dd>Baustein der Proteine.</dd></div>
+<div class="glossary__row"><dt>Transkription</dt><dd>Umschreiben der DNA in mRNA.</dd></div>
+<div class="glossary__row"><dt>Translation</dt><dd>Übersetzen der mRNA in eine Aminosäuresequenz.</dd></div>
+<div class="glossary__row"><dt>Codon</dt><dd>Basentriplett der mRNA.</dd></div>
+<div class="glossary__row"><dt>Genwirkkette</dt><dd>Weg vom Gen über Proteine zum Merkmal.</dd></div>
+<div class="glossary__row"><dt>Replikation</dt><dd>Verdopplung der DNA.</dd></div>
+<div class="glossary__row"><dt>Zellzyklus</dt><dd>Interphase und Zellteilung.</dd></div>
+<div class="glossary__row"><dt>Mitose</dt><dd>Kernteilung mit zwei gleichen Tochterzellen.</dd></div>
+<div class="glossary__row"><dt>Meiose</dt><dd>Reifeteilung mit vier haploiden Keimzellen.</dd></div>
+<div class="glossary__row"><dt>Crossing-over</dt><dd>Austausch von Abschnitten homologer Chromatiden.</dd></div>
+<div class="glossary__row"><dt>haploid</dt><dd>einfacher Chromosomensatz.</dd></div>
+<div class="glossary__row"><dt>diploid</dt><dd>doppelter Chromosomensatz.</dd></div>
+<div class="glossary__row"><dt>Mutation</dt><dd>Dauerhafte Veränderung der DNA.</dd></div>
+<div class="glossary__row"><dt>Genommutation</dt><dd>Veränderung der Chromosomenzahl.</dd></div>
+<div class="glossary__row"><dt>Trisomie 21</dt><dd>Drei Kopien des Chromosoms 21.</dd></div>
+<div class="glossary__row"><dt>Karyogramm</dt><dd>Geordnete Darstellung der Chromosomen.</dd></div>
+<div class="glossary__row"><dt>Pränataldiagnostik</dt><dd>Untersuchungen des ungeborenen Kindes.</dd></div>
+<div class="glossary__row"><dt>Präimplantationsdiagnostik</dt><dd>Genetische Untersuchung von Embryonen vor der Einnistung.</dd></div>
+<div class="glossary__row"><dt>Gentechnik</dt><dd>Gezielte Veränderung der Erbinformation.</dd></div>
+<div class="glossary__row"><dt>Restriktionsenzym</dt><dd>Enzym, das DNA an bestimmten Sequenzen schneidet.</dd></div>
+<div class="glossary__row"><dt>Plasmid</dt><dd>Kleines ringförmiges DNA-Molekül als Vektor.</dd></div>
+<div class="glossary__row"><dt>Transformation</dt><dd>Aufnahme fremder DNA durch eine Zelle.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 9</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/9/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 9</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

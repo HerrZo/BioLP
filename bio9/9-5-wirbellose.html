@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="de" data-grade="9" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Wirbellose | Biologie 9</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 9 zu Wirbellosen: Insekten, Außenskelett, Tracheen, Mundwerkzeuge, Metamorphose und Kommunikation.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: das 3D-Insekt und die Metamorphose · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the light sheet needs the tool wells to sit one step darker; theme.css sets the wells on paper-2 and keeps the ink band to one per page */
+/* Hallmark · answered F4 · the 9 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.trachea-svg, .metamorphosis-svg { width: 100%; height: auto; display: block; }
+.trachea-svg .body { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.trachea-svg .tube { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.trachea-svg .vessel { fill: none; stroke: var(--color-ink); stroke-width: 5; }
+.trachea-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.trachea-svg [data-trachea-part] { opacity: 0.25; transition: opacity var(--dur-short) var(--ease-out); }
+.trachea-svg [data-trachea-part].is-active { opacity: 1; }
+.mouth-card, .comm-card { display: grid; gap: var(--space-sm); }
+.mouth-card__title, .comm-card__title { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.mouth-card__text, .comm-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.mouth-card__list, .comm-card__list { margin: 0; padding-left: 1.2em; }
+.mouth-card__list li, .comm-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.metamorphosis-svg .track { stroke: var(--color-rule); stroke-width: 2; }
+.metamorphosis-svg .stage { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.metamorphosis-svg .stage.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.metamorphosis-svg .stage-label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.metamorphosis-svg .stage.is-active + .stage-label { fill: var(--color-ink); }
+.metamorphosis-svg .row-label { font-family: var(--font-display); font-size: 12px; fill: var(--color-ink); }
+.tool[data-tool="trachea9"] .tool__stage, .tool[data-tool="mouthparts9"] .tool__stage, .tool[data-tool="communication9"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="trachea9"] .tool__stage, .tool[data-tool="metamorphosis9"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="trachea9"] .trachea-svg, .tool[data-tool="metamorphosis9"] .metamorphosis-svg { min-width: 560px; }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="9-5" data-grade="9">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 9">
+      <span class="brand__name">Biologie 9</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">05</span> Wirbellose</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 5</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Wirbellose</h2>
+      <p class="sidebar__deck">Bewegung, Tracheen, Mundwerkzeuge, Metamorphose, Sinne und Kommunikation bei Wirbellosen.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 5</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#bewegung" data-station-link="bewegung"><span class="station-nav__num">01</span><span>Bewegung und Außenskelett</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#stoffwechsel" data-station-link="stoffwechsel"><span class="station-nav__num">02</span><span>Tracheen und Kreislauf</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#mundwerkzeuge" data-station-link="mundwerkzeuge"><span class="station-nav__num">03</span><span>Mundwerkzeuge</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#fortpflanzung" data-station-link="fortpflanzung"><span class="station-nav__num">04</span><span>Fortpflanzung und Metamorphose</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#sinne" data-station-link="sinne"><span class="station-nav__num">05</span><span>Sinne und Kommunikation</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">06</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">07</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 9</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Wirbellose: Vielfalt in Panzer und Gliedern.</h1>
+<p class="lead">Insekten sind die artenreichste Gruppe der Wirbellosen. Ihr Bau ist an Land, Luft und Wasser angepasst.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="bewegung" href="#bewegung">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">W1</span><span>Du vergleichst das Außenskelett und den Bewegungsapparat von Insekten mit Wirbeltieren.</span></li>
+<li><span class="cnum">W2</span><span>Du erklärst Tracheensystem und offenen Blutkreislauf als Anpassungen an den Stoffwechsel.</span></li>
+<li><span class="cnum">W3</span><span>Du vergleichst Mundwerkzeuge und ihre Anpassung an Nahrungsquellen und bewertest ihre Bedeutung für den Menschen.</span></li>
+<li><span class="cnum">W4</span><span>Du erklärst Fortpflanzung und Metamorphose bei Insekten.</span></li>
+<li><span class="cnum">W5</span><span>Du beschreibst Sinnesleistungen und Kommunikation bei Insekten.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 5 des LehrplanPLUS Biologie 9 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Wirbellose sind Tiere ohne Wirbelsäule. Zu ihnen gehören Insekten, Spinnen, Krebse, Würmer, Schnecken und viele mehr. Insekten sind keine „Krabbeltiere“ ohne Bedeutung: Sie bestäuben Pflanzen, zersetzen Abfälle, dienen als Nahrung und können Krankheiten übertragen. Ihre Vielfalt ist das Ergebnis evolutionärer Anpassung.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie ermöglicht der Bau der Insekten ihre Vielfalt und ihre Anpassung an verschiedene Lebensräume?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="bewegung" data-title="Bewegung und Außenskelett" data-track="true" id="bewegung">
+<header class="station__head">
+<h2 id="bewegung-title"><span class="station__num">01</span> Bewegung: Außenskelett und Glieder</h2>
+<p class="lead">Ein Außenskelett aus Chitin schützt und stützt. Gelenke und Muskeln machen schnelle Bewegung möglich.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Insekten haben ein Außenskelett aus Chitin. Es umhüllt den Körper, schützt vor Verletzungen und Austrocknung und gibt Ansatzpunkte für Muskeln. Weil das Außenskelett nicht mitwächst, müssen Insekten sich häuten, um zu wachsen. Der Körper ist in Kopf, Thorax und Abdomen gegliedert. Am Thorax sitzen drei Beinpaare und meist zwei Flügelpaare. Die Beine sind über Gelenke gegliedert und können an Laufen, Springen, Graben oder Schwimmen angepasst sein.</p>
+<p>Muskeln bewegen die Glieder über Hebel. Weil Muskeln nur ziehen können, arbeiten sie oft als Gegenspieler: Ein Beuger und ein Strecker bewegen ein Gelenk in entgegengesetzte Richtungen. Bei Wirbeltieren sitzt das Skelett innen und besteht aus Knochen; bei Insekten sitzt es außen und besteht aus Chitin. Beide Systeme lösen dasselbe Problem: Stabilität, Schutz und Bewegung.</p>
+<p>Die Vielfalt der Bewegung ist an Lebensräume angepasst. Laufkäfer nutzen kräftige Beine, Heuschrecken springen, Libellen fliegen mit vier Flügeln, Wasserläufer nutzen Oberflächenspannung, und Schwimmkäfer rudern mit behaarten Beinen. Flügel ermöglichen die Erschließung neuer Nahrungsquellen und Lebensräume. Der Preis ist ein hoher Energiebedarf und eine komplexe Steuerung.</p>
+<figure class="tool" data-tool="insect">
+<div class="tool__head">
+<p class="tool__title">3D-Insekt: Bau und Anpassung</p>
+<p class="tool__hint">Drehen zeigt den Körper. Wähle einen Abschnitt und prüfe seine Funktion.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-insect-part="head" data-tip-title="Kopf" data-tip="Trägt Facettenaugen, Antennen und Mundwerkzeuge. Hier sitzen die wichtigsten Sinnesorgane." type="button">Kopf</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-insect-part="thorax" data-tip-title="Thorax" data-tip="Bewegungsmittelpunkt: Hier setzen drei Beinpaare und die Flügel an. Im Thorax liegen die Flugmuskeln." type="button">Thorax</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-insect-part="abdomen" data-tip-title="Abdomen" data-tip="Enthält den Großteil der Organe, darunter Darm und Tracheensystem. Die Stigmen liegen an den Seiten." type="button">Abdomen</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-insect-part="legs" data-tip-title="Beine" data-tip="Drei Beinpaare mit Gelenken. Sie sind an Laufen, Springen, Graben oder Schwimmen angepasst." type="button">Beine</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-insect-part="wings" data-tip-title="Flügel" data-tip="Dünne Häute mit Adern. Sie werden von indirekten Flugmuskeln im Thorax bewegt." type="button">Flügel</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-insect-part="eyes" data-tip-title="Facettenaugen" data-tip="Bestehen aus vielen Einzelaugen. Sie nehmen Bewegungen und bei manchen Arten Farben wahr." type="button">Augen</button>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="insect" id="insect-scene">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Insekt mit Kopf, Thorax, Abdomen, Beinen und Flügeln" role="img" viewbox="0 0 640 280">
+<rect fill="var(--color-paper-2)" height="280" width="640" x="0" y="0"></rect>
+<ellipse cx="320" cy="140" fill="var(--color-paper-3)" rx="150" ry="55" stroke="var(--color-rule-2)" stroke-width="3"></ellipse>
+<circle cx="170" cy="140" fill="var(--color-paper-3)" r="45" stroke="var(--color-rule-2)" stroke-width="3"></circle>
+<circle cx="150" cy="125" fill="var(--color-accent)" r="14"></circle>
+<path d="M130 115 Q90 80 60 90 M130 115 Q95 105 55 125" fill="none" stroke="var(--color-ink)" stroke-width="3"></path>
+<g fill="none" stroke="var(--color-ink)" stroke-width="4">
+<path d="M240 180 L220 240 L200 265"></path><path d="M300 185 L300 250 L290 270"></path><path d="M360 185 L380 250 L400 265"></path>
+<path d="M240 100 L220 40 L200 15"></path><path d="M300 95 L300 30 L290 10"></path><path d="M360 100 L380 40 L400 15"></path>
+</g>
+<ellipse cx="330" cy="95" fill="var(--color-paper-3)" opacity="0.65" rx="80" ry="25" stroke="var(--color-rule-2)" stroke-width="2"></ellipse>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="260">Kopf, Thorax, Abdomen, Beine, Flügel</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-insect-readout=""></div>
+<figcaption class="tool__caption">Das 3D-Modell ist schematisch. Es zeigt typische Strukturen eines Insekts, nicht alle Formen der Vielfalt.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Häutung nötig ist</summary>
+<p>Das Außenskelett aus Chitin ist stabil, aber nicht dehnbar. Wenn ein Insekt wächst, wird es zu eng. Deshalb bildet das Tier unter der alten Hülle ein neues, größeres Außenskelett und streift die alte Hülle ab. In der Zeit nach der Häutung ist der neue Panzer noch weich; das Tier ist verletzlich und braucht Schutz. Hormone wie Ecdyson steuern die Häutung, das Juvenile Hormon beeinflusst, ob nach der Häutung wieder eine Larve oder ein adultes Tier entsteht.</p>
+</details>
+<section aria-labelledby="bewegung-check" class="checkpoint">
+<h3 id="bewegung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="bewegung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="bewegung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "w1",
+              "type": "mc",
+              "level": "g",
+              "competency": "W1",
+              "prompt": "Aus welchem Stoff besteht das Außenskelett der Insekten?",
+              "options": ["Chitin", "Knochen", "Keratin", "Zellulose"],
+              "correct": 0,
+              "explain": "Das Außenskelett der Insekten besteht aus Chitin. Es schützt, stützt und bietet Muskelansatzpunkte."
+            },
+            {
+              "id": "w2",
+              "type": "mc",
+              "level": "g",
+              "competency": "W1",
+              "prompt": "Warum müssen sich Insekten häuten?",
+              "options": ["Weil das Außenskelett nicht mitwächst.", "Weil sie keine Muskeln haben.", "Weil Chitin wasserlöslich ist.", "Weil sie keine Gelenke besitzen."],
+              "correct": 0,
+              "explain": "Das starre Außenskelett wird beim Wachstum zu eng. Insekten bilden ein neues, größeres Skelett und streifen das alte ab."
+            },
+            {
+              "id": "w3",
+              "type": "mc",
+              "level": "g",
+              "competency": "W1",
+              "prompt": "Was ist ein wesentlicher Unterschied zwischen Insekten und Wirbeltieren?",
+              "options": ["Insekten haben ein Außenskelett, Wirbeltiere ein Innenskelett.", "Insekten haben keine Muskeln.", "Wirbeltiere haben keine Gelenke.", "Insekten haben Knochen."],
+              "correct": 0,
+              "explain": "Insekten tragen ihr Skelett außen, Wirbeltiere haben ein inneres Skelett aus Knochen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="bewegung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="stoffwechsel" href="#stoffwechsel">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Außenskelett aus Chitin, gegliederte Beine, Muskeln als Gegenspieler. Häutung ermöglicht Wachstum.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Außenskelett</dt><dd>Stützstruktur außerhalb des Körpers.</dd>
+<dt>Chitin</dt><dd>Stabiler Baustoff des Insektenpanzers.</dd>
+<dt>Häutung</dt><dd>Abwerfen des alten Außenskeletts.</dd>
+<dt>Gegenspieler</dt><dd>Muskeln, die ein Gelenk in entgegengesetzte Richtungen bewegen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, ein Außenskelett sei nur Schutz. Es ist auch Ansatzpunkt für Muskeln und ermöglicht Bewegung.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="stoffwechsel" data-title="Tracheen und Kreislauf" data-track="true" id="stoffwechsel">
+<header class="station__head">
+<h2 id="stoffwechsel-title"><span class="station__num">02</span> Stoffwechsel: Tracheen und offener Kreislauf</h2>
+<p class="lead">Insekten bringen Sauerstoff über Tracheen direkt zu den Zellen. Ihr Blutkreislauf ist offen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Insekten atmen über Tracheen. Das sind feine Luftröhren, die über Stigmen (Spirakeln) an der Körperoberfläche mit der Luft verbunden sind. Sie verzweigen sich bis in feine Tracheolen und reichen bis an die Zellen. Sauerstoff diffundiert direkt in die Zellen; ein geschlossener Blutkreislauf mit Lungen ist nicht nötig. Bei größeren und sehr aktiven Insekten unterstützt eine Ventilation durch Bewegungen des Abdomens den Gasaustausch.</p>
+<p>Der Blutkreislauf der Insekten ist offen. Die Hämolymphe wird von einem dorsalen Gefäß, dem Herzen, durch den Körper gepumpt und fließt teilweise frei in der Körperhöhle. Sie transportiert Nährstoffe, Hormone und Abfallstoffe, aber nur wenig Sauerstoff. Der Gasaustausch läuft über die Tracheen. Das ist ein grundlegend anderer Bau als bei Wirbeltieren, deren geschlossener Kreislauf Sauerstoff über das Blut transportiert.</p>
+<p>Die Tracheen begrenzen die Körpergröße: Je größer ein Insekt, desto länger die Diffusionswege. Deshalb waren die riesigen Insekten des Karbons nur bei sehr hohem Sauerstoffgehalt möglich. Auch die aktive Flugmuskulatur braucht viel Sauerstoff; viele Fluginsekten ventilieren die Tracheen aktiv. Die Kombination aus Tracheen und offenem Kreislauf ist eine effiziente Anpassung an den Landlebensraum.</p>
+<figure class="tool" data-tool="trachea9">
+<div class="tool__head">
+<p class="tool__title">Tracheen und offener Kreislauf</p>
+<p class="tool__hint">Wähle ein System. Prüfe, wie Sauerstoff und Nährstoffe transportiert werden.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="trachea-card">
+<svg aria-label="Insekt mit Tracheensystem und dorsalem Gefäß" class="trachea-svg" role="img" viewbox="0 0 720 300">
+<ellipse class="body" cx="360" cy="150" rx="230" ry="75"></ellipse>
+<circle class="body" cx="130" cy="150" r="55"></circle>
+<g data-trachea-part="trachea">
+<path class="tube" d="M160 150 L260 100 L360 120 L470 90 L560 130"></path>
+<path class="tube" d="M160 150 L260 200 L360 180 L470 210 L560 170"></path>
+<path class="tube" d="M260 100 L260 200 M360 120 L360 180 M470 90 L470 210"></path>
+<circle cx="260" cy="100" fill="var(--color-accent)" r="5"></circle><circle cx="360" cy="120" fill="var(--color-accent)" r="5"></circle><circle cx="470" cy="90" fill="var(--color-accent)" r="5"></circle>
+</g>
+<g data-trachea-part="circulation">
+<path class="vessel" d="M200 150 C280 130 360 130 440 145 C500 155 540 150 570 145"></path>
+<circle cx="570" cy="145" fill="var(--color-ink)" r="9"></circle>
+</g>
+<text class="label" text-anchor="middle" x="360" y="270">Tracheen (rot) und dorsales Gefäß (dunkel)</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Das Schema ist vereinfacht. Tracheen und Hämolymphe arbeiten zusammen, übernehmen aber unterschiedliche Transportaufgaben.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Insekten nicht beliebig groß werden</summary>
+<p>Die Tracheen versorgen die Zellen über Diffusion. Diffusionswege werden mit zunehmender Körpergröße länger, und die Versorgung wird schwieriger. Ein sehr großes Insekt bräuchte ein extrem dichtes Tracheensystem oder eine aktive Belüftung. Deshalb sind die größten Insekten heute wenige Zentimeter lang. Die Rieseninsekten des Karbons profitierten von einem höheren Sauerstoffgehalt der Atmosphäre. Das ist ein Beispiel dafür, wie Umweltbedingungen die Größe und Vielfalt von Lebewesen beeinflussen.</p>
+</details>
+<section aria-labelledby="stoffwechsel-check" class="checkpoint">
+<h3 id="stoffwechsel-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="stoffwechsel">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="stoffwechsel" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "s1",
+              "type": "mc",
+              "level": "g",
+              "competency": "W2",
+              "prompt": "Was sind Tracheen?",
+              "options": ["Luftröhren, die Sauerstoff direkt zu den Zellen bringen", "Blutgefäße für Hämolymphe", "Mundwerkzeuge", "Flügeladern"],
+              "correct": 0,
+              "explain": "Tracheen sind ein Netz feiner Luftröhren. Sie versorgen die Zellen direkt mit Sauerstoff."
+            },
+            {
+              "id": "s2",
+              "type": "mc",
+              "level": "g",
+              "competency": "W2",
+              "prompt": "Was ist ein offener Blutkreislauf?",
+              "options": ["Die Hämolymphe fließt teilweise frei in der Körperhöhle.", "Das Blut fließt nur in geschlossenen Gefäßen.", "Es gibt kein Herz.", "Das Blut transportiert nur Sauerstoff."],
+              "correct": 0,
+              "explain": "Bei Insekten fließt die Hämolymphe teilweise frei in der Körperhöhle. Das dorsale Gefäß pumpt sie."
+            },
+            {
+              "id": "s3",
+              "type": "mc",
+              "level": "g",
+              "competency": "W2",
+              "prompt": "Warum begrenzt das Tracheensystem die Körpergröße von Insekten?",
+              "options": ["Weil die Diffusionswege mit der Größe länger werden.", "Weil Chitin zu schwer ist.", "Weil Insekten keine Muskeln haben.", "Weil sie kein Herz besitzen."],
+              "correct": 0,
+              "explain": "Sauerstoff muss bis zu den Zellen diffundieren. Je größer das Insekt, desto schwieriger wird die Versorgung."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="stoffwechsel" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="mundwerkzeuge" href="#mundwerkzeuge">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Tracheen bringen Sauerstoff direkt zu den Zellen. Der offene Kreislauf transportiert Nährstoffe, nicht den Großteil des Sauerstoffs.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Trachee</dt><dd>Luftröhre im Insekt.</dd>
+<dt>Stigma</dt><dd>Öffnung der Tracheen an der Körperoberfläche.</dd>
+<dt>Hämolymphe</dt><dd>Körperflüssigkeit im offenen Kreislauf.</dd>
+<dt>offener Kreislauf</dt><dd>Kreislauf ohne geschlossenes Gefäßsystem.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Hämolymphe transportiere wie Wirbeltierblut den Sauerstoff. Bei Insekten übernehmen das die Tracheen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="mundwerkzeuge" data-title="Mundwerkzeuge" data-track="true" id="mundwerkzeuge">
+<header class="station__head">
+<h2 id="mundwerkzeuge-title"><span class="station__num">03</span> Mundwerkzeuge: Angepasst an Nahrung</h2>
+<p class="lead">Die Form der Mundwerkzeuge verrät, was ein Insekt frisst und welche Rolle es im Ökosystem spielt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Insekten haben unterschiedliche Mundwerkzeuge, die an ihre Nahrung angepasst sind. Beißend-kauende Mundwerkzeuge mit kräftigen Mandibeln zerkleinern feste Nahrung, etwa Blätter oder Gräser. Saugende Mundwerkzeuge bilden einen langen Rüssel, der Nektar aus Blüten aufnimmt. Stechend-saugende Mundwerkzeuge durchdringen Haut und saugen Blut. Leckende Mundwerkzeuge nehmen flüssige Nahrung auf. Diese Vielfalt ist ein Ergebnis natürlicher Selektion: Wer seine Nahrung effizient nutzen kann, hat Vorteile.</p>
+<p>Die Mundwerkzeuge haben auch Bedeutung für den Menschen. Bestäuber wie Bienen und Schmetterlinge sichern die Bestäubung von Nutzpflanzen. Pflanzenschädlinge wie Blattläuse oder bestimmte Raupen können Ernten verringern. Stechmücken können Krankheitserreger übertragen, etwa Malaria oder Denguefieber. Nicht das Insekt allein ist „gut“ oder „böse“; seine Rolle hängt von Art, Lebensraum und Kontext ab.</p>
+<p>Die Mundwerkzeuge sind ein Beispiel für homologe Strukturen: Sie gehen auf denselben Grundbauplan zurück, sind aber unterschiedlich ausgeformt. Evolution kann vorhandene Strukturen abwandeln, statt neue Organe von Grund auf zu erfinden. Das erklärt, warum die Mundwerkzeuge so unterschiedlich aussehen und trotzdem miteinander verwandt sind.</p>
+<figure class="tool" data-tool="mouthparts9">
+<div class="tool__head">
+<p class="tool__title">Mundwerkzeuge vergleichen</p>
+<p class="tool__hint">Wähle einen Typ. Prüfe Nahrung, Beispiel und Bedeutung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="mouth-card">
+<p class="mouth-card__title" data-mouth-title="">Beißend-kauend</p>
+<p class="mouth-card__text" data-mouth-text="">Kräftige Mandibeln zerkleinern feste Nahrung.</p>
+<ul class="mouth-card__list" data-mouth-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Mundwerkzeuge sind an die Nahrung angepasst. Ihre Form ist ein Beispiel für evolutionäre Abwandlung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Bestäubung und Ernteverluste</summary>
+<p>Bestäuber übertragen Pollen von einer Blüte zur anderen. Ohne sie würden viele Obst- und Gemüsesorten deutlich weniger Früchte bilden. Gleichzeitig können Insekten als Schädlinge große Ernteverluste verursachen. Landwirtschaft muss deshalb beides fördern: Bestäuber brauchen Blühflächen und Nistplätze, Schädlinge brauchen Kontrolle. Pauschal „Insektizide“ einzusetzen, kann Nützlinge treffen und die Bestäubung gefährden.</p>
+</details>
+<section aria-labelledby="mundwerkzeuge-check" class="checkpoint">
+<h3 id="mundwerkzeuge-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="mundwerkzeuge">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="mundwerkzeuge" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "mw1",
+              "type": "mc",
+              "level": "g",
+              "competency": "W3",
+              "prompt": "Welche Mundwerkzeuge haben Schmetterlinge?",
+              "options": ["Saugende Mundwerkzeuge mit einem Rüssel", "Beißend-kauende Mundwerkzeuge", "Stechend-saugende Mundwerkzeuge", "Keine Mundwerkzeuge"],
+              "correct": 0,
+              "explain": "Schmetterlinge saugen Nektar mit einem langen Rüssel. Dabei übertragen sie oft Pollen."
+            },
+            {
+              "id": "mw2",
+              "type": "mc",
+              "level": "g",
+              "competency": "W3",
+              "prompt": "Warum sind Bestäuber für den Menschen wichtig?",
+              "options": ["Sie sichern die Bestäubung vieler Nutzpflanzen.", "Sie übertragen immer Krankheiten.", "Sie fressen nur Schädlinge.", "Sie produzieren Sauerstoff."],
+              "correct": 0,
+              "explain": "Bestäuber wie Bienen und Schmetterlinge übertragen Pollen und sichern die Fruchtbildung vieler Pflanzen."
+            },
+            {
+              "id": "mw3",
+              "type": "mc",
+              "level": "g",
+              "competency": "W3",
+              "prompt": "Was zeigt die Vielfalt der Mundwerkzeuge?",
+              "options": ["Anpassung an unterschiedliche Nahrungsquellen", "Dass Insekten keine Verwandtschaft haben", "Dass alle Insekten gleich fressen", "Dass Mundwerkzeuge nicht vererbt werden"],
+              "correct": 0,
+              "explain": "Unterschiedliche Mundwerkzeuge sind Anpassungen an unterschiedliche Nahrung. Sie gehen auf einen gemeinsamen Grundbauplan zurück."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="mundwerkzeuge" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="fortpflanzung" href="#fortpflanzung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Mundwerkzeuge sind an Nahrung angepasst: beißend, saugend, stechend-saugend oder leckend. Bestäuber sind unverzichtbar.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Mandibel</dt><dd>kräftiger Kiefer eines Insekts.</dd>
+<dt>Rüssel</dt><dd>verlängerte Mundwerkzeuge zum Saugen.</dd>
+<dt>Bestäubung</dt><dd>Übertragung von Pollen auf die Narbe.</dd>
+<dt>homolog</dt><dd>auf denselben Grundbauplan zurückgehend.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Insekten pauschal als Schädlinge abtun. Viele sind Bestäuber, Destruenten oder Nahrungsgrundlage.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="fortpflanzung" data-title="Fortpflanzung und Metamorphose" data-track="true" id="fortpflanzung">
+<header class="station__head">
+<h2 id="fortpflanzung-title"><span class="station__num">04</span> Fortpflanzung und Metamorphose</h2>
+<p class="lead">Insekten entwickeln sich oft über Larven und Puppen. Die Metamorphose ist eine Anpassung an unterschiedliche Lebensweisen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Insekten vermehren sich meist geschlechtlich. Bei manchen Arten kommt Parthenogenese vor: Eine unbefruchtete Eizelle entwickelt sich zu einem Individuum. Das ermöglicht schnelle Vermehrung ohne Partner, erzeugt aber wenig genetische Vielfalt. Bei der geschlechtlichen Fortpflanzung entstehen durch Meiose und Befruchtung neue Genkombinationen. Die Weibchen legen Eier; die Entwicklung verläuft je nach Art unterschiedlich.</p>
+<p>Bei der unvollkommenen Verwandlung schlüpft aus dem Ei eine Nymphe, die dem adulten Tier ähnlich sieht und sich mehrmals häutet. Bei der vollkommenen Verwandlung gibt es eine Larve, die anders aussieht und anders frisst, sowie eine Puppe, in der der Körper umgebaut wird. Danach schlüpft das adulte Tier. Die Metamorphose wird hormonell gesteuert: Ecdyson löst die Häutung aus, das Juvenile Hormon bestimmt, ob eine Larve oder ein adultes Tier entsteht.</p>
+<p>Die Metamorphose ist eine Anpassung: Larve und adultes Tier nutzen unterschiedliche Nahrungsquellen und Lebensräume. Dadurch konkurrieren sie weniger miteinander. Gleichzeitig ist die Entwicklung verletzlich: Larven und Puppen brauchen geeignete Lebensräume und Schutz. Insekten sind deshalb empfindlich gegenüber Lebensraumverlust, Pestiziden und Klimaveränderungen.</p>
+<figure class="tool" data-tool="metamorphosis9">
+<div class="tool__head">
+<p class="tool__title">Metamorphose: zwei Wege</p>
+<p class="tool__hint">Wähle eine Entwicklungsform oder einen Abschnitt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="metamorphosis-card">
+<svg aria-label="Unvollkommene und vollkommene Verwandlung bei Insekten" class="metamorphosis-svg" role="img" viewbox="0 0 720 300">
+<text class="row-label" x="30" y="60">unvollkommen</text>
+<text class="row-label" x="30" y="190">vollkommen</text>
+<line class="track" x1="180" x2="650" y1="55" y2="55"></line>
+<line class="track" x1="180" x2="650" y1="185" y2="185"></line>
+<g data-metamorphosis-stage="egg-incomplete"><circle class="stage" cx="220" cy="55" r="22"></circle><text class="stage-label" x="220" y="95">Ei</text></g>
+<g data-metamorphosis-stage="nymph"><circle class="stage" cx="370" cy="55" r="22"></circle><text class="stage-label" x="370" y="95">Nymphe</text></g>
+<g data-metamorphosis-stage="adult-incomplete"><circle class="stage" cx="520" cy="55" r="22"></circle><text class="stage-label" x="520" y="95">adult</text></g>
+<g data-metamorphosis-stage="egg-complete"><circle class="stage" cx="220" cy="185" r="22"></circle><text class="stage-label" x="220" y="225">Ei</text></g>
+<g data-metamorphosis-stage="larva"><circle class="stage" cx="340" cy="185" r="22"></circle><text class="stage-label" x="340" y="225">Larve</text></g>
+<g data-metamorphosis-stage="pupa"><circle class="stage" cx="460" cy="185" r="22"></circle><text class="stage-label" x="460" y="225">Puppe</text></g>
+<g data-metamorphosis-stage="adult-complete"><circle class="stage" cx="580" cy="185" r="22"></circle><text class="stage-label" x="580" y="225">adult</text></g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Die Darstellung ist schematisch. Manche Insekten haben zusätzliche Larvenstadien oder ungewöhnliche Entwicklungswege.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Hormone steuern die Entwicklung</summary>
+<p>Ecdyson wird in den Prothoraxdrüsen gebildet und löst die Häutung aus. Das Juvenile Hormon entscheidet, ob nach der Häutung wieder eine Larve oder ein adultes Tier entsteht. Ist der Juvenile-Hormon-Spiegel hoch, bleibt das Tier larval; sinkt er, beginnt die Metamorphose. Diese hormonelle Steuerung ermöglicht es, Entwicklungsschritte an Umweltbedingungen und Nahrungsangebot anzupassen. Bei der vollkommenen Verwandlung wird in der Puppe ein großer Teil des larvalen Körpers umgebaut.</p>
+</details>
+<section aria-labelledby="fortpflanzung-check" class="checkpoint">
+<h3 id="fortpflanzung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="fortpflanzung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="fortpflanzung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "f1",
+              "type": "mc",
+              "level": "g",
+              "competency": "W4",
+              "prompt": "Was ist Parthenogenese?",
+              "options": ["Entwicklung aus einer unbefruchteten Eizelle", "Befruchtung durch zwei Partner", "Ungeschlechtliche Teilung eines Bakteriums", "Eine Häutung"],
+              "correct": 0,
+              "explain": "Bei der Parthenogenese entwickelt sich eine unbefruchtete Eizelle zu einem Individuum. Das ermöglicht schnelle Vermehrung ohne Partner."
+            },
+            {
+              "id": "f2",
+              "type": "mc",
+              "level": "g",
+              "competency": "W4",
+              "prompt": "Welche Stadien hat die vollkommene Verwandlung?",
+              "options": ["Ei, Larve, Puppe, adult", "Ei, Nymphe, adult", "Nur Larve und adult", "Nur Ei und Puppe"],
+              "correct": 0,
+              "explain": "Bei der vollkommenen Verwandlung durchläuft das Insekt Ei, Larve, Puppe und adultes Tier."
+            },
+            {
+              "id": "f3",
+              "type": "mc",
+              "level": "g",
+              "competency": "W4",
+              "prompt": "Warum ist die Metamorphose eine Anpassung?",
+              "options": ["Larve und adultes Tier nutzen unterschiedliche Nahrung und Lebensräume.", "Sie verhindert jede Fortpflanzung.", "Sie macht alle Insekten gleich.", "Sie ersetzt die Häutung."],
+              "correct": 0,
+              "explain": "Durch unterschiedliche Lebensweisen von Larve und adultem Tier wird Konkurrenz verringert. Die Metamorphose ist eine Anpassung an den Lebensraum."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="fortpflanzung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="sinne" href="#sinne">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Unvollkommene Verwandlung: Ei, Nymphe, adult. Vollkommene Verwandlung: Ei, Larve, Puppe, adult. Hormone steuern die Entwicklung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Metamorphose</dt><dd>Verwandlung im Laufe der Individualentwicklung.</dd>
+<dt>Nymphe</dt><dd>Jugendstadium bei unvollkommener Verwandlung.</dd>
+<dt>Larve</dt><dd>Jugendstadium bei vollkommener Verwandlung.</dd>
+<dt>Puppe</dt><dd>Stadium des Umbaus bei vollkommener Verwandlung.</dd>
+<dt>Ecdyson</dt><dd>Hormon, das die Häutung auslöst.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nymphe und Larve gleichsetzen. Die Nymphe ähnelt dem adulten Tier; die Larve ist oft ganz anders.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="sinne" data-title="Sinne und Kommunikation" data-track="true" id="sinne">
+<header class="station__head">
+<h2 id="sinne-title"><span class="station__num">05</span> Sinne und Kommunikation</h2>
+<p class="lead">Facettenaugen, Pheromone und Tänze: Insekten nehmen Reize auf und senden Signale.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Insekten haben oft Facettenaugen aus vielen Einzelaugen. Sie erkennen Bewegungen und bei manchen Arten Farben, etwa Bienen. Antennen nehmen chemische Reize wahr; Pheromone sind artspezifische Duftstoffe, die Partnerfindung, Alarm oder Spuren markieren. Akustische Signale wie Gesänge oder Vibrationen dienen der Partnersuche und der Warnung. Optische Signale umfassen Farben, Muster, Leuchtsignale und Bewegungen. Taktile Signale nutzen Berührung und Vibration.</p>
+<p>Kommunikation ist die Grundlage von Staatenbildung bei Bienen, Ameisen und Termiten. Arbeitsteilung, Brutpflege und Verteidigung funktionieren nur, wenn Signale zuverlässig übertragen werden. Der Schwänzeltanz der Bienen zeigt Richtung und Entfernung einer Futterquelle. Ameisen hinterlassen Duftspuren. Manche Insekten nutzen Mimikry: Sie ahmen das Aussehen eines gefährlichen oder ungenießbaren Vorbilds nach. Mimese ist Tarnung durch Ähnlichkeit mit der Umgebung.</p>
+<p>Signale können auch täuschen. Einige Orchideen imitieren die Pheromone von Bienen und locken Bestäuber an. Räuber können Warnsignale nachahmen. Kommunikation ist deshalb kein einfaches Senden und Empfangen, sondern ein evolutionäres Wechselspiel zwischen Sender, Empfänger und möglichen Täuschern. Für den Menschen sind Bestäuber und Schädlinge besonders relevant; ihre Kommunikation kann bei der Schädlingskontrolle genutzt werden, etwa mit Lockstoffen.</p>
+<figure class="tool" data-tool="communication9">
+<div class="tool__head">
+<p class="tool__title">Signale und Kommunikation</p>
+<p class="tool__hint">Wähle eine Signalart. Prüfe Beispiele und Funktion.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="comm-card">
+<p class="comm-card__title" data-comm-title="">Optische Signale</p>
+<p class="comm-card__text" data-comm-text="">Farben, Muster, Leuchtsignale oder Bewegungen.</p>
+<ul class="comm-card__list" data-comm-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Signale sind an Empfänger angepasst. Dieselbe Information kann über verschiedene Sinneskanäle übertragen werden.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Mimikry und Mimese</summary>
+<p>Mimikry ist die Nachahmung eines anderen Organismus, meist eines gefährlichen oder ungenießbaren Vorbilds. Ein harmloser Schwebfliegenartiger kann durch die Ähnlichkeit mit einer Wespe Fressfeinde abschrecken. Mimese ist die Tarnung durch Ähnlichkeit mit der Umgebung, etwa ein Insekt, das wie ein Blatt aussieht. Beide Strategien sind Anpassungen an Fressfeinde. Sie funktionieren nur, wenn der Empfänger die Ähnlichkeit erkennt und sein Verhalten anpasst.</p>
+</details>
+<section aria-labelledby="sinne-check" class="checkpoint">
+<h3 id="sinne-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="sinne">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="sinne" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "si1",
+              "type": "mc",
+              "level": "g",
+              "competency": "W5",
+              "prompt": "Was ist ein Pheromon?",
+              "options": ["Ein artspezifischer Duftstoff zur Kommunikation", "Ein Farbstoff im Auge", "Ein Hormon der Häutung", "Ein Mundwerkzeug"],
+              "correct": 0,
+              "explain": "Pheromone sind chemische Botenstoffe, die Artgenossen beeinflussen, etwa bei der Partnerfindung oder Alarm."
+            },
+            {
+              "id": "si2",
+              "type": "mc",
+              "level": "g",
+              "competency": "W5",
+              "prompt": "Was ist Mimikry?",
+              "options": ["Die Nachahmung eines anderen Organismus zum eigenen Vorteil", "Tarnung durch Ähnlichkeit mit der Umgebung", "Ein akustisches Signal", "Eine Form der Häutung"],
+              "correct": 0,
+              "explain": "Mimikry ist die Nachahmung eines Vorbilds, oft eines gefährlichen oder ungenießbaren Organismus. Mimese ist Tarnung."
+            },
+            {
+              "id": "si3",
+              "type": "mc",
+              "level": "g",
+              "competency": "W5",
+              "prompt": "Warum ist Kommunikation für Staaten bildende Insekten wichtig?",
+              "options": ["Sie ermöglicht Arbeitsteilung, Brutpflege und Verteidigung.", "Sie ersetzt die Fortpflanzung.", "Sie macht Pheromone unnötig.", "Sie verhindert jede Anpassung."],
+              "correct": 0,
+              "explain": "In einem Staat müssen viele Individuen koordiniert handeln. Signale koordinieren Nahrungssuche, Brutpflege und Verteidigung."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="sinne" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Insekten kommunizieren optisch, akustisch, chemisch und taktil. Pheromone sind oft artspezifisch.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Facettenauge</dt><dd>Auge aus vielen Einzelaugen.</dd>
+<dt>Pheromon</dt><dd>chemischer Botenstoff zur Kommunikation.</dd>
+<dt>Mimikry</dt><dd>Nachahmung eines anderen Organismus.</dd>
+<dt>Mimese</dt><dd>Tarnung durch Ähnlichkeit mit der Umgebung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Mimikry und Mimese verwechseln. Mimikry täuscht über die Art, Mimese tarnt im Raum.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">06</span> Kompetenzcheck Wirbellose</h2>
+<p class="lead">Zehn Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="wirbellose9">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="wirbellose9" type="application/json">
+      {
+        "competencies": {
+          "W1": "Bewegung und Außenskelett",
+          "W2": "Tracheen und offener Kreislauf",
+          "W3": "Mundwerkzeuge und Bedeutung",
+          "W4": "Fortpflanzung und Metamorphose",
+          "W5": "Sinne und Kommunikation"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "W1",
+            "prompt": "Aus welchem Stoff besteht das Außenskelett der Insekten?",
+            "options": ["Chitin", "Knochen", "Keratin", "Zellulose"],
+            "correct": 0,
+            "explain": "Das Außenskelett der Insekten besteht aus Chitin. Es schützt, stützt und bietet Muskelansatzpunkte."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "W1",
+            "prompt": "Warum müssen sich Insekten häuten?",
+            "options": ["Weil das Außenskelett nicht mitwächst.", "Weil sie keine Muskeln haben.", "Weil Chitin wasserlöslich ist.", "Weil sie keine Gelenke besitzen."],
+            "correct": 0,
+            "explain": "Das starre Außenskelett wird beim Wachstum zu eng. Insekten bilden ein neues, größeres Skelett und streifen das alte ab."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "W2",
+            "prompt": "Was sind Tracheen?",
+            "options": ["Luftröhren, die Sauerstoff direkt zu den Zellen bringen", "Blutgefäße für Hämolymphe", "Mundwerkzeuge", "Flügeladern"],
+            "correct": 0,
+            "explain": "Tracheen sind ein Netz feiner Luftröhren. Sie versorgen die Zellen direkt mit Sauerstoff."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "W2",
+            "prompt": "Was ist ein offener Blutkreislauf?",
+            "options": ["Die Hämolymphe fließt teilweise frei in der Körperhöhle.", "Das Blut fließt nur in geschlossenen Gefäßen.", "Es gibt kein Herz.", "Das Blut transportiert nur Sauerstoff."],
+            "correct": 0,
+            "explain": "Bei Insekten fließt die Hämolymphe teilweise frei in der Körperhöhle. Das dorsale Gefäß pumpt sie."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "W3",
+            "prompt": "Welche Mundwerkzeuge haben Schmetterlinge?",
+            "options": ["Saugende Mundwerkzeuge mit einem Rüssel", "Beißend-kauende Mundwerkzeuge", "Stechend-saugende Mundwerkzeuge", "Keine Mundwerkzeuge"],
+            "correct": 0,
+            "explain": "Schmetterlinge saugen Nektar mit einem langen Rüssel. Dabei übertragen sie oft Pollen."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "W3",
+            "prompt": "Warum sind Bestäuber für den Menschen wichtig?",
+            "options": ["Sie sichern die Bestäubung vieler Nutzpflanzen.", "Sie übertragen immer Krankheiten.", "Sie fressen nur Schädlinge.", "Sie produzieren Sauerstoff."],
+            "correct": 0,
+            "explain": "Bestäuber wie Bienen und Schmetterlinge übertragen Pollen und sichern die Fruchtbildung vieler Pflanzen."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "W4",
+            "prompt": "Was ist Parthenogenese?",
+            "options": ["Entwicklung aus einer unbefruchteten Eizelle", "Befruchtung durch zwei Partner", "Ungeschlechtliche Teilung eines Bakteriums", "Eine Häutung"],
+            "correct": 0,
+            "explain": "Bei der Parthenogenese entwickelt sich eine unbefruchtete Eizelle zu einem Individuum. Das ermöglicht schnelle Vermehrung ohne Partner."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "W4",
+            "prompt": "Welche Stadien hat die vollkommene Verwandlung?",
+            "options": ["Ei, Larve, Puppe, adult", "Ei, Nymphe, adult", "Nur Larve und adult", "Nur Ei und Puppe"],
+            "correct": 0,
+            "explain": "Bei der vollkommenen Verwandlung durchläuft das Insekt Ei, Larve, Puppe und adultes Tier."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "W5",
+            "prompt": "Was ist ein Pheromon?",
+            "options": ["Ein artspezifischer Duftstoff zur Kommunikation", "Ein Farbstoff im Auge", "Ein Hormon der Häutung", "Ein Mundwerkzeug"],
+            "correct": 0,
+            "explain": "Pheromone sind chemische Botenstoffe, die Artgenossen beeinflussen, etwa bei der Partnerfindung oder Alarm."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "W5",
+            "prompt": "Was ist Mimikry?",
+            "options": ["Die Nachahmung eines anderen Organismus zum eigenen Vorteil", "Tarnung durch Ähnlichkeit mit der Umgebung", "Ein akustisches Signal", "Eine Form der Häutung"],
+            "correct": 0,
+            "explain": "Mimikry ist die Nachahmung eines Vorbilds, oft eines gefährlichen oder ungenießbaren Organismus. Mimese ist Tarnung."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">07</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Wirbellose</dt><dd>Tiere ohne Wirbelsäule.</dd></div>
+<div class="glossary__row"><dt>Insekt</dt><dd>Wirbelloses Tier mit drei Körperabschnitten, sechs Beinen und meist Flügeln.</dd></div>
+<div class="glossary__row"><dt>Außenskelett</dt><dd>Stützstruktur außerhalb des Körpers.</dd></div>
+<div class="glossary__row"><dt>Chitin</dt><dd>Stabiler Baustoff des Insektenaußenskeletts.</dd></div>
+<div class="glossary__row"><dt>Häutung</dt><dd>Abwerfen des alten Außenskeletts beim Wachstum.</dd></div>
+<div class="glossary__row"><dt>Trachee</dt><dd>Luftröhre im Insekt, die Sauerstoff zu den Zellen bringt.</dd></div>
+<div class="glossary__row"><dt>Stigma</dt><dd>Öffnung der Tracheen an der Körperoberfläche.</dd></div>
+<div class="glossary__row"><dt>offener Blutkreislauf</dt><dd>Kreislauf, bei dem Hämolymphe teilweise frei in der Körperhöhle fließt.</dd></div>
+<div class="glossary__row"><dt>Hämolymphe</dt><dd>Körperflüssigkeit im offenen Kreislauf der Insekten.</dd></div>
+<div class="glossary__row"><dt>Mundwerkzeuge</dt><dd>An die Nahrung angepasste Mundteile.</dd></div>
+<div class="glossary__row"><dt>Mandibel</dt><dd>Kräftiger Kiefer eines Insekts.</dd></div>
+<div class="glossary__row"><dt>Metamorphose</dt><dd>Verwandlung im Laufe der Individualentwicklung.</dd></div>
+<div class="glossary__row"><dt>vollkommene Verwandlung</dt><dd>Entwicklung über Ei, Larve, Puppe und adultes Tier.</dd></div>
+<div class="glossary__row"><dt>unvollkommene Verwandlung</dt><dd>Entwicklung über Ei, Nymphe und adultes Tier.</dd></div>
+<div class="glossary__row"><dt>Facettenauge</dt><dd>Auge aus vielen Einzelaugen.</dd></div>
+<div class="glossary__row"><dt>Pheromon</dt><dd>Chemischer Botenstoff zur Kommunikation.</dd></div>
+<div class="glossary__row"><dt>Mimikry</dt><dd>Nachahmung eines anderen Organismus zum Schutz oder Vorteil.</dd></div>
+<div class="glossary__row"><dt>Mimese</dt><dd>Tarnung durch Ähnlichkeit mit der Umgebung.</dd></div>
+<div class="glossary__row"><dt>Staatenbildung</dt><dd>Zusammenleben vieler Individuen mit Arbeitsteilung.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 9</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/9/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 9</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

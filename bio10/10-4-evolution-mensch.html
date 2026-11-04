@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="de" data-grade="10" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Vergangenheit und Zukunft des Menschen | Biologie 10</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 10 zur Evolution des Menschen: Geschichte des Lebens, Fossilien, Savannenhypothese und kulturelle Evolution.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Riso (deal 2/3, seed interaktive-lernwebsite-biologie-mensch-deb1·d40053e4·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der Fossilienzeitstrahl und der Stammbaum · states: default, hover, focus, active, disabled, loading, empty, error · riso: two drums
+ * axes: light/grotesk-heavy/chromatic-pink · posture: committed · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the pink drum must fill without becoming a candy surface; theme.css keeps the fills to controls, one band and the overprint, and the blue writes every word */
+/* Hallmark · answered F4 · the 10 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Cabinet Grotesk; every figure is Literata with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.timeline-card, .system-card, .hominin-card, .culture-card { display: grid; gap: var(--space-sm); }
+.timeline-card__title, .system-card__title, .hominin-card__title, .culture-card__title { margin: 0; font: 800 var(--text-xl)/1.15 var(--font-display); }
+.timeline-card__text, .system-card__text, .hominin-card__text, .culture-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.timeline-card__list, .system-card__list, .hominin-card__list, .culture-card__list { margin: 0; padding-left: 1.2em; }
+.timeline-card__list li, .system-card__list li, .hominin-card__list li, .culture-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.timeline-svg, .system-svg, .hominin-svg, .culture-svg { width: 100%; height: auto; display: block; }
+.timeline-svg .track { stroke: var(--color-rule-2); stroke-width: 2; }
+.timeline-svg .event { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.timeline-svg .event.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.timeline-svg .event-label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.timeline-svg .event.is-active + .event-label { fill: var(--color-ink); }
+.system-svg .node { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out); }
+.system-svg .node.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.system-svg .node-label { font-family: var(--font-body); font-size: 12px; fill: var(--color-ink); text-anchor: middle; }
+.system-svg .link { stroke: var(--color-rule-2); stroke-width: 2; }
+.hominin-svg .track { stroke: var(--color-rule); stroke-width: 2; }
+.hominin-svg .stage { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out); }
+.hominin-svg .stage.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.hominin-svg .stage-label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.hominin-svg .stage.is-active + .stage-label { fill: var(--color-ink); }
+.culture-svg .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.culture-svg .grid { stroke: var(--color-rule); stroke-width: 1; }
+.culture-svg .curve { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.culture-svg .marker { stroke: var(--color-ink); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.culture-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.tool[data-tool="timeline10"] .tool__stage, .tool[data-tool="system10"] .tool__stage, .tool[data-tool="hominin10"] .tool__stage, .tool[data-tool="culture10"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="timeline10"] .tool__stage, .tool[data-tool="hominin10"] .tool__stage, .tool[data-tool="culture10"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="timeline10"] .timeline-svg, .tool[data-tool="hominin10"] .hominin-svg, .tool[data-tool="culture10"] .culture-svg { min-width: 560px; }
+}
+
+</style>
+<link rel="stylesheet" href="./assets/enhance.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="10-4" data-grade="10">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 10">
+      <span class="brand__name">Biologie 10</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">04</span> Vergangenheit und Zukunft des Menschen</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 4</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Vergangenheit und Zukunft des Menschen</h2>
+      <p class="sidebar__deck">Geschichte des Lebens, Einordnung des Menschen, Fossilien und kulturelle Evolution.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 4</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#lebensgeschichte" data-station-link="lebensgeschichte"><span class="station-nav__num">01</span><span>Geschichte des Lebens</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#systematik" data-station-link="systematik"><span class="station-nav__num">02</span><span>Systematik</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#fossilien" data-station-link="fossilien"><span class="station-nav__num">03</span><span>Fossilien und Homininen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#kultur" data-station-link="kultur"><span class="station-nav__num">04</span><span>Kulturelle Evolution</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">05</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">06</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 10</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Vergangenheit und <span class="misreg" data-text="Zukunft">Zukunft</span> des Menschen: Eine junge Art.</h1>
+<p class="lead">Geschichte des Lebens, Systematik, Fossilien und kulturelle Evolution. Der moderne Mensch ist erdgeschichtlich jung.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="lebensgeschichte" href="#lebensgeschichte">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">V1</span><span>Du skizzierst die Geschichte des Lebens und ordnest den modernen Menschen in das natürliche System ein.</span></li>
+<li><span class="cnum">V2</span><span>Du erklärst die Systematik mit Reich, Stamm und Klasse und nutzt verwandtschaftliche Merkmale.</span></li>
+<li><span class="cnum">V3</span><span>Du leitest aus Fossilien Hypothesen zur Evolution des Menschen ab und vergleichst sie kritisch.</span></li>
+<li><span class="cnum">V4</span><span>Du analysierst die Bedeutung der kulturellen Evolution und beurteilst Gegenwart und Zukunft des Menschen.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 4 des LehrplanPLUS Biologie 10 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Die Evolution des Menschen ist ein naturwissenschaftliches Thema. Sie beschreibt Verwandtschaft und Veränderung, nicht den Wert von Menschen. Historische und aktuelle Rassismus-Ideologien haben evolutionäre Ideen missbraucht; das ist wissenschaftlich falsch und ethisch verwerflich. Menschen unterscheiden sich genetisch sehr wenig. Fossilien und molekulare Daten sind Belege, keine Rangliste.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Was sagt die Geschichte des Lebens über die Stellung des Menschen, und was folgt daraus für die Zukunft?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="lebensgeschichte" data-title="Geschichte des Lebens" data-track="true" id="lebensgeschichte">
+<header class="station__head">
+<h2 id="lebensgeschichte-title"><span class="station__num">01</span> Die Geschichte des Lebens: Ein langer Zeitstrahl</h2>
+<p class="lead">Die Erde ist etwa 4,6 Milliarden Jahre alt. Leben entstand viel später, und der moderne Mensch ist erst seit Kurzem da.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Erde entstand vor etwa 4,6 Milliarden Jahren. Die ersten Lebensspuren sind etwa 3,5 bis 3,8 Milliarden Jahre alt. Zunächst dominierten prokaryotische Einzeller. Die Fotosynthese veränderte die Atmosphäre: Sauerstoff reicherte sich an und ermöglichte neue Stoffwechselwege. Eukaryotische Zellen entstanden durch Endosymbiose; Mitochondrien und Chloroplasten gehen auf eingewanderte Bakterien zurück. Vor etwa 600 Millionen Jahren entstanden vielzellige Lebewesen; im Kambrium diversifizierten sich viele Tiergruppen.</p>
+<p>Pflanzen und Tiere eroberten das Land. Dinosaurier beherrschten lange Zeit die Landfauna, bis ein Asteroideneinschlag vor etwa 66 Millionen Jahren eine Massenaussterben auslöste. Danach diversifizierten sich Säugetiere, darunter die Primaten. Die Abstammungslinie des Menschen trennte sich vor etwa 6 bis 7 Millionen Jahren von der der Schimpansen. Der moderne Mensch, Homo sapiens, entstand vor etwa 300.000 Jahren in Afrika und wanderte später auf andere Kontinente aus.</p>
+<p>Die Erdgeschichte wird in Äonen, Epochen und Perioden gegliedert. Absolute Datierung nutzt radioaktive Isotope; relative Datierung ordnet Schichten nach ihrer Lage. Massenaussterben zeigen, dass Evolution kein geradliniger Fortschritt ist: Bedingungen ändern sich, und viele Gruppen verschwinden. Die Geschichte des Lebens ist ein verzweigter Prozess, kein Weg zu einem Ziel.</p>
+<figure class="tool" data-tool="timeline10">
+<div class="tool__head">
+<p class="tool__title">Zeitstrahl des Lebens</p>
+<p class="tool__hint">Wähle ein Ereignis. Prüfe Zeitpunkt und Bedeutung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="timeline-card">
+<svg aria-label="Zeitstrahl der Erdgeschichte mit Ereignissen" class="timeline-svg" role="img" viewBox="0 0 720 240">
+<line class="track" x1="70" x2="650" y1="120" y2="120"></line>
+<g data-timeline-event="origin"><circle class="event" cx="100" cy="120" r="22"></circle><text class="event-label" x="100" y="170">Leben</text><text class="event-label event-time" x="100" y="190">3,8 Mrd.</text></g>
+<g data-timeline-event="oxygen"><circle class="event" cx="220" cy="120" r="22"></circle><text class="event-label" x="220" y="170">Sauerstoff</text><text class="event-label event-time" x="220" y="190">2,4 Mrd.</text></g>
+<g data-timeline-event="eukaryotes"><circle class="event" cx="340" cy="120" r="22"></circle><text class="event-label" x="340" y="170">Eukaryoten</text><text class="event-label event-time" x="340" y="190">1,8 Mrd.</text></g>
+<g data-timeline-event="land"><circle class="event" cx="460" cy="120" r="22"></circle><text class="event-label" x="460" y="170">Landgang</text><text class="event-label event-time" x="460" y="190">470 Mio.</text></g>
+<g data-timeline-event="dinosaurs"><circle class="event" cx="540" cy="120" r="22"></circle><text class="event-label" x="540" y="170">Dinosaurier</text><text class="event-label event-time" x="540" y="190">230 Mio.</text></g>
+<g data-timeline-event="humans"><circle class="event" cx="620" cy="120" r="22"></circle><text class="event-label" x="620" y="170">Homo sapiens</text><text class="event-label event-time" x="620" y="190">300.000</text></g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Der Zeitstrahl ist stark vereinfacht. Die Abstände sind nicht maßstabsgetreu.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum der Mensch „jung“ ist</summary>
+<p>Wenn man die Erdgeschichte auf ein Jahr verteilt, erscheint der moderne Mensch erst in den letzten Minuten. Die Dinosaurier verschwanden etwa Ende November, und Homo sapiens taucht kurz vor Silvester auf. Diese Perspektive macht deutlich, wie jung die menschliche Art im Vergleich zur Geschichte des Lebens ist. Sie sagt nichts über den Wert des Menschen aus, wohl aber etwas über seine Verantwortung: Viele Ökosysteme, die er nutzt, sind viel älter als er selbst.</p>
+</details>
+<section aria-labelledby="lebensgeschichte-check" class="checkpoint">
+<h3 id="lebensgeschichte-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="lebensgeschichte">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="lebensgeschichte" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "lg1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V1",
+              "prompt": "Wie alt ist die Erde ungefähr?",
+              "options": ["Etwa 4,6 Milliarden Jahre", "Etwa 4,6 Millionen Jahre", "Etwa 300.000 Jahre", "Etwa 66 Millionen Jahre"],
+              "correct": 0,
+              "explain": "Die Erde entstand vor etwa 4,6 Milliarden Jahren. Das Leben entstand später, Homo sapiens vor etwa 300.000 Jahren."
+            },
+            {
+              "id": "lg2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V1",
+              "prompt": "Was ermöglichte die Sauerstoffanreicherung in der Atmosphäre?",
+              "options": ["Die Fotosynthese von Cyanobakterien und Pflanzen", "Die Atmung von Dinosauriern", "Vulkanausbrüche", "Die Entstehung des Menschen"],
+              "correct": 0,
+              "explain": "Fotosynthese setzt Sauerstoff frei. Die Anreicherung veränderte die Atmosphäre und ermöglichte neue Stoffwechselwege."
+            },
+            {
+              "id": "lg3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V1",
+              "prompt": "Was zeigt die Erdgeschichte über die Evolution?",
+              "options": ["Sie ist verzweigt und nicht geradlinig auf ein Ziel ausgerichtet.", "Sie verläuft immer geradlinig.", "Sie beginnt mit dem Menschen.", "Sie hat keine Massenaussterben."],
+              "correct": 0,
+              "explain": "Evolution ist ein verzweigter Prozess mit Massenaussterben und wechselnden Bedingungen, kein geradliniger Fortschritt."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="lebensgeschichte" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="systematik" href="#systematik">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Die Erde ist 4,6 Milliarden Jahre alt, Homo sapiens etwa 300.000 Jahre. Evolution ist verzweigt, nicht geradlinig.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Massenaussterben</dt><dd>Verlust vieler Arten in kurzer geologischer Zeit.</dd>
+<dt>Endosymbiose</dt><dd>Aufnahme eines Bakteriums in eine Wirtszelle; Ursprung von Mitochondrien und Chloroplasten.</dd>
+<dt>absolute Datierung</dt><dd>Altersbestimmung mit radioaktiven Isotopen.</dd>
+<dt>relative Datierung</dt><dd>Ordnung von Schichten nach ihrer Lage.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Die Evolution als Weg zum Menschen darstellen. Der Mensch ist eine von vielen Linien, nicht das Ziel.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="systematik" data-title="Systematik" data-track="true" id="systematik">
+<header class="station__head">
+<h2 id="systematik-title"><span class="station__num">02</span> Systematik: Wo steht der Mensch?</h2>
+<p class="lead">Das natürliche System ordnet Lebewesen nach Verwandtschaft. Der Mensch ist ein Primat und ein Säugetier.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Systematik ordnet Lebewesen in hierarchische Gruppen. Die wichtigsten Kategorien sind Reich, Stamm, Klasse, Ordnung, Familie, Gattung und Art. Die Art ist die Grundeinheit; der wissenschaftliche Name besteht aus Gattung und Art, zum Beispiel Homo sapiens. Die Einordnung beruht auf gemeinsamen Merkmalen und Verwandtschaft, heute auch auf molekularen Daten. Ein Stammbaum zeigt, wie Linien sich verzweigt haben.</p>
+<p>Der Mensch gehört zu den Eukaryoten, Tieren, Chordatieren, Säugetieren, Primaten, Menschenartigen (Hominidae) und zur Gattung Homo. Gemeinsame Merkmale mit anderen Säugetieren sind Haare, Milchdrüsen und ein dreigliedriges Mittelohr. Mit Primaten teilt der Mensch Greifhände, einen großen Sehapparat und ein relativ großes Gehirn. Molekulare Vergleiche zeigen eine enge Verwandtschaft mit Schimpansen und Bonobos.</p>
+<p>Systematik ist keine Rangliste. „Höherentwickelt“ ist kein wissenschaftlicher Begriff; jede heute lebende Art hat eine ebenso lange Evolution hinter sich. Verwandtschaft sagt nichts über Wert oder Intelligenz aus. Die Einordnung des Menschen ist ein Ergebnis von Merkmalsvergleichen und wird durch neue Daten präzisiert. Sie ist kein Beweis für Überlegenheit.</p>
+<figure class="tool" data-tool="system10">
+<div class="tool__head">
+<p class="tool__title">Die Einordnung des Menschen</p>
+<p class="tool__hint">Wähle eine Ebene. Prüfe Merkmale und Beispiele.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="system-card">
+<svg aria-label="Hierarchische Einordnung des Menschen" class="system-svg" role="img" viewBox="0 0 720 300">
+<line class="link" x1="360" x2="360" y1="40" y2="80"></line>
+<line class="link" x1="360" x2="360" y1="80" y2="120"></line>
+<line class="link" x1="360" x2="360" y1="120" y2="160"></line>
+<line class="link" x1="360" x2="360" y1="160" y2="200"></line>
+<line class="link" x1="360" x2="360" y1="200" y2="240"></line>
+<circle class="node" cx="360" cy="40" data-system-node="reich" r="26"></circle>
+<circle class="node" cx="360" cy="80" data-system-node="stamm" r="26"></circle>
+<circle class="node" cx="360" cy="120" data-system-node="klasse" r="26"></circle>
+<circle class="node" cx="360" cy="160" data-system-node="ordnung" r="26"></circle>
+<circle class="node" cx="360" cy="200" data-system-node="familie" r="26"></circle>
+<circle class="node" cx="360" cy="240" data-system-node="gattung" r="26"></circle>
+<text class="node-label" x="360" y="44">Reich</text>
+<text class="node-label" x="360" y="84">Stamm</text>
+<text class="node-label" x="360" y="124">Klasse</text>
+<text class="node-label" x="360" y="164">Ordnung</text>
+<text class="node-label" x="360" y="204">Familie</text>
+<text class="node-label" x="360" y="244">Gattung</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Die Darstellung zeigt nur einen Ausschnitt der Systematik. Die Art Homo sapiens ist die Grundeinheit.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum „höherentwickelt“ irreführend ist</summary>
+<p>Alle heute lebenden Arten haben eine gleich lange Evolutionsgeschichte. Bakterien sind nicht „primitiv“, sondern an ihre Lebensräume hervorragend angepasst. Der Begriff „höherentwickelt“ suggeriert eine Rangordnung, die es in der Biologie nicht gibt. Sinnvoller ist es, von Verwandtschaft, Angepasstheit und ökologischen Rollen zu sprechen. Das gilt auch für den Menschen: Seine besonderen Fähigkeiten sind Merkmale, keine Werturteile.</p>
+</details>
+<section aria-labelledby="systematik-check" class="checkpoint">
+<h3 id="systematik-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="systematik">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="systematik" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "sy1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V2",
+              "prompt": "Zu welcher Klasse gehört der Mensch?",
+              "options": ["Säugetiere", "Vögel", "Reptilien", "Amphibien"],
+              "correct": 0,
+              "explain": "Der Mensch ist ein Säugetier: Haare, Milchdrüsen und ein dreigliedriges Mittelohr sind gemeinsame Merkmale."
+            },
+            {
+              "id": "sy2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V2",
+              "prompt": "Was ist die Grundeinheit der Systematik?",
+              "options": ["Die Art", "Das Reich", "Der Stamm", "Die Klasse"],
+              "correct": 0,
+              "explain": "Die Art ist die Grundeinheit. Der wissenschaftliche Name besteht aus Gattung und Art, z. B. Homo sapiens."
+            },
+            {
+              "id": "sy3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V2",
+              "prompt": "Warum ist „höherentwickelt“ kein guter biologischer Begriff?",
+              "options": ["Weil alle heute lebenden Arten gleich lange Evolutionsgeschichte haben.", "Weil nur Säugetiere evolvieren.", "Weil Bakterien nicht evolvieren.", "Weil der Mensch keine Verwandten hat."],
+              "correct": 0,
+              "explain": "Der Begriff suggeriert eine Rangordnung, die es nicht gibt. Alle heute lebenden Arten sind an ihre Lebensräume angepasst."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="systematik" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="fossilien" href="#fossilien">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Der Mensch ist ein Säugetier und Primat. Die Art ist die Grundeinheit; Systematik ordnet nach Verwandtschaft, nicht nach Wert.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Systematik</dt><dd>Einteilung der Lebewesen nach Verwandtschaft.</dd>
+<dt>Art</dt><dd>Grundeinheit der Systematik.</dd>
+<dt>Hominide</dt><dd>Angehöriger der Menschenartigen.</dd>
+<dt>Stammbaum</dt><dd>Darstellung von Verwandtschaftsbeziehungen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Den Menschen als „Krone der Evolution“ darstellen. Das ist eine Wertung, keine wissenschaftliche Aussage.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="fossilien" data-title="Fossilien und Homininen" data-track="true" id="fossilien">
+<header class="station__head">
+<h2 id="fossilien-title"><span class="station__num">03</span> Fossilien: Hypothesen zur Evolution des Menschen</h2>
+<p class="lead">Fossilien zeigen, wann und wo Homininen lebten. Merkmale wie aufrechter Gang und Gehirngröße verändern sich.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Fossilien von Homininen sind selten und oft bruchstückhaft. Forschende rekonstruieren aus Schädel, Becken, Beinen und Zähnen, wie die Tiere sich fortbewegten, was sie aßen und wie sie lebten. Der aufrechte Gang ist an der Lage des Hinterhauptlochs und der Form des Beckens erkennbar. Frühe Homininen wie Australopithecus afarensis gingen aufrecht, hatten aber ein kleineres Gehirn als der moderne Mensch. Spätere Arten wie Homo erectus hatten größere Gehirne und nutzten komplexere Werkzeuge.</p>
+<p>Die Savannenhypothese erklärt den aufrechten Gang mit dem Leben in offenen Landschaften: Aufrechtes Gehen spart Energie, ermöglicht weite Strecken und bessert die Kühlung. Andere Hypothesen betonen Werkzeuggebrauch, Nahrungssuche oder soziale Interaktion. Die Hypothesen schließen sich nicht aus; wahrscheinlich wirkten mehrere Faktoren zusammen. Neue Fossilien und molekulare Daten können die Rekonstruktion verändern.</p>
+<p>Die Evolution des Menschen ist keine gerade Linie. Es gab mehrere Homininen-Arten, die teilweise gleichzeitig lebten. Homo sapiens wanderte aus Afrika aus und begegnete anderen Menschenformen; heute lebende Menschen tragen Spuren dieser Begegnungen in ihrem Erbgut. Fossilien sind Belege, aber sie erzählen nie die ganze Geschichte. Interpretationen müssen offen für Revision bleiben.</p>
+<figure class="tool" data-tool="hominin10">
+<div class="tool__head">
+<p class="tool__title">Homininen im Vergleich</p>
+<p class="tool__hint">Wähle eine Art. Prüfe Zeitraum, Gehirngröße, Fortbewegung und Werkzeuge.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="hominin-card">
+<p class="hominin-card__title" data-hominin-title="">Australopithecus afarensis</p>
+<p class="hominin-card__text" data-hominin-text=""></p>
+<ul class="hominin-card__list" data-hominin-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Angaben sind gerundet und stark vereinfacht. Die Forschung diskutiert viele Details kontrovers.</figcaption>
+</figure>
+<figure class="tool" data-tool="fossil3d">
+<div class="tool__head">
+<p class="tool__title">3D-Grabung: Fossilien im Schichtprofil</p>
+<p class="tool__hint tool__hint--scene">Drehe das Profil, fahre über eine Schicht oder ein Fossil und prüfe, was Lagerung und Datierung verraten.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-fossil-separate="" type="button" data-tip-title="Schichten trennen" data-tip="Hebt die Schichten auseinander. Die Fossilien bleiben in ihrer ursprünglichen Schicht; die Abfolge wird sichtbar.">Schichten trennen</button>
+<button class="btn btn--quiet btn--small" data-fossil-play="" type="button" data-tip-title="Animation" data-tip="Pausiere die Bewegung der Schichten und des Staubs. Die Kamera bleibt weiterhin bedienbar.">Pause</button>
+<button class="btn btn--quiet btn--small" data-fossil-reset="" type="button" data-tip-title="Ansicht zurücksetzen" data-tip="Kamera, Schichten, Auswahl und Tempo fahren weich in den Ausgangszustand zurück.">Ansicht zurücksetzen</button>
+</div>
+<div class="scene-toolbar">
+<span class="scene-toolbar__label">Tempo</span>
+<span class="scene-toolbar__group" role="group" aria-label="Tempo der Schichtenbewegung">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-fossil-speed="0.5" type="button" data-tip-title="Tempo 0,5×" data-tip="Langsame Bewegung: gut zum Vergleichen der Schichtabstände.">0,5×</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-fossil-speed="1" type="button" data-tip-title="Tempo 1×" data-tip="Normale Geschwindigkeit für das Öffnen und Schließen des Profils.">1×</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-fossil-speed="2" type="button" data-tip-title="Tempo 2×" data-tip="Schnellere Bewegung: du siehst die Abfolge zügiger, aber weniger genau.">2×</button>
+</span>
+<span class="scene-status" data-fossil-status="">Profil geschlossen</span>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="fossil" id="fossil-scene" role="img" aria-label="3D-Grabungsprofil mit vier Sedimentschichten und Fossilien: Steinwerkzeug, Homo sapiens, Neandertaler und Australopithecus afarensis. Fahre über ein Objekt, um seine Funktion zu lesen.">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Schichtprofil mit vier Schichten und Fossilien" class="timeline-svg" role="img" viewBox="0 0 640 320">
+<rect fill="var(--color-paper-2)" height="320" width="640" x="0" y="0"></rect>
+<rect fill="var(--color-paper-3)" height="56" stroke="var(--color-rule-2)" stroke-width="2" width="420" x="110" y="56"></rect>
+<rect fill="var(--color-muted)" height="64" stroke="var(--color-rule-2)" stroke-width="2" width="420" x="110" y="112"></rect>
+<rect fill="var(--color-rule-2)" height="72" stroke="var(--color-rule-2)" stroke-width="2" width="420" x="110" y="176"></rect>
+<rect fill="var(--color-ink)" height="80" stroke="var(--color-ink)" stroke-width="2" width="420" x="110" y="248"></rect>
+<circle cx="210" cy="84" fill="var(--color-paper)" r="14"></circle>
+<circle cx="330" cy="144" fill="var(--color-paper)" r="16"></circle>
+<path d="M380 230 C400 210 430 210 450 230" fill="none" stroke="var(--color-paper)" stroke-width="7" stroke-linecap="round"></path>
+<path d="M250 292 C270 278 300 278 320 292" fill="none" stroke="var(--color-paper)" stroke-width="6" stroke-linecap="round"></path>
+<line stroke="var(--color-ink)" stroke-width="3" x1="76" x2="76" y1="56" y2="328"></line>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" x="20" y="52">oben · jung</text>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" x="20" y="320">unten · alt</text>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="12" text-anchor="middle" x="320" y="308">Schematisches Profil, nicht maßstabsgetreu</text>
+</svg>
+</div>
+</div>
+<div class="tool__legend">
+<span class="legend-item" data-tip-title="Schicht 1" data-tip="Die oberste Schicht ist nach dem Lagerungsgesetz die jüngste. Die Jahreszahl stammt aus einer absoluten Datierung, nicht aus der Lage allein."><span class="legend-swatch" style="--swatch: var(--color-paper-3)"></span>Schicht 1 · oben · ca. 50.000 Jahre</span>
+<span class="legend-item" data-tip-title="Schicht 2" data-tip="Sie liegt unter Schicht 1 und über Schicht 3. Relative Datierung ordnet sie damit zwischen beiden ein; die absolute Datierung liefert das Alter in Jahren."><span class="legend-swatch" style="--swatch: var(--color-paper-2)"></span>Schicht 2 · ca. 100.000 Jahre</span>
+<span class="legend-item" data-tip-title="Schicht 3" data-tip="Tiefer gelegene Schichten sind meist älter. Die Isotopenmessung an begleitenden Materialien liefert hier ein Alter von etwa 130.000 Jahren."><span class="legend-swatch" style="--swatch: var(--color-muted)"></span>Schicht 3 · ca. 130.000 Jahre</span>
+<span class="legend-item" data-tip-title="Schicht 4" data-tip="Die unterste Schicht ist die älteste. Für so alte Funde eignet sich die Kalium-Argon-Methode an vulkanischen Gesteinen."><span class="legend-swatch" style="--swatch: var(--color-ink)"></span>Schicht 4 · unten · ca. 3,2 Mio. Jahre</span>
+</div>
+<div aria-live="polite" class="tool__readout" data-fossil-readout=""></div>
+<figcaption class="tool__caption">Die Schichten sind schematisch und nicht maßstabsgetreu. In der Natur können Erosion, Umlagerung oder Grabung die Lagerung stören. Relative Datierung nutzt die Reihenfolge, absolute Datierung liefert ein Alter in Jahren.</figcaption>
+<p class="tool__scene-note">Fachbegriffe: Die Lage im Profil ergibt das relative Alter (tiefer = älter). Die absoluten Jahreszahlen stammen aus Messungen, zum Beispiel über radioaktive Isotope.</p>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Wie Fossilien datiert werden</summary>
+<p>Absolute Datierung nutzt den Zerfall radioaktiver Isotope, etwa Kalium-Argon oder Uran-Blei. Sie liefert ein Alter in Jahren. Relative Datierung ordnet Fossilien nach ihrer Lage in Sedimentschichten: Tiefer liegende Schichten sind meist älter. Für junge Fossilien kann Radiokarbonmethode verwendet werden, allerdings nur für organische Reste und bis etwa 50.000 Jahre. Keine Methode ist perfekt; Forschende kombinieren mehrere Datierungen und prüfen die Fundumstände.</p>
+</details>
+<section aria-labelledby="fossilien-check" class="checkpoint">
+<h3 id="fossilien-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="fossilien">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="fossilien" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "fo1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V3",
+              "prompt": "Woran erkennt man den aufrechten Gang bei Fossilien?",
+              "options": ["An der Lage des Hinterhauptlochs und der Form des Beckens", "An der Farbe der Knochen", "An der Anzahl der Zähne", "An der Größe der Augen"],
+              "correct": 0,
+              "explain": "Die Lage des Hinterhauptlochs und die Beckenform zeigen, ob ein Hominine aufrecht ging."
+            },
+            {
+              "id": "fo2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V3",
+              "prompt": "Was besagt die Savannenhypothese?",
+              "options": ["Der aufrechte Gang entstand im offenen Lebensraum der Savanne.", "Der Mensch entstand im Wasser.", "Alle Homininen lebten gleichzeitig.", "Fossilien sind unzuverlässig."],
+              "correct": 0,
+              "explain": "Die Savannenhypothese verbindet den aufrechten Gang mit offenen Landschaften, Energieersparnis, Kühlung und weiteren Strecken."
+            },
+            {
+              "id": "fo3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V3",
+              "prompt": "Warum ist die Evolution des Menschen keine gerade Linie?",
+              "options": ["Weil mehrere Homininen-Arten gleichzeitig lebten und sich verzweigten.", "Weil es nur eine Art gab.", "Weil Fossilien immer vollständig sind.", "Weil Evolution zielgerichtet ist."],
+              "correct": 0,
+              "explain": "Es gab mehrere Homininen-Arten und Verzweigungen. Homo sapiens ist eine Linie, nicht das Endziel."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="fossilien" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="kultur" href="#kultur">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fossilien belegen die Evolution des Menschen, aber sie sind bruchstückhaft. Mehrere Homininen-Arten lebten gleichzeitig.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Hominine</dt><dd>Angehöriger der Menschenartigen.</dd>
+<dt>Savannenhypothese</dt><dd>Hypothese zum aufrechten Gang im offenen Lebensraum.</dd>
+<dt>absolute Datierung</dt><dd>Altersbestimmung mit radioaktiven Isotopen.</dd>
+<dt>relative Datierung</dt><dd>Ordnung nach der Lage in Sedimentschichten.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Aus einzelnen Fossilien eine vollständige Abstammungslinie konstruieren. Neue Funde können das Bild verändern.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="kultur" data-title="Kulturelle Evolution" data-track="true" id="kultur">
+<header class="station__head">
+<h2 id="kultur-title"><span class="station__num">04</span> Kulturelle Evolution: Gegenwart und Zukunft</h2>
+<p class="lead">Werkzeuge, Sprache und Wissen werden weitergegeben. Kulturelle Evolution verändert den Menschen und seine Umwelt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Kulturelle Evolution bezeichnet die Weitergabe von Wissen, Werkzeugen, Verhaltensweisen und Institutionen über Generationen. Sie ist viel schneller als genetische Evolution. Sprache, Schrift, Feuer, Landwirtschaft, Wissenschaft und digitale Technik haben die Lebensweise des Menschen grundlegend verändert. Kulturelle und biologische Evolution können sich gegenseitig beeinflussen: Die Fähigkeit, Milchzucker zu verdauen, ist bei manchen Populationen genetisch verbreitet, weil Milchwirtschaft eine Rolle spielte.</p>
+<p>Die Weltbevölkerung ist stark gewachsen: von etwa 1 Milliarde um 1800 auf über 8 Milliarden heute. Wachstum, Konsum und Technik haben den ökologischen Fußabdruck vergrößert. Gleichzeitig sind Armut, Krankheiten und Kindersterblichkeit in vielen Regionen gesunken. Die Zukunft hängt von Entscheidungen ab: Klimaschutz, Ressourcen, Gesundheit, Bildung, Gerechtigkeit und der Umgang mit neuen Technologien. Biologische Erkenntnisse können Handlungsoptionen informieren, aber sie legen keine Werte fest.</p>
+<p>Die Evolution des Menschen ist nicht abgeschlossen. Gene verändern sich weiter, und kulturelle Innovationen schaffen neue Umweltbedingungen. Der Mensch ist Teil der Biosphäre, nicht außerhalb von ihr. Diese Einsicht ist eine wichtige Grundlage für nachhaltiges Handeln. Sie bedeutet nicht, dass der Mensch „böse“ ist, sondern dass er Verantwortung für die Folgen seines Handelns trägt.</p>
+<figure class="tool" data-tool="culture10">
+<div class="tool__head">
+<p class="tool__title">Bevölkerung und kulturelle Meilensteine</p>
+<p class="tool__hint">Wähle einen Zeitpunkt. Prüfe Bevölkerungszahl und Meilenstein.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="culture-card">
+<svg aria-label="Weltbevölkerung und kulturelle Meilensteine" class="culture-svg" role="img" viewBox="0 0 720 300">
+<line class="grid" x1="70" x2="660" y1="70" y2="70"></line>
+<line class="grid" x1="70" x2="660" y1="130" y2="130"></line>
+<line class="grid" x1="70" x2="660" y1="190" y2="190"></line>
+<line class="axis" x1="70" x2="660" y1="250" y2="250"></line>
+<line class="axis" x1="70" x2="70" y1="40" y2="250"></line>
+<polyline class="curve" data-culture-line="" points=""></polyline>
+<line class="marker" data-culture-marker="" x1="300" x2="300" y1="40" y2="250"></line>
+<circle cx="300" cy="200" data-culture-dot="" fill="var(--color-accent)" r="5"></circle>
+<text class="label" text-anchor="middle" x="365" y="285">Zeit</text>
+<text class="label" transform="rotate(-90 18 145)" x="18" y="145">Bevölkerung</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Die Kurve ist schematisch. Bevölkerungszahlen sind Schätzungen und variieren je nach Quelle.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Gene und Kultur</summary>
+<p>Die Fähigkeit, Laktose zu verdauen, ist ein Beispiel für Gen-Kultur-Koevolution. In Regionen mit langer Milchwirtschaft ist die Laktasepersistenz häufiger. Das bedeutet nicht, dass Kultur die Gene „steuert“; vielmehr verändert eine kulturelle Praxis die Selektionsbedingungen. Ähnliche Wechselwirkungen werden für die Verdauung von Stärke, die Immunabwehr und das Sozialverhalten diskutiert. Solche Beispiele zeigen, dass biologische und kulturelle Evolution nicht getrennt voneinander betrachtet werden sollten.</p>
+</details>
+<section aria-labelledby="kultur-check" class="checkpoint">
+<h3 id="kultur-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="kultur">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="kultur" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ku1",
+              "type": "mc",
+              "level": "g",
+              "competency": "V4",
+              "prompt": "Was ist kulturelle Evolution?",
+              "options": ["Weitergabe von Wissen, Werkzeugen und Verhalten über Generationen", "Veränderung der DNA durch Mutation", "Natürliche Selektion bei Tieren", "Die Entstehung der Erde"],
+              "correct": 0,
+              "explain": "Kulturelle Evolution umfasst die Weitergabe von Wissen und Praktiken. Sie ist viel schneller als genetische Evolution."
+            },
+            {
+              "id": "ku2",
+              "type": "mc",
+              "level": "g",
+              "competency": "V4",
+              "prompt": "Wie hat sich die Weltbevölkerung seit 1800 entwickelt?",
+              "options": ["Sie ist stark gewachsen, von etwa 1 Milliarde auf über 8 Milliarden.", "Sie ist gleich geblieben.", "Sie ist gesunken.", "Sie ist nur in Europa gewachsen."],
+              "correct": 0,
+              "explain": "Die Weltbevölkerung ist von etwa 1 Milliarde um 1800 auf über 8 Milliarden heute gewachsen."
+            },
+            {
+              "id": "ku3",
+              "type": "mc",
+              "level": "g",
+              "competency": "V4",
+              "prompt": "Was folgt aus der Evolution des Menschen für die Zukunft?",
+              "options": ["Der Mensch ist Teil der Biosphäre und trägt Verantwortung für seine Folgen.", "Der Mensch steht außerhalb der Natur.", "Evolution ist abgeschlossen.", "Biologische Erkenntnisse legen Werte fest."],
+              "correct": 0,
+              "explain": "Der Mensch ist Teil der Biosphäre. Biologische Erkenntnisse informieren Entscheidungen, legen aber keine Werte fest."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="kultur" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Kulturelle Evolution ist schnell und prägt die Umwelt. Der Mensch ist Teil der Biosphäre und trägt Verantwortung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>kulturelle Evolution</dt><dd>Weitergabe von Wissen und Praktiken.</dd>
+<dt>Gen-Kultur-Koevolution</dt><dd>Wechselwirkung zwischen genetischer und kultureller Entwicklung.</dd>
+<dt>Biosphäre</dt><dd>Gesamtheit der belebten Bereiche der Erde.</dd>
+<dt>Nachhaltigkeit</dt><dd>Nutzung, die künftige Generationen nicht gefährdet.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Aus biologischen Fakten direkt politische oder moralische Forderungen ableiten. Fakten und Werte sind verschieden.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">05</span> Kompetenzcheck Vergangenheit und Zukunft des Menschen</h2>
+<p class="lead">Zehn Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="mensch10">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="mensch10" type="application/json">
+      {
+        "competencies": {
+          "V1": "Geschichte des Lebens und Einordnung",
+          "V2": "Systematik und Verwandtschaft",
+          "V3": "Fossilien und Homininen",
+          "V4": "Kulturelle Evolution und Zukunft"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "V1",
+            "prompt": "Wie alt ist die Erde ungefähr?",
+            "options": ["Etwa 4,6 Milliarden Jahre", "Etwa 4,6 Millionen Jahre", "Etwa 300.000 Jahre", "Etwa 66 Millionen Jahre"],
+            "correct": 0,
+            "explain": "Die Erde entstand vor etwa 4,6 Milliarden Jahren. Das Leben entstand später, Homo sapiens vor etwa 300.000 Jahren."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "V1",
+            "prompt": "Was ermöglichte die Sauerstoffanreicherung in der Atmosphäre?",
+            "options": ["Die Fotosynthese von Cyanobakterien und Pflanzen", "Die Atmung von Dinosauriern", "Vulkanausbrüche", "Die Entstehung des Menschen"],
+            "correct": 0,
+            "explain": "Fotosynthese setzt Sauerstoff frei. Die Anreicherung veränderte die Atmosphäre und ermöglichte neue Stoffwechselwege."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "V2",
+            "prompt": "Zu welcher Klasse gehört der Mensch?",
+            "options": ["Säugetiere", "Vögel", "Reptilien", "Amphibien"],
+            "correct": 0,
+            "explain": "Der Mensch ist ein Säugetier: Haare, Milchdrüsen und ein dreigliedriges Mittelohr sind gemeinsame Merkmale."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "V2",
+            "prompt": "Was ist die Grundeinheit der Systematik?",
+            "options": ["Die Art", "Das Reich", "Der Stamm", "Die Klasse"],
+            "correct": 0,
+            "explain": "Die Art ist die Grundeinheit. Der wissenschaftliche Name besteht aus Gattung und Art, z. B. Homo sapiens."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "V2",
+            "prompt": "Warum ist „höherentwickelt“ kein guter biologischer Begriff?",
+            "options": ["Weil alle heute lebenden Arten gleich lange Evolutionsgeschichte haben.", "Weil nur Säugetiere evolvieren.", "Weil Bakterien nicht evolvieren.", "Weil der Mensch keine Verwandten hat."],
+            "correct": 0,
+            "explain": "Der Begriff suggeriert eine Rangordnung, die es nicht gibt. Alle heute lebenden Arten sind an ihre Lebensräume angepasst."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "V3",
+            "prompt": "Woran erkennt man den aufrechten Gang bei Fossilien?",
+            "options": ["An der Lage des Hinterhauptlochs und der Form des Beckens", "An der Farbe der Knochen", "An der Anzahl der Zähne", "An der Größe der Augen"],
+            "correct": 0,
+            "explain": "Die Lage des Hinterhauptlochs und die Beckenform zeigen, ob ein Hominine aufrecht ging."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "V3",
+            "prompt": "Was besagt die Savannenhypothese?",
+            "options": ["Der aufrechte Gang entstand im offenen Lebensraum der Savanne.", "Der Mensch entstand im Wasser.", "Alle Homininen lebten gleichzeitig.", "Fossilien sind unzuverlässig."],
+            "correct": 0,
+            "explain": "Die Savannenhypothese verbindet den aufrechten Gang mit offenen Landschaften, Energieersparnis, Kühlung und weiteren Strecken."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "V4",
+            "prompt": "Was ist kulturelle Evolution?",
+            "options": ["Weitergabe von Wissen, Werkzeugen und Verhalten über Generationen", "Veränderung der DNA durch Mutation", "Natürliche Selektion bei Tieren", "Die Entstehung der Erde"],
+            "correct": 0,
+            "explain": "Kulturelle Evolution umfasst die Weitergabe von Wissen und Praktiken. Sie ist viel schneller als genetische Evolution."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "V4",
+            "prompt": "Wie hat sich die Weltbevölkerung seit 1800 entwickelt?",
+            "options": ["Sie ist stark gewachsen, von etwa 1 Milliarde auf über 8 Milliarden.", "Sie ist gleich geblieben.", "Sie ist gesunken.", "Sie ist nur in Europa gewachsen."],
+            "correct": 0,
+            "explain": "Die Weltbevölkerung ist von etwa 1 Milliarde um 1800 auf über 8 Milliarden heute gewachsen."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "V4",
+            "prompt": "Was folgt aus der Evolution des Menschen für die Zukunft?",
+            "options": ["Der Mensch ist Teil der Biosphäre und trägt Verantwortung für seine Folgen.", "Der Mensch steht außerhalb der Natur.", "Evolution ist abgeschlossen.", "Biologische Erkenntnisse legen Werte fest."],
+            "correct": 0,
+            "explain": "Der Mensch ist Teil der Biosphäre. Biologische Erkenntnisse informieren Entscheidungen, legen aber keine Werte fest."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">06</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Homo sapiens</dt><dd>Moderner Mensch.</dd></div>
+<div class="glossary__row"><dt>Hominine</dt><dd>Angehöriger der Menschenartigen.</dd></div>
+<div class="glossary__row"><dt>Systematik</dt><dd>Einteilung der Lebewesen nach Verwandtschaft.</dd></div>
+<div class="glossary__row"><dt>Art</dt><dd>Grundeinheit der Systematik.</dd></div>
+<div class="glossary__row"><dt>Reich</dt><dd>Oberste Kategorie des natürlichen Systems.</dd></div>
+<div class="glossary__row"><dt>Stamm</dt><dd>Kategorie unterhalb des Reichs.</dd></div>
+<div class="glossary__row"><dt>Klasse</dt><dd>Kategorie unterhalb des Stamms.</dd></div>
+<div class="glossary__row"><dt>Primat</dt><dd>Ordnung der Säugetiere, zu der Menschen und Affen gehören.</dd></div>
+<div class="glossary__row"><dt>Stammbaum</dt><dd>Darstellung von Verwandtschaftsbeziehungen.</dd></div>
+<div class="glossary__row"><dt>Fossil</dt><dd>Erhaltener Rest oder Abdruck eines früheren Lebewesens.</dd></div>
+<div class="glossary__row"><dt>Savannenhypothese</dt><dd>Hypothese zum aufrechten Gang im offenen Lebensraum.</dd></div>
+<div class="glossary__row"><dt>absolute Datierung</dt><dd>Altersbestimmung mit radioaktiven Isotopen.</dd></div>
+<div class="glossary__row"><dt>relative Datierung</dt><dd>Ordnung nach der Lage in Sedimentschichten.</dd></div>
+<div class="glossary__row"><dt>Massenaussterben</dt><dd>Verlust vieler Arten in kurzer geologischer Zeit.</dd></div>
+<div class="glossary__row"><dt>Endosymbiose</dt><dd>Aufnahme eines Bakteriums in eine Wirtszelle.</dd></div>
+<div class="glossary__row"><dt>kulturelle Evolution</dt><dd>Weitergabe von Wissen, Werkzeugen und Verhalten.</dd></div>
+<div class="glossary__row"><dt>Gen-Kultur-Koevolution</dt><dd>Wechselwirkung zwischen genetischer und kultureller Entwicklung.</dd></div>
+<div class="glossary__row"><dt>Biosphäre</dt><dd>Gesamtheit der belebten Bereiche der Erde.</dd></div>
+<div class="glossary__row"><dt>Nachhaltigkeit</dt><dd>Nutzung, die künftige Generationen nicht gefährdet.</dd></div>
+<div class="glossary__row"><dt>aufrechter Gang</dt><dd>Fortbewegung auf zwei Beinen; Merkmal der Homininen.</dd></div>
+<div class="glossary__row"><dt>Werkzeuggebrauch</dt><dd>Nutzung von Gegenständen zur Lösung von Aufgaben.</dd></div>
+<div class="glossary__row"><dt>Sprache</dt><dd>System zur Weitergabe von Informationen.</dd></div>
+<div class="glossary__row"><dt>Populationsentwicklung</dt><dd>Veränderung von Zahl und Zusammensetzung einer Population.</dd></div>
+<div class="glossary__row"><dt>Evolution</dt><dd>Veränderung von Populationen über Generationen.</dd></div>
+<div class="glossary__row"><dt>Selektion</dt><dd>Unterschiedlicher Fortpflanzungserfolg aufgrund von Merkmalen.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 10</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/10/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 10</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/enhance.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

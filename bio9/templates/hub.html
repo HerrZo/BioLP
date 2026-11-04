@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de" data-grade="{{GRADE}}" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Biologie {{GRADE}} | Lernbereiche</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + index table · footer: colophon · signature: the learning-area register · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the register must stay a ruled index on paper; theme.css keeps the rows on hairlines and the brick to a short tick */
+/* Hallmark · answered F4 · the 9 hub has no level toggle; the only filled primary is the continue action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+{{PAGE_CSS}}
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="hub-{{GRADE}}" data-grade="{{GRADE}}">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie {{GRADE}}">
+      <span class="brand__name">Biologie {{GRADE}}</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue">Lernbereiche im Überblick</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-hub-total aria-live="polite">0 von {{TRACK_TOTAL}}</span>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Lernbereiche</button>
+    </div>
+  </div>
+</header>
+
+<div class="app app--hub">
+  <aside class="sidebar" id="sidebar" aria-label="Lernbereiche">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Dein Weg durch Biologie {{GRADE}}</h2>
+      <p class="sidebar__deck">{{DECK}}</p>
+      <div class="progress" data-hub-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-hub-progress-text>0 / {{TRACK_TOTAL}}</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-hub-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Lernbereiche">
+      {{HUB_NAV}}
+    </nav>
+    <div class="sidebar__foot">
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <p>LehrplanPLUS<br>Biologie {{GRADE}}</p>
+    </div>
+  </aside>
+
+  <main class="main main--hub" id="main">
+    <section class="hub-intro">
+      <h1>{{HUB_HEAD}}</h1>
+      <p class="lead">{{LEAD}}</p>
+      <p class="hub-intro__note">{{LEVEL_NOTE}}</p>
+      <div class="hub-intro__actions">
+        <a class="btn" href="{{CONTINUE_FILE}}" data-continue>Weiterlernen</a>
+        <a class="quiet-link" href="#lernbereiche">Alle Lernbereiche ansehen</a>
+      </div>
+    </section>
+
+    <section class="hub-index" id="lernbereiche" aria-labelledby="index-title">
+      <div class="hub-index__head">
+        <h2 id="index-title">Die Lernbereiche</h2>
+        <p>Wähle einen Lernbereich. Dein Lernstand wird lokal im Browser gespeichert.</p>
+      </div>
+      <ol class="area-list">
+        {{AREA_ROWS}}
+      </ol>
+    </section>
+
+    <section class="hub-how" aria-labelledby="how-title">
+      <div class="hub-how__head">
+        <h2 id="how-title">So arbeitest du</h2>
+        <p>Jeder Lernbereich ist ein eigener Lernpfad. Du kannst ihn in einer Sitzung durcharbeiten oder Station für Station zurückkommen.</p>
+      </div>
+      <ol class="how-list">
+        <li>
+          <div><h3>Lesen und ausprobieren</h3><p>Jede Station verbindet eine kurze Erklärung mit einem Modell, einer Simulation oder einem Werkzeug. Du kannst Werte verändern und die Folgen beobachten.</p></div>
+        </li>
+        <li>
+          <div><h3>Prüfpunkt bearbeiten</h3><p>Nach jeder Station prüfst du dein Verständnis. Die Rückmeldung erklärt, warum eine Antwort richtig oder noch nicht richtig ist.</p></div>
+        </li>
+        <li>
+          <div><h3>Kompetenzcheck auswerten</h3><p>Am Ende jedes Lernbereichs steht ein Check mit Aufgaben zu allen Kompetenzen. Dein Bestwert bleibt auf diesem Gerät gespeichert.</p></div>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie {{GRADE}}</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="{{CURRICULUM_G}}" target="_blank" rel="noopener">LehrplanPLUS Biologie {{GRADE}}</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte aller Lernbereiche für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+{{PAGE_JS}}
+</body>
+</html>

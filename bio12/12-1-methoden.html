@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="de" data-grade="12" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Methoden | Biologie 12</title>
+<meta name="description" content="Interaktive Methodenwerkstatt für Biologie 12: Erkenntnisweg, Modelle, Datenauswertung, Quellenprüfung und ethische Bewertung.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Almanac (deal 2/3, seed interaktive-lernwebsite-biologie-genetik-96db·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der Versuchsplaner und die Quellenprüfung · states: default, hover, focus, active, disabled, loading, empty, error
+ * axes: mid/grotesk-sans/chromatic-magenta · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 · weakest: E, the 3D stage needs a still fallback and a pause; the fallback SVG is in the markup and the scenes run only on request */
+/* Hallmark · answered F4 · the G/R segmented control is a state selector, not a primary action; one filled action per screen */
+/* Hallmark · answered F6 · the heading face has no tabular figures; every number uses IBM Plex Mono */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("lab.css?v=2026-11-04b");
+.source-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.source-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.source-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.source-card p { font-size: var(--text-sm); color: var(--color-ink-2); }
+.source-card .score { font-size: var(--text-xl); }
+.matrix { display: grid; gap: var(--space-sm); margin-top: var(--space-md); }
+.matrix-row { display: grid; grid-template-columns: 9rem minmax(0, 1fr) 3rem; gap: var(--space-sm); align-items: center; }
+.matrix-row label { font-size: var(--text-sm); }
+.matrix-row output { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; text-align: right; }
+.matrix-result { margin-top: var(--space-md); padding-top: var(--space-sm); border-top: var(--rule-bar) solid var(--color-rule-2); }
+.tool[data-tool="experiment"] .matrix-row { grid-template-columns: 10rem minmax(0, 1fr); }
+.tool[data-tool="experiment"] .tool__stage > p { margin-bottom: var(--space-sm); }
+.tool[data-tool="evaluation"] .matrix-row { grid-template-columns: 10rem minmax(0, 1fr) 2.5rem; }
+.tool[data-tool="evaluation"] .matrix-row input[type="range"] { width: 100%; }
+.tool[data-tool="evaluation"] .tool__stage { min-height: 200px; }
+.level-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xs); margin-top: var(--space-md); }
+.level-grid button { min-height: 40px; padding: var(--space-xs); border: var(--rule-hair) solid var(--color-rule); background: var(--color-sheet); font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink); cursor: pointer; }
+.level-grid button[aria-pressed="true"] { background: var(--color-paper-2); color: var(--color-ink); border-color: var(--color-ink); box-shadow: inset 0 -2px 0 var(--color-accent); }
+.level-readout { margin-top: var(--space-md); padding-top: var(--space-sm); border-top: var(--rule-bar) solid var(--color-rule-2); }
+@media (max-width: 60rem) { .source-grid, .level-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .source-grid, .level-grid { grid-template-columns: minmax(0, 1fr); } .matrix-row { grid-template-columns: 7rem minmax(0, 1fr) 2.5rem; } }
+
+</style>
+<script>
+  (function () {
+    try {
+      var level = localStorage.getItem("bio12-level");
+      if (level === "r" || level === "g") document.documentElement.dataset.level = level;
+    } catch (error) {}
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body data-page="12-1" data-grade="12">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 12">
+      <span class="brand__name">Biologie 12</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">01</span> Methoden</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <div class="level-toggle" role="group" aria-label="Anforderungsniveau">
+        <button type="button" data-level-set="g" aria-pressed="true" aria-label="Grundlegendes Anforderungsniveau">G</button>
+        <button type="button" data-level-set="r" aria-pressed="false" aria-label="Erhöhtes Anforderungsniveau">R</button>
+      </div>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Methoden</h2>
+      <p class="sidebar__deck">Fragestellungen, Hypothesen, Modelle, Daten, Quellen und Bewertung.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#sachverhalte" data-station-link="sachverhalte"><span class="station-nav__num">01</span><span>Biologische Sachverhalte</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#erkenntnisweg" data-station-link="erkenntnisweg"><span class="station-nav__num">02</span><span>Erkenntnisweg</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#modelle" data-station-link="modelle"><span class="station-nav__num">03</span><span>Modelle</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#daten" data-station-link="daten"><span class="station-nav__num">04</span><span>Daten und Darstellungen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#quellen" data-station-link="quellen"><span class="station-nav__num">05</span><span>Quellen und Kommunikation</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#bewerten" data-station-link="bewerten"><span class="station-nav__num">06</span><span>Bewerten</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 12</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Methoden: Wie Biologie Wissen schafft.</h1>
+<p class="lead">Fragestellungen, Modelle, Daten und Bewertungen. Die Werkzeuge, die du in Genetik, Evolution und Verhalten brauchst.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn start-cta" data-go="sachverhalte" href="#sachverhalte">Erste Station öffnen</a>
+<div class="protocol" style="margin-top: var(--space-xl); grid-template-columns: minmax(0, 1fr);">
+<div>
+<h2 style="font-size: var(--text-xl); margin-bottom: var(--space-sm);">Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">S1</span><span>Du beschreibst biologische Sachverhalte mit den Basiskonzepten und verknüpfst Systemebenen vom Molekül bis zur Biosphäre.</span></li>
+<li><span class="cnum">E1</span><span>Du formulierst prüfbare Fragen und Hypothesen, planst Untersuchungen mit klaren Variablen und wertest Daten aus.</span></li>
+<li><span class="cnum">E2</span><span>Du nutzt Modelle, benennst ihre Stärken und Grenzen und vergleichst Modelle für denselben Sachverhalt.</span></li>
+<li><span class="cnum">K1</span><span>Du prüfst Quellen, unterscheidest Alltags- und Fachsprache und argumentierst mit Belegen.</span></li>
+<li><span class="cnum">B1</span><span>Du unterscheidest deskriptive und normative Aussagen und bewertest Handlungsoptionen mit Kriterien.</span></li>
+<li><span class="cnum">B2</span><span>Du beurteilst Anwendungen der Biologie aus ökologischer, ökonomischer, politischer und sozialer Perspektive.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzbereiche von Lernbereich 1 des LehrplanPLUS Biologie 12 zusammen. Die vollständigen Kompetenzerwartungen stehen im Lehrplan.</small></p>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt. Du bekommst sofort Rückmeldung.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wann ist eine biologische Erklärung wissenschaftlich gestützt, und wann ist sie nur plausibel?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="sachverhalte" data-title="Biologische Sachverhalte" data-track="true" id="sachverhalte">
+<header class="station__head">
+<h2 id="sachverhalte-title"><span class="station__num">01</span> Biologische Sachverhalte ordnen</h2>
+<p class="lead">Ein Sachverhalt wird verständlich, wenn du ihn auf der richtigen Systemebene und mit dem passenden Basiskonzept beschreibst.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Biologie untersucht lebende Systeme auf vielen Ebenen: vom Molekül über die Zelle und das Organ bis zur Population und zur Biosphäre. Jede Ebene hat eigene Regeln. Ein Enzym lässt sich nicht allein durch die Fitness eines Organismus erklären, und ein Ökosystem nicht allein durch die Struktur einer Zelle. Deshalb ordnest du zuerst die Ebene und dann das Basiskonzept.</p>
+<p>Die Basiskonzepte sind keine Kapitelüberschriften, sondern Denkwerkzeuge: <strong>System</strong> fragt nach Teilen und Wechselwirkungen, <strong>Struktur und Funktion</strong> nach dem Zusammenhang von Bau und Aufgabe, <strong>Stoff- und Energieumwandlung</strong> nach Flüssen und Bilanzen, <strong>Information und Kommunikation</strong> nach Signalen und Steuerung, <strong>Entwicklung</strong> nach Veränderung über Zeit und <strong>Variabilität und Angepasstheit</strong> nach Unterschieden und ihrer Bedeutung.</p>
+<figure class="tool" data-tool="system-levels">
+<div class="tool__head">
+<p class="tool__title">Systemebenen</p>
+<p class="tool__hint">Wähle eine Ebene. Der Text zeigt, was auf dieser Ebene typisch ist und welche Frage du stellen kannst.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="level-grid">
+<button data-level-btn="molekuel" data-tip="Molekülebene: Bau und Funktion von DNA, Enzymen und Pigmenten. Typische Frage: Wie ist der Stoff aufgebaut?" type="button">Molekül</button>
+<button data-level-btn="zelle" data-tip="Zellebene: Zusammenwirken von Organellen, Membranen und Stoffwechselwegen. Typische Frage: Wie arbeitet die Zelle als System?" type="button">Zelle</button>
+<button data-level-btn="organ" data-tip="Organebene: Bau und Aufgabe eines Organs, etwa Herz, Lunge oder Blatt. Typische Frage: Wie trägt die Struktur zur Funktion bei?" type="button">Organ</button>
+<button data-level-btn="organismus" data-tip="Organismische Ebene: Koordination von Reizen, Stoffwechsel und Verhalten in einem Lebewesen. Typische Frage: Wie hängen die Organsysteme zusammen?" type="button">Organismus</button>
+<button data-level-btn="population" data-tip="Populationsebene: Alle Individuen einer Art in einem Gebiet. Typische Frage: Wie verändern sich Allelfrequenzen über Generationen?" type="button">Population</button>
+<button data-level-btn="oekosystem" data-tip="Ökosystemebene: Biozönose und Lebensraum als Wirkungsgefüge. Typische Frage: Wie fließen Stoffe und Energie?" type="button">Ökosystem</button>
+<button data-level-btn="biosphaere" data-tip="Biosphäre: Die Gesamtheit der lebenden Systeme der Erde. Typische Frage: Wie wirken globale Kreisläufe und Klima zusammen?" type="button">Biosphäre</button>
+<button data-level-btn="gewebe" data-tip="Gewebeebene: Ein Verband gleichartiger Zellen mit gemeinsamer Leistung, etwa Muskel- oder Nervengewebe. Typische Frage: Wie entsteht aus Zellen eine Gewebefunktion?" type="button">Gewebe</button>
+</div>
+<div aria-live="polite" class="level-readout" data-level-readout="">Wähle eine Ebene.</div>
+</div>
+<figcaption class="tool__caption">Die Ebenen sind nicht getrennt: Was auf einer Ebene passiert, hat Folgen für die nächste. Die Auswahl zeigt jeweils eine typische Frage.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Ebene den Erklärungstyp bestimmt</summary>
+<p>Ein Merkmal kann auf mehreren Ebenen beschrieben werden. Die rote Farbe eines Blütenblatts ist molekular ein Pigment, zellulär eine Speicherung in der Vakuole, organismisch ein Signal für Bestäuber und evolutionär eine Angepasstheit. Keine dieser Beschreibungen ersetzt die andere. Eine gute Erklärung nennt die Ebene, auf der sie arbeitet, und sagt, welche Frage sie beantwortet.</p>
+<p>Das ist besonders wichtig, wenn du proximate und ultimate Erklärungen unterscheidest. Proximat fragt, wie ein Vorgang im Körper abläuft. Ultimate fragt, warum er sich in der Evolution als vorteilhaft erwiesen hat. Beide Antworten können richtig sein, sie beantworten aber verschiedene Fragen.</p>
+</details>
+<section aria-labelledby="sachverhalte-check" class="checkpoint">
+<h3 id="sachverhalte-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="sachverhalte">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="sachverhalte" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "s1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Welche Aussage beschreibt eine Struktur-Funktions-Beziehung?",
+              "options": [
+                "Die Darmzotten vergrößern die Oberfläche für die Resorption.",
+                "DNA enthält vier verschiedene Basen.",
+                "Ein Ökosystem enthält Produzenten und Konsumenten.",
+                "Ein Enzym besteht aus Aminosäuren."
+              ],
+              "correct": 0,
+              "explain": "Die Darmzotten sind eine Struktur; ihre vergrößerte Oberfläche ermöglicht die Funktion Resorption. Die anderen Aussagen sind Beschreibungen, keine Struktur-Funktions-Beziehungen."
+            },
+            {
+              "id": "s2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Auf welcher Systemebene liegt die Frage: Wie verändert sich die Allelfrequenz einer Art über Generationen?",
+              "options": ["Molekül", "Zelle", "Population", "Biosphäre"],
+              "correct": 2,
+              "explain": "Allelfrequenzen werden in Populationen über Generationen betrachtet. Das ist die Ebene der Populationsgenetik."
+            },
+            {
+              "id": "s3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S1",
+              "prompt": "Warum reicht die molekulare Beschreibung eines Verhaltens nicht aus, um seinen adaptiven Wert zu beurteilen?",
+              "options": [
+                "Weil der adaptive Wert aus dem Zusammenspiel von Verhalten, Umwelt und Fortpflanzungserfolg entsteht.",
+                "Weil Moleküle in der Verhaltensbiologie keine Rolle spielen.",
+                "Weil Verhalten nicht vererbt wird.",
+                "Weil nur die Fitness des Individuums zählt."
+              ],
+              "correct": 0,
+              "explain": "Die molekulare Ebene erklärt die Mechanismen, aber der adaptive Wert ergibt sich aus den Folgen für Überleben und Fortpflanzung in einer Umwelt. Dafür brauchst du die organismische und die Populationsebene."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="sachverhalte" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="erkenntnisweg" href="#erkenntnisweg">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Erst die Ebene und das Basiskonzept nennen, dann erklären. Eine Erklärung ohne Ebene bleibt oft bei einer Beschreibung stehen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>proximat</dt><dd>erklärt, wie ein Vorgang abläuft.</dd>
+<dt>ultimate</dt><dd>erklärt, warum ein Merkmal in der Evolution begünstigt wurde.</dd>
+<dt>Basiskonzept</dt><dd>Denkwerkzeug, mit dem ein Sachverhalt strukturiert wird.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>„Das ist eben so“ ist keine Erklärung. Nenne die Ebene, den Mechanismus und den Beleg.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="erkenntnisweg" data-title="Erkenntnisweg" data-track="true" id="erkenntnisweg">
+<header class="station__head">
+<h2 id="erkenntnisweg-title"><span class="station__num">02</span> Vom Phänomen zur prüfbaren Hypothese</h2>
+<p class="lead">Eine gute Untersuchung beginnt nicht mit dem Ergebnis, sondern mit einer Frage, die du auch widerlegen könntest.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der naturwissenschaftliche Erkenntnisweg ist kein starres Rezept, aber er hat eine klare Logik: Beobachte ein Phänomen, formuliere eine Frage, leite eine Hypothese ab, mache eine Vorhersage, plane eine Untersuchung, erhebe Daten und prüfe, ob die Daten zur Hypothese passen. Danach reflektierst du Fehlerquellen und Grenzen.</p>
+<p>Eine Hypothese ist eine begründete, vorläufige Antwort auf eine Frage. Sie muss so formuliert sein, dass du sie an Daten scheitern lassen kannst. „Pflanzen wachsen besser, wenn man sie gießt“ ist zu unscharf. „Tomatenpflanzen mit 200 ml Wasser pro Tag erreichen nach vier Wochen eine größere Sprosslänge als Pflanzen mit 50 ml“ ist prüfbar, weil Wassermenge, Zeitraum und Messgröße festgelegt sind.</p>
+<figure class="tool" data-tool="method-3d">
+<div class="tool__head">
+<p class="tool__title">Der Erkenntnisweg im Raum</p>
+<p class="tool__hint">Drehe die Szene, fahre über eine Stufe oder klicke sie an. Jede Stufe erklärt einen Schritt und die Frage, die dahinter steht.</p>
+</div>
+<div class="tool__stage tool__stage--3d lab-stage" data-lab-scene="methods" id="methods-scene" tabindex="0" aria-label="Interaktives 3D-Modell des Erkenntniswegs mit sieben Stufen: Phänomen, Frage, Hypothese, Vorhersage, Untersuchung, Daten und Auswertung.">
+<div class="tool__fallback">
+<svg viewBox="0 0 700 320" role="img" aria-label="Sieben Stufen des Erkenntniswegs: Phänomen, Frage, Hypothese, Vorhersage, Untersuchung, Daten und Auswertung.">
+<line x1="40" x2="660" y1="280" y2="280" stroke="var(--color-rule)" stroke-width="2"></line>
+<path d="M60 250 L156 218 L252 186 L348 148 L444 112 L540 78 L636 48" fill="none" stroke="var(--color-rule-2)" stroke-width="2" stroke-dasharray="5 5"></path>
+<g fill="var(--color-accent)">
+<circle cx="60" cy="250" r="6"></circle><circle cx="156" cy="218" r="6"></circle><circle cx="252" cy="186" r="6"></circle><circle cx="348" cy="148" r="6"></circle><circle cx="444" cy="112" r="6"></circle><circle cx="540" cy="78" r="6"></circle><circle cx="636" cy="48" r="6"></circle>
+</g>
+<g fill="var(--color-ink)" font-family="var(--font-body)" font-size="13" text-anchor="middle">
+<text x="60" y="278">Phänomen</text><text x="156" y="246">Frage</text><text x="252" y="214">Hypothese</text><text x="348" y="176">Vorhersage</text><text x="444" y="140">Untersuchung</text><text x="540" y="106">Daten</text><text x="636" y="76">Auswertung</text>
+</g>
+<text x="40" y="40" fill="var(--color-muted)" font-family="var(--font-outlier)" font-size="12">7 SCHRITTE · EIN PRÜFBARER WEG</text>
+</svg>
+</div>
+<div class="lab-stage__hint">Ziehen: drehen · Scrollen: zoomen · Klick: Stufe wählen</div>
+<div class="lab-tip lab-tip--stage" data-lab-tip aria-hidden="true"><p class="lab-tip__title"></p><p class="lab-tip__body"></p><p class="lab-tip__meta"></p></div>
+</div>
+<div class="lab-hud">
+<div class="lab-hud__group">
+<button class="btn btn--quiet btn--small" data-lab-play data-lab-play-label="Weg abspielen" data-lab-pause-label="Anhalten" aria-pressed="false" type="button">Weg abspielen</button>
+<button class="btn btn--quiet btn--small" data-lab-step type="button" data-tip="Gehe einen Schritt weiter. Die Szene hält an, damit du den Text in Ruhe lesen kannst.">Schritt</button>
+<button class="btn btn--quiet btn--small" data-lab-reset type="button" data-tip="Setzt den Erkenntnisweg auf Schritt 1 zurück und fährt die Kamera in die Ausgangsansicht.">Von vorn</button>
+</div>
+<div class="lab-hud__group" role="group" aria-label="Geschwindigkeit">
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-lab-speed="0.5" data-tip="Halbe Geschwindigkeit: gut zum Mitlesen und für die erste Begegnung mit dem Modell." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="1" aria-pressed="true" data-tip="Normale Geschwindigkeit: ein Schritt etwa alle zwei Sekunden." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="2" data-tip="Doppelte Geschwindigkeit: gut zum Wiederholen des gesamten Wegs." type="button">2×</button>
+</div>
+<span class="lab-hud__spacer"></span>
+<span class="lab-badge" data-methods-index>1 / 7</span>
+<button class="btn btn--quiet btn--small" data-lab-reset-view data-tip="Fährt die Kamera weich in die Ausgangsposition zurück. Die gewählte Stufe bleibt erhalten." type="button">Ansicht zurücksetzen</button>
+</div>
+<div aria-live="polite" class="lab-readout" data-methods-readout=""></div>
+<figcaption class="tool__caption">Der Weg ist kein starres Rezept. Die Reihenfolge hilft dir aber, Frage, Vermutung und Beleg auseinanderzuhalten. Klicke eine Stufe an, um ihren Beitrag zum Erkenntnisgewinn zu lesen.</figcaption>
+</figure>
+<figure class="tool" data-tool="experiment">
+<div class="tool__head">
+<p class="tool__title">Versuchsplaner</p>
+<p class="tool__hint">Lege die Variablen fest. Das Werkzeug prüft, ob dein Plan testbar ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<p><strong>Frage:</strong> Beeinflusst die Lichtfarbe die Fotosyntheserate?</p>
+<div class="matrix">
+<div class="matrix-row"><label for="exp-uv">Unabhängige Variable</label><select class="select" id="exp-uv" data-tip="Der Faktor, den du gezielt veränderst. Hier: die Lichtfarbe. Sie ist die Ursache, deren Wirkung du prüfen willst."><option value="farbe">Lichtfarbe</option><option value="rate">Fotosyntheserate</option><option value="zeit">Versuchsdauer</option></select></div>
+<div class="matrix-row"><label for="exp-av">Abhängige Variable</label><select class="select" id="exp-av" data-tip="Die Größe, die du als Antwort misst. Hier: die Fotosyntheserate. Sie wird nicht vom Versuchsleiter verändert."><option value="rate">Fotosyntheserate</option><option value="farbe">Lichtfarbe</option><option value="topf">Topfgröße</option></select></div>
+<div class="matrix-row"><label for="exp-control">Kontrolle</label><select class="select" id="exp-control" data-tip="Alle anderen Bedingungen gleich halten: gleiche Wassermenge, Temperatur, Topfgröße und Pflanzenart. Sonst ist der Effekt nicht eindeutig."><option value="gleich">Alle anderen Bedingungen gleich halten</option><option value="aendern">Alle anderen Bedingungen verändern</option><option value="keine">Keine Kontrolle nötig</option></select></div>
+<div class="matrix-row"><label for="exp-n">Stichprobe</label><select class="select" id="exp-n" data-tip="Mehrere Pflanzen pro Gruppe reduzieren den Einfluss des Zufalls. Eine einzelne Pflanze kann eine Hypothese stützen, aber nicht zuverlässig prüfen."><option value="gross">Mehrere Pflanzen pro Gruppe</option><option value="eine">Eine Pflanze pro Gruppe</option><option value="zwei">Zwei Pflanzen insgesamt</option></select></div>
+</div>
+<div aria-live="polite" class="matrix-result" data-exp-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Plan ist testbar, wenn die unabhängige Variable verändert wird, die abhängige Variable gemessen wird und Störgrößen kontrolliert bleiben.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Korrelation ist nicht Kausalität</summary>
+<p>Wenn zwei Größen gemeinsam auftreten, heißt das nicht, dass die eine die andere verursacht. Vielleicht gibt es eine dritte Variable, die beide beeinflusst, oder die Richtung ist umgekehrt. Ein Experiment mit gezielter Veränderung und Kontrollgruppe kann einen kausalen Zusammenhang stützen. Eine Beobachtungsstudie kann ihn nur plausibel machen.</p>
+<p>Fehlerquellen sind nicht nur Messfehler. Auch eine zu kleine Stichprobe, eine ungeeignete Kontrolle, ein zu kurzer Zeitraum oder eine verzerrte Auswahl können das Ergebnis verfälschen. Deshalb gehören zur Auswertung immer die Grenzen der Untersuchung.</p>
+</details>
+<section aria-labelledby="erkenntnisweg-check" class="checkpoint">
+<h3 id="erkenntnisweg-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="erkenntnisweg">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="erkenntnisweg" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "e1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Was macht eine Hypothese wissenschaftlich prüfbar?",
+              "options": [
+                "Sie ist allgemein formuliert und klingt plausibel.",
+                "Sie macht eine konkrete Vorhersage, die an Daten scheitern kann.",
+                "Sie wird von einer Autorität vertreten.",
+                "Sie erklärt alle Beobachtungen gleichzeitig."
+              ],
+              "correct": 1,
+              "explain": "Prüfbar wird eine Hypothese durch eine konkrete, falsifizierbare Vorhersage. Plausibilität oder Autorität ersetzen keine Prüfung."
+            },
+            {
+              "id": "e2",
+              "type": "input",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Wie heißt die Variable, die im Experiment gezielt verändert wird?",
+              "accept": ["unabhängige variable", "unabhaengige variable", "uv", "unabhängige"],
+              "model": "unabhängige Variable",
+              "explain": "Die unabhängige Variable wird vom Versuchsleiter verändert. Die abhängige Variable ist die gemessene Antwort."
+            },
+            {
+              "id": "e3",
+              "type": "mc",
+              "level": "r",
+              "competency": "E1",
+              "prompt": "Eine Beobachtungsstudie findet: Menschen mit mehr Bewegung haben seltener Herzinfarkte. Warum ist das noch kein Beweis für Kausalität?",
+              "options": [
+                "Weil Bewegung nicht messbar ist.",
+                "Weil eine dritte Variable, etwa Ernährung oder Alter, beide Größen beeinflussen könnte.",
+                "Weil Beobachtungsstudien keine Daten liefern.",
+                "Weil Herzinfarkte nicht biologisch erklärt werden können."
+              ],
+              "correct": 1,
+              "explain": "Beobachtungsdaten zeigen einen Zusammenhang. Ohne Kontrolle von Störvariablen und ohne gezielte Intervention bleibt die Kausalität offen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="erkenntnisweg" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="modelle" href="#modelle">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Hypothese, Vorhersage und Ergebnis sind drei verschiedene Dinge. Die Hypothese ist die Vermutung, die Vorhersage ist ihr testbarer Ausdruck, das Ergebnis ist der Befund.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>unabhängige Variable</dt><dd>wird verändert.</dd>
+<dt>abhängige Variable</dt><dd>wird gemessen.</dd>
+<dt>Kontrollgruppe</dt><dd>erhält keine oder eine neutrale Behandlung.</dd>
+<dt>Falsifizierbarkeit</dt><dd>die Möglichkeit, dass Daten die Hypothese widerlegen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur eine Pflanze pro Gruppe zu testen. Ein Einzelfall kann eine Hypothese stützen, aber nicht zuverlässig prüfen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="modelle" data-title="Modelle" data-track="true" id="modelle">
+<header class="station__head">
+<h2 id="modelle-title"><span class="station__num">03</span> Modelle sind Werkzeuge, keine Kopien</h2>
+<p class="lead">Ein Modell vereinfacht. Genau deshalb kann es etwas erklären, und genau deshalb hat es Grenzen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Modell ist eine vereinfachte Darstellung eines Systems, die für einen bestimmten Zweck gebaut wird. Die DNA-Doppelhelix erklärt die Speicherung und Weitergabe der Basenfolge, aber sie zeigt nicht, wie ein Gen reguliert wird. Das Schlüssel-Schloss-Modell erklärt die Spezifität eines Enzyms, aber nicht die gesamte Reaktionskinetik. Ein Modell ist also immer eine Antwort auf eine Frage, nicht die Wirklichkeit selbst.</p>
+<p>Modelle können materiell sein, etwa ein Bastelmodell der DNA, oder ideell, etwa eine Gleichung, ein Stammbaum oder eine Simulation. Wichtig ist, dass du den Zweck, die Vereinfachungen und die Grenzen benennst. Ein Modell, das alles zeigt, erklärt oft nichts.</p>
+<figure class="tool" data-tool="model-compare">
+<div class="tool__head">
+<p class="tool__title">Modellvergleich</p>
+<p class="tool__hint">Wähle ein Modell. Prüfe, welche Fragen es beantwortet und wo es an seine Grenzen kommt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="source-grid">
+<div class="source-card">
+<h3>DNA-Doppelhelix</h3>
+<p>Zwei Stränge, komplementäre Basen, Wasserstoffbrücken. Gut für Speicherung, Replikation und Basenpaarung.</p>
+</div>
+<div class="source-card">
+<h3>Schlüssel-Schloss</h3>
+<p>Substrat und aktives Zentrum passen räumlich zusammen. Gut für Spezifität, aber nicht für jede Regulation.</p>
+</div>
+<div class="source-card">
+<h3>Selektionsmodell</h3>
+<p>Variation, Vererbung und unterschiedlicher Fortpflanzungserfolg. Gut für Populationsprozesse, nicht für einzelne Fossilien.</p>
+</div>
+</div>
+<div aria-live="polite" class="matrix-result" data-model-readout="">Wähle ein Modell, um seine Stärken und Grenzen zu sehen.</div>
+</div>
+<figcaption class="tool__caption">Ein Modell ist gut, wenn es die Frage beantwortet, für die es gebaut wurde. Für eine andere Frage brauchst du vielleicht ein anderes Modell.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Wann ein Modell zu einfach ist</summary>
+<p>Das Schlüssel-Schloss-Modell beschreibt die Bindung als starres Passen. In Wirklichkeit sind Enzyme flexibel, und die Bindung kann das aktive Zentrum verändern. Das Modell bleibt nützlich, weil es die Spezifität anschaulich macht. Es wird problematisch, wenn du damit erklären willst, warum ein Enzym bei hoher Temperatur denaturiert oder warum ein Inhibitor kompetitiv wirkt. Dafür brauchst du ein Modell, das Flexibilität und Kinetik einbezieht.</p>
+<p>Die Frage lautet nicht „Ist das Modell wahr?“, sondern „Für welche Frage ist es gut genug, und wo führt es in die Irre?“</p>
+</details>
+<section aria-labelledby="modelle-check" class="checkpoint">
+<h3 id="modelle-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="modelle">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="modelle" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "m1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E2",
+              "prompt": "Was ist ein Modell in der Biologie?",
+              "options": [
+                "Eine exakte Kopie der Wirklichkeit.",
+                "Eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck.",
+                "Eine Vermutung, die noch nicht geprüft wurde.",
+                "Eine Messung ohne Fehler."
+              ],
+              "correct": 1,
+              "explain": "Ein Modell ist eine zweckgebundene Vereinfachung. Es kann materiell oder ideell sein und muss an der Wirklichkeit geprüft werden."
+            },
+            {
+              "id": "m2",
+              "type": "multi",
+              "level": "g",
+              "competency": "E2",
+              "prompt": "Welche Aussagen sind Grenzen der DNA-Doppelhelix als Modell?",
+              "options": [
+                "Sie zeigt nicht, wie Gene reguliert werden.",
+                "Sie zeigt die Basenpaarung nur schematisch.",
+                "Sie macht die Speicherung der Basenfolge anschaulich.",
+                "Sie ist keine Fotografie der Wirklichkeit."
+              ],
+              "correct": [0, 1, 3],
+              "explain": "Die Doppelhelix ist ein Modell, keine Fotografie. Sie zeigt die Basenpaarung schematisch und erklärt die Genregulation nicht. Die Anschaulichkeit der Speicherung ist eine Stärke, keine Grenze."
+            },
+            {
+              "id": "m3",
+              "type": "mc",
+              "level": "r",
+              "competency": "E2",
+              "prompt": "Wann ist ein einfacheres Modell dem genaueren Modell vorzuziehen?",
+              "options": [
+                "Wenn es die Frage für den vorgesehenen Zweck klarer beantwortet.",
+                "Wenn es mehr Details zeigt, auch wenn diese für die Frage irrelevant sind.",
+                "Wenn es die Wirklichkeit exakt abbildet.",
+                "Wenn es keine Grenzen hat."
+              ],
+              "correct": 0,
+              "explain": "Modelle werden nach ihrem Zweck beurteilt. Ein einfacheres Modell kann für eine klare Frage besser sein, wenn die zusätzlichen Details die Erklärung nur überladen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="modelle" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="daten" href="#daten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Jedes Modell ist für eine Frage gebaut. Nenne den Zweck, die Vereinfachung und die Grenze.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>materielles Modell</dt><dd>zum Beispiel ein DNA-Bastelmodell.</dd>
+<dt>ideelles Modell</dt><dd>zum Beispiel eine Gleichung oder ein Stammbaum.</dd>
+<dt>Modellkritik</dt><dd>prüft, was das Modell zeigt und was es ausblendet.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Ein Modell mit der Wirklichkeit verwechseln. „Das Modell zeigt es so“ ist kein Beweis, dass es in der Natur genau so abläuft.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="daten" data-title="Daten und Darstellungen" data-track="true" id="daten">
+<header class="station__head">
+<h2 id="daten-title"><span class="station__num">04</span> Daten lesen, ohne zu viel zu behaupten</h2>
+<p class="lead">Ein Diagramm zeigt Muster. Was das Muster bedeutet, entscheidest du nicht am Diagramm allein.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Daten werden in Tabellen, Diagrammen und Texten dargestellt. Gute Darstellungen nennen die Messgröße, die Einheit, die Versuchsbedingungen und die Zahl der Messungen. Ein Punktdiagramm kann einen Trend zeigen, aber ohne Fehlerbalken und Streuung siehst du nicht, wie sicher der Trend ist. Ein Balkendiagramm mit abgeschnittener Achse kann Unterschiede größer wirken lassen, als sie sind.</p>
+<p>Bei der Auswertung unterscheidest du Beschreibung und Interpretation. „Die Versuchsgruppe hat im Mittel 12 cm erreicht, die Kontrollgruppe 9 cm“ ist eine Beschreibung. „Das Licht fördert das Wachstum“ ist eine Interpretation, die du mit weiteren Daten und einem Mechanismus stützen musst.</p>
+<figure class="tool" data-tool="chart-read">
+<div class="tool__head">
+<p class="tool__title">Diagramm lesen</p>
+<p class="tool__hint">Wähle eine Aussage. Das Werkzeug zeigt, ob sie von den Daten getragen wird.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Liniendiagramm: Fotosyntheserate in Abhängigkeit von der Lichtintensität. Die Rate steigt zunächst, flacht dann ab." class="chart" role="img" viewbox="0 0 640 300">
+<line class="axis" x1="60" x2="600" y1="250" y2="250"></line>
+<line class="axis" x1="60" x2="60" y1="250" y2="30"></line>
+<line class="gridline" x1="60" x2="600" y1="190" y2="190"></line>
+<line class="gridline" x1="60" x2="600" y1="130" y2="130"></line>
+<line class="gridline" x1="60" x2="600" y1="70" y2="70"></line>
+<path class="series" d="M60 245 C140 230, 190 170, 260 120 S390 75, 480 70 S560 68, 600 68"></path>
+<text x="300" y="285">Lichtintensität</text>
+<text transform="rotate(-90 8 150)" x="8" y="150">Fotosyntheserate</text>
+<text x="580" y="245">hoch</text>
+<text x="55" y="268">niedrig</text>
+</svg>
+<div aria-live="polite" class="matrix-result" data-chart-readout="">Wähle eine Aussage.</div>
+</div>
+<figcaption class="tool__caption">Die Kurve steigt zunächst und nähert sich dann einem Plateau. Das ist ein Muster, noch keine Erklärung.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was Fehlerbalken verraten</summary>
+<p>Fehlerbalken zeigen die Streuung der Daten oder die Unsicherheit des Mittelwerts. Überlappen sich die Bereiche zweier Gruppen stark, ist ein Unterschied unsicher. Überlappen sie sich nicht, ist ein Unterschied plausibel, aber nicht automatisch kausal. Die Größe des Fehlerbalkens hängt davon ab, was er darstellt: Standardabweichung, Standardfehler oder Konfidenzintervall. Ohne diese Angabe ist er nur eine Dekoration.</p>
+<p>Bei kleinen Stichproben sind Zufallseffekte besonders groß. Deshalb ist die Zahl der Wiederholungen ein Teil der Datenqualität, nicht ein Detail für den Anhang.</p>
+</details>
+<section aria-labelledby="daten-check" class="checkpoint">
+<h3 id="daten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="daten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="daten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "d1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Was kannst du aus einem Diagramm mit einem klaren Trend sicher schließen?",
+              "options": [
+                "Dass die eine Größe die andere verursacht.",
+                "Dass die Daten in dem untersuchten Bereich ein Muster zeigen.",
+                "Dass das Muster für alle Organismen gilt.",
+                "Dass die Messung fehlerfrei war."
+              ],
+              "correct": 1,
+              "explain": "Ein Diagramm zeigt zunächst ein Muster in den erhobenen Daten. Kausalität, Verallgemeinerung und Fehlerfreiheit sind zusätzliche Aussagen, die eigene Belege brauchen."
+            },
+            {
+              "id": "d2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Warum ist eine abgeschnittene y-Achse problematisch?",
+              "options": [
+                "Sie kann kleine Unterschiede größer wirken lassen.",
+                "Sie macht das Diagramm immer falsch.",
+                "Sie verändert die Messwerte.",
+                "Sie verhindert die Beschriftung."
+              ],
+              "correct": 0,
+              "explain": "Eine abgeschnittene Achse kann die wahrgenommene Größe eines Unterschieds verzerren. Sie ist nicht automatisch falsch, aber sie muss bewusst gelesen und gekennzeichnet werden."
+            },
+            {
+              "id": "d3",
+              "type": "mc",
+              "level": "r",
+              "competency": "E1",
+              "prompt": "Zwei Gruppen unterscheiden sich im Mittel, aber die Fehlerbalken überlappen stark. Was ist die vorsichtige Interpretation?",
+              "options": [
+                "Der Unterschied ist sicher bewiesen.",
+                "Der Unterschied ist plausibel, aber die Unsicherheit ist groß.",
+                "Es gibt keinen Unterschied, weil die Mittelwerte gleich sind.",
+                "Die Messung war unnötig."
+              ],
+              "correct": 1,
+              "explain": "Überlappende Fehlerbalken sprechen gegen einen sicheren Unterschied. Die Daten sind mit Unsicherheit vereinbar; weitere Wiederholungen oder eine größere Stichprobe wären nötig."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="daten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="quellen" href="#quellen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Beschreibung und Interpretation trennen. Erst sagen, was gemessen wurde, dann, was es bedeuten könnte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Messgröße</dt><dd>was gemessen wird, mit Einheit.</dd>
+<dt>Streuung</dt><dd>wie weit die Einzelwerte auseinanderliegen.</dd>
+<dt>Trend</dt><dd>die Richtung des Zusammenhangs.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Von einem einzelnen Diagramm auf „alle“ oder „immer“ schließen. Die Reichweite einer Aussage muss zu den Daten passen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="quellen" data-title="Quellen und Kommunikation" data-track="true" id="quellen">
+<header class="station__head">
+<h2 id="quellen-title"><span class="station__num">05</span> Quellen prüfen, Argumente bauen</h2>
+<p class="lead">Nicht jede Information, die sich biologisch anhört, ist eine biologische Quelle. Prüfe Herkunft, Methode und Interesse.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine Primärquelle berichtet eine Untersuchung aus erster Hand, meist in einer Fachzeitschrift mit Begutachtung. Eine Sekundärquelle fasst Primärquellen zusammen, etwa ein Lehrbuch oder ein Wissenschaftsartikel. Eine Pressemitteilung, ein Social-Media-Post oder ein Werbetext kann über eine Studie berichten, ist aber nicht die Studie selbst.</p>
+<p>Zur Quellenprüfung gehören Autor und Institution, Datum, Methode, Stichprobe, Interessenkonflikt und die Frage, ob die Aussage durch die Daten gedeckt ist. Ein häufiger Fehler ist, eine Überschrift zu zitieren, ohne den Originalbefund zu prüfen. Ein anderer ist, eine Korrelation als Beweis für eine Ursache zu verkaufen.</p>
+<figure class="tool" data-tool="source-check">
+<div class="tool__head">
+<p class="tool__title">Quellenprüfung</p>
+<p class="tool__hint">Wähle eine Quelle. Das Werkzeug zeigt, wie tragfähig sie ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="source-grid">
+<div class="source-card">
+<h3>Originalstudie</h3>
+<p>Fachzeitschrift, begutachtet, Methode und Stichprobe dokumentiert, Interessenkonflikt angegeben.</p>
+<p><strong>Stärke:</strong> nachprüfbar. <strong>Grenze:</strong> oft enges Setting.</p>
+</div>
+<div class="source-card">
+<h3>Wissenschaftsartikel</h3>
+<p>Fasst mehrere Studien zusammen, nennt Quellen, ist für ein breites Publikum geschrieben.</p>
+<p><strong>Stärke:</strong> Überblick. <strong>Grenze:</strong> Vereinfachung.</p>
+</div>
+<div class="source-card">
+<h3>Social-Media-Post</h3>
+<p>Behauptet einen Zusammenhang, nennt keine Studie, keine Stichprobe, kein Datum.</p>
+<p><strong>Stärke:</strong> schnelle Verbreitung. <strong>Grenze:</strong> keine Prüfbarkeit.</p>
+</div>
+</div>
+<div aria-live="polite" class="matrix-result" data-source-readout="">Wähle eine Quelle, um die Bewertung zu sehen.</div>
+</div>
+<figcaption class="tool__caption">Eine Quelle ist nicht schon deshalb gut, weil sie wissenschaftlich klingt. Entscheidend sind Nachprüfbarkeit, Methode und Transparenz.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Proximate und ultimate Sprache</summary>
+<p>Die Frage „Warum hat der Vogel ein buntes Gefieder?“ kann zwei Antworten haben. Proximat: Das Gefieder enthält Pigmente, die in der Feder gebildet werden. Ultimate: Das Gefieder signalisiert Fitness und erhöht den Fortpflanzungserfolg. Eine finale Antwort wie „damit der Vogel schöner aussieht“ ist keine wissenschaftliche Erklärung, weil sie einen Zweck unterstellt, den die Evolution nicht plant.</p>
+<p>In der Fachsprache trennst du außerdem Alltagssprache und Fachsprache. „Der Vogel will beeindrucken“ ist Alltagssprache. „Das Gefieder ist ein Signal, das von Partnern bewertet wird“ ist eine überprüfbare Beschreibung.</p>
+</details>
+<section aria-labelledby="quellen-check" class="checkpoint">
+<h3 id="quellen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="quellen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="quellen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "q1",
+              "type": "mc",
+              "level": "g",
+              "competency": "K1",
+              "prompt": "Welche Quelle ist eine Primärquelle?",
+              "options": [
+                "Eine Originalstudie in einer begutachteten Fachzeitschrift.",
+                "Ein Zeitungsartikel über eine Studie.",
+                "Ein Lehrbuchkapitel über Genetik.",
+                "Ein Social-Media-Post mit einem Studienschlagwort."
+              ],
+              "correct": 0,
+              "explain": "Die Originalstudie berichtet die Untersuchung aus erster Hand. Die anderen Quellen fassen zusammen oder berichten darüber."
+            },
+            {
+              "id": "q2",
+              "type": "multi",
+              "level": "g",
+              "competency": "K1",
+              "prompt": "Welche Kriterien machen eine Quelle vertrauenswürdiger?",
+              "options": [
+                "Die Methode ist nachvollziehbar.",
+                "Die Stichprobe ist beschrieben.",
+                "Interessenkonflikte werden offengelegt.",
+                "Die Quelle hat viele Likes."
+              ],
+              "correct": [0, 1, 2],
+              "explain": "Nachvollziehbare Methode, beschriebene Stichprobe und transparente Interessen sind Prüfkriterien. Likes sind kein wissenschaftliches Qualitätsmerkmal."
+            },
+            {
+              "id": "q3",
+              "type": "mc",
+              "level": "r",
+              "competency": "K1",
+              "prompt": "Eine Pressemitteilung schreibt: „Studie beweist, dass Kaffee das Leben verlängert.“ Was prüfst du zuerst?",
+              "options": [
+                "Ob die Originalstudie die Aussage deckt und welche Stichprobe untersucht wurde.",
+                "Ob der Kaffee fair gehandelt ist.",
+                "Ob die Überschrift gut klingt.",
+                "Ob viele Menschen die Meldung geteilt haben."
+              ],
+              "correct": 0,
+              "explain": "Die Originalstudie und die Stichprobe entscheiden, ob die Aussage gedeckt ist. Pressemitteilungen verkürzen oft und machen aus Korrelationen gern Kausalität."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="quellen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="bewerten" href="#bewerten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Erst die Quelle prüfen, dann die Aussage. Eine Überschrift ist kein Befund.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Primärquelle</dt><dd>Originalarbeit mit Daten.</dd>
+<dt>Sekundärquelle</dt><dd>Zusammenfassung oder Überblick.</dd>
+<dt>Peer Review</dt><dd>Begutachtung durch Fachleute vor der Veröffentlichung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Eine Studie aus einer Pressemitteilung zitieren, ohne die Originalarbeit zu lesen. Die Überschrift ist oft stärker als der Befund.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="bewerten" data-title="Bewerten" data-track="true" id="bewerten">
+<header class="station__head">
+<h2 id="bewerten-title"><span class="station__num">06</span> Bewerten heißt abwägen, nicht meinen</h2>
+<p class="lead">Eine Bewertung braucht Kriterien, Perspektiven und die Trennung von Tatsache und Werturteil.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Eine deskriptive Aussage beschreibt, was ist. Eine normative Aussage sagt, was sein soll. „Die Gentherapie kann eine Erkrankung lindern“ ist deskriptiv. „Gentherapie sollte allen zugänglich sein“ ist normativ. Beide können in einer Diskussion vorkommen, aber sie brauchen unterschiedliche Begründungen. Aus einem Sein folgt nicht automatisch ein Sollen; dieser Fehler heißt naturalistischer Fehlschluss.</p>
+<p>Eine kriteriengeleitete Bewertung legt zuerst die Kriterien fest, gewichtet sie und prüft die Optionen. Bei einer medizinischen Anwendung können das Wirksamkeit, Sicherheit, Autonomie, Gerechtigkeit und Kosten sein. Unterschiedliche Perspektiven können zu unterschiedlichen Gewichtungen kommen. Das ist kein Zeichen von Beliebigkeit, sondern der Kern einer transparenten Abwägung.</p>
+<figure class="tool" data-tool="evaluation">
+<div class="tool__head">
+<p class="tool__title">Bewertungsmatrix</p>
+<p class="tool__hint">Gewichte vier Kriterien und vergleiche zwei Optionen. Das Ergebnis ist ein begründetes Urteil, keine objektive Wahrheit.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="matrix">
+<div class="matrix-row"><label for="w-health">Wirksamkeit</label><input class="input" data-weight="health" id="w-health" max="5" min="0" step="1" type="range" value="4" data-tip="Wie stark soll der medizinische Nutzen zählen? 0 bedeutet: gar nicht, 5 bedeutet: sehr stark. Die Gewichtung ist eine begründete Entscheidung, keine Messung."/><output data-weight-out="health" for="w-health">4</output></div>
+<div class="matrix-row"><label for="w-safety">Sicherheit</label><input class="input" data-weight="safety" id="w-safety" max="5" min="0" step="1" type="range" value="4" data-tip="Wie stark sollen Nebenwirkungen und Risiken zählen? Eine hohe Gewichtung verlangt eine besonders sichere Option."/><output data-weight-out="safety" for="w-safety">4</output></div>
+<div class="matrix-row"><label for="w-access">Gerechtigkeit</label><input class="input" data-weight="access" id="w-access" max="5" min="0" step="1" type="range" value="3" data-tip="Wie stark soll der Zugang für alle Betroffenen zählen? Gerechtigkeit ist ein eigenes Kriterium, kein Nebenprodukt der Wirksamkeit."/><output data-weight-out="access" for="w-access">3</output></div>
+<div class="matrix-row"><label for="w-cost">Kosten</label><input class="input" data-weight="cost" id="w-cost" max="5" min="0" step="1" type="range" value="2" data-tip="Wie stark sollen finanzielle und organisatorische Kosten zählen? Kosten sind ein Kriterium neben Wirksamkeit, Sicherheit und Gerechtigkeit."/><output data-weight-out="cost" for="w-cost">2</output></div>
+</div>
+<div aria-live="polite" class="matrix-result" data-eval-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Matrix macht sichtbar, welche Kriterien du wie stark gewichtest. Sie ersetzt nicht die Begründung, sie strukturiert sie.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Der naturalistische Fehlschluss</summary>
+<p>Der naturalistische Fehlschluss besteht darin, aus einer beschreibenden Aussage direkt eine normative abzuleiten. „Menschen haben schon immer in Gruppen gelebt, also sollen sie es auch weiter tun“ ist ein Beispiel. Die Beobachtung kann relevant sein, aber sie begründet das Sollen nicht allein. Dafür brauchst du Werte und Kriterien, die du offenlegst.</p>
+<p>In der Biologie ist das besonders wichtig, wenn aus evolutionären Beschreibungen politische Forderungen abgeleitet werden. Evolution erklärt, wie Merkmale entstanden sind. Sie sagt nicht, wie wir handeln sollen.</p>
+</details>
+<section aria-labelledby="bewerten-check" class="checkpoint">
+<h3 id="bewerten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="bewerten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="bewerten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "b1",
+              "type": "mc",
+              "level": "g",
+              "competency": "B1",
+              "prompt": "Welche Aussage ist normativ?",
+              "options": [
+                "Die Impfung senkt das Risiko einer schweren Erkrankung.",
+                "Die Impfung sollte für alle zugänglich sein.",
+                "Die Impfung wird an einem Tag verabreicht.",
+                "Die Impfung hat Nebenwirkungen."
+              ],
+              "correct": 1,
+              "explain": "„Sollte“ macht eine normative Aussage. Die anderen Aussagen beschreiben einen Sachverhalt."
+            },
+            {
+              "id": "b2",
+              "type": "mc",
+              "level": "g",
+              "competency": "B2",
+              "prompt": "Was ist der naturalistische Fehlschluss?",
+              "options": [
+                "Aus einer Beschreibung des Seins direkt ein Sollen abzuleiten.",
+                "Eine Naturbeobachtung zu wiederholen.",
+                "Ein Modell zu vereinfachen.",
+                "Eine Quelle nicht zu zitieren."
+              ],
+              "correct": 0,
+              "explain": "Der naturalistische Fehlschluss leitet aus dem, was ist, direkt ab, was sein soll. Werte und Kriterien müssen separat begründet werden."
+            },
+            {
+              "id": "b3",
+              "type": "mc",
+              "level": "r",
+              "competency": "B2",
+              "prompt": "Zwei Personen bewerten eine Gentherapie unterschiedlich. Was ist die beste Reaktion?",
+              "options": [
+                "Die unterschiedlichen Kriterien und Gewichtungen offenlegen und prüfen.",
+                "Eine Meinung als unwissenschaftlich abtun.",
+                "Die Diskussion beenden, weil Werte subjektiv sind.",
+                "Nur die Wirksamkeit zählen lassen."
+              ],
+              "correct": 0,
+              "explain": "Eine transparente Bewertung legt Kriterien und Gewichtungen offen. Unterschiedliche Urteile können aus unterschiedlichen, aber begründbaren Gewichtungen entstehen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="bewerten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Kriterien vor der Bewertung festlegen. Sonst suchst du nachträglich Gründe für ein Urteil, das schon feststeht.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>deskriptiv</dt><dd>beschreibt, was ist.</dd>
+<dt>normativ</dt><dd>sagt, was sein soll.</dd>
+<dt>naturalistischer Fehlschluss</dt><dd>vom Sein direkt aufs Sollen schließen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>„Die Natur macht es so, also ist es richtig“ ist kein Argument. Evolution ist keine moralische Instanz.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Methoden</h2>
+<p class="lead">Acht Aufgaben zu den Kompetenzbereichen dieses Lernbereichs. Im erhöhten Niveau kommen zwei Vertiefungen dazu.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du, welche Kompetenz sitzt und welche du noch üben solltest. Dein Bestwert bleibt auf diesem Gerät gespeichert.</p>
+<div class="check" data-check="methoden">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="methoden" type="application/json">
+      {
+        "competencies": {
+          "S1": "Sachverhalte mit Basiskonzepten und Systemebenen beschreiben",
+          "E1": "Fragen, Hypothesen und Untersuchungen planen",
+          "E2": "Modelle nutzen und ihre Grenzen benennen",
+          "K1": "Quellen prüfen und fachsprachlich argumentieren",
+          "B1": "Deskriptive und normative Aussagen unterscheiden",
+          "B2": "Anwendungen kriteriengeleitet bewerten"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Welche Kombination aus Systemebene und Basiskonzept passt am besten zur Frage: Wie beeinflusst ein Enzym die Reaktionsgeschwindigkeit?",
+            "options": ["Molekülebene, Struktur und Funktion", "Biosphäre, Entwicklung", "Population, Variabilität", "Ökosystem, Stofffluss"],
+            "correct": 0,
+            "explain": "Die Frage betrifft die räumliche Struktur und die Funktion eines Enzyms, also die Molekülebene mit dem Basiskonzept Struktur und Funktion."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "E1",
+            "prompt": "Welche Formulierung ist eine prüfbare Hypothese?",
+            "options": [
+              "Pflanzen mögen Licht.",
+              "Tomatenpflanzen mit 200 ml Wasser pro Tag erreichen nach vier Wochen eine größere Sprosslänge als Pflanzen mit 50 ml.",
+              "Wasser ist wichtig.",
+              "Alle Pflanzen brauchen Wasser."
+            ],
+            "correct": 1,
+            "explain": "Die Hypothese legt Behandlung, Zeitraum und Messgröße fest und kann an Daten scheitern."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "E2",
+            "prompt": "Was ist eine Stärke des Schlüssel-Schloss-Modells?",
+            "options": [
+              "Es erklärt die räumliche Spezifität von Enzym und Substrat.",
+              "Es erklärt die Denaturierung bei Hitze vollständig.",
+              "Es zeigt die gesamte Reaktionskinetik.",
+              "Es ist eine exakte Kopie des aktiven Zentrums."
+            ],
+            "correct": 0,
+            "explain": "Das Modell macht die Spezifität anschaulich. Für Kinetik und Denaturierung braucht es Erweiterungen."
+          },
+          {
+            "id": "c4",
+            "type": "multi",
+            "level": "g",
+            "competency": "K1",
+            "prompt": "Welche Angaben gehören zu einer guten Quellenprüfung?",
+            "options": ["Autor und Institution", "Datum und Methode", "Stichprobe und Interessenkonflikt", "Die Zahl der Likes"],
+            "correct": [0, 1, 2],
+            "explain": "Herkunft, Datum, Methode, Stichprobe und Interessen sind prüfbar. Likes sind kein Qualitätsmerkmal."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "B1",
+            "prompt": "Welche Aussage ist deskriptiv?",
+            "options": [
+              "Die Gentherapie kann eine Erkrankung lindern.",
+              "Die Gentherapie sollte allen zugänglich sein.",
+              "Man darf Gentherapie nicht ablehnen.",
+              "Gentherapie ist unfair."
+            ],
+            "correct": 0,
+            "explain": "„Kann lindern“ beschreibt eine Möglichkeit. Die anderen Aussagen enthalten eine Bewertung oder Forderung."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "B2",
+            "prompt": "Was macht eine ethische Bewertung transparent?",
+            "options": [
+              "Die Kriterien und ihre Gewichtung offenlegen.",
+              "Nur die eigene Meinung wiederholen.",
+              "Die stärkste Überschrift zitieren.",
+              "Alle Kriterien gleich gewichten, ohne sie zu nennen."
+            ],
+            "correct": 0,
+            "explain": "Transparenz entsteht durch offengelegte Kriterien und Gewichtungen, nicht durch eine behauptete Objektivität."
+          },
+          {
+            "id": "c7",
+            "type": "input",
+            "level": "g",
+            "competency": "E1",
+            "prompt": "Wie nennt man die Gruppe, die bei einem Experiment keine Behandlung erhält?",
+            "accept": ["kontrollgruppe", "kontrolle", "kontrollgruppe ohne behandlung"],
+            "model": "Kontrollgruppe",
+            "explain": "Die Kontrollgruppe dient als Vergleich. Ohne sie lässt sich der Effekt der Behandlung nicht isolieren."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "K1",
+            "prompt": "Warum ist eine Korrelation noch kein Beweis für Kausalität?",
+            "options": [
+              "Weil eine dritte Variable beide Größen beeinflussen kann.",
+              "Weil Korrelationen nie berechnet werden.",
+              "Weil es immer nur zwei Gruppen gibt.",
+              "Weil Kausalität in der Biologie nicht vorkommt."
+            ],
+            "correct": 0,
+            "explain": "Eine gemeinsame Veränderung kann durch eine Störvariable entstehen. Für Kausalität braucht es eine gezielte Prüfung."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "r",
+            "competency": "E2",
+            "prompt": "Ein Modell erklärt ein Phänomen sehr gut, passt aber nicht zu neuen Daten. Was ist die wissenschaftliche Reaktion?",
+            "options": [
+              "Das Modell beibehalten, weil es anschaulich ist.",
+              "Das Modell prüfen, seine Grenzen benennen und es gegebenenfalls erweitern oder ersetzen.",
+              "Die neuen Daten ignorieren.",
+              "Das Modell als endgültige Wahrheit erklären."
+            ],
+            "correct": 1,
+            "explain": "Modelle sind vorläufig. Neue Daten können eine Erweiterung oder einen Wechsel nötig machen."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "r",
+            "competency": "B2",
+            "prompt": "Eine Maßnahme hat kurzfristig einen großen Nutzen, aber langfristig hohe ökologische Kosten. Was gehört in die Bewertung?",
+            "options": [
+              "Nur der kurzfristige Nutzen.",
+              "Nur die ökologischen Kosten.",
+              "Beide Zeithorizonte und die betroffenen Perspektiven.",
+              "Nur die Meinung der Mehrheit."
+            ],
+            "correct": 2,
+            "explain": "Eine tragfähige Bewertung betrachtet kurz- und langfristige Folgen sowie die betroffenen Perspektiven."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt dir pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert, damit du deinen Fortschritt siehst.</p>
+</div>
+<div class="note">
+<p class="note__title">Drucken</p>
+<p>Über „Drucken“ bekommst du die Aufgaben und die Lösungen auf Papier. Die Lösungen erscheinen nur im Druck.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Basiskonzept</dt><dd>Denkwerkzeug, mit dem ein biologischer Sachverhalt strukturiert wird, etwa System oder Struktur und Funktion.</dd></div>
+<div class="glossary__row"><dt>deskriptiv</dt><dd>Beschreibt einen Sachverhalt, ohne eine Forderung aufzustellen.</dd></div>
+<div class="glossary__row"><dt>Falsifizierbarkeit</dt><dd>Die Eigenschaft einer Hypothese, durch Daten widerlegt werden zu können.</dd></div>
+<div class="glossary__row"><dt>Hypothese</dt><dd>Eine begründete, vorläufige Antwort auf eine Frage, die geprüft werden kann.</dd></div>
+<div class="glossary__row"><dt>Kausalität</dt><dd>Ein ursächlicher Zusammenhang: Eine Veränderung bewirkt eine andere.</dd></div>
+<div class="glossary__row"><dt>Kontrollgruppe</dt><dd>Vergleichsgruppe ohne die zu prüfende Behandlung.</dd></div>
+<div class="glossary__row"><dt>Korrelation</dt><dd>Ein gemeinsames Auftreten oder eine statistische Beziehung zweier Größen, ohne dass damit eine Ursache bewiesen ist.</dd></div>
+<div class="glossary__row"><dt>Modell</dt><dd>Eine vereinfachte Darstellung eines Systems für einen bestimmten Zweck.</dd></div>
+<div class="glossary__row"><dt>naturalistischer Fehlschluss</dt><dd>Der Fehler, aus einer Beschreibung des Seins direkt eine normative Forderung abzuleiten.</dd></div>
+<div class="glossary__row"><dt>normativ</dt><dd>Stellt eine Forderung auf oder bewertet, was sein soll.</dd></div>
+<div class="glossary__row"><dt>Peer Review</dt><dd>Begutachtung einer wissenschaftlichen Arbeit durch Fachleute vor der Veröffentlichung.</dd></div>
+<div class="glossary__row"><dt>Primärquelle</dt><dd>Eine Originalarbeit, die Daten und Methode selbst berichtet.</dd></div>
+<div class="glossary__row"><dt>proximat</dt><dd>Erklärt, wie ein Vorgang im Organismus abläuft.</dd></div>
+<div class="glossary__row"><dt>Sekundärquelle</dt><dd>Eine Zusammenfassung oder ein Überblick über Primärquellen.</dd></div>
+<div class="glossary__row"><dt>ultimate</dt><dd>Erklärt, warum ein Merkmal in der Evolution begünstigt wurde.</dd></div>
+<div class="glossary__row"><dt>unabhängige Variable</dt><dd>Die Variable, die im Experiment gezielt verändert wird.</dd></div>
+<div class="glossary__row"><dt>abhängige Variable</dt><dd>Die Variable, die als Antwort gemessen wird.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind keine Dekoration. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 12</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/grundlegend" target="_blank" rel="noopener" class="g-only">LehrplanPLUS Biologie 12, grundlegend</a>
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/erhoeht" target="_blank" rel="noopener" class="r-only">LehrplanPLUS Biologie 12, erhöht</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js?v=2026-11-04"></script>
+<script src="./assets/three-scenes.js"></script>
+<script src="lab.js?v=2026-11-04b"></script>
+
+</body>
+</html>

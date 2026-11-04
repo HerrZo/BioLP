@@ -1,0 +1,1130 @@
+<!doctype html>
+<html lang="de" data-grade="10" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Ökosystem Mensch | Biologie 10</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 10 zum Ökosystem Mensch: Mikrobiom, Infektionen, Immunsystem, Impfung und Antibiotika.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Riso (deal 2/3, seed interaktive-lernwebsite-biologie-mensch-deb1·d40053e4·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: das 3D-Immunsystem und die Impfkurve · states: default, hover, focus, active, disabled, loading, empty, error · riso: two drums
+ * axes: light/grotesk-heavy/chromatic-pink · posture: committed · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the pink drum must fill without becoming a candy surface; theme.css keeps the fills to controls, one band and the overprint, and the blue writes every word */
+/* Hallmark · answered F4 · the 10 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Cabinet Grotesk; every figure is Literata with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.microbiome-card, .bacteria-card, .immune-card, .antibiotic-card { display: grid; gap: var(--space-sm); }
+.microbiome-card__title, .bacteria-card__title, .immune-card__title, .antibiotic-card__title { margin: 0; font: 800 var(--text-xl)/1.15 var(--font-display); }
+.microbiome-card__text, .bacteria-card__text, .immune-card__text, .antibiotic-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.microbiome-card__list, .bacteria-card__list, .immune-card__list, .antibiotic-card__list { margin: 0; padding-left: 1.2em; }
+.microbiome-card__list li, .bacteria-card__list li, .immune-card__list li, .antibiotic-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.lytic-svg { width: 100%; height: auto; display: block; }
+.lytic-svg .track { stroke: var(--color-rule); stroke-width: 2; }
+.lytic-svg .stage { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.lytic-svg .stage.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.lytic-svg .stage-label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.lytic-svg .stage.is-active + .stage-label { fill: var(--color-ink); }
+.vaccine-svg { width: 100%; height: auto; display: block; }
+.vaccine-svg .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.vaccine-svg .grid { stroke: var(--color-rule); stroke-width: 1; }
+.vaccine-svg .curve { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.vaccine-svg .curve--passive { stroke: var(--color-ink); stroke-dasharray: 6 4; }
+.vaccine-svg .marker { stroke: var(--color-ink); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.vaccine-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.vaccine-meter { display: grid; grid-template-columns: 8rem minmax(0, 1fr) 3rem; gap: var(--space-sm); align-items: center; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.vaccine-meter__track { height: 10px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.vaccine-meter__track i { display: block; height: 100%; width: 100%; background: var(--color-accent); transform: scaleX(0.1); transform-origin: left center; transition: transform var(--dur-short) var(--ease-out); }
+.vaccine-meter output { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.antibiotic-bars { display: grid; gap: var(--space-xs); }
+.antibiotic-bar { display: grid; grid-template-columns: 6rem minmax(0, 1fr) 3.5rem; gap: var(--space-sm); align-items: center; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.antibiotic-bar__track { height: 12px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.antibiotic-bar__track i { display: block; height: 100%; width: 100%; background: var(--color-accent); transform: scaleX(0.5); transform-origin: left center; transition: transform var(--dur-short) var(--ease-out); }
+.antibiotic-bar__track i.is-resistant { background: var(--color-ink); }
+.antibiotic-bar output { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.antibiotic-generation { margin: 0; font: 500 var(--text-sm)/1.4 var(--font-body); color: var(--color-muted); }
+.virus-fallback { width: 100%; height: 100%; }
+.tool[data-tool="microbiome10"] .tool__stage, .tool[data-tool="bacteria10"] .tool__stage, .tool[data-tool="immune10"] .tool__stage, .tool[data-tool="antibiotic10"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="lytic10"] .tool__stage, .tool[data-tool="vaccine10"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="lytic10"] .lytic-svg, .tool[data-tool="vaccine10"] .vaccine-svg { min-width: 560px; }
+  .antibiotic-bar { grid-template-columns: 5rem minmax(0, 1fr) 3rem; }
+}
+
+</style>
+<link rel="stylesheet" href="./assets/enhance.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="10-2" data-grade="10">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 10">
+      <span class="brand__name">Biologie 10</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">02</span> Ökosystem Mensch</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Ökosystem Mensch</h2>
+      <p class="sidebar__deck">Mikrobiom, bakterielle und virale Infektionen, Immunsystem, Impfung und Antibiotika.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#mikrobiom" data-station-link="mikrobiom"><span class="station-nav__num">01</span><span>Mikrobiom</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#bakterien" data-station-link="bakterien"><span class="station-nav__num">02</span><span>Bakterielle Infektionen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#viren" data-station-link="viren"><span class="station-nav__num">03</span><span>Virale Infektionen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#abwehr" data-station-link="abwehr"><span class="station-nav__num">04</span><span>Immunabwehr</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#impfung" data-station-link="impfung"><span class="station-nav__num">05</span><span>Impfung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#antibiotika" data-station-link="antibiotika"><span class="station-nav__num">06</span><span>Antibiotika und Resistenzen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 10</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title"><span class="misreg" data-text="Ökosystem">Ökosystem</span> Mensch: Wer lebt auf und in uns?</h1>
+<p class="lead">Mikrobiom, Infektionen, Immunsystem, Impfung und Antibiotika. Der Körper ist Lebensraum und Abwehrsystem zugleich.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="mikrobiom" href="#mikrobiom">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">I1</span><span>Du beschreibst das Mikrobiom des Menschen und seine Bedeutung für Gesundheit und Immunsystem.</span></li>
+<li><span class="cnum">I2</span><span>Du unterscheidest bakterielle und virale Infektionen und erklärst ihre Vermehrung und Schadwirkung.</span></li>
+<li><span class="cnum">I3</span><span>Du erklärst unspezifische und spezifische Abwehr und beschreibst Allergien als Fehlreaktion des Immunsystems.</span></li>
+<li><span class="cnum">I4</span><span>Du vergleichst aktive und passive Immunisierung und bewertest Schutzimpfungen.</span></li>
+<li><span class="cnum">I5</span><span>Du beurteilst Antibiotika und die Entstehung von Resistenzen im Ökosystem Mensch.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 2 des LehrplanPLUS Biologie 10 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Infektionen sind keine Schuld und keine Charakterschwäche. Erreger verbreiten sich, weil sie an den Menschen angepasst sind, nicht weil Menschen „unhygienisch“ sind. Hygiene und Impfungen schützen, ohne Betroffene abzuwerten. Antibiotika sind wichtige Medikamente; sie wirken nur gegen Bakterien, nicht gegen Viren. Bei Unsicherheit hilft eine Arztpraxis.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie lebt der Mensch mit Mikroorganismen zusammen, und wie schützt er sich vor den schädlichen?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="mikrobiom" data-title="Mikrobiom" data-track="true" id="mikrobiom">
+<header class="station__head">
+<h2 id="mikrobiom-title"><span class="station__num">01</span> Das Mikrobiom: Mitbewohner mit Funktion</h2>
+<p class="lead">Auf Haut, Schleimhäuten und im Darm leben Milliarden von Mikroorganismen. Viele sind nützlich, einige können krank machen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der menschliche Körper ist ein Lebensraum für Mikroorganismen. Man schätzt, dass auf und in einem erwachsenen Menschen etwa so viele mikrobielle Zellen wie menschliche Zellen leben. Die Zusammensetzung unterscheidet sich stark nach Ort: Auf der Haut leben vor allem Bakterien und Pilze, im Mund Bakterien in einem feuchten, nährstoffreichen Milieu, im Darm eine sehr artenreiche Gemeinschaft. Auch die Atemwege und die Vagina haben ein eigenes Mikrobiom.</p>
+<p>Viele dieser Mikroorganismen sind Symbionten oder Kommensalen. Darmbakterien vergären Ballaststoffe zu kurzkettigen Fettsäuren, bilden einige Vitamine und konkurrieren mit Krankheitserregern um Nährstoffe und Plätze. Das Immunsystem lernt an der Darmwand, zwischen harmlosen und gefährlichen Strukturen zu unterscheiden. Die Hautflora bildet einen Säureschutzmantel und hemmt die Ausbreitung pathogener Keime. Das Mikrobiom ist also kein „Schmutz“, sondern Teil des Ökosystems Mensch.</p>
+<p>Das Mikrobiom ist veränderlich. Ernährung, Alter, Medikamente, Stress und Lebensumstände beeinflussen seine Zusammensetzung. Antibiotika können nützliche Bakterien mit abtöten; danach kann sich die Gemeinschaft verändern. Eine vielfältige, ballaststoffreiche Ernährung und ein sorgsamer Umgang mit Antibiotika gelten als günstig. „Keimfrei“ ist kein erstrebenswertes Ziel; entscheidend ist eine ausgewogene Gemeinschaft.</p>
+<figure class="tool" data-tool="microbiome10">
+<div class="tool__head">
+<p class="tool__title">Mikrobiom: Orte und Funktionen</p>
+<p class="tool__hint">Wähle einen Körperort. Prüfe typische Bewohner und ihre Funktion.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="microbiome-card">
+<p class="microbiome-card__title" data-microbiome-title="">Haut</p>
+<p class="microbiome-card__text" data-microbiome-text=""></p>
+<ul class="microbiome-card__list" data-microbiome-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Darstellung ist vereinfacht. Das Mikrobiom ist von Mensch zu Mensch verschieden und verändert sich im Laufe des Lebens.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Vielfalt wichtig ist</summary>
+<p>Eine artenreiche Darmflora kann stabiler gegenüber Störungen sein, weil verschiedene Bakterien unterschiedliche Nährstoffe nutzen und sich gegenseitig ergänzen. Wird die Vielfalt verringert, können einzelne Arten überhandnehmen. Das bedeutet nicht, dass jede Veränderung krank macht. Die Forschung untersucht Zusammenhänge zwischen Mikrobiom und Stoffwechsel, Immunsystem und Nervensystem; viele Mechanismen sind noch nicht vollständig verstanden. Vorsicht ist bei einfachen Versprechen angebracht.</p>
+</details>
+<section aria-labelledby="mikrobiom-check" class="checkpoint">
+<h3 id="mikrobiom-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="mikrobiom">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="mikrobiom" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "mi1",
+              "type": "mc",
+              "level": "g",
+              "competency": "I1",
+              "prompt": "Was ist das Mikrobiom des Menschen?",
+              "options": ["Die Gesamtheit der Mikroorganismen auf und im Körper", "Nur die Bakterien im Darm", "Die Gesamtheit der menschlichen Zellen", "Ein einzelnes Bakterium"],
+              "correct": 0,
+              "explain": "Das Mikrobiom umfasst alle Mikroorganismen, die auf und im Menschen leben, einschließlich Bakterien, Pilzen und Viren."
+            },
+            {
+              "id": "mi2",
+              "type": "mc",
+              "level": "g",
+              "competency": "I1",
+              "prompt": "Welche Funktion haben viele Darmbakterien?",
+              "options": ["Sie vergären Ballaststoffe und bilden kurzkettige Fettsäuren.", "Sie ersetzen die menschliche DNA.", "Sie produzieren nur Sauerstoff.", "Sie verhindern jede Immunreaktion."],
+              "correct": 0,
+              "explain": "Darmbakterien verwerten Ballaststoffe, bilden Fettsäuren und beeinflussen das Immunsystem. Sie sind Teil des Stoffwechsels."
+            },
+            {
+              "id": "mi3",
+              "type": "mc",
+              "level": "g",
+              "competency": "I1",
+              "prompt": "Warum ist „keimfrei“ kein sinnvolles Ziel für den Körper?",
+              "options": ["Weil viele Mikroorganismen nützlich sind und das Immunsystem prägen.", "Weil Keime immer krank machen.", "Weil der Körper ohne Keime besser funktioniert.", "Weil Antibiotika alle Keime dauerhaft entfernen."],
+              "correct": 0,
+              "explain": "Ein vielfältiges Mikrobiom unterstützt Stoffwechsel und Abwehr. Keimfreiheit ist weder erreichbar noch erstrebenswert."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="mikrobiom" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="bakterien" href="#bakterien">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Das Mikrobiom ist Teil des Ökosystems Mensch. Vielfalt und Balance sind wichtiger als Keimfreiheit.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Mikrobiom</dt><dd>Gesamtheit der Mikroorganismen auf und im Körper.</dd>
+<dt>Symbiose</dt><dd>Zusammenleben zum gegenseitigen Vorteil.</dd>
+<dt>Kommensale</dt><dd>Mikroorganismus, der vom Wirt profitiert, ohne ihn zu schädigen.</dd>
+<dt>Pathogen</dt><dd>krankheitserregend.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Alle Mikroorganismen als Krankheitserreger ansehen. Die meisten sind harmlos oder nützlich.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="bakterien" data-title="Bakterielle Infektionen" data-track="true" id="bakterien">
+<header class="station__head">
+<h2 id="bakterien-title"><span class="station__num">02</span> Bakterien: Von nützlichen Mitbewohnern zu Krankheitserregern</h2>
+<p class="lead">Bakterien sind eigenständige Zellen. Pathogene Stämme schädigen den Körper durch Toxine, Invasion oder Immunreaktionen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bakterien sind prokaryotische Einzeller. Sie vermehren sich durch Zweiteilung und können sich schnell an neue Bedingungen anpassen. Nicht jede Bakterienart ist pathogen; viele leben harmlos auf der Haut oder im Darm. Pathogene Bakterien besitzen Angepasstheiten, die ihnen helfen, den Körper zu besiedeln: Sie haften an Schleimhäuten, bilden Toxine, dringen in Gewebe ein oder entziehen sich der Immunabwehr. Manche bilden Biofilme, die sie vor Antibiotika schützen.</p>
+<p>Die Schädigung entsteht oft durch mehrere Mechanismen. Toxine können Zellen schädigen oder eine starke Immunreaktion auslösen. Bei einer Lungenentzündung vermehren sich Bakterien in den Alveolen und beeinträchtigen den Gasaustausch. Bei Borreliose wandern die Erreger durch das Gewebe und lösen Entzündungen aus. Die Inkubationszeit und der Verlauf hängen von Erreger, Menge, Eintrittspforte und Immunstatus ab.</p>
+<p>Antibiotika greifen gezielt bakterielle Strukturen an, etwa die Zellwand, Ribosomen oder die DNA-Replikation. Sie wirken nicht gegen Viren. Wichtig ist die sachgerechte Anwendung: nur bei bakterieller Infektion, in der verordneten Dosis und Dauer. Zu frühes Abbrechen kann überlebende Bakterien begünstigen; unnötige Anwendung fördert Resistenzen. Hygiene und Impfungen ergänzen die Behandlung.</p>
+<figure class="tool" data-tool="bacteria10">
+<div class="tool__head">
+<p class="tool__title">Bakterien im Ökosystem Mensch</p>
+<p class="tool__hint">Wähle ein Bakterium. Prüfe Rolle, Übertragung, Krankheit und Behandlung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="bacteria-card">
+<p class="bacteria-card__title" data-bacteria-title="">Lactobacillus</p>
+<p class="bacteria-card__text" data-bacteria-text=""></p>
+<ul class="bacteria-card__list" data-bacteria-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Steckbriefe sind vereinfacht. Krankheitsverlauf und Behandlung hängen vom Einzelfall ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Biofilm und Antibiotikaresistenz</summary>
+<p>Ein Biofilm ist eine Gemeinschaft von Bakterien, die sich in eine schleimige Matrix einbetten. Bakterien im Biofilm sind oft schwerer mit Antibiotika zu erreichen, weil der Wirkstoff die Matrix schlechter durchdringt und die Zellen langsamer wachsen. Resistenzen können durch Mutationen entstehen oder durch horizontalen Gentransfer, bei dem Bakterien Resistenzgene über Plasmide austauschen. Deshalb ist die sachgerechte Anwendung von Antibiotika nicht nur für den einzelnen Patienten wichtig, sondern für die gesamte Gesellschaft.</p>
+</details>
+<section aria-labelledby="bakterien-check" class="checkpoint">
+<h3 id="bakterien-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="bakterien">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="bakterien" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ba1",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Wie vermehren sich Bakterien?",
+              "options": ["Durch Zweiteilung", "Durch Meiose", "Durch Knospung wie Hefen", "Durch Samenbildung"],
+              "correct": 0,
+              "explain": "Bakterien verdoppeln ihre DNA und teilen sich durch Zweiteilung in zwei Tochterzellen."
+            },
+            {
+              "id": "ba2",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Wie können Bakterien den Körper schädigen?",
+              "options": ["Durch Toxine, Invasion und Immunreaktionen", "Nur durch Licht", "Nur durch Wasserentzug", "Durch Photosynthese"],
+              "correct": 0,
+              "explain": "Pathogene Bakterien bilden Toxine, dringen in Gewebe ein oder lösen starke Immunreaktionen aus."
+            },
+            {
+              "id": "ba3",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Warum wirken Antibiotika nicht gegen Viren?",
+              "options": ["Weil Viren keine eigenen bakteriellen Zielstrukturen besitzen.", "Weil Viren zu groß sind.", "Weil Antibiotika nur im Darm wirken.", "Weil Viren keine DNA haben."],
+              "correct": 0,
+              "explain": "Antibiotika greifen bakterielle Strukturen an. Viren haben keinen eigenen Stoffwechsel und keine Zellwand; sie brauchen andere Therapien."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="bakterien" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="viren" href="#viren">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Pathogene Bakterien schädigen durch Toxine, Invasion und Immunreaktionen. Antibiotika wirken nur gegen Bakterien.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Toxin</dt><dd>Giftstoff, der von einem Organismus gebildet wird.</dd>
+<dt>Biofilm</dt><dd>Gemeinschaft von Bakterien in einer schleimigen Matrix.</dd>
+<dt>Inkubationszeit</dt><dd>Zeit zwischen Infektion und ersten Symptomen.</dd>
+<dt>Antibiotikum</dt><dd>Medikament gegen Bakterien.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Antibiotika bei einer Virusinfektion verlangen. Das hilft nicht und fördert Resistenzen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="viren" data-title="Virale Infektionen" data-track="true" id="viren">
+<header class="station__head">
+<h2 id="viren-title"><span class="station__num">03</span> Viren: Keine Zellen, aber wirksam</h2>
+<p class="lead">Viren bestehen aus Erbmaterial und einer Proteinhülle. Sie vermehren sich nur in Wirtszellen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Viren sind keine Zellen. Sie bestehen aus einem Genom, das von einer Proteinhülle, dem Kapsid, umgeben ist. Manche Viren haben zusätzlich eine Lipidhülle mit Oberflächenproteinen. Ohne Wirtszelle können sie sich nicht vermehren und keinen Stoffwechsel betreiben. Die Oberflächenproteine bestimmen, an welche Zellen ein Virus bindet. Diese Wirtsspezifität erklärt, warum manche Viren nur bestimmte Tierarten oder Gewebe befallen.</p>
+<p>Im lytischen Zyklus bindet ein Virus an eine Wirtszelle, dringt ein oder schleust sein Genom ein, nutzt die Maschinerie der Wirtszelle zur Vermehrung und setzt schließlich neue Viruspartikel frei. Dabei kann die Wirtszelle zerstört werden. Manche Viren können ihr Genom in das Wirtsgenom einbauen oder über längere Zeit ruhen; dann spricht man von lysogenem Zyklus. Für die Vermehrung ist immer die Wirtszelle nötig.</p>
+<p>Weil Viren keine eigenen bakteriellen Zielstrukturen haben, wirken Antibiotika nicht. Therapien setzen an der Virusvermehrung oder am Immunsystem an; Impfungen trainieren das Immunsystem vorbeugend. Viren verändern sich durch Mutationen und Rekombination. Dadurch können neue Varianten entstehen, die der Immunantwort teilweise entgehen. Das ist ein Grund, warum Impfstoffe und Überwachung angepasst werden.</p>
+<p>HIV ist ein Virus, das bestimmte Immunzellen befällt. Es wird über Blut, Sperma, Vaginalsekret und Muttermilch übertragen, nicht durch Händeschütteln, gemeinsames Essen oder Insektenstiche. Kondome und Lecktücher, sterile Nadeln und eine frühe Testung reduzieren das Risiko. Bei erfolgreicher Therapie ist HIV nicht mehr übertragbar (U=U). PrEP ist eine zusätzliche vorbeugende Medikation für Menschen mit erhöhtem Risiko. HIV ist heute gut behandelbar; Stigma und Schuldzuweisungen erschweren den Zugang zu Hilfe.</p>
+<figure class="tool" data-tool="virus">
+<div class="tool__head">
+<p class="tool__title">3D-Virus: Bau und Wirtsspezifität</p>
+<p class="tool__hint">Drehen zeigt den Aufbau. Wähle eine Struktur und prüfe ihre Funktion.</p>
+</div>
+<div class="tool__controls" role="group" aria-label="Bauteile des Virus">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-virus-part="capsid" type="button" data-tip-title="Kapsid" data-tip="Proteinhülle um das Erbmaterial. Sie schützt das Genom und bestimmt die äußere Form des Virus.">Kapsid</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-virus-part="genome" type="button" data-tip-title="Genom" data-tip="Erbmaterial aus DNA oder RNA. Es enthält die Bauanleitung für neue Viruspartikel und wird in der Wirtszelle vervielfältigt.">Genom</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-virus-part="spikes" type="button" data-tip-title="Spikes" data-tip="Oberflächenproteine, die an Rezeptoren der Wirtszelle binden. Sie entscheiden, welche Zellen befallen werden.">Spikes</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-virus-part="cell" type="button" data-tip-title="Wirtszelle" data-tip="Die Membran trägt Rezeptoren. Nur Viren mit passenden Spikes können andocken – das ist die Wirtsspezifität.">Wirtszelle</button>
+</div>
+<div class="scene-toolbar">
+<button class="btn btn--quiet btn--small" data-virus-play="" type="button" data-tip-title="Animation" data-tip="Pausiere die langsame Rotation, wenn du die Oberfläche in Ruhe betrachten willst. Die Kamera bleibt bedienbar.">Pause</button>
+<span class="scene-toolbar__label">Tempo</span>
+<span class="scene-toolbar__group" role="group" aria-label="Rotationstempo">
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-virus-speed="0.5" type="button" data-tip-title="Tempo 0,5×" data-tip="Langsame Rotation: gut zum Erkennen von Kapsid, Genom und Spikes.">0,5×</button>
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-virus-speed="1" type="button" data-tip-title="Tempo 1×" data-tip="Normale Rotationsgeschwindigkeit für die Betrachtung des Aufbaus.">1×</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-virus-speed="2" type="button" data-tip-title="Tempo 2×" data-tip="Schnellere Rotation: du siehst die Bewegung, erkennst aber weniger Details.">2×</button>
+</span>
+<button class="btn btn--quiet btn--small" data-virus-reset="" type="button" data-tip-title="Ansicht zurücksetzen" data-tip="Kamera, Auswahl und Rotation fahren weich in den Ausgangszustand zurück.">Ansicht zurücksetzen</button>
+<span class="scene-status" data-virus-status="">Rotation läuft</span>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="virus" id="virus-scene" role="img" aria-label="3D-Modell eines Virus mit Kapsid, Genom, Spikes und einer Wirtszellmembran mit Rezeptoren. Fahre über ein Bauteil, um seine Funktion zu lesen.">
+<div class="tool__fallback">
+<svg aria-label="Schematisches Virus mit Kapsid, Genom und Spikes" class="virus-fallback" role="img" viewBox="0 0 640 280">
+<rect fill="var(--color-paper-2)" height="280" width="640" x="0" y="0"></rect>
+<circle cx="320" cy="140" fill="var(--color-paper-3)" r="80" stroke="var(--color-rule-2)" stroke-width="3"></circle>
+<circle cx="320" cy="140" fill="none" r="40" stroke="var(--color-accent)" stroke-dasharray="8 6" stroke-width="5"></circle>
+<g stroke="var(--color-accent)" stroke-width="4">
+<line x1="320" x2="320" y1="60" y2="30"></line><line x1="320" x2="320" y1="220" y2="250"></line>
+<line x1="240" x2="210" y1="140" y2="140"></line><line x1="400" x2="430" y1="140" y2="140"></line>
+<line x1="264" x2="244" y1="84" y2="64"></line><line x1="376" x2="396" y1="196" y2="216"></line>
+<line x1="376" x2="396" y1="84" y2="64"></line><line x1="264" x2="244" y1="196" y2="216"></line>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="265">Kapsid, Genom und Oberflächenproteine</text>
+</svg>
+</div>
+</div>
+<p class="tool__scene-note">Tipp: Fahre mit dem Zeiger über ein Bauteil und klicke es an. Die Wirtszellmembran am unteren Rand zeigt, warum Viren nicht jede Zelle befallen können.</p>
+<div aria-live="polite" class="tool__readout" data-virus-readout=""></div>
+<figcaption class="tool__caption">Das Modell ist schematisch. Viren gibt es in sehr unterschiedlichen Formen und Größen.</figcaption>
+</figure>
+<figure class="tool" data-tool="lytic10">
+<div class="tool__head">
+<p class="tool__title">Der lytische Zyklus</p>
+<p class="tool__hint">Wähle einen Schritt. Prüfe, was mit Virus und Wirtszelle passiert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="lytic-card">
+<svg aria-label="Lytischer Zyklus mit Anheftung, Eindringen, Vermehrung, Zusammenbau und Freisetzung" class="lytic-svg" role="img" viewBox="0 0 720 240">
+<line class="track" x1="70" x2="650" y1="120" y2="120"></line>
+<g data-lytic-stage="attach"><circle class="stage" cx="100" cy="120" r="30"></circle><text class="stage-label" x="100" y="175">Anheftung</text></g>
+<g data-lytic-stage="enter"><circle class="stage" cx="230" cy="120" r="30"></circle><text class="stage-label" x="230" y="175">Eindringen</text></g>
+<g data-lytic-stage="replicate"><circle class="stage" cx="360" cy="120" r="30"></circle><text class="stage-label" x="360" y="175">Vermehrung</text></g>
+<g data-lytic-stage="assemble"><circle class="stage" cx="490" cy="120" r="30"></circle><text class="stage-label" x="490" y="175">Zusammenbau</text></g>
+<g data-lytic-stage="release"><circle class="stage" cx="620" cy="120" r="30"></circle><text class="stage-label" x="620" y="175">Freisetzung</text></g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Der lytische Zyklus ist vereinfacht. Manche Viren durchlaufen einen lysogenen Zyklus und bauen ihr Genom in die Wirtszelle ein.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Viren so schwer zu bekämpfen sind</summary>
+<p>Viren haben keinen eigenen Stoffwechsel, den man mit einem Medikament gezielt blockieren könnte. Sie nutzen die Maschinerie der Wirtszelle, die der Körper selbst braucht. Deshalb sind antivirale Medikamente oft auf bestimmte Viren begrenzt und müssen früh wirken. Impfungen sind ein anderer Weg: Sie trainieren das Immunsystem, bevor eine Infektion stattfindet. Weil Viren sich verändern, müssen Impfstoffe und Diagnostik regelmäßig überprüft werden.</p>
+</details>
+<section aria-labelledby="viren-check" class="checkpoint">
+<h3 id="viren-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="viren">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="viren" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "vi1",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Aus welchen Hauptbestandteilen besteht ein Virus?",
+              "options": ["Aus Erbmaterial und einer Proteinhülle", "Aus Zellkern und Mitochondrien", "Aus Zellwand und Chloroplasten", "Aus Ribosomen und Golgi-Apparat"],
+              "correct": 0,
+              "explain": "Viren bestehen aus einem Genom und einer Proteinhülle, dem Kapsid. Manche haben zusätzlich eine Lipidhülle."
+            },
+            {
+              "id": "vi2",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Was passiert beim lytischen Zyklus?",
+              "options": ["Das Virus vermehrt sich in der Wirtszelle und setzt neue Partikel frei.", "Das Virus wird von der Wirtszelle verdaut.", "Das Virus baut sein Genom dauerhaft ein und ruht.", "Das Virus teilt sich durch Zweiteilung."],
+              "correct": 0,
+              "explain": "Im lytischen Zyklus nutzt das Virus die Wirtszelle zur Vermehrung. Am Ende werden neue Viruspartikel freigesetzt, oft unter Zerstörung der Wirtszelle."
+            },
+            {
+              "id": "vi3",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Warum helfen Antibiotika nicht gegen Viren?",
+              "options": ["Weil Viren keine bakteriellen Zielstrukturen haben.", "Weil Viren zu klein sind.", "Weil Viren keine DNA haben.", "Weil Antibiotika nur im Blut wirken."],
+              "correct": 0,
+              "explain": "Antibiotika greifen bakterielle Strukturen an. Viren haben keinen eigenen Stoffwechsel und keine Zellwand."
+            },
+            {
+              "id": "vi4",
+              "type": "mc",
+              "level": "g",
+              "competency": "I2",
+              "prompt": "Wie wird HIV übertragen?",
+              "options": ["Über Blut, Sperma, Vaginalsekret und Muttermilch", "Durch Händeschütteln", "Durch Insektenstiche", "Durch die Luft"],
+              "correct": 0,
+              "explain": "HIV wird über Körperflüssigkeiten übertragen. Alltagskontakt wie Händeschütteln oder gemeinsames Essen ist kein Übertragungsweg."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="viren" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="abwehr" href="#abwehr">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Viren sind keine Zellen. Sie brauchen Wirtszellen zur Vermehrung. Antibiotika wirken nicht gegen sie.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Kapsid</dt><dd>Proteinhülle eines Virus.</dd>
+<dt>lytischer Zyklus</dt><dd>Vermehrung mit Freisetzung neuer Viren.</dd>
+<dt>lysogener Zyklus</dt><dd>Einbau des viralen Genoms in die Wirtszelle.</dd>
+<dt>Wirtsspezifität</dt><dd>Beschränkung eines Virus auf bestimmte Zellen oder Arten.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Viren als Bakterien bezeichnen. Viren sind keine Zellen und haben keinen eigenen Stoffwechsel.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="abwehr" data-title="Immunabwehr" data-track="true" id="abwehr">
+<header class="station__head">
+<h2 id="abwehr-title"><span class="station__num">04</span> Immunabwehr: unspezifisch und spezifisch</h2>
+<p class="lead">Der Körper wehrt Erreger mit mehreren Linien ab. Die unspezifische Abwehr wirkt schnell, die spezifische genau.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die unspezifische Abwehr ist angeboren und wirkt gegen viele Erreger. Haut und Schleimhäute bilden eine mechanische Barriere; Schleim und Flimmerhärchen transportieren Erreger ab. Magensäure tötet viele Keime, Tränen und Speichel enthalten antimikrobielle Proteine. Fresszellen wie Makrophagen erkennen typische Erregermuster und nehmen sie auf. Eine Entzündung bringt Abwehrzellen zum Ort des Geschehens; Fieber kann die Abwehr unterstützen, belastet aber den Körper.</p>
+<p>Die spezifische Abwehr richtet sich gegen bestimmte Antigene. B-Zellen bilden Antikörper, die an Antigene binden und Erreger markieren. T-Zellen erkennen infizierte Zellen oder steuern andere Immunzellen. Nach einer Infektion bleiben Gedächtniszellen zurück. Bei einem zweiten Kontakt reagiert das Immunsystem schneller und stärker: Das ist die sekundäre Immunantwort. Diese Erinnerung ist die Grundlage der Impfung.</p>
+<p>Das Immunsystem muss tolerant gegenüber körpereigenen Strukturen und harmlosen Antigenen sein. Bei einer Allergie reagiert es übertrieben auf eigentlich harmlose Stoffe wie Pollen oder Nahrungsmittelproteine. Histamin wird freigesetzt und löst Juckreiz, Niesen, Schwellung oder Atemprobleme aus. Eine Autoimmunerkrankung richtet sich gegen körpereigenes Gewebe. Beide Beispiele zeigen: Eine starke Immunantwort ist nicht automatisch eine gute Antwort.</p>
+<figure class="tool" data-tool="immune10">
+<div class="tool__head">
+<p class="tool__title">Abwehrlinien im Vergleich</p>
+<p class="tool__hint">Wähle eine Abwehrform. Prüfe Zellen, Mechanismen und Grenzen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="immune-card">
+<p class="immune-card__title" data-immune-title="">Unspezifische Abwehr</p>
+<p class="immune-card__text" data-immune-text=""></p>
+<ul class="immune-card__list" data-immune-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Abwehrlinien greifen ineinander. Die Darstellung ist vereinfacht und zeigt typische Mechanismen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Primäre und sekundäre Immunantwort</summary>
+<p>Bei der primären Immunantwort dauert es einige Tage, bis Antikörper in größerer Menge gebildet werden. Während dieser Zeit kann sich der Erreger vermehren. Gedächtniszellen sorgen dafür, dass die sekundäre Antwort schneller und stärker ausfällt. Deshalb erkrankt man an manchen Infektionen nach einer überstandenen Erkrankung oder Impfung nicht erneut oder nur milder. Die sekundäre Antwort ist auch der Grund für Auffrischimpfungen bei manchen Impfstoffen.</p>
+</details>
+<section aria-labelledby="abwehr-check" class="checkpoint">
+<h3 id="abwehr-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="abwehr">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="abwehr" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ab1",
+              "type": "mc",
+              "level": "g",
+              "competency": "I3",
+              "prompt": "Was gehört zur unspezifischen Abwehr?",
+              "options": ["Haut, Schleimhäute und Fresszellen", "Nur Antikörper", "Nur Gedächtniszellen", "Nur T-Zellen"],
+              "correct": 0,
+              "explain": "Die unspezifische Abwehr umfasst Barrieren, Magensäure, Fresszellen und Entzündungsreaktionen. Sie wirkt gegen viele Erreger."
+            },
+            {
+              "id": "ab2",
+              "type": "mc",
+              "level": "g",
+              "competency": "I3",
+              "prompt": "Was machen B-Zellen?",
+              "options": ["Sie bilden Antikörper und können Gedächtniszellen bilden.", "Sie verdauen Nahrung.", "Sie transportieren Sauerstoff.", "Sie bilden Magensäure."],
+              "correct": 0,
+              "explain": "B-Zellen können zu Plasmazellen werden und Antikörper bilden. Ein Teil wird zu Gedächtniszellen."
+            },
+            {
+              "id": "ab3",
+              "type": "mc",
+              "level": "g",
+              "competency": "I3",
+              "prompt": "Was ist eine Allergie?",
+              "options": ["Eine übertriebene Immunreaktion gegen einen harmlosen Stoff", "Eine bakterielle Infektion", "Eine Impfung", "Ein Mangel an Antikörpern"],
+              "correct": 0,
+              "explain": "Bei einer Allergie reagiert das Immunsystem auf eigentlich harmlose Antigene, etwa Pollen, mit einer starken Entzündungsreaktion."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="abwehr" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="impfung" href="#impfung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Unspezifische Abwehr wirkt schnell und breit, spezifische Abwehr genau und mit Gedächtnis. Allergien sind Fehlreaktionen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Antigen</dt><dd>Struktur, die vom Immunsystem erkannt wird.</dd>
+<dt>Antikörper</dt><dd>Protein, das an ein Antigen bindet.</dd>
+<dt>Gedächtniszelle</dt><dd>Immunzelle für eine schnellere Zweitantwort.</dd>
+<dt>Allergie</dt><dd>übertriebene Reaktion auf harmlose Antigene.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Unspezifische und spezifische Abwehr als getrennte Systeme sehen. Sie arbeiten zusammen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="impfung" data-title="Impfung" data-track="true" id="impfung">
+<header class="station__head">
+<h2 id="impfung-title"><span class="station__num">05</span> Impfung: Das Immunsystem vorbereiten</h2>
+<p class="lead">Eine Impfung löst eine schützende Immunantwort aus, ohne dass die Erkrankung durchgemacht werden muss.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bei der aktiven Immunisierung wird ein Impfstoff gegeben, der eine Immunantwort auslöst. Der Körper bildet selbst Antikörper und Gedächtniszellen. Der Schutz baut sich über Tage bis Wochen auf und hält oft lange an. Impfstoffe enthalten abgeschwächte Erreger, abgetötete Erreger, Bruchstücke oder Bauanleitungen für ein Antigen. Adjuvanzien verstärken die Antwort. Bei der passiven Immunisierung werden fertige Antikörper gegeben; sie wirken sofort, aber nur kurz, weil keine Gedächtniszellen entstehen.</p>
+<p>Die primäre Immunantwort nach dem ersten Kontakt ist langsam. Bei einem zweiten Kontakt reagieren Gedächtniszellen schnell; die sekundäre Antwort ist stärker und hält länger. Auffrischimpfungen nutzen diesen Effekt. Impfungen schützen nicht nur den Geimpften, sondern können auch die Verbreitung verringern. Wenn genügend Menschen immun sind, werden vulnerable Personen geschützt, die nicht geimpft werden können. Das nennt man Herdenimmunität.</p>
+<p>Impfungen werden vor der Zulassung in Studien auf Wirksamkeit und Sicherheit geprüft und danach weiter überwacht. Nebenwirkungen können auftreten, meist lokal und kurzzeitig. Schwere Komplikationen sind selten. Die Abwägung von Nutzen und Risiko hängt von Krankheit, Alter, Gesundheitszustand und Exposition ab. Impfempfehlungen werden von Fachgremien wie der STIKO erstellt und regelmäßig angepasst.</p>
+<figure class="tool" data-tool="vaccine10">
+<div class="tool__head">
+<p class="tool__title">Antikörperkurve: Erstkontakt, Zweitkontakt, passive Immunisierung</p>
+<p class="tool__hint">Wähle einen Verlauf. Prüfe, wie schnell und wie hoch die Antikörper steigen.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-vaccine-mode="primary" type="button" data-tip-title="Erstkontakt" data-tip="Die primäre Immunantwort braucht einige Tage. Antikörper steigen langsam an und der Titer sinkt danach wieder.">Erstkontakt</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-vaccine-mode="secondary" type="button" data-tip-title="Zweitkontakt" data-tip="Gedächtniszellen reagieren schneller und stärker. Die sekundäre Antwort hält länger als die erste.">Zweitkontakt</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-vaccine-mode="passive" type="button" data-tip-title="Passive Immunisierung" data-tip="Fertige Antikörper wirken sofort, werden aber abgebaut. Es entstehen keine eigenen Gedächtniszellen.">Passive Immunisierung</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="vaccine-card">
+<svg aria-label="Antikörperkurve nach Erstkontakt, Zweitkontakt und passiver Immunisierung" class="vaccine-svg" role="img" viewBox="0 0 720 300">
+<line class="grid" x1="70" x2="660" y1="70" y2="70"></line>
+<line class="grid" x1="70" x2="660" y1="130" y2="130"></line>
+<line class="grid" x1="70" x2="660" y1="190" y2="190"></line>
+<line class="axis" x1="70" x2="660" y1="250" y2="250"></line>
+<line class="axis" x1="70" x2="70" y1="40" y2="250"></line>
+<polyline class="curve" data-vaccine-line="" points=""></polyline>
+<line class="marker" data-vaccine-marker="" x1="200" x2="200" y1="40" y2="250"></line>
+<text class="label" text-anchor="middle" x="365" y="285">Zeit</text>
+<text class="label" transform="rotate(-90 18 145)" x="18" y="145">Antikörper</text>
+<text class="label" text-anchor="middle" x="200" y="270">Kontakt</text>
+</svg>
+<div class="vaccine-meter">
+<span data-tip-title="Antikörpertiter" data-tip="Schematischer Anteil der maximalen Antikörpermenge. Die tatsächliche Menge und Schutzdauer hängen von Impfstoff, Person und Erreger ab.">Antikörpertiter</span>
+<div class="vaccine-meter__track" data-tip-title="Antikörpertiter" data-tip="Die Balkenlänge zeigt den schematischen Höchstwert der jeweiligen Antwort. Sie ist keine Labormessung."><i data-vaccine-bar=""></i></div>
+<output data-vaccine-value="" data-tip-title="Antikörpertiter" data-tip="Prozentualer Höchstwert im Modell. Ein hoher Titer bedeutet nicht automatisch lebenslangen Schutz.">0 %</output>
+</div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Kurven sind schematisch. Die tatsächliche Antikörpermenge und Schutzdauer hängen von Impfstoff, Person und Erreger ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Aktive und passive Immunisierung im Vergleich</summary>
+<table class="data-table">
+<caption>Aktive und passive Immunisierung</caption>
+<thead><tr><th>Merkmal</th><th>Aktiv</th><th>Passiv</th></tr></thead>
+<tbody>
+<tr><td>Was wird gegeben?</td><td>Impfstoff mit Antigen</td><td>fertige Antikörper</td></tr>
+<tr><td>Wer bildet Antikörper?</td><td>der Körper selbst</td><td>keine eigene Bildung</td></tr>
+<tr><td>Wirkung</td><td>verzögert, dafür länger</td><td>sofort, aber kurz</td></tr>
+<tr><td>Gedächtniszellen</td><td>ja</td><td>nein</td></tr>
+<tr><td>Beispiel</td><td>Schutzimpfung</td><td>Notfall nach Exposition</td></tr>
+</tbody>
+</table>
+</details>
+<section aria-labelledby="impfung-check" class="checkpoint">
+<h3 id="impfung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="impfung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="impfung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "im1",
+              "type": "mc",
+              "level": "g",
+              "competency": "I4",
+              "prompt": "Was ist eine aktive Immunisierung?",
+              "options": ["Der Körper bildet nach dem Impfstoff selbst Antikörper und Gedächtniszellen.", "Fertige Antikörper werden gespritzt.", "Der Erreger wird vollständig entfernt.", "Die Impfung wirkt sofort und nur kurz."],
+              "correct": 0,
+              "explain": "Bei der aktiven Immunisierung löst der Impfstoff eine eigene Immunantwort aus. Der Schutz baut sich auf und hält länger."
+            },
+            {
+              "id": "im2",
+              "type": "mc",
+              "level": "g",
+              "competency": "I4",
+              "prompt": "Was ist ein Vorteil der passiven Immunisierung?",
+              "options": ["Sie wirkt sofort.", "Sie hält besonders lange.", "Sie bildet Gedächtniszellen.", "Sie ersetzt jede Impfung."],
+              "correct": 0,
+              "explain": "Fertige Antikörper wirken sofort. Sie werden aber abgebaut und bilden keine Gedächtniszellen."
+            },
+            {
+              "id": "im3",
+              "type": "mc",
+              "level": "g",
+              "competency": "I4",
+              "prompt": "Was bedeutet Herdenimmunität?",
+              "options": ["Genügend viele Menschen sind immun, sodass die Verbreitung gebremst wird.", "Alle Menschen sind geimpft.", "Nur Kinder sind immun.", "Die Krankheit ist ausgerottet."],
+              "correct": 0,
+              "explain": "Bei hoher Immunität in der Bevölkerung können sich Erreger schlechter ausbreiten. Das schützt auch Menschen, die nicht geimpft werden können."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="impfung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="antibiotika" href="#antibiotika">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Aktive Immunisierung bildet Gedächtniszellen und hält länger. Passive Immunisierung wirkt sofort, aber kurz.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>aktive Immunisierung</dt><dd>eigene Immunantwort nach Impfstoffgabe.</dd>
+<dt>passive Immunisierung</dt><dd>Gabe fertiger Antikörper.</dd>
+<dt>Herdenimmunität</dt><dd>Schutz der Bevölkerung durch hohe Immunität.</dd>
+<dt>STIKO</dt><dd>Ständige Impfkommission; gibt Impfempfehlungen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, eine Impfung wirke sofort wie ein Medikament. Die aktive Immunantwort braucht Zeit.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="antibiotika" data-title="Antibiotika und Resistenzen" data-track="true" id="antibiotika">
+<header class="station__head">
+<h2 id="antibiotika-title"><span class="station__num">06</span> Antibiotika: Wirksamkeit und Resistenz</h2>
+<p class="lead">Antibiotika retten Leben, aber jede Anwendung kann resistente Bakterien begünstigen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Antibiotika sind Medikamente, die Bakterien abtöten oder ihr Wachstum hemmen. Sie greifen Strukturen an, die Bakterien haben, menschliche Zellen aber nicht: die Zellwand, Ribosomen, die DNA-Replikation oder Stoffwechselwege. Penicillin hemmt den Aufbau der Murein-Zellwand; andere Antibiotika blockieren die Proteinbiosynthese. Deshalb können sie gezielt wirken, ohne jede menschliche Zelle zu schädigen. Gegen Viren wirken sie nicht.</p>
+<p>Resistenzen entstehen durch Mutationen oder durch horizontalen Gentransfer. Bakterien können Resistenzgene über Plasmide austauschen, auch zwischen verschiedenen Arten. Unter Antibiotikadruck haben resistente Bakterien einen Vorteil und vermehren sich stärker. Wird ein Antibiotikum zu häufig, zu niedrig dosiert oder zu früh abgesetzt, steigt die Chance, dass resistente Varianten überleben. In Krankenhäusern können sich multiresistente Keime verbreiten.</p>
+<p>Die sachgerechte Anwendung ist entscheidend: Antibiotika nur bei bakterieller Infektion, in der verordneten Dosis und Dauer, nicht auf Vorrat und nicht für virale Infektionen. Hygiene, Impfungen und die Vermeidung unnötiger Behandlungen verringern den Selektionsdruck. Das One-Health-Konzept betrachtet menschliche Gesundheit, Tiergesundheit und Umwelt zusammen, weil Resistenzen zwischen diesen Bereichen wandern können.</p>
+<figure class="tool" data-tool="antibiotic10">
+<div class="tool__head">
+<p class="tool__title">Resistenz unter Antibiotikadruck</p>
+<p class="tool__hint">Behandle die Population und beobachte, wie sich sensible und resistente Bakterien verändern.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-antibiotic-treat="" type="button" data-tip-title="Antibiotikum geben" data-tip="Empfindliche Bakterien sterben häufiger. Resistente Varianten überleben und vermehren sich stärker – das ist Selektion, keine Gewöhnung.">Antibiotikum geben</button>
+<button class="btn btn--quiet btn--small" data-antibiotic-stop="" type="button" data-tip-title="Behandlung beenden" data-tip="Ohne Antibiotikum haben resistente und empfindliche Bakterien wieder ähnliche Chancen. Die Resistenz verschwindet aber nicht.">Behandlung beenden</button>
+<button class="btn btn--quiet btn--small" data-antibiotic-reset="" type="button" data-tip-title="Zurücksetzen" data-tip="Startet die Population wieder mit 50 Prozent sensiblen und 50 Prozent resistenten Bakterien.">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="antibiotic-card">
+<div class="antibiotic-bars">
+<div class="antibiotic-bar"><span data-tip-title="Sensibel" data-tip="Bakterien, die auf das Antibiotikum reagieren. Ihr Anteil sinkt unter Behandlung.">sensibel</span><div class="antibiotic-bar__track" data-tip-title="Sensibler Anteil" data-tip="Schematischer Anteil der Bakterien, die durch das Antibiotikum geschädigt werden."><i data-antibiotic-sensitive=""></i></div><output data-antibiotic-sensitive-value="" data-tip-title="Sensibler Anteil" data-tip="Der Wert ist ein Modellwert, keine Messung aus einem realen Patienten.">50 %</output></div>
+<div class="antibiotic-bar"><span data-tip-title="Resistent" data-tip="Bakterien, die das Antibiotikum überleben. Sie geben ihre Resistenzgene weiter.">resistent</span><div class="antibiotic-bar__track" data-tip-title="Resistenter Anteil" data-tip="Unter Antibiotikadruck steigt dieser Anteil, weil resistente Varianten überleben."><i class="is-resistant" data-antibiotic-resistant=""></i></div><output data-antibiotic-resistant-value="" data-tip-title="Resistenter Anteil" data-tip="Resistenz entsteht durch Mutation oder Genaufnahme – nicht durch Gewöhnung an das Medikament.">50 %</output></div>
+</div>
+<p class="antibiotic-generation" data-antibiotic-generation="">Generation 1</p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Modell ist vereinfacht. Resistenz entsteht nicht durch „Gewöhnung“, sondern durch Selektion vorhandener Varianten.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Resistenzen nicht durch den Menschen „erlernt“ werden</summary>
+<p>Bakterien werden nicht resistent, weil sie einem Antibiotikum „ausgesetzt waren“ und sich daran gewöhnen. Resistente Varianten entstehen durch Mutationen oder Genaufnahme, oft schon bevor das Antibiotikum eingesetzt wird. Das Antibiotikum tötet die empfindlichen Bakterien ab und gibt den resistenten einen Vorteil. Deshalb ist die richtige Dosierung und Dauer wichtig: Eine zu kurze Behandlung kann überlebende Bakterien zurücklassen, eine unnötige Behandlung erhöht den Selektionsdruck.</p>
+</details>
+<section aria-labelledby="antibiotika-check" class="checkpoint">
+<h3 id="antibiotika-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="antibiotika">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="antibiotika" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "an1",
+              "type": "mc",
+              "level": "g",
+              "competency": "I5",
+              "prompt": "Wie entsteht Antibiotikaresistenz?",
+              "options": ["Durch Selektion vorhandener resistenter Varianten", "Weil Bakterien sich an das Medikament gewöhnen", "Weil der Mensch zu wenig schläft", "Durch Impfungen"],
+              "correct": 0,
+              "explain": "Resistente Varianten entstehen durch Mutation oder Genaufnahme. Unter Antibiotikadruck haben sie einen Vorteil und vermehren sich stärker."
+            },
+            {
+              "id": "an2",
+              "type": "mc",
+              "level": "g",
+              "competency": "I5",
+              "prompt": "Warum sollte man Antibiotika nur bei bakteriellen Infektionen nehmen?",
+              "options": ["Weil sie gegen Viren nicht wirken und Resistenzen fördern.", "Weil sie gegen Viren zu stark wirken.", "Weil Viren keine DNA haben.", "Weil Antibiotika nur im Krankenhaus wirken."],
+              "correct": 0,
+              "explain": "Antibiotika greifen Bakterien an. Bei viralen Infektionen helfen sie nicht und erhöhen unnötig den Selektionsdruck."
+            },
+            {
+              "id": "an3",
+              "type": "mc",
+              "level": "g",
+              "competency": "I5",
+              "prompt": "Was bedeutet One Health?",
+              "options": ["Menschliche Gesundheit, Tiergesundheit und Umwelt zusammen betrachten", "Nur Menschen behandeln", "Nur Tiere behandeln", "Antibiotika in der Landwirtschaft verbieten"],
+              "correct": 0,
+              "explain": "Resistenzen können zwischen Mensch, Tier und Umwelt wandern. One Health betrachtet diese Bereiche gemeinsam."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="antibiotika" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Antibiotika wirken gegen Bakterien. Resistenzen entstehen durch Selektion, nicht durch Gewöhnung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Antibiotikum</dt><dd>Medikament gegen Bakterien.</dd>
+<dt>Resistenz</dt><dd>Unempfindlichkeit gegenüber einem Wirkstoff.</dd>
+<dt>horizontaler Gentransfer</dt><dd>DNA-Austausch zwischen Bakterien.</dd>
+<dt>One Health</dt><dd>gemeinsame Betrachtung von Mensch, Tier und Umwelt.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Die Behandlung eigenmächtig absetzen, sobald es besser geht. Die verordnete Dauer hat einen Grund.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Ökosystem Mensch</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="oekosystem10">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="oekosystem10" type="application/json">
+      {
+        "competencies": {
+          "I1": "Mikrobiom und Wechselbeziehungen",
+          "I2": "Bakterielle und virale Infektionen",
+          "I3": "Unspezifische und spezifische Abwehr",
+          "I4": "Impfung und Immunisierung",
+          "I5": "Antibiotika und Resistenzen"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "I1",
+            "prompt": "Was ist das Mikrobiom des Menschen?",
+            "options": ["Die Gesamtheit der Mikroorganismen auf und im Körper", "Nur die Bakterien im Darm", "Die Gesamtheit der menschlichen Zellen", "Ein einzelnes Bakterium"],
+            "correct": 0,
+            "explain": "Das Mikrobiom umfasst alle Mikroorganismen, die auf und im Menschen leben, einschließlich Bakterien, Pilzen und Viren."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "I1",
+            "prompt": "Warum ist „keimfrei“ kein sinnvolles Ziel für den Körper?",
+            "options": ["Weil viele Mikroorganismen nützlich sind und das Immunsystem prägen.", "Weil Keime immer krank machen.", "Weil der Körper ohne Keime besser funktioniert.", "Weil Antibiotika alle Keime dauerhaft entfernen."],
+            "correct": 0,
+            "explain": "Ein vielfältiges Mikrobiom unterstützt Stoffwechsel und Abwehr. Keimfreiheit ist weder erreichbar noch erstrebenswert."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "I2",
+            "prompt": "Wie vermehren sich Bakterien?",
+            "options": ["Durch Zweiteilung", "Durch Meiose", "Durch Knospung wie Hefen", "Durch Samenbildung"],
+            "correct": 0,
+            "explain": "Bakterien verdoppeln ihre DNA und teilen sich durch Zweiteilung in zwei Tochterzellen."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "I2",
+            "prompt": "Aus welchen Hauptbestandteilen besteht ein Virus?",
+            "options": ["Aus Erbmaterial und einer Proteinhülle", "Aus Zellkern und Mitochondrien", "Aus Zellwand und Chloroplasten", "Aus Ribosomen und Golgi-Apparat"],
+            "correct": 0,
+            "explain": "Viren bestehen aus einem Genom und einer Proteinhülle, dem Kapsid. Manche haben zusätzlich eine Lipidhülle."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "I2",
+            "prompt": "Warum wirken Antibiotika nicht gegen Viren?",
+            "options": ["Weil Viren keine bakteriellen Zielstrukturen haben.", "Weil Viren zu klein sind.", "Weil Viren keine DNA haben.", "Weil Antibiotika nur im Blut wirken."],
+            "correct": 0,
+            "explain": "Antibiotika greifen bakterielle Strukturen an. Viren haben keinen eigenen Stoffwechsel und keine Zellwand."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "I3",
+            "prompt": "Was gehört zur unspezifischen Abwehr?",
+            "options": ["Haut, Schleimhäute und Fresszellen", "Nur Antikörper", "Nur Gedächtniszellen", "Nur T-Zellen"],
+            "correct": 0,
+            "explain": "Die unspezifische Abwehr umfasst Barrieren, Magensäure, Fresszellen und Entzündungsreaktionen. Sie wirkt gegen viele Erreger."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "I3",
+            "prompt": "Was machen B-Zellen?",
+            "options": ["Sie bilden Antikörper und können Gedächtniszellen bilden.", "Sie verdauen Nahrung.", "Sie transportieren Sauerstoff.", "Sie bilden Magensäure."],
+            "correct": 0,
+            "explain": "B-Zellen können zu Plasmazellen werden und Antikörper bilden. Ein Teil wird zu Gedächtniszellen."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "I3",
+            "prompt": "Was ist eine Allergie?",
+            "options": ["Eine übertriebene Immunreaktion gegen einen harmlosen Stoff", "Eine bakterielle Infektion", "Eine Impfung", "Ein Mangel an Antikörpern"],
+            "correct": 0,
+            "explain": "Bei einer Allergie reagiert das Immunsystem auf eigentlich harmlose Antigene, etwa Pollen, mit einer starken Entzündungsreaktion."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "I4",
+            "prompt": "Was ist eine aktive Immunisierung?",
+            "options": ["Der Körper bildet nach dem Impfstoff selbst Antikörper und Gedächtniszellen.", "Fertige Antikörper werden gespritzt.", "Der Erreger wird vollständig entfernt.", "Die Impfung wirkt sofort und nur kurz."],
+            "correct": 0,
+            "explain": "Bei der aktiven Immunisierung löst der Impfstoff eine eigene Immunantwort aus. Der Schutz baut sich auf und hält länger."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "I4",
+            "prompt": "Was ist ein Vorteil der passiven Immunisierung?",
+            "options": ["Sie wirkt sofort.", "Sie hält besonders lange.", "Sie bildet Gedächtniszellen.", "Sie ersetzt jede Impfung."],
+            "correct": 0,
+            "explain": "Fertige Antikörper wirken sofort. Sie werden aber abgebaut und bilden keine Gedächtniszellen."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "I5",
+            "prompt": "Wie entsteht Antibiotikaresistenz?",
+            "options": ["Durch Selektion vorhandener resistenter Varianten", "Weil Bakterien sich an das Medikament gewöhnen", "Weil der Mensch zu wenig schläft", "Durch Impfungen"],
+            "correct": 0,
+            "explain": "Resistente Varianten entstehen durch Mutation oder Genaufnahme. Unter Antibiotikadruck haben sie einen Vorteil und vermehren sich stärker."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "I5",
+            "prompt": "Was bedeutet One Health?",
+            "options": ["Menschliche Gesundheit, Tiergesundheit und Umwelt zusammen betrachten", "Nur Menschen behandeln", "Nur Tiere behandeln", "Antibiotika in der Landwirtschaft verbieten"],
+            "correct": 0,
+            "explain": "Resistenzen können zwischen Mensch, Tier und Umwelt wandern. One Health betrachtet diese Bereiche gemeinsam."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Mikrobiom</dt><dd>Gesamtheit der Mikroorganismen auf und im menschlichen Körper.</dd></div>
+<div class="glossary__row"><dt>Symbiose</dt><dd>Zusammenleben zweier Arten zum gegenseitigen Vorteil.</dd></div>
+<div class="glossary__row"><dt>Kommensale</dt><dd>Mikroorganismus, der vom Wirt profitiert, ohne ihn zu schädigen.</dd></div>
+<div class="glossary__row"><dt>Pathogen</dt><dd>Krankheitserregend.</dd></div>
+<div class="glossary__row"><dt>Infektion</dt><dd>Eindringen und Vermehrung von Krankheitserregern im Körper.</dd></div>
+<div class="glossary__row"><dt>Inkubationszeit</dt><dd>Zeit zwischen Infektion und ersten Symptomen.</dd></div>
+<div class="glossary__row"><dt>Toxin</dt><dd>Giftstoff, der von einem Organismus gebildet wird.</dd></div>
+<div class="glossary__row"><dt>Biofilm</dt><dd>Gemeinschaft von Bakterien in einer schleimigen Matrix.</dd></div>
+<div class="glossary__row"><dt>Antibiotikum</dt><dd>Medikament, das Bakterien abtötet oder ihr Wachstum hemmt.</dd></div>
+<div class="glossary__row"><dt>Antibiotikaresistenz</dt><dd>Fähigkeit von Bakterien, einem Antibiotikum zu widerstehen.</dd></div>
+<div class="glossary__row"><dt>horizontaler Gentransfer</dt><dd>Übertragung von DNA zwischen Bakterien ohne Vermehrung.</dd></div>
+<div class="glossary__row"><dt>One Health</dt><dd>Gemeinsame Betrachtung von Mensch, Tier und Umwelt.</dd></div>
+<div class="glossary__row"><dt>Virus</dt><dd>Nicht-zellulärer Erreger aus Erbmaterial und Proteinhülle.</dd></div>
+<div class="glossary__row"><dt>Kapsid</dt><dd>Proteinhülle, die das Erbmaterial eines Virus umgibt.</dd></div>
+<div class="glossary__row"><dt>lytischer Zyklus</dt><dd>Vermehrungszyklus mit Freisetzung neuer Viren.</dd></div>
+<div class="glossary__row"><dt>lysogener Zyklus</dt><dd>Einbau des viralen Genoms in die Wirtszelle.</dd></div>
+<div class="glossary__row"><dt>Wirtsspezifität</dt><dd>Beschränkung eines Virus auf bestimmte Zellen oder Arten.</dd></div>
+<div class="glossary__row"><dt>unspezifische Abwehr</dt><dd>Angeborene Abwehr gegen viele Erreger.</dd></div>
+<div class="glossary__row"><dt>spezifische Abwehr</dt><dd>Erworbene Abwehr gegen bestimmte Antigene.</dd></div>
+<div class="glossary__row"><dt>Antigen</dt><dd>Struktur, die vom Immunsystem erkannt wird.</dd></div>
+<div class="glossary__row"><dt>Antikörper</dt><dd>Protein, das an ein Antigen bindet.</dd></div>
+<div class="glossary__row"><dt>B-Zelle</dt><dd>Lymphozyt, der Antikörper und Gedächtniszellen bilden kann.</dd></div>
+<div class="glossary__row"><dt>T-Zelle</dt><dd>Lymphozyt, der infizierte Zellen erkennt oder Immunzellen steuert.</dd></div>
+<div class="glossary__row"><dt>Gedächtniszelle</dt><dd>Immunzelle für eine schnellere Zweitantwort.</dd></div>
+<div class="glossary__row"><dt>Allergie</dt><dd>Übertriebene Immunreaktion gegen harmlose Antigene.</dd></div>
+<div class="glossary__row"><dt>Histamin</dt><dd>Botenstoff, der bei allergischen Reaktionen freigesetzt wird.</dd></div>
+<div class="glossary__row"><dt>aktive Immunisierung</dt><dd>Eigene Immunantwort nach Impfstoffgabe.</dd></div>
+<div class="glossary__row"><dt>passive Immunisierung</dt><dd>Gabe fertiger Antikörper.</dd></div>
+<div class="glossary__row"><dt>Herdenimmunität</dt><dd>Schutz der Bevölkerung durch hohe Immunität.</dd></div>
+<div class="glossary__row"><dt>STIKO</dt><dd>Ständige Impfkommission; gibt Impfempfehlungen in Deutschland.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 10</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/10/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 10</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/enhance.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

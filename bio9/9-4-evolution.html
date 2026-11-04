@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="de" data-grade="9" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Evolution | Biologie 9</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 9 zu Evolution: Fossilien, Brückentiere, Variation, Selektion, Isolation und Artbildung.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der Fossilienzeitstrahl und der Selektionssimulator · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the light sheet needs the tool wells to sit one step darker; theme.css sets the wells on paper-2 and keeps the ink band to one per page */
+/* Hallmark · answered F4 · the 9 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.fossil-svg { width: 100%; height: auto; display: block; }
+.fossil-svg .track { stroke: var(--color-rule-2); stroke-width: 2; }
+.fossil-svg .node { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.fossil-svg .node.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.fossil-svg .node-label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); text-anchor: middle; }
+.fossil-svg .node.is-active + .node-label { fill: var(--color-ink); }
+.selection-card, .isolation-card { display: grid; gap: var(--space-sm); }
+.selection-bars { display: grid; gap: var(--space-xs); }
+.selection-bar { display: grid; grid-template-columns: 4rem minmax(0, 1fr) 3.5rem; gap: var(--space-sm); align-items: center; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.selection-track { height: 12px; background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+.selection-track i { display: block; height: 100%; width: 100%; background: var(--color-accent); transform: scaleX(0.5); transform-origin: left center; transition: transform var(--dur-short) var(--ease-out); }
+.selection-track i.is-dark { background: var(--color-ink); color: var(--color-paper); }
+.selection-bar output { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.selection-generation, .isolation-status { margin: 0; font: 500 var(--text-sm)/1.4 var(--font-body); color: var(--color-muted); }
+.isolation-svg { width: 100%; height: auto; display: block; }
+.isolation-svg .land { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.isolation-svg .river { stroke: var(--color-water); stroke-width: 20; fill: none; }
+.isolation-svg .bridge { stroke: var(--color-ink); stroke-width: 6; }
+.isolation-svg .dot { fill: var(--color-accent); stroke: var(--color-paper); stroke-width: 1; }
+.isolation-svg .dot.is-dark { fill: var(--color-ink); }
+.isolation-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); text-anchor: middle; }
+.tool[data-tool="selection9"] .tool__stage, .tool[data-tool="isolation9"] .tool__stage { min-height: 0; }
+@media (max-width: 60rem) {
+  .tool[data-tool="fossil9"] .tool__stage, .tool[data-tool="isolation9"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="fossil9"] .fossil-svg, .tool[data-tool="isolation9"] .isolation-svg { min-width: 560px; }
+  .selection-bar { grid-template-columns: 3.5rem minmax(0, 1fr) 3rem; }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="9-4" data-grade="9">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 9">
+      <span class="brand__name">Biologie 9</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">04</span> Evolution</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 3</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Evolution</h2>
+      <p class="sidebar__deck">Fossilien, Brückentiere, Variation, Selektion, Isolation und Artbildung.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 3</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#belege" data-station-link="belege"><span class="station-nav__num">01</span><span>Belege der Evolution</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#variation" data-station-link="variation"><span class="station-nav__num">02</span><span>Variation und Selektion</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#isolation" data-station-link="isolation"><span class="station-nav__num">03</span><span>Isolation und Artbildung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">04</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">05</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 9</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Evolution: Wandel, Vielfalt, Angepasstheit.</h1>
+<p class="lead">Fossilien, Variation, Selektion und Isolation erklären, wie Arten entstehen und sich verändern.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="belege" href="#belege">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">E1</span><span>Du beschreibst die Stammesgeschichte als fortlaufendes Geschehen und nutzt Fossilien und Brückentiere als Belege.</span></li>
+<li><span class="cnum">E2</span><span>Du erklärst genetische Variation als Grundlage der Evolution.</span></li>
+<li><span class="cnum">E3</span><span>Du erklärst natürliche Selektion und Angepasstheit als Folge unterschiedlichen Fortpflanzungserfolgs.</span></li>
+<li><span class="cnum">E4</span><span>Du erklärst die Bedeutung geographischer Isolation für die Entstehung biologischer Vielfalt.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 4 des LehrplanPLUS Biologie 9 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Evolution ist keine Glaubensfrage, sondern eine naturwissenschaftliche Theorie. Sie wird durch Fossilien, vergleichende Anatomie, Embryologie, Biogeographie und Molekularbiologie gestützt. Eine Theorie ist in der Wissenschaft kein „Vermutung“, sondern ein gut geprüftes Erklärungsmodell. Evolution beschreibt keinen zielgerichteten Fortschritt; sie erklärt Anpassung an wechselnde Bedingungen.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie entsteht aus Variation und Selektion eine neue Angepasstheit?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="belege" data-title="Belege der Evolution" data-track="true" id="belege">
+<header class="station__head">
+<h2 id="belege-title"><span class="station__num">01</span> Belege: Fossilien und Brückentiere</h2>
+<p class="lead">Fossilien dokumentieren Übergänge. Brückentiere verbinden Merkmale zweier Gruppen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Fossilien sind erhaltene Reste oder Abdrücke früherer Lebewesen. Sie entstehen vor allem in Sedimenten, wenn Organismen schnell bedeckt werden und ihre harten Teile erhalten bleiben. Fossile Abstammungsreihen zeigen, wie sich Merkmale über lange Zeiträume verändert haben. Ein bekanntes Beispiel ist die Entwicklung der Wale von landlebenden Säugetieren zu vollständig aquatischen Tieren.</p>
+<p>Brückentiere besitzen Merkmale zweier verwandter Gruppen. Tiktaalik zeigt Fischmerkmale wie Schuppen und Kiemen, aber auch tetrapodenartige Gliedmaßen und einen beweglichen Hals. Archaeopteryx hat Federn und Flügel wie ein Vogel, aber Zähne, Krallen und einen langen Schwanz wie ein Reptil. Solche Fossilien sind keine „fehlenden Glieder“ einer geraden Kette, sondern Belege für Verzweigungen und Übergänge.</p>
+<p>Weitere Belege sind homologe Organe, embryologische Ähnlichkeiten, die Verbreitung von Arten auf Inseln und molekulare Vergleiche von DNA und Proteinen. Kein einzelner Beleg beweist die Evolution allein; die Stärke liegt in der Übereinstimmung vieler unabhängiger Befunde. Wissenschaftliche Theorien können durch neue Daten verändert werden; das ist ihre Stärke, nicht ihre Schwäche.</p>
+<figure class="tool" data-tool="fossil9">
+<div class="tool__head">
+<p class="tool__title">Fossilien und Übergänge</p>
+<p class="tool__hint">Wähle ein Beispiel. Prüfe, welche Merkmale es mit welchen Gruppen verbindet.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="fossil-card">
+<svg aria-label="Zeitstrahl mit Tiktaalik, Archaeopteryx und der Wal-Reihe" class="fossil-svg" role="img" viewbox="0 0 720 220">
+<line class="track" x1="70" x2="650" y1="110" y2="110"></line>
+<g data-fossil-node="tiktaalik"><circle class="node" cx="150" cy="110" r="34"></circle><text class="node-label" x="150" y="175">Tiktaalik</text></g>
+<g data-fossil-node="archaeopteryx"><circle class="node" cx="360" cy="110" r="34"></circle><text class="node-label" x="360" y="175">Archaeopteryx</text></g>
+<g data-fossil-node="whale"><circle class="node" cx="570" cy="110" r="34"></circle><text class="node-label" x="570" y="175">Wal-Reihe</text></g>
+<text class="label" text-anchor="middle" x="70" y="200">älter</text>
+<text class="label" text-anchor="middle" x="650" y="200">jünger</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Fossilien sind Momentaufnahmen. Verwandtschaft lässt sich nur aus vielen Befunden und ihrem zeitlichen Zusammenhang rekonstruieren.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Wal-Reihe so überzeugend ist</summary>
+<p>Die Wal-Reihe verbindet Fossilien wie Pakicetus, Ambulocetus und Basilosaurus. Pakicetus lebte an Land und hatte noch gut ausgebildete Hinterbeine; Ambulocetus war ein amphibischer Jäger; Basilosaurus hatte stark reduzierte Hinterbeine und einen langgestreckten Körper. Knochenmerkmale, die Lage der Nasenöffnung, die Form des Innenohrs und molekulare Daten zeigen gemeinsam eine Verwandtschaft mit heutigen Walen. Kein einzelnes Merkmal allein wäre so überzeugend wie die Kombination.</p>
+</details>
+<section aria-labelledby="belege-check" class="checkpoint">
+<h3 id="belege-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="belege">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="belege" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "b1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Was ist ein Brückentier?",
+              "options": ["Ein Fossil mit Merkmalen zweier verwandter Gruppen", "Ein Tier, das Brücken baut", "Ein lebendes Tier ohne Fossilien", "Ein Tier mit besonders vielen Mutationen"],
+              "correct": 0,
+              "explain": "Brückentiere verbinden Merkmale zweier Gruppen, etwa Fisch und Landwirbeltier oder Reptil und Vogel."
+            },
+            {
+              "id": "b2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Welche Merkmale verbindet Archaeopteryx?",
+              "options": ["Federn und Flügel mit Zähnen und Krallen", "Kiemen mit Lungen", "Schuppen mit Haaren", "Flossen mit Hufen"],
+              "correct": 0,
+              "explain": "Archaeopteryx hat vogelartige Federn und Flügel, aber auch reptilienartige Zähne, Krallen und einen langen Schwanz."
+            },
+            {
+              "id": "b3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E1",
+              "prompt": "Warum stützt die Wal-Reihe die Evolution?",
+              "options": ["Mehrere Fossilien zeigen einen Übergang von landlebenden zu aquatischen Säugetieren.", "Wale sind keine Säugetiere.", "Fossilien sind immer vollständig.", "Die Wal-Reihe ist nur eine Zeichnung."],
+              "correct": 0,
+              "explain": "Pakicetus, Ambulocetus und Basilosaurus zeigen schrittweise Veränderungen, die zu heutigen Walen führen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="belege" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="variation" href="#variation">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fossilien und Brückentiere sind Belege für evolutionären Wandel. Sie zeigen Übergänge, keine gerade Kette.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Fossil</dt><dd>erhaltener Rest oder Abdruck eines früheren Lebewesens.</dd>
+<dt>Brückentier</dt><dd>Fossil mit Merkmalen zweier Gruppen.</dd>
+<dt>Stammesgeschichte</dt><dd>Entwicklungsgeschichte einer Gruppe.</dd>
+<dt>homologe Organe</dt><dd>Organe mit gemeinsamem Grundbauplan.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Von einem einzelnen Fossil auf eine ganze Abstammungslinie schließen. Erst viele Befunde ergeben ein Bild.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="variation" data-title="Variation und Selektion" data-track="true" id="variation">
+<header class="station__head">
+<h2 id="variation-title"><span class="station__num">02</span> Variation und natürliche Selektion</h2>
+<p class="lead">Ohne Variation gibt es nichts, woraus Selektion auswählen könnte.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Variation entsteht durch Mutationen, Rekombination bei der Meiose, Befruchtung und Genfluss zwischen Populationen. Sie ist die Rohstoffquelle der Evolution. Die meisten Mutationen sind neutral oder schädlich; einige können unter bestimmten Bedingungen günstig sein. Entscheidend ist nicht, ob eine Mutation „gut“ ist, sondern ob sie unter den aktuellen Bedingungen den Fortpflanzungserfolg erhöht.</p>
+<p>Natürliche Selektion bedeutet, dass Individuen mit vorteilhaften Merkmalen mehr Nachkommen haben und ihre Gene häufiger weitergeben. Fitness ist der Beitrag eines Individuums zur nächsten Generation, nicht körperliche Stärke. Selektion wirkt auf Phänotypen, nicht direkt auf Gene. Sie kann stabilisierend wirken, gerichtet sein oder mehrere Merkmale begünstigen. Angepasstheit ist das Ergebnis, nicht das Ziel: Die Umwelt „will“ nichts, und Evolution plant nicht.</p>
+<p>Beispiele sind die Antibiotikaresistenz von Bakterien, die Schnabelformen von Darwinfinken, die Tarnung von Käfern oder die Toleranz von Pflanzen gegenüber Schwermetallen. In jedem Fall verändert sich die Häufigkeit von Merkmalen in einer Population über Generationen. Ein einzelnes Individuum evolviert nicht; Populationen evolvieren.</p>
+<figure class="tool" data-tool="selection9">
+<div class="tool__head">
+<p class="tool__title">Selektion simulieren</p>
+<p class="tool__hint">Wähle einen Untergrund und lasse die Population mehrere Generationen durchlaufen.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-selection-bg="light" data-tip-title="Heller Untergrund" data-tip="Auf hellem Untergrund sind helle Käfer besser getarnt. Dunkle Käfer werden leichter gefressen." type="button">Heller Untergrund</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-selection-bg="dark" data-tip-title="Dunkler Untergrund" data-tip="Auf dunklem Untergrund sind dunkle Käfer besser getarnt. Helle Käfer werden leichter gefressen." type="button">Dunkler Untergrund</button>
+<button class="btn btn--quiet btn--small" data-selection-next="" data-tip-title="Nächste Generation" data-tip="Berechnet die Allelhäufigkeiten der nächsten Generation. Die besser getarnte Variante hinterlässt mehr Nachkommen." type="button">Nächste Generation</button>
+<button class="btn btn--quiet btn--small" data-selection-reset="" data-tip-title="Selektion zurücksetzen" data-tip="Setzt die Population auf 50 % helle und 50 % dunkle Käfer zurück." type="button">Zurücksetzen</button>
+</div>
+<div class="sim-bar" aria-label="Selektion automatisch ablaufen lassen">
+<span class="sim-bar__label">Animation</span>
+<button class="btn btn--quiet btn--small" data-selection-play aria-pressed="false" data-tip-title="Generationen automatisch" data-tip="Lässt sechs Generationen nacheinander ablaufen. Beobachte, wie sich die Anteile verschieben." type="button">Automatisch</button>
+<div class="speed-group" role="group" aria-label="Geschwindigkeit der Generationenfolge">
+<button class="btn btn--quiet btn--small" data-selection-speed="0.5" aria-pressed="false" data-tip-title="Langsam" data-tip="Mehr Zeit zwischen den Generationen." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-selection-speed="1" aria-pressed="true" data-tip-title="Normal" data-tip="Normales Tempo für die Generationenfolge." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-selection-speed="2" aria-pressed="false" data-tip-title="Schnell" data-tip="Schnellere Generationenfolge. Die berechneten Anteile bleiben gleich." type="button">2×</button>
+</div>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="selection-card">
+<div class="selection-bars">
+<div class="selection-bar"><span>hell</span><div class="selection-track"><i data-selection-light=""></i></div><output data-selection-light-value="">50 %</output></div>
+<div class="selection-bar"><span>dunkel</span><div class="selection-track"><i class="is-dark" data-selection-dark=""></i></div><output data-selection-dark-value="">50 %</output></div>
+</div>
+<p class="selection-generation" data-selection-generation="">Generation 1</p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Modell ist vereinfacht. In der Natur wirken viele Selektionsfaktoren gleichzeitig, und Zufall kann eine Rolle spielen.</figcaption>
+</figure>
+<figure class="tool" data-tool="selection3d">
+<div class="tool__head">
+<p class="tool__title">Selektion im 3D-Modell</p>
+<p class="tool__hint">Wähle den Untergrund und beobachte, welche Variante besser getarnt ist.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-selection3d-bg="light" data-tip-title="Heller Untergrund" data-tip="Helle Käfer sind schwerer zu entdecken. Ihre Überlebenschance steigt." type="button">Heller Untergrund</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-selection3d-bg="dark" data-tip-title="Dunkler Untergrund" data-tip="Dunkle Käfer sind schwerer zu entdecken. Ihre Überlebenschance steigt." type="button">Dunkler Untergrund</button>
+<button class="btn btn--quiet btn--small" data-selection3d-next data-tip-title="Nächste Generation" data-tip="Führt die nächste Generation aus. Der Anteil der besser getarnten Variante steigt." type="button">Nächste Generation</button>
+<button class="btn btn--quiet btn--small" data-selection3d-reset data-tip-title="Zurücksetzen" data-tip="Setzt die Population auf den Ausgangszustand zurück." type="button">Zurücksetzen</button>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="selection" id="selection-scene">
+<div class="tool__fallback">
+<svg aria-label="Käferpopulation auf hellem und dunklem Untergrund" role="img" viewBox="0 0 640 320">
+<rect fill="var(--color-paper-2)" height="320" width="640" x="0" y="0"></rect>
+<rect fill="var(--color-paper-3)" height="220" rx="4" stroke="var(--color-rule-2)" stroke-width="2" width="560" x="40" y="60"></rect>
+<g fill="var(--color-ink)">
+<ellipse cx="150" cy="130" rx="16" ry="10"></ellipse><ellipse cx="240" cy="190" rx="16" ry="10"></ellipse>
+<ellipse cx="380" cy="120" rx="16" ry="10"></ellipse><ellipse cx="480" cy="210" rx="16" ry="10"></ellipse>
+</g>
+<g fill="var(--color-paper)" stroke="var(--color-rule-2)" stroke-width="2">
+<ellipse cx="190" cy="220" rx="16" ry="10"></ellipse><ellipse cx="320" cy="150" rx="16" ry="10"></ellipse>
+<ellipse cx="430" cy="250" rx="16" ry="10"></ellipse><ellipse cx="530" cy="140" rx="16" ry="10"></ellipse>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="308">Helle und dunkle Varianten auf einem Untergrund</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-selection3d-readout=""></div>
+<figcaption class="tool__caption">Die 3D-Darstellung zeigt dieselbe Population wie das Modell oben. Die Zahlen bleiben im Lesetext des 2D-Werkzeugs.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Fitness ist kein Wettkampf</summary>
+<p>Fitness beschreibt, wie viele Nachkommen ein Individuum im Verhältnis zu anderen hinterlässt. Ein Organismus kann stark sein und trotzdem wenige Nachkommen haben; ein kleiner, unauffälliger Organismus kann mehr Nachkommen haben. Entscheidend ist die Passung zur Umwelt. Weil Umwelt sich ändert, ist Angepasstheit immer vorläufig. Eine Population, die heute gut angepasst ist, kann morgen unter neuen Bedingungen Nachteile haben.</p>
+</details>
+<section aria-labelledby="variation-check" class="checkpoint">
+<h3 id="variation-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="variation">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="variation" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "v1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E2",
+              "prompt": "Was ist die Rohstoffquelle der Evolution?",
+              "options": ["Genetische Variation", "Eine einzige Mutation", "Die Umwelt allein", "Das Gehirn"],
+              "correct": 0,
+              "explain": "Variation entsteht durch Mutation, Rekombination, Befruchtung und Genfluss. Ohne Variation kann Selektion nichts verändern."
+            },
+            {
+              "id": "v2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E3",
+              "prompt": "Was bedeutet Fitness in der Evolution?",
+              "options": ["Der Beitrag eines Individuums zur nächsten Generation", "Körperliche Stärke", "Die Anzahl der Gene", "Die Größe eines Tieres"],
+              "correct": 0,
+              "explain": "Fitness misst den Fortpflanzungserfolg. Ein starkes Tier mit wenigen Nachkommen hat eine geringere Fitness als ein schwaches mit vielen."
+            },
+            {
+              "id": "v3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E3",
+              "prompt": "Warum ist Angepasstheit immer vorläufig?",
+              "options": ["Weil sich die Umwelt ändern kann und Merkmale dann Nachteile haben.", "Weil Gene immer falsch sind.", "Weil Selektion nie wirkt.", "Weil Mutationen immer schädlich sind."],
+              "correct": 0,
+              "explain": "Angepasstheit bezieht sich auf die aktuelle Umwelt. Ändert sie sich, können bisher vorteilhafte Merkmale nachteilig werden."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="variation" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="isolation" href="#isolation">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Variation ist die Rohstoffquelle, Selektion der Filter. Fitness ist Fortpflanzungserfolg, nicht Stärke.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Variation</dt><dd>Unterschiede zwischen Individuen.</dd>
+<dt>Selektion</dt><dd>unterschiedlicher Fortpflanzungserfolg.</dd>
+<dt>Fitness</dt><dd>Beitrag zur nächsten Generation.</dd>
+<dt>Angepasstheit</dt><dd>Merkmal, das unter aktuellen Bedingungen Vorteile bietet.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Lebewesen würden sich „gezielt anpassen“. Selektion wirkt auf bestehende Variation, nicht durch Absicht.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="isolation" data-title="Isolation und Artbildung" data-track="true" id="isolation">
+<header class="station__head">
+<h2 id="isolation-title"><span class="station__num">03</span> Isolation und Artbildung</h2>
+<p class="lead">Wenn Populationen getrennt sind, können sie sich unterschiedlich entwickeln. Daraus können neue Arten entstehen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Geographische Isolation entsteht, wenn eine Population durch eine Barriere getrennt wird, etwa durch einen Fluss, ein Gebirge, eine Insel oder eine Wüste. Zwischen den Teilpopulationen findet dann kein oder kaum Genfluss statt. Mutationen, genetische Drift und unterschiedliche Selektionsbedingungen können die Populationen auseinanderentwickeln. Nach langer Zeit können sie so verschieden sein, dass sie sich nicht mehr kreuzen können. Dann spricht man von reproduktiver Isolation und von neuen Arten.</p>
+<p>Artbildung ist ein Prozess, kein einzelner Moment. Sie kann allopatrisch (durch geographische Trennung) oder sympatrisch (ohne räumliche Trennung, etwa durch Polyploidie oder ökologische Spezialisierung) verlaufen. Isolationsmechanismen können zeitlich, räumlich, verhaltensbezogen oder genetisch sein. Auch wenn Populationen wieder zusammentreffen, können sie bereits so verschieden sein, dass kein fruchtbarer Austausch mehr möglich ist.</p>
+<p>Beispiele sind die Darwinfinken auf den Galápagos-Inseln, Populationen auf Berggipfeln oder Fische in getrennten Flusssystemen. Isolation erklärt einen großen Teil der biologischen Vielfalt. Sie ist auch für den Naturschutz wichtig: Zerschneidung von Lebensräumen kann Populationen isolieren und ihre genetische Vielfalt verringern.</p>
+<figure class="tool" data-tool="isolation9">
+<div class="tool__head">
+<p class="tool__title">Isolation und Genfluss</p>
+<p class="tool__hint">Trenne oder verbinde die Populationen und beobachte die Allelhäufigkeiten.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-isolation-mode="isolated" data-tip-title="Isolation" data-tip="Ein Fluss trennt die Populationen. Es findet kein Genfluss statt; die Allelhäufigkeiten können auseinanderdriften." type="button">Fluss trennt</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-isolation-mode="connected" data-tip-title="Genfluss" data-tip="Eine Brücke verbindet die Populationen. Gene werden ausgetauscht; die Allelhäufigkeiten nähern sich an." type="button">Brücke verbindet</button>
+<button class="btn btn--quiet btn--small" data-isolation-next="" data-tip-title="Nächste Generation" data-tip="Führt eine Generation aus. Bei Isolation driften die Populationen auseinander, bei Genfluss nähern sie sich an." type="button">Nächste Generation</button>
+<button class="btn btn--quiet btn--small" data-isolation-reset="" data-tip-title="Isolation zurücksetzen" data-tip="Setzt beide Populationen auf 50 % helle und 50 % dunkle Varianten zurück." type="button">Zurücksetzen</button>
+</div>
+<div class="sim-bar" aria-label="Isolation automatisch ablaufen lassen">
+<span class="sim-bar__label">Animation</span>
+<button class="btn btn--quiet btn--small" data-isolation-play aria-pressed="false" data-tip-title="Generationen automatisch" data-tip="Lässt die Populationen mehrere Generationen durchlaufen. Beobachte den Unterschied zwischen Isolation und Genfluss." type="button">Automatisch</button>
+<div class="speed-group" role="group" aria-label="Geschwindigkeit der Isolation">
+<button class="btn btn--quiet btn--small" data-isolation-speed="0.5" aria-pressed="false" data-tip-title="Langsam" data-tip="Mehr Zeit zwischen den Generationen." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-isolation-speed="1" aria-pressed="true" data-tip-title="Normal" data-tip="Normales Tempo." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-isolation-speed="2" aria-pressed="false" data-tip-title="Schnell" data-tip="Schnellere Generationenfolge." type="button">2×</button>
+</div>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="isolation-card">
+<svg aria-label="Zwei Populationen getrennt durch einen Fluss" class="isolation-svg" role="img" viewbox="0 0 720 260">
+<rect class="land" height="220" rx="6" width="300" x="20" y="20"></rect>
+<rect class="land" height="220" rx="6" width="300" x="400" y="20"></rect>
+<path class="river" d="M360 0 C340 70 380 130 360 200 C350 230 360 250 360 260"></path>
+<line class="bridge" data-isolation-bridge="" style="display:none" x1="320" x2="400" y1="130" y2="130"></line>
+<g data-isolation-dots-left=""></g>
+<g data-isolation-dots-right=""></g>
+<text class="label" x="170" y="250">Population A</text>
+<text class="label" x="550" y="250">Population B</text>
+</svg>
+<p class="isolation-status" data-isolation-status="">Isolation: Die Populationen sind getrennt.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Das Modell ist vereinfacht. Artbildung braucht Zeit und kann nicht an einer Generation abgelesen werden.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Allopatrische und sympatrische Artbildung</summary>
+<p>Bei der allopatrischen Artbildung werden Populationen räumlich getrennt. Die Trennung kann durch Gebirge, Flüsse, Inseln oder Klimaveränderungen entstehen. Bei der sympatrischen Artbildung entstehen neue Arten ohne räumliche Trennung, zum Beispiel durch Polyploidie bei Pflanzen oder durch ökologische Spezialisierung. In beiden Fällen muss am Ende eine reproductive Isolation stehen, sonst bleiben die Populationen eine Art. Artbildung ist also ein Kontinuum, kein plötzlicher Sprung.</p>
+</details>
+<section aria-labelledby="isolation-check" class="checkpoint">
+<h3 id="isolation-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="isolation">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="isolation" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "i1",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Was ist geographische Isolation?",
+              "options": ["Räumliche Trennung von Populationen durch eine Barriere", "Eine Mutation in einem Gen", "Die Paarung innerhalb einer Population", "Eine Veränderung des Klimas"],
+              "correct": 0,
+              "explain": "Geographische Isolation entsteht durch Flüsse, Gebirge, Inseln oder andere Barrieren, die den Genfluss verringern."
+            },
+            {
+              "id": "i2",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Was ist reproduktive Isolation?",
+              "options": ["Populationen können sich nicht mehr erfolgreich kreuzen.", "Populationen leben im selben Gebiet.", "Alle Individuen sind identisch.", "Es gibt keine Mutationen."],
+              "correct": 0,
+              "explain": "Reproduktive Isolation bedeutet, dass kein fruchtbarer Genfluss mehr stattfindet. Sie ist ein Kennzeichen getrennter Arten."
+            },
+            {
+              "id": "i3",
+              "type": "mc",
+              "level": "g",
+              "competency": "E4",
+              "prompt": "Warum kann Isolation die genetische Vielfalt einer Population verringern?",
+              "options": ["Weil kein Genfluss zu anderen Populationen mehr stattfindet.", "Weil Mutationen immer aufhören.", "Weil Selektion dann nicht mehr wirkt.", "Weil die Population größer wird."],
+              "correct": 0,
+              "explain": "Ohne Genfluss können verlorene Allele nicht von außen ersetzt werden. Kleine Populationen verlieren leichter genetische Vielfalt."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="isolation" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Isolation verringert den Genfluss. Unterschiedliche Bedingungen und Zufall können Populationen auseinanderentwickeln.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>geographische Isolation</dt><dd>räumliche Trennung von Populationen.</dd>
+<dt>Genfluss</dt><dd>Austausch von Genen zwischen Populationen.</dd>
+<dt>reproduktive Isolation</dt><dd>keine erfolgreiche Kreuzung mehr möglich.</dd>
+<dt>Artbildung</dt><dd>Entstehung neuer Arten durch evolutionäre Prozesse.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Isolation allein erzeuge sofort eine neue Art. Artbildung braucht Zeit und reproduktive Isolation.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">04</span> Kompetenzcheck Evolution</h2>
+<p class="lead">Zehn Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="evolution9">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="evolution9" type="application/json">
+      {
+        "competencies": {
+          "E1": "Fossilien, Brückentiere und Stammesgeschichte",
+          "E2": "Variation als Grundlage der Evolution",
+          "E3": "Natürliche Selektion und Angepasstheit",
+          "E4": "Isolation und Artbildung"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "E1",
+            "prompt": "Was ist ein Brückentier?",
+            "options": ["Ein Fossil mit Merkmalen zweier verwandter Gruppen", "Ein Tier, das Brücken baut", "Ein lebendes Tier ohne Fossilien", "Ein Tier mit besonders vielen Mutationen"],
+            "correct": 0,
+            "explain": "Brückentiere verbinden Merkmale zweier Gruppen, etwa Fisch und Landwirbeltier oder Reptil und Vogel."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "E1",
+            "prompt": "Welche Merkmale verbindet Archaeopteryx?",
+            "options": ["Federn und Flügel mit Zähnen und Krallen", "Kiemen mit Lungen", "Schuppen mit Haaren", "Flossen mit Hufen"],
+            "correct": 0,
+            "explain": "Archaeopteryx hat vogelartige Federn und Flügel, aber auch reptilienartige Zähne, Krallen und einen langen Schwanz."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "E2",
+            "prompt": "Was ist die Rohstoffquelle der Evolution?",
+            "options": ["Genetische Variation", "Eine einzige Mutation", "Die Umwelt allein", "Das Gehirn"],
+            "correct": 0,
+            "explain": "Variation entsteht durch Mutation, Rekombination, Befruchtung und Genfluss. Ohne Variation kann Selektion nichts verändern."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "E2",
+            "prompt": "Welche Prozesse erzeugen genetische Variation?",
+            "options": ["Mutation, Rekombination und Befruchtung", "Nur Mitose", "Nur Zellatmung", "Nur Selektion"],
+            "correct": 0,
+            "explain": "Mutationen verändern die DNA; Rekombination und Befruchtung kombinieren elterliche Gene neu."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "E3",
+            "prompt": "Was bedeutet Fitness in der Evolution?",
+            "options": ["Der Beitrag eines Individuums zur nächsten Generation", "Körperliche Stärke", "Die Anzahl der Gene", "Die Größe eines Tieres"],
+            "correct": 0,
+            "explain": "Fitness misst den Fortpflanzungserfolg. Ein starkes Tier mit wenigen Nachkommen hat eine geringere Fitness als ein schwaches mit vielen."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "E3",
+            "prompt": "Warum ist Angepasstheit immer vorläufig?",
+            "options": ["Weil sich die Umwelt ändern kann und Merkmale dann Nachteile haben.", "Weil Gene immer falsch sind.", "Weil Selektion nie wirkt.", "Weil Mutationen immer schädlich sind."],
+            "correct": 0,
+            "explain": "Angepasstheit bezieht sich auf die aktuelle Umwelt. Ändert sie sich, können bisher vorteilhafte Merkmale nachteilig werden."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "E3",
+            "prompt": "Wie entsteht Antibiotikaresistenz bei Bakterien?",
+            "options": ["Resistente Varianten überleben und vermehren sich stärker.", "Bakterien beschließen, resistent zu werden.", "Antibiotika erzeugen gezielt Resistenzen.", "Alle Bakterien sind immer resistent."],
+            "correct": 0,
+            "explain": "Bestehende resistente Varianten haben unter Antibiotika einen Vorteil und geben ihre Gene häufiger weiter."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "E4",
+            "prompt": "Was ist geographische Isolation?",
+            "options": ["Räumliche Trennung von Populationen durch eine Barriere", "Eine Mutation in einem Gen", "Die Paarung innerhalb einer Population", "Eine Veränderung des Klimas"],
+            "correct": 0,
+            "explain": "Geographische Isolation entsteht durch Flüsse, Gebirge, Inseln oder andere Barrieren, die den Genfluss verringern."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "E4",
+            "prompt": "Was ist reproduktive Isolation?",
+            "options": ["Populationen können sich nicht mehr erfolgreich kreuzen.", "Populationen leben im selben Gebiet.", "Alle Individuen sind identisch.", "Es gibt keine Mutationen."],
+            "correct": 0,
+            "explain": "Reproduktive Isolation bedeutet, dass kein fruchtbarer Genfluss mehr stattfindet. Sie ist ein Kennzeichen getrennter Arten."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "E4",
+            "prompt": "Warum kann Isolation die genetische Vielfalt einer Population verringern?",
+            "options": ["Weil kein Genfluss zu anderen Populationen mehr stattfindet.", "Weil Mutationen immer aufhören.", "Weil Selektion dann nicht mehr wirkt.", "Weil die Population größer wird."],
+            "correct": 0,
+            "explain": "Ohne Genfluss können verlorene Allele nicht von außen ersetzt werden. Kleine Populationen verlieren leichter genetische Vielfalt."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">05</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Evolution</dt><dd>Veränderung von Populationen über Generationen.</dd></div>
+<div class="glossary__row"><dt>Fossil</dt><dd>Erhaltener Rest oder Abdruck eines früheren Lebewesens.</dd></div>
+<div class="glossary__row"><dt>Brückentier</dt><dd>Fossil mit Merkmalen zweier verwandter Gruppen.</dd></div>
+<div class="glossary__row"><dt>Stammesgeschichte</dt><dd>Entwicklungsgeschichte einer Gruppe von Lebewesen.</dd></div>
+<div class="glossary__row"><dt>Variation</dt><dd>Unterschiede zwischen Individuen einer Population.</dd></div>
+<div class="glossary__row"><dt>Mutation</dt><dd>Dauerhafte Veränderung der DNA.</dd></div>
+<div class="glossary__row"><dt>Rekombination</dt><dd>Neukombination von Erbinformation, z. B. bei der Meiose.</dd></div>
+<div class="glossary__row"><dt>Selektion</dt><dd>Unterschiedlicher Fortpflanzungserfolg aufgrund von Merkmalen.</dd></div>
+<div class="glossary__row"><dt>Fitness</dt><dd>Beitrag eines Individuums zur nächsten Generation.</dd></div>
+<div class="glossary__row"><dt>Angepasstheit</dt><dd>Merkmal, das die Überlebens- oder Fortpflanzungschancen erhöht.</dd></div>
+<div class="glossary__row"><dt>Isolation</dt><dd>Trennung von Populationen, die den Genfluss verhindert.</dd></div>
+<div class="glossary__row"><dt>geographische Isolation</dt><dd>Räumliche Trennung von Populationen.</dd></div>
+<div class="glossary__row"><dt>Genfluss</dt><dd>Austausch von Genen zwischen Populationen.</dd></div>
+<div class="glossary__row"><dt>reproduktive Isolation</dt><dd>Keine erfolgreiche Kreuzung mehr möglich.</dd></div>
+<div class="glossary__row"><dt>Artbildung</dt><dd>Entstehung neuer Arten durch evolutionäre Prozesse.</dd></div>
+<div class="glossary__row"><dt>allopatrisch</dt><dd>Artbildung durch räumliche Trennung.</dd></div>
+<div class="glossary__row"><dt>sympatrisch</dt><dd>Artbildung ohne räumliche Trennung.</dd></div>
+<div class="glossary__row"><dt>homologe Organe</dt><dd>Organe mit gemeinsamem Grundbauplan.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 9</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/9/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 9</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

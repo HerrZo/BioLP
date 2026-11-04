@@ -1,0 +1,67 @@
+/* Hallmark · Newsprint overrides for the Biologie 9 app shell.
+ * The shell keeps the broadsheet material: pale stock, warm black ink, hairline rules,
+ * square controls, and one dried-brick signal that never fills a surface. */
+:root {
+  --color-sheet: var(--color-paper);
+  --color-accent-2: var(--color-ink-2);
+  --color-water: oklch(62% 0.06 200);
+  --color-ink-band: oklch(17% 0.012 60);
+  --rule-bar: 2px;
+}
+
+body { background: var(--color-paper-2); color: var(--color-ink); }
+.main { background: var(--color-paper); border-top: var(--rule-bar) solid var(--color-ink); }
+.sidebar { background: var(--color-paper-2); }
+.tool { background: var(--color-paper-2); border-top: var(--rule-bar) solid var(--color-rule-2); }
+.tool__stage { background: var(--color-paper); border-color: var(--color-rule); }
+.tool__fallback { background: var(--color-paper); }
+.opt { border: 0; border-bottom: var(--rule-hair) solid var(--color-rule); background: transparent; }
+.opt:hover { background: var(--color-paper-2); }
+.opt:has(input:checked) { background: var(--color-paper-2); border-bottom-color: var(--color-ink); }
+.input, .select { background: var(--color-paper-2); border-color: var(--color-rule-2); }
+.station-nav a.is-active { background: var(--color-paper-3); border-left-color: var(--color-accent); }
+.area > a:hover { background: var(--color-paper-2); }
+
+.btn {
+  border-radius: 0;
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+  font: 700 var(--text-sm)/1 var(--font-display);
+  letter-spacing: 0;
+}
+.btn:hover { background: var(--color-ink-2); border-color: var(--color-ink-2); }
+.btn--quiet {
+  background: transparent;
+  color: var(--color-ink);
+  border: 0;
+  border-block: var(--rule-hair) solid var(--color-ink);
+}
+.btn--quiet:hover { background: var(--color-paper-2); border-color: var(--color-ink); }
+.quiet-link { color: var(--color-accent); text-decoration-color: var(--color-accent); }
+.term { color: inherit; text-decoration: underline dotted var(--color-accent); }
+
+.progress__track i, .area__track i { background: var(--color-ink); }
+.station-nav a.is-active .station-nav__num { color: var(--color-accent); }
+.cnum, .area__num, .how-list li::before { color: var(--color-accent); }
+.tool__title { font: 700 var(--text-xl)/1.15 var(--font-display); }
+.station__head h1, .station__head h2 { line-height: 1.06; }
+
+/* One ink band per page: the "Das nimmst du mit" notice. */
+.band--cream {
+  background: var(--color-ink-band);
+  color: var(--color-paper);
+  --color-ink: var(--color-paper);
+  --color-ink-2: color-mix(in oklab, var(--color-paper) 82%, var(--color-ink));
+  --color-muted: color-mix(in oklab, var(--color-paper) 64%, var(--color-ink));
+  --color-rule: color-mix(in oklab, var(--color-paper) 22%, var(--color-ink));
+  --color-rule-2: color-mix(in oklab, var(--color-paper) 44%, var(--color-ink));
+  --color-focus: var(--color-paper-2);
+}
+.band--cream .cnum,
+.band--cream .station__num { color: var(--color-paper); }
+.band--cream .term { color: var(--color-paper); text-decoration-color: var(--color-paper-2); }
+.band--cream .btn { background: var(--color-paper); border-color: var(--color-paper); color: var(--color-ink); }
+.band--cream .btn--quiet { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
+.band--cream .quiet-link { color: var(--color-paper); }
+.reset-dialog__panel { color: var(--color-ink); }

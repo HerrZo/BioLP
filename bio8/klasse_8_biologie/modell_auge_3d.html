@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de" data-grade="8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>3D-Labor Auge | Biologie 8</title>
+<meta name="description" content="Interaktives 3D-Funktionsschnittmodell des menschlichen Auges für Biologie 8: Hornhaut, Linse, Iris, Netzhaut, Akkommodation, Pupillenreflex und Sehnerv.">
+<style>
+/* Hallmark · shape: 3D lab · genre: editorial · theme: Hedgerow · job: learn · scope: instrument
+ * The lab keeps the Bio-8 sheet, ink and chartreuse signal; the 3D stage is the one working surface. */
+@import url("../assets/fonts.css");
+@import url("../assets/tokens.css");
+@import url("../assets/base.css");
+@import url("../assets/app.css");
+@import url("../assets/theme.css");
+@import url("./lab.css");
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="3d-auge">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="lab-masthead">
+  <div class="lab-masthead__inner">
+    <a class="lab-brand" href="../index.html" aria-label="Zur Übersicht Biologie 8">
+      <strong>Biologie 8</strong><span>Gymnasium</span>
+    </a>
+    <p class="lab-masthead__issue"><strong>3D-Labor</strong> · Auge</p>
+    <div class="lab-masthead__actions">
+      <a class="lab-back-link" href="../8-2-sinne-nerven-hormone.html#auge">← Auge-Station</a>
+      <a class="lab-back-link" href="../index.html">Übersicht</a>
+    </div>
+  </div>
+</header>
+
+<main class="lab-main" id="main">
+  <section class="lab-hero" aria-labelledby="eye-title">
+    <div>
+      <p class="lab-kicker">Sinnesorgane · Reizaufnahme · Erregungsleitung</p>
+      <h1 id="eye-title">Das Auge im Schnitt.</h1>
+      <p class="lab-hero__lead">Ein dreidimensionales Funktionsschnittmodell: Blicke in den Augapfel, verfolge den Lichtweg und beobachte, wie aus Licht ein Nervensignal wird.</p>
+    </div>
+    <div class="lab-hero__meta">
+      <p><strong>Sagittalschnitt:</strong> Die äußeren Hüllen sind halb geöffnet, damit Hornhaut, Linse, Glaskörper und Netzhaut gleichzeitig sichtbar bleiben.</p>
+      <p><strong>Zum Ausprobieren:</strong> Nah/Fern-Regler, Lichtstärke, Mikro-Zoom und der vollständige Signalweg vom Photorezeptor bis zum Sehnerv.</p>
+    </div>
+  </section>
+
+  <div class="lab-grid">
+    <div class="lab-stage-column">
+      <div class="lab-stage-shell">
+        <div class="lab-stage" id="eye-stage" role="group" aria-label="Interaktives 3D-Modell des Auges. Ziehen dreht, Mausrad zoomt. Fahre über ein Bauteil oder einen farbigen Punkt, um Name und Funktion zu lesen.">
+          <div class="lab-fallback">
+            <svg aria-label="Schematischer Sagittalschnitt des Auges mit Hornhaut, Iris, Linse, Glaskörper, Netzhaut und Sehnerv" role="img" viewBox="0 0 760 420">
+              <rect fill="#101a14" height="420" width="760" x="0" y="0"></rect>
+              <circle cx="330" cy="210" fill="#2c3b30" r="154" stroke="#e8e0cf" stroke-width="4"></circle>
+              <circle cx="330" cy="210" fill="none" r="140" stroke="#b56c45" stroke-width="5"></circle>
+              <circle cx="330" cy="210" fill="none" r="130" stroke="#d59a5f" stroke-width="4"></circle>
+              <path d="M330 56 C390 58 432 105 441 170 C449 235 407 286 340 304" fill="none" stroke="#e8e0cf" stroke-width="5"></path>
+              <path d="M190 210 C190 170 220 150 260 150 L290 150" fill="none" stroke="#cfe8e4" stroke-width="9"></path>
+              <path d="M300 128 C320 112 350 112 370 128 C382 145 382 168 370 184 C350 200 320 200 300 184 C288 168 288 145 300 128 Z" fill="#e7cf91" fill-opacity="0.75" stroke="#f0e2b8" stroke-width="2"></path>
+              <ellipse cx="300" cy="156" fill="none" rx="20" ry="44" stroke="#d6b96f" stroke-width="3"></ellipse>
+              <ellipse cx="292" cy="156" fill="#0b100c" rx="8" ry="29"></ellipse>
+              <path d="M330 210 L540 210" stroke="#d59a5f" stroke-width="4"></path>
+              <path d="M500 210 C560 210 605 250 650 300" fill="none" stroke="#e8e0cf" stroke-width="18"></path>
+              <path d="M540 212 C585 235 610 270 650 300" fill="none" stroke="#a54f4b" stroke-width="4"></path>
+              <path d="M540 208 C585 222 620 250 650 288" fill="none" stroke="#5d86a2" stroke-width="3"></path>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="36" y="52">Hornhaut</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="340" y="44">Lederhaut</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="516" y="268">Netzhaut</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="560" y="340">Sehnerv</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="320" y="368">Glaskörper</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="lab-stage-caption"><span><strong>Interaktiv:</strong> Ziehen dreht das Modell, Scrollen zoomt. Fahre über ein Bauteil für die Funktion.</span><span>Modell: schematischer Schnitt</span></p>
+    </div>
+
+    <aside class="lab-panel" aria-label="Steuerung des Augenmodells">
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Reizumwandlung</p>
+        <h2>Vom Licht zum Nervensignal</h2>
+        <p>Phase 1 zeigt den gebrochenen Lichtweg. In Phase 2 reagieren die Lichtsinneszellen. In Phase 3 laufen die Aktionspotentiale durch den Sehnerv.</p>
+        <button class="btn lab-phase-switch" id="eye-toggle-signal" type="button" aria-pressed="false">Reizumwandlung &amp; Signalweg aktivieren</button>
+        <div class="lab-phases" aria-label="Phasen der Reizumwandlung">
+          <button class="lab-phase" type="button" data-eye-phase="1"><span>Phase 1</span>Licht &amp; Brechung</button>
+          <button class="lab-phase" type="button" data-eye-phase="2"><span>Phase 2</span>Rezeptorpotential</button>
+          <button class="lab-phase" type="button" data-eye-phase="3"><span>Phase 3</span>Sehnerv</button>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Akkommodation</p>
+        <h3>Nah oder fern?</h3>
+        <div class="lab-control">
+          <div class="lab-control__head">
+            <label for="eye-distance">Gegenstand</label>
+            <output id="eye-distance-out" for="eye-distance">3,1 m</output>
+          </div>
+          <input id="eye-distance" type="range" min="0" max="100" value="50" step="1" aria-describedby="eye-distance-help">
+          <div class="lab-control__scale"><span>Fern</span><span id="eye-distance-label">Mittel</span><span>Nah</span></div>
+          <p id="eye-distance-help" class="lab-control__scale">Der Ziliarmuskel verändert über die Zonulafasern die Linsenkrümmung.</p>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Adaptation</p>
+        <h3>Licht und Pupille</h3>
+        <div class="lab-control">
+          <div class="lab-control__head">
+            <label for="eye-light">Lichtstärke</label>
+            <output id="eye-light-out" for="eye-light">mittel</output>
+          </div>
+          <input id="eye-light" type="range" min="0" max="100" value="50" step="1" aria-describedby="eye-light-help">
+          <div class="lab-control__scale"><span>dunkel</span><span>hell</span></div>
+          <p id="eye-light-help" class="lab-control__scale">Bei hellem Licht verengt sich die Pupille, im Dunkeln wird sie weit.</p>
+        </div>
+        <div class="lab-readouts">
+          <div class="lab-readout">Pupille<strong id="eye-pupil-out">5,4 mm</strong></div>
+          <div class="lab-readout">Linse<strong id="eye-lens-out">mittel</strong></div>
+          <div class="lab-readout">Ziliarmuskel<strong id="eye-ciliary-out">mittel</strong></div>
+          <div class="lab-readout">Bild<strong id="eye-focus-out">auf Netzhaut</strong></div>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Live-Messung</p>
+        <h3>Sehnerv-Oszilloskop</h3>
+        <div class="lab-scope">
+          <canvas id="eye-scope" role="img" aria-label="Oszilloskop: Spannung in Millivolt über die Zeit. Die Aktionspotentiale im Sehnerv werden als Spike-Folge dargestellt."></canvas>
+          <div class="lab-scope__caption"><span>Spannung / Zeit</span><span id="eye-scope-rate">–</span></div>
+        </div>
+        <p class="lab-control__scale">Je mehr Licht auf die Netzhaut fällt, desto häufiger feuern die Ganglienzellen.</p>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Geführte Tour</p>
+        <h3>An die richtige Stelle</h3>
+        <div class="lab-tour">
+          <button class="btn btn--quiet btn--small is-active" type="button" data-eye-tour="overview" aria-pressed="true">Überblick</button>
+          <button class="btn btn--quiet btn--small" type="button" data-eye-tour="cornea" aria-pressed="false">Hornhaut &amp; Linse</button>
+          <button class="btn btn--quiet btn--small" type="button" data-eye-tour="iris" aria-pressed="false">Iris &amp; Pupille</button>
+          <button class="btn btn--quiet btn--small" type="button" data-eye-tour="retina" aria-pressed="false">Netzhaut &amp; Fovea</button>
+          <button class="btn btn--quiet btn--small" type="button" data-eye-tour="nerve" aria-pressed="false">Sehnerv</button>
+          <button class="btn btn--quiet btn--small" id="eye-zoom" type="button" aria-pressed="false">Mikro-Zoom Netzhaut</button>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Schichten &amp; Ansicht</p>
+        <h3>Innereien freilegen</h3>
+        <div class="lab-actions">
+          <button class="btn btn--quiet btn--small is-active" type="button" data-eye-layer="sclera" aria-pressed="true">Lederhaut</button>
+          <button class="btn btn--quiet btn--small is-active" type="button" data-eye-layer="choroid" aria-pressed="true">Aderhaut</button>
+          <button class="btn btn--quiet btn--small is-active" type="button" data-eye-layer="retina" aria-pressed="true">Netzhaut</button>
+          <button class="btn btn--quiet btn--small is-active" type="button" data-eye-layer="vitreous" aria-pressed="true">Glaskörper</button>
+        </div>
+        <div class="lab-actions">
+          <button class="btn btn--quiet btn--small" type="button" id="eye-section-toggle" aria-pressed="true">Schnittkanten: an</button>
+          <button class="btn btn--quiet btn--small" type="button" id="eye-pins-toggle" aria-pressed="true" title="Blendet die kleinen Hover-Punkte an den Bauteilen ein oder aus.">Hotspots: an</button>
+        </div>
+        <p class="lab-panel__kicker" style="margin-top:16px">Irismuster</p>
+        <div class="lab-actions">
+          <button class="btn btn--quiet btn--small is-active" type="button" data-iris-color="brown" aria-pressed="true">Braun</button>
+          <button class="btn btn--quiet btn--small" type="button" data-iris-color="blue" aria-pressed="false">Blau</button>
+          <button class="btn btn--quiet btn--small" type="button" data-iris-color="green" aria-pressed="false">Grün</button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <div class="lab-below">
+    <section class="lab-section" aria-labelledby="eye-steps-title">
+      <h2 id="eye-steps-title">So wird aus Licht ein Signal</h2>
+      <ol class="lab-steps">
+        <li>
+          <div><h3>Brechung an Hornhaut und Linse</h3><p>Das Licht trifft zuerst auf die stark gewölbte Hornhaut. Die Linse bündelt es so, dass ein umgekehrtes, verkleinertes Bild auf der Netzhaut entsteht. Beim Nahsehen wird die Linse stärker gekrümmt.</p></div>
+        </li>
+        <li>
+          <div><h3>Transduktion in den Lichtsinneszellen</h3><p>Stäbchen reagieren auf Helligkeit, Zapfen auf Farben. Die Lichtenergie wird in ein Rezeptorpotential umgewandelt: ein chemisches Signal wird elektrisch.</p></div>
+        </li>
+        <li>
+          <div><h3>Weiterleitung über Bipolar- und Ganglienzellen</h3><p>Bipolare Zellen verbinden die Sinneszellen mit den Ganglienzellen. Deren Fortsätze bündeln sich am blinden Fleck zum Sehnerv und leiten die Impulse zum Gehirn.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <aside class="lab-note" aria-labelledby="eye-note-title">
+      <h2 id="eye-note-title">Modellgrenzen</h2>
+      <p>Das Modell ist ein schematischer Funktionsschnitt. Größenverhältnisse, Krümmungen und Zellzahlen sind vereinfacht. Die Hornhaut ist glasklar; ihre Brechkraft ist im Modell besonders gut sichtbar. Der Sehnerv ist ein Faserbündel und kein einzelnes Kabel.</p>
+      <p><a href="../8-2-sinne-nerven-hormone.html#auge">Zur ausführlichen Auge-Station</a></p>
+    </aside>
+  </div>
+
+  <section class="lab-section" aria-labelledby="eye-glossary-title" style="margin-top:48px">
+    <h2 id="eye-glossary-title">Fachbegriffe</h2>
+    <dl class="lab-glossary">
+      <div><dt>Sklera</dt><dd>Lederhaut; feste äußere Hülle des Auges.</dd></div>
+      <div><dt>Choroidea</dt><dd>Aderhaut; gut durchblutete mittlere Schicht.</dd></div>
+      <div><dt>Retina</dt><dd>Netzhaut mit den Lichtsinneszellen.</dd></div>
+      <div><dt>Cornea</dt><dd>Hornhaut; klare, stark gewölbte Frontscheibe.</dd></div>
+      <div><dt>Akkommodation</dt><dd>Anpassung der Linsenkrümmung an die Entfernung.</dd></div>
+      <div><dt>Fovea centralis</dt><dd>Gelber Fleck; Ort des schärfsten Sehens.</dd></div>
+      <div><dt>Papille</dt><dd>Blinder Fleck; Austrittsstelle des Sehnervs.</dd></div>
+      <div><dt>Transduktion</dt><dd>Umwandlung eines Reizes in ein elektrisches Signal.</dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer class="lab-colophon">
+  <div class="lab-colophon__inner">
+    <p><strong>Biologie 8 · 3D-Labor Auge.</strong> Eigene mathematische Konstruktion nach LehrplanPLUS; keine Schulbuchabbildung. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p><a href="../8-2-sinne-nerven-hormone.html#auge">Auge-Station</a> · <a href="./modell_ohr_3d.html">3D-Labor Ohr</a> · <a href="../index.html">Übersicht</a></p>
+  </div>
+</footer>
+
+<script src="../assets/vendor/three.min.js"></script>
+<script src="../assets/vendor/OrbitControls.js"></script>
+<script src="./lab-common.js"></script>
+<script src="./eye-lab.js"></script>
+</body>
+</html>

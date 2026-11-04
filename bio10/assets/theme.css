@@ -1,0 +1,94 @@
+/* Hallmark · Riso overrides for the Biologie 10 app shell.
+ * Two drums only: the blue writes every word, the pink fills, and the purple
+ * appears where they overprint. No black, no grey, square 2px edges. */
+:root {
+  --color-water: oklch(62% 0.12 240);
+  --color-ink-band: oklch(40% 0.165 265);
+  --rule-bar: 2px;
+}
+
+body { background: var(--color-paper); color: var(--color-ink); }
+.main { background: var(--color-paper); border-top: var(--rule-bar) solid var(--color-ink); }
+.sidebar { background: var(--color-paper-2); }
+.tool { background: var(--color-paper-2); border-top: var(--rule-bar) solid var(--color-ink); }
+.tool__stage { background: var(--color-paper); border-color: var(--color-rule); }
+.tool__fallback { background: var(--color-paper); }
+.opt { border: 0; border-bottom: var(--rule-hair) solid var(--color-rule); background: transparent; }
+.opt:hover { background: var(--color-paper-2); }
+.opt:has(input:checked) { background: var(--color-paper-2); border-bottom-color: var(--color-ink); }
+.input, .select { background: var(--color-paper); border: 1.5px solid var(--color-ink); border-radius: var(--radius-card); }
+.station-nav a.is-active { background: var(--color-paper-3); border-left-color: var(--color-ink); }
+.area > a:hover { background: var(--color-paper-2); }
+
+.btn {
+  border-radius: var(--radius-card);
+  background: var(--color-accent);
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-accent-ink);
+  font: var(--display-weight) 0.9375rem/1 var(--font-display);
+  letter-spacing: 0;
+  transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.btn:hover { background: var(--color-paper-3); border-color: var(--color-paper-3); }
+.btn:active { transform: translate(1px, 1px); }
+.btn--quiet {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1.5px solid var(--color-ink);
+}
+.btn--quiet:hover { background: var(--color-paper-2); border-color: var(--color-ink); }
+.quiet-link { color: var(--color-ink); text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; }
+.quiet-link:hover { text-decoration-thickness: 4px; }
+.term { color: inherit; text-decoration: underline dotted var(--color-accent); text-underline-offset: 0.16em; }
+
+.progress__track i, .area__track i { background: var(--color-ink); }
+.station-nav a.is-active .station-nav__num { color: var(--color-ink); }
+.cnum, .area__num, .how-list li::before { color: var(--color-ink); }
+.tool__title { font: var(--display-weight) var(--text-xl)/1.1 var(--font-display); }
+.station__head h1, .station__head h2 { line-height: 0.98; }
+.masthead { border-bottom: var(--rule-bar) solid var(--color-ink); }
+
+/* One solid blue band per page: the "Das nimmst du mit" statement. */
+.band--cream {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-ink-band);
+  color: var(--color-paper);
+  --color-ink: var(--color-paper);
+  --color-ink-2: color-mix(in oklab, var(--color-paper) 84%, var(--color-ink));
+  --color-muted: color-mix(in oklab, var(--color-paper) 68%, var(--color-ink));
+  --color-rule: color-mix(in oklab, var(--color-paper) 22%, var(--color-ink));
+  --color-rule-2: color-mix(in oklab, var(--color-paper) 44%, var(--color-ink));
+}
+.band--cream::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--texture-opacity);
+  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 9 -4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+.band--cream > * { position: relative; z-index: 2; }
+.band--cream .cnum,
+.band--cream .station__num { color: var(--color-paper); }
+.band--cream .term { color: var(--color-paper); text-decoration-color: var(--color-paper-2); }
+.band--cream .btn { background: var(--color-paper); border-color: var(--color-paper); color: var(--color-ink-band); }
+.band--cream .btn--quiet { background: transparent; color: var(--color-paper); border-color: var(--color-paper); }
+.band--cream .quiet-link { color: var(--color-paper); }
+.reset-dialog__panel { color: var(--color-ink); }
+
+/* Hallmark · answered 38iii · the misregistered word is the Riso signature, once per page in the hero head */
+/* The misregistered word: one focal word per page, pink fringe behind blue. */
+.misreg { position: relative; display: inline-block; isolation: isolate; }
+.misreg::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  white-space: nowrap;
+  pointer-events: none;
+  color: var(--color-accent);
+  transform: translate(3px, 4px);
+}

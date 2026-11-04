@@ -1,0 +1,1518 @@
+<!doctype html>
+<html lang="de" data-grade="8" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Fortpflanzung und Entwicklung | Biologie 8</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 8 zu Fortpflanzung und Individualentwicklung: Pubertät, Zyklus, Schwangerschaft, Verhütung und sexuelle Gesundheit.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Hedgerow (deal 2/3, seed interaktive-lernwebsite-biologie-jugendliche-3f84·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: der Menstruationszyklus und der Verhütungsvergleich · states: default, hover, focus, active, disabled, loading, empty, error · hedgerow: hedge
+ * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the dark sheet needs the tool wells to sit one step lighter; theme.css lifts the wells and keeps the sheet one step darker */
+/* Hallmark · answered F4 · the 8 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Prata; every figure is Manrope with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.sensitive-note ul { margin: var(--space-xs) 0 0; padding-left: 1.2em; }
+.sensitive-note li { margin-bottom: var(--space-2xs); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.puberty-card, .consent-scenario, .method-card, .sti-card, .media-card { display: grid; gap: var(--space-sm); }
+.puberty-card__text, .consent-scenario__text { margin: 0; font: 500 var(--text-lg)/1.4 var(--font-body); min-height: 3.2em; }
+.puberty-actions, .consent-scale { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.puberty-actions .btn, .consent-scale .btn { flex: 0 0 auto; }
+.anatomy-svg { width: 100%; height: auto; display: block; }
+.anatomy-svg .organ { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.anatomy-svg .organ-soft { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.anatomy-svg .accent { fill: var(--color-accent); stroke: var(--color-accent); }
+.anatomy-svg .leader { stroke: var(--color-rule-2); stroke-width: 1; }
+.anatomy-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-ink); }
+.anatomy-svg .label--muted { fill: var(--color-muted); }
+.labels-hidden .anatomy-svg .label, .labels-hidden .anatomy-svg .leader { display: none; }
+.cycle-svg { width: 100%; height: auto; display: block; }
+.cycle-svg .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.cycle-svg .grid { stroke: var(--color-rule); stroke-width: 1; }
+.cycle-svg .curve { fill: none; stroke-width: 2.5; }
+.cycle-svg .curve--fsh { stroke: var(--color-muted); stroke-dasharray: 6 4; }
+.cycle-svg .curve--lh { stroke: var(--color-ink-2); stroke-dasharray: 2 4; }
+.cycle-svg .curve--estrogen { stroke: var(--color-accent); }
+.cycle-svg .curve--progesterone { stroke: var(--color-rule-2); }
+.cycle-svg .marker { stroke: var(--color-accent); stroke-width: 2; stroke-dasharray: 4 4; }
+.cycle-svg .marker-dot { fill: var(--color-accent); }
+.cycle-svg .tick { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.cycle-svg .legend { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.cycle-svg .phase { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); }
+.cycle-svg .lining { fill: var(--color-rule-2); transition: fill var(--dur-short) var(--ease-out); }
+.cycle-svg .lining.is-current { fill: var(--color-accent); }
+.cycle-svg .marker { transition: opacity var(--dur-short) var(--ease-out); }
+.cycle-svg .marker-dot { transition: opacity var(--dur-short) var(--ease-out); }
+.cycle-slider { display: flex; align-items: center; gap: var(--space-xs); font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.cycle-slider input { width: 12rem; accent-color: var(--color-accent); }
+.cycle-slider output { font-family: var(--font-body); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--color-ink); }
+.gender-svg { width: 100%; height: auto; display: block; }
+.gender-svg .center { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.gender-svg .link { stroke: var(--color-rule); stroke-width: 2; }
+.gender-svg .node { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.gender-svg .node-label { font-family: var(--font-body); font-size: 12px; fill: var(--color-ink-2); text-anchor: middle; }
+.gender-svg .gender-node.is-active .node { fill: var(--color-accent); stroke: var(--color-accent); }
+.gender-svg .gender-node.is-active .node-label { fill: var(--color-accent-ink); }
+.gender-svg .center-label { font-family: var(--font-body); font-size: 13px; font-weight: 700; fill: var(--color-ink); text-anchor: middle; }
+.gender-svg .center-sub { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.method-card__name, .sti-card__name, .media-card__title { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.method-card__facts, .sti-card__facts { display: grid; gap: var(--space-2xs); margin: 0; }
+.method-card__facts div, .sti-card__facts div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); padding-bottom: var(--space-2xs); }
+.method-card__facts dt, .sti-card__facts dt { font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); }
+.method-card__facts dd, .sti-card__facts dd { margin: 0; font: 400 var(--text-sm)/1.4 var(--font-body); }
+.method-card__text, .sti-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.media-card__list { margin: 0; padding-left: 1.2em; }
+.media-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.pregnancy-svg { width: 100%; height: auto; display: block; }
+.pregnancy-svg .track { stroke: var(--color-rule-2); stroke-width: 2; }
+.pregnancy-svg .node { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; }
+.pregnancy-svg [data-pregnancy-node].is-active .node { fill: var(--color-accent); stroke: var(--color-accent); }
+.pregnancy-svg .node-label { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); text-anchor: middle; }
+.pregnancy-svg [data-pregnancy-node].is-active .node-label { fill: var(--color-ink); }
+.help-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.help-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.help-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.help-card p { margin: 0 0 var(--space-xs); font-size: var(--text-sm); color: var(--color-ink-2); }
+.help-card a { font-size: var(--text-sm); }
+.tool[data-tool="puberty8"] .tool__stage, .tool[data-tool="consent8"] .tool__stage { min-height: 0; }
+.mobile-hint { display: none; }
+@media (max-width: 60rem) {
+  .help-grid { grid-template-columns: minmax(0, 1fr); }
+  .method-card__facts div, .sti-card__facts div { grid-template-columns: 7rem minmax(0, 1fr); }
+  .tool[data-tool="cycle8"] .tool__stage, .tool[data-tool="anatomy8"] .tool__stage, .tool[data-tool="gender8"] .tool__stage, .tool[data-tool="pregnancy8"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="cycle8"] .cycle-svg { min-width: 640px; }
+  .tool[data-tool="anatomy8"] .anatomy-svg { min-width: 520px; }
+  .tool[data-tool="gender8"] .gender-svg { min-width: 520px; }
+  .tool[data-tool="pregnancy8"] .pregnancy-svg { min-width: 560px; }
+  .mobile-hint { display: block; margin-top: var(--space-2xs); font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="8-3" data-grade="8">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 8">
+      <span class="brand__name">Biologie 8</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">03</span> Fortpflanzung und Entwicklung</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 8</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Fortpflanzung und Entwicklung</h2>
+      <p class="sidebar__deck">Pubertät, Anatomie, Menstruationszyklus, Sexualität, Konsens, Verhütung und Schwangerschaft.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 8</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#pubertaet" data-station-link="pubertaet"><span class="station-nav__num">01</span><span>Pubertät</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#anatomie" data-station-link="anatomie"><span class="station-nav__num">02</span><span>Anatomie</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#zyklus" data-station-link="zyklus"><span class="station-nav__num">03</span><span>Menstruationszyklus</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#sexualitaet" data-station-link="sexualitaet"><span class="station-nav__num">04</span><span>Sexualität und Identität</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#konsens" data-station-link="konsens"><span class="station-nav__num">05</span><span>Konsens und Selbstbestimmung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#verhuetung" data-station-link="verhuetung"><span class="station-nav__num">06</span><span>Verhütung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#schwangerschaft" data-station-link="schwangerschaft"><span class="station-nav__num">07</span><span>Schwangerschaft</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#sti" data-station-link="sti"><span class="station-nav__num">08</span><span>Sexuell übertragbare Infektionen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#hilfe" data-station-link="hilfe"><span class="station-nav__num">09</span><span>Hilfe finden</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">10</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">11</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 8</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Fortpflanzung und Entwicklung: Dein Körper, deine Entscheidungen.</h1>
+<p class="lead">Pubertät, Zyklus, Sexualität, Verhütung und Schwangerschaft. Sachlich, respektvoll und ohne Tabus.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="pubertaet" href="#pubertaet">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">S1</span><span>Du beschreibst körperliche und psychische Veränderungen in der Pubertät und erklärst sie mit Hormonen und Gehirnentwicklung.</span></li>
+<li><span class="cnum">S2</span><span>Du beschreibst den Bau der Geschlechtsorgane mit Fachbegriffen und ordnest biologische Variationen respektvoll ein.</span></li>
+<li><span class="cnum">S3</span><span>Du erklärst den Menstruationszyklus und seine hormonelle Steuerung.</span></li>
+<li><span class="cnum">S4</span><span>Du unterscheidest Geschlechtsidentität, Geschlechtsausdruck, biologisches Geschlecht und sexuelle Orientierung und prüfst Medienbilder kritisch.</span></li>
+<li><span class="cnum">S5</span><span>Du vergleichst Verhütungsmethoden, erklärst Schwangerschaft und schützt dich vor sexuell übertragbaren Infektionen.</span></li>
+<li><span class="cnum">S6</span><span>Du erkennst Konsens und Grenzüberschreitungen und weißt, wo du Hilfe findest.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 3 des LehrplanPLUS Biologie 8 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<ul>
+<li>Hier geht es um Körper, Sexualität und Beziehungen. Die Inhalte sind sachlich und respektvoll.</li>
+<li>Du entscheidest, was du teilen möchtest. Niemand muss persönliche Erfahrungen erzählen.</li>
+<li>Wir verwenden medizinische Fachbegriffe und respektvolle Sprache. Beleidigungen und sexualisierte Abwertung haben hier keinen Platz.</li>
+<li>Die Diagramme sind schematisch. Es gibt keine expliziten Bilder.</li>
+<li>Bei Sorgen oder Fragen helfen BZgA, pro familia, schulische Beratungsstellen und deine Lehrkraft. Diese Seite ersetzt keine ärztliche Beratung.</li>
+</ul>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie kannst du informiert und selbstbestimmt über Körper, Sexualität und Beziehungen entscheiden?</p>
+</div>
+<div class="note">
+<p class="note__title">Hinweis</p>
+<p>Du kannst jederzeit eine Pause machen. Wenn ein Thema dich belastet, sprich mit einer Person, der du vertraust.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="pubertaet" data-title="Pubertät" data-track="true" id="pubertaet">
+<header class="station__head">
+<h2 id="pubertaet-title"><span class="station__num">01</span> Pubertät: Der Körper verändert sich</h2>
+<p class="lead">Hormone setzen eine Entwicklung in Gang, die Körper, Gefühle und Beziehungen verändert.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Pubertät ist der Übergang vom Kind zum Erwachsenen. Im Gehirn wird die Ausschüttung von Hormonen verstärkt. Die Hypophyse bildet FSH und LH; diese Hormone regen die Keimdrüsen an. Bei Menschen mit Hoden entsteht vor allem Testosteron, bei Menschen mit Eierstöcken vor allem Östrogen und Progesteron. Die Geschlechtshormone lösen die körperlichen Veränderungen aus.</p>
+<p>Typische körperliche Veränderungen sind ein Wachstumsschub, Körperbehaarung, stärkeres Schwitzen und Körpergeruch, veränderte Haut, Stimmbruch bei manchen, Brustentwicklung bei manchen, Menstruation bei manchen und Samenerguss bei manchen. Das Timing und die Stärke der Veränderungen sind sehr unterschiedlich. Ein früher oder später Beginn sagt nichts über den Wert eines Menschen aus.</p>
+<p>Auch psychisch und sozial verändert sich viel. Gefühle können intensiver und wechselhafter sein; Freundschaften und die Meinung der Gruppe werden wichtiger; der Wunsch nach Selbstständigkeit wächst. Das Gehirn ist noch in Entwicklung: Das limbische System reagiert schnell und emotional, während der präfrontale Cortex, der Impulse und Planung steuert, erst später reift. Das erklärt impulsive Entscheidungen, nicht „schlechtes Benehmen“.</p>
+<figure class="tool" data-tool="puberty8">
+<div class="tool__head">
+<p class="tool__title">Was verändert sich?</p>
+<p class="tool__hint">Wähle eine Aussage und ordne sie zu. Manche Aussagen passen in mehr als einen Bereich.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="puberty-card">
+<p class="puberty-card__text" data-puberty-text="">Wähle eine Aussage.</p>
+<div class="puberty-actions">
+<button class="btn btn--quiet btn--small" data-puberty-answer="koerper" type="button" data-tip="Körper: sichtbare oder messbare Veränderungen des Körpers.">Körper</button>
+<button class="btn btn--quiet btn--small" data-puberty-answer="psyche" type="button" data-tip="Psyche: Gefühle, Selbstbild und innere Entwicklung.">Psyche</button>
+<button class="btn btn--quiet btn--small" data-puberty-answer="sozial" type="button" data-tip="Sozial: Beziehungen, Freundeskreis und gesellschaftliche Erwartungen.">Sozial</button>
+</div>
+</div>
+<p class="tool__note" data-puberty-progress="" aria-live="polite"></p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Körper, Psyche und Soziales greifen ineinander. Die Einordnung ist eine Hilfe, keine starre Grenze.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was passiert im Gehirn?</summary>
+<p>Der präfrontale Cortex ist für Planung, Impulskontrolle und das Abwägen von Folgen zuständig. Er reift bis ins junge Erwachsenenalter. Das limbische System, besonders die Amygdala, verarbeitet Emotionen und Belohnung und reagiert in der Pubertät besonders stark. Dadurch können Jugendliche intensiver fühlen und schneller riskante Entscheidungen treffen. Das ist kein Charakterfehler, sondern eine Entwicklungsphase. Schlaf, Bewegung, verlässliche Beziehungen und klare Grenzen helfen, damit umzugehen.</p>
+</details>
+<section aria-labelledby="pubertaet-check" class="checkpoint">
+<h3 id="pubertaet-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="pubertaet">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="pubertaet" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "p1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Welche Hormone regen die Keimdrüsen in der Pubertät an?",
+              "options": ["FSH und LH aus der Hypophyse", "Insulin und Glucagon aus der Bauchspeicheldrüse", "Adrenalin und Cortisol aus der Nebenniere", "Thyroxin aus der Schilddrüse"],
+              "correct": 0,
+              "explain": "FSH und LH stimulieren die Keimdrüsen. Dort werden Testosteron beziehungsweise Östrogen und Progesteron gebildet."
+            },
+            {
+              "id": "p2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Warum reagieren Jugendliche oft impulsiver?",
+              "options": ["Das limbische System reagiert stark, während der präfrontale Cortex noch reift.", "Jugendliche haben kein Gehirn.", "Hormone schalten das Denken vollständig aus.", "Der präfrontale Cortex ist bereits fertig entwickelt."],
+              "correct": 0,
+              "explain": "Das limbische System verarbeitet Emotionen schnell; der präfrontale Cortex für Planung und Impulskontrolle reift später."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="pubertaet" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="anatomie" href="#anatomie">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Die Pubertät ist eine hormonell gesteuerte Entwicklung. Körper, Psyche und Soziales verändern sich gleichzeitig, aber nicht bei allen im gleichen Tempo.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Pubertät</dt><dd>Übergang vom Kind zum Erwachsenen.</dd>
+<dt>Hypophyse</dt><dd>Hirnanhangsdrüse; bildet FSH und LH.</dd>
+<dt>Testosteron</dt><dd>Geschlechtshormon, das unter anderem Muskelwachstum und Stimmbruch fördert.</dd>
+<dt>Östrogen</dt><dd>Geschlechtshormon, das unter anderem Brustentwicklung und Zyklus beeinflusst.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Pubertät nur als körperliche Veränderung sehen. Gefühle, Selbstbild und Beziehungen gehören genauso dazu.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="anatomie" data-title="Anatomie" data-track="true" id="anatomie">
+<header class="station__head">
+<h2 id="anatomie-title"><span class="station__num">02</span> Anatomie: Fachsprache für den Körper</h2>
+<p class="lead">Genaue Begriffe helfen, den Körper zu beschreiben, ohne ihn abzuwerten. Die Diagramme sind schematisch.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die äußeren weiblichen Geschlechtsorgane werden zusammen als Vulva bezeichnet. Dazu gehören der Schamhügel, die äußeren und inneren Schamlippen, die Klitoris, die Öffnung der Harnröhre und der Scheideneingang. Die Vagina ist der innere Muskelkanal, der zur Gebärmutter führt. Gebärmutter, Eileiter und Eierstöcke liegen im Becken. Die Klitoris ist ein sensibles Organ; nur ihr sichtbarer Teil liegt außen, der größte Teil liegt innerlich.</p>
+<p>Bei Menschen mit Penis gehören Penis, Eichel, Vorhaut und Hodensack zu den äußeren Organen. Hoden, Nebenhoden, Samenleiter, Prostata und Samenbläschen liegen teilweise im Körper. Die Hoden liegen im Hodensack, weil die Spermienproduktion eine Temperatur von etwa 34 bis 35 °C braucht. Die Harnröhre leitet Urin und Samenflüssigkeit, aber nicht gleichzeitig.</p>
+<p>Das Hymen ist ein elastischer Gewebesaum am Scheideneingang. Es hat von Geburt an eine Öffnung und ist kein „Siegel“. Es kann sich dehnen und verändert sich durch Bewegung, Sport oder Sex. Ein Hymen sagt nichts über Erfahrung oder „Reinheit“ aus. Auch der Begriff „Jungfräulichkeit“ ist eine soziale Vorstellung, keine medizinische Kategorie.</p>
+<p>Biologische Geschlechtsmerkmale sind nicht bei allen Menschen eindeutig. Bei inter* Personen können Chromosomen, Hormone oder Geschlechtsorgane variieren. Inter* ist keine Krankheit und keine Entscheidung. Medizinische Eingriffe an Kindern ohne medizinische Notwendigkeit sind ethisch umstritten. Respektvolle Sprache und die Selbstbestimmung der betroffenen Person stehen im Mittelpunkt.</p>
+<figure class="tool" data-tool="anatomy8">
+<div class="tool__head">
+<p class="tool__title">Schematische Anatomie</p>
+<p class="tool__hint">Wähle eine Ansicht. Die Zeichnungen sind vereinfacht und zeigen keine realistischen Bilder.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-anatomy-view="weiblich" type="button" data-tip="Äußere und innere weibliche Geschlechtsorgane in schematischer Seitenansicht.">Vulva und Vagina</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-anatomy-view="maennlich" type="button" data-tip="Penis, Hodensack und innere Organe in schematischer Seitenansicht.">Penis und Hoden</button>
+<button class="btn btn--quiet btn--small" data-anatomy-toggle="" type="button" data-tip="Blendet die Beschriftungen aus, damit du die Organe selbst benennen kannst.">Beschriftungen ausblenden</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div data-anatomy-panel="weiblich">
+<svg aria-label="Schematische Seitenansicht der weiblichen Geschlechtsorgane mit Gebärmutter, Eileitern, Eierstöcken, Vagina und Harnblase" class="anatomy-svg" role="img" viewbox="0 0 360 300">
+<path class="organ" d="M180 92 C150 92 140 120 145 150 C150 178 165 190 180 190 C195 190 210 178 215 150 C220 120 210 92 180 92 Z"></path>
+<path class="organ-soft" d="M180 106 C166 106 161 126 164 148 C167 168 173 176 180 176 C187 176 193 168 196 148 C199 126 194 106 180 106 Z"></path>
+<path class="organ" d="M168 188 L172 250 L188 250 L192 188 Z"></path>
+<ellipse class="organ-soft" cx="180" cy="190" rx="14" ry="7"></ellipse>
+<path class="organ" d="M180 98 C150 72 120 72 105 92" fill="none" stroke="var(--color-rule-2)" stroke-width="6"></path>
+<path class="organ" d="M180 98 C210 72 240 72 255 92" fill="none" stroke="var(--color-rule-2)" stroke-width="6"></path>
+<ellipse class="accent" cx="98" cy="98" rx="16" ry="11"></ellipse>
+<ellipse class="accent" cx="262" cy="98" rx="16" ry="11"></ellipse>
+<path class="organ-soft" d="M120 150 C120 130 140 125 150 135 C160 145 155 170 140 175 C125 180 120 165 120 150 Z"></path>
+<path d="M230 150 L245 220" fill="none" stroke="var(--color-muted)" stroke-width="8"></path>
+<line class="leader" x1="78" x2="130" y1="52" y2="78"></line><text class="label" data-tip="Eileiter: Verbindet Eierstock und Gebärmutter. Hier findet die Befruchtung statt." tabindex="0" x="16" y="48">Eileiter</text>
+<line class="leader" x1="300" x2="270" y1="56" y2="90"></line><text class="label" data-tip="Eierstock: Bildet Eizellen und die Geschlechtshormone Östrogen und Progesteron." tabindex="0" x="304" y="52">Eierstock</text>
+<line class="leader" x1="78" x2="145" y1="122" y2="130"></line><text class="label" data-tip="Gebärmutter (Uterus): Muskelorgan, in dem sich ein Embryo einnisten und entwickeln kann." tabindex="0" x="16" y="118">Gebärmutter</text>
+<line class="leader" x1="250" x2="196" y1="118" y2="138"></line><text class="label" data-tip="Gebärmutterschleimhaut (Endometrium): Wird im Zyklus aufgebaut und bei der Menstruation abgestoßen." tabindex="0" x="254" y="114">Schleimhaut</text>
+<line class="leader" x1="246" x2="194" y1="196" y2="190"></line><text class="label" data-tip="Muttermund: Öffnung der Gebärmutter zur Vagina. Er kann sich bei der Geburt weiten." tabindex="0" x="250" y="200">Muttermund</text>
+<line class="leader" x1="246" x2="190" y1="244" y2="232"></line><text class="label" data-tip="Vagina: Innerer Muskelkanal. Sie verbindet den Scheideneingang mit der Gebärmutter." tabindex="0" x="250" y="248">Vagina</text>
+<line class="leader" x1="70" x2="132" y1="184" y2="164"></line><text class="label" data-tip="Harnblase: Speichert Urin. Sie liegt vor der Gebärmutter." tabindex="0" x="8" y="180">Harnblase</text>
+<line class="leader" x1="296" x2="244" y1="216" y2="200"></line><text class="label" data-tip="Enddarm: Letzter Abschnitt des Darms. Er liegt hinter der Gebärmutter." tabindex="0" x="300" y="220">Enddarm</text>
+<text class="label label--muted" text-anchor="middle" x="180" y="286">Schematische Seitenansicht</text>
+</svg>
+</div>
+<div data-anatomy-panel="maennlich" hidden="">
+<svg aria-label="Schematische Seitenansicht der männlichen Geschlechtsorgane mit Penis, Hodensack, Hoden, Nebenhoden, Samenleiter, Prostata und Harnblase" class="anatomy-svg" role="img" viewbox="0 0 360 300">
+<path class="organ" d="M80 150 L200 140 L200 165 L80 175 Z"></path>
+<ellipse class="organ" cx="76" cy="160" rx="18" ry="16"></ellipse>
+<path class="accent" d="M76 160 L220 150" fill="none" stroke="var(--color-accent)" stroke-width="2"></path>
+<path class="organ" d="M150 175 C140 210 180 230 200 210 C215 195 205 175 190 170 Z"></path>
+<ellipse class="organ-soft" cx="175" cy="200" rx="18" ry="13"></ellipse>
+<path class="accent" d="M158 200 C160 185 185 182 192 196" fill="none" stroke="var(--color-accent)" stroke-width="3"></path>
+<path d="M188 192 C210 170 220 150 230 130" fill="none" stroke="var(--color-muted)" stroke-width="4"></path>
+<ellipse class="organ" cx="235" cy="150" rx="18" ry="14"></ellipse>
+<path class="organ-soft" d="M245 110 C245 90 270 85 280 100 C290 115 280 135 265 135 C250 135 245 125 245 110 Z"></path>
+<line class="leader" x1="58" x2="120" y1="100" y2="146"></line><text class="label" data-tip="Penis: Äußeres Geschlechtsorgan. Er enthält Schwellkörper und die Harnröhre." tabindex="0" x="8" y="96">Penis</text>
+<line class="leader" x1="58" x2="68" y1="140" y2="160"></line><text class="label" data-tip="Eichel: Sensible Spitze des Penis. Sie ist von der Vorhaut umgeben." tabindex="0" x="8" y="136">Eichel</text>
+<line class="leader" x1="78" x2="150" y1="200" y2="166"></line><text class="label" data-tip="Harnröhre: Leitet Urin und Samenflüssigkeit – aber nicht gleichzeitig." tabindex="0" x="8" y="196">Harnröhre</text>
+<line class="leader" x1="80" x2="160" y1="250" y2="216"></line><text class="label" data-tip="Hodensack (Skrotum): Hält die Hoden außerhalb des Körpers, damit sie kühler liegen." tabindex="0" x="8" y="246">Hodensack</text>
+<line class="leader" x1="292" x2="270" y1="60" y2="105"></line><text class="label" data-tip="Harnblase: Speichert Urin. Sie liegt über der Prostata." tabindex="0" text-anchor="end" x="292" y="56">Harnblase</text>
+<line class="leader" x1="292" x2="222" y1="100" y2="150"></line><text class="label" data-tip="Samenleiter: Transportiert Spermien vom Nebenhoden zur Harnröhre." tabindex="0" text-anchor="end" x="292" y="96">Samenleiter</text>
+<line class="leader" x1="292" x2="246" y1="140" y2="152"></line><text class="label" data-tip="Prostata: Bildet einen Teil der Samenflüssigkeit. Sie liegt unter der Harnblase." tabindex="0" text-anchor="end" x="292" y="136">Prostata</text>
+<line class="leader" x1="292" x2="198" y1="180" y2="195"></line><text class="label" data-tip="Nebenhoden: Hier reifen die Spermien und werden gespeichert." tabindex="0" text-anchor="end" x="292" y="176">Nebenhoden</text>
+<line class="leader" x1="292" x2="188" y1="220" y2="206"></line><text class="label" data-tip="Hoden: Bildet Spermien und Testosteron. Die Spermienproduktion braucht etwa 34 bis 35 °C." tabindex="0" text-anchor="end" x="292" y="216">Hoden</text>
+<text class="label label--muted" text-anchor="middle" x="180" y="296">Schematische Seitenansicht</text>
+</svg>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Zeichnungen sind schematisch. Lage, Größe und Form sind vereinfacht; individuelle Körper unterscheiden sich.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Homologe Organe</summary>
+<p>Klitoris und Penis entstehen in der Embryonalentwicklung aus denselben Gewebeanlagen. Auch die Schamlippen und der Hodensack sind homolog, also strukturell verwandt. Deshalb ähneln sich die Organe in ihrem Aufbau, obwohl sie unterschiedlich aussehen und funktionieren. Homologie bedeutet nicht, dass die Organe identisch sind, sondern dass sie einen gemeinsamen Ursprung haben.</p>
+</details>
+<section aria-labelledby="anatomie-check" class="checkpoint">
+<h3 id="anatomie-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="anatomie">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="anatomie" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "a1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Was bezeichnet der Begriff Vulva?",
+              "options": ["Die äußeren weiblichen Geschlechtsorgane", "Nur die Vagina", "Die Gebärmutter", "Den Eierstock"],
+              "correct": 0,
+              "explain": "Die Vulva umfasst die äußeren Geschlechtsorgane. Die Vagina ist der innere Muskelkanal."
+            },
+            {
+              "id": "a2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Warum liegen die Hoden im Hodensack außerhalb des Körpers?",
+              "options": ["Weil die Spermienproduktion kühlere Temperaturen braucht.", "Weil sie dort besser wachsen.", "Weil sie keine Blutversorgung haben.", "Weil sie dort vor Licht geschützt sind."],
+              "correct": 0,
+              "explain": "Die optimale Temperatur für die Spermienproduktion liegt bei etwa 34 bis 35 °C, etwas unter der Körperkerntemperatur."
+            },
+            {
+              "id": "a3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Was ist das Hymen?",
+              "options": ["Ein elastischer Gewebesaum am Scheideneingang", "Eine geschlossene Hautmembran ohne Öffnung", "Ein Beweis für Jungfräulichkeit", "Ein Teil der Gebärmutter"],
+              "correct": 0,
+              "explain": "Das Hymen ist ein elastischer Gewebesaum. Es hat eine Öffnung und sagt nichts über sexuelle Erfahrung aus."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="anatomie" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="zyklus" href="#zyklus">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Vulva und Vagina sind nicht dasselbe. Fachbegriffe beschreiben den Körper genau und respektvoll.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Vulva</dt><dd>äußere weibliche Geschlechtsorgane.</dd>
+<dt>Vagina</dt><dd>innerer Muskelkanal.</dd>
+<dt>Uterus</dt><dd>Gebärmutter.</dd>
+<dt>Klitoris</dt><dd>sensibles Organ; größtenteils innerlich.</dd>
+<dt>Skrotum</dt><dd>Hodensack.</dd>
+<dt>Testis</dt><dd>Hoden.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Vulva und Vagina gleichsetzen. Die Vulva ist außen, die Vagina ist innen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="zyklus" data-title="Menstruationszyklus" data-track="true" id="zyklus">
+<header class="station__head">
+<h2 id="zyklus-title"><span class="station__num">03</span> Der Menstruationszyklus</h2>
+<p class="lead">Hormone steuern die Reifung einer Eizelle, den Aufbau der Gebärmutterschleimhaut und die Menstruation.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Der Menstruationszyklus wird vom Zusammenspiel von Hypothalamus, Hypophyse und Eierstöcken gesteuert. FSH regt im Eierstock die Reifung eines Follikels an. Der Follikel bildet Östrogen, das die Gebärmutterschleimhaut aufbaut. Kurz vor dem Eisprung steigt LH stark an und löst die Freisetzung der Eizelle aus. Danach bildet der zurückbleibende Follikel den Gelbkörper, der Progesteron produziert. Progesteron hält die Schleimhaut stabil.</p>
+<p>Wird die Eizelle nicht befruchtet, bildet sich der Gelbkörper zurück. Progesteron und Östrogen sinken, die Gebärmutterschleimhaut wird abgestoßen: Die Menstruation beginnt. Wird die Eizelle befruchtet, bleibt der Gelbkörper zunächst erhalten und die Plazenta übernimmt später die Hormonproduktion. Der Zyklus wird ab dem ersten Tag der Menstruation gezählt. Im Durchschnitt dauert er 28 Tage, aber 21 bis 35 Tage sind ebenfalls häufig. Stress, Krankheit, Reisen oder Hormone können ihn verschieben.</p>
+<figure class="tool" data-tool="cycle8">
+<div class="tool__head">
+<p class="tool__title">Den Zyklus erkunden</p>
+<p class="tool__hint">Bewege den Tag-Regler oder wähle eine Phase. Die Kurven zeigen ein typisches Modell.</p>
+</div>
+<div class="tool__controls">
+<label class="cycle-slider" data-tip="Der Zyklus wird ab dem ersten Tag der Menstruation gezählt. Die Länge kann individuell schwanken.">Tag <output data-cycle-day="">14</output>
+<input aria-label="Tag im Menstruationszyklus" data-cycle-range="" max="28" min="1" step="1" type="range" value="14"/>
+</label>
+<button class="btn btn--quiet btn--small" data-cycle-play="" aria-pressed="false" type="button" data-tip="Lässt den Zyklus automatisch von Tag 1 bis Tag 28 ablaufen. Mit demselben Knopf pausierst du.">Zyklus abspielen</button>
+<button class="btn btn--quiet btn--small" data-cycle-speed="0.5" aria-pressed="false" type="button" data-tip="Halbe Geschwindigkeit: gut zum genauen Beobachten der Hormonkurven.">0,5×</button>
+<button class="btn btn--quiet btn--small" data-cycle-speed="1" aria-pressed="true" type="button" data-tip="Normale Geschwindigkeit: ein Zyklus in etwa sieben Sekunden.">1×</button>
+<button class="btn btn--quiet btn--small" data-cycle-speed="2" aria-pressed="false" type="button" data-tip="Doppelte Geschwindigkeit: zeigt den Gesamtverlauf schneller.">2×</button>
+<button class="btn btn--quiet btn--small" data-cycle-phase="1" type="button" data-tip="Menstruation: Die Gebärmutterschleimhaut wird abgestoßen.">Menstruation</button>
+<button class="btn btn--quiet btn--small" data-cycle-phase="7" type="button" data-tip="Follikelreifung: Im Eierstock reift ein Follikel, Östrogen steigt.">Follikelreifung</button>
+<button class="btn btn--quiet btn--small" data-cycle-phase="14" type="button" data-tip="Eisprung: Ein starker LH-Anstieg löst die Freisetzung der Eizelle aus.">Eisprung</button>
+<button class="btn btn--quiet btn--small" data-cycle-phase="21" type="button" data-tip="Gelbkörperphase: Der Gelbkörper bildet Progesteron und stabilisiert die Schleimhaut.">Gelbkörperphase</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Modell des Menstruationszyklus mit FSH, LH, Östrogen, Progesteron und Gebärmutterschleimhaut" class="cycle-svg" role="img" viewbox="0 0 720 320">
+<line class="grid" x1="70" x2="660" y1="90" y2="90"></line>
+<line class="grid" x1="70" x2="660" y1="140" y2="140"></line>
+<line class="grid" x1="70" x2="660" y1="190" y2="190"></line>
+<line class="axis" x1="70" x2="660" y1="220" y2="220"></line>
+<line class="axis" x1="70" x2="70" y1="50" y2="220"></line>
+<path class="curve curve--fsh" d="M70 140 C100 150 120 160 150 155 C180 150 200 110 220 100 C240 90 260 120 280 140 C320 170 360 160 400 140 C450 120 500 140 550 150 C600 160 630 140 660 130"></path>
+<path class="curve curve--lh" d="M70 180 L250 175 C270 170 280 55 300 55 C320 55 330 170 350 180 L660 175"></path>
+<path class="curve curve--estrogen" d="M70 190 C120 180 180 150 240 90 C260 70 280 60 300 80 C320 100 340 160 380 150 C420 140 460 110 500 120 C540 130 580 160 620 180 L660 190"></path>
+<path class="curve curve--progesterone" d="M70 195 L280 195 C300 190 320 110 360 90 C400 70 440 90 480 110 C520 130 560 170 600 190 L660 195"></path>
+<g data-cycle-lining=""></g>
+<line class="marker" data-cycle-marker="" x1="354" x2="354" y1="50" y2="220"></line>
+<circle class="marker-dot" cx="354" cy="50" data-cycle-dot="" r="5"></circle>
+<text class="legend" data-cycle-marker-label="" text-anchor="middle" x="354" y="42">Tag 14</text>
+<line class="curve curve--fsh" x1="70" x2="90" y1="20" y2="20"></line><text class="legend" data-tip="FSH: regt im Eierstock die Reifung eines Follikels an." tabindex="0" x="95" y="24">FSH</text>
+<line class="curve curve--lh" x1="150" x2="170" y1="20" y2="20"></line><text class="legend" data-tip="LH: Ein starker LH-Anstieg löst den Eisprung aus." tabindex="0" x="175" y="24">LH</text>
+<line class="curve curve--estrogen" x1="230" x2="250" y1="20" y2="20"></line><text class="legend" data-tip="Östrogen: baut die Gebärmutterschleimhaut auf und steigt vor dem Eisprung stark an." tabindex="0" x="255" y="24">Östrogen</text>
+<line class="curve curve--progesterone" x1="350" x2="370" y1="20" y2="20"></line><text class="legend" data-tip="Progesteron: Der Gelbkörper bildet es nach dem Eisprung. Es stabilisiert die Schleimhaut." tabindex="0" x="375" y="24">Progesteron</text>
+<text class="tick" text-anchor="middle" x="70" y="238">1</text>
+<text class="tick" text-anchor="middle" x="201" y="238">7</text>
+<text class="tick" text-anchor="middle" x="354" y="238">14</text>
+<text class="tick" text-anchor="middle" x="507" y="238">21</text>
+<text class="tick" text-anchor="middle" x="660" y="238">28</text>
+<text class="phase" data-tip="Menstruation (etwa Tag 1 bis 5): Die Gebärmutterschleimhaut wird abgestoßen." tabindex="0" text-anchor="middle" x="130" y="300">Menstruation</text>
+<text class="phase" data-tip="Follikelreifung (etwa Tag 6 bis 13): Ein Follikel reift, Östrogen steigt." tabindex="0" text-anchor="middle" x="280" y="300">Follikelreifung</text>
+<text class="phase" data-tip="Eisprung (etwa Tag 14): Der LH-Anstieg löst die Freisetzung der Eizelle aus." tabindex="0" text-anchor="middle" x="354" y="300">Eisprung</text>
+<text class="phase" data-tip="Gelbkörperphase (etwa Tag 15 bis 28): Progesteron stabilisiert die Schleimhaut." tabindex="0" text-anchor="middle" x="520" y="300">Gelbkörperphase</text>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Hormonkurven sind schematisch. Die tatsächliche Zykluslänge und der Eisprungzeitpunkt können individuell abweichen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Mythen rund um die Menstruation</summary>
+<p>„Während der Periode kann man nicht schwanger werden“ ist unwahrscheinlich, aber biologisch möglich: Spermien können bis zu fünf Tage überleben, und der Eisprung kann früh im Zyklus liegen. „Ein Tampon kann im Körper verloren gehen“ stimmt nicht; der Muttermund ist zu eng. „Zyklusgleichheit unter Freundinnen“ ist wissenschaftlich nicht belegt. „Die Pillenpause ist eine echte Periode“ stimmt nicht; es ist eine Abbruchblutung. Starke Regelschmerzen, die den Alltag unmöglich machen, sollten ärztlich abgeklärt werden.</p>
+</details>
+<section aria-labelledby="zyklus-check" class="checkpoint">
+<h3 id="zyklus-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="zyklus">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="zyklus" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "z1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Welches Hormon löst den Eisprung aus?",
+              "options": ["LH", "FSH", "Insulin", "Progesteron"],
+              "correct": 0,
+              "explain": "Ein starker LH-Anstieg löst den Eisprung aus. FSH fördert die Follikelreifung."
+            },
+            {
+              "id": "z2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Was bildet der Gelbkörper?",
+              "options": ["Progesteron", "FSH", "Spermien", "Harnstoff"],
+              "correct": 0,
+              "explain": "Der Gelbkörper bildet Progesteron. Es stabilisiert die Gebärmutterschleimhaut."
+            },
+            {
+              "id": "z3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Welche Aussage über den Zyklus ist richtig?",
+              "options": ["Die Länge kann individuell schwanken.", "Er dauert immer genau 28 Tage.", "Der Eisprung ist immer an Tag 14.", "Stress hat keinen Einfluss."],
+              "correct": 0,
+              "explain": "Die Zykluslänge und der Eisprungzeitpunkt können individuell und von Monat zu Monat unterschiedlich sein."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="zyklus" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="sexualitaet" href="#sexualitaet">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>FSH lässt den Follikel reifen, Östrogen baut die Schleimhaut auf, LH löst den Eisprung aus, Progesteron stabilisiert die Schleimhaut.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Follikel</dt><dd>Bläschen im Eierstock, in dem die Eizelle reift.</dd>
+<dt>Eisprung</dt><dd>Freisetzung der reifen Eizelle.</dd>
+<dt>Gelbkörper</dt><dd>Struktur nach dem Eisprung; bildet Progesteron.</dd>
+<dt>Endometrium</dt><dd>Gebärmutterschleimhaut.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Den Zyklus als starren 28-Tage-Takt verstehen. Die meisten Zyklen schwanken.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="sexualitaet" data-title="Sexualität und Identität" data-track="true" id="sexualitaet">
+<header class="station__head">
+<h2 id="sexualitaet-title"><span class="station__num">04</span> Sexualität, Identität und Medien</h2>
+<p class="lead">Sexualität hat biologische, soziale und persönliche Seiten. Geschlecht ist mehr als ein binäres Raster.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Sexualität dient nicht nur der Fortpflanzung. Sie kann Partner binden, Nähe und Lust vermitteln und soziale Beziehungen stärken. Auch bei Tieren gibt es sexuelles Verhalten, das nicht der Fortpflanzung dient: Bonobos nutzen es zur Konfliktlösung, Delfine zeigen gleichgeschlechtliche Interaktionen, und manche Gänse oder Schwäne bilden langfristige gleichgeschlechtliche Paarbindungen. Beim Menschen wird Sexualität zusätzlich von Kultur, Beziehungen, Medien und persönlichen Werten geprägt.</p>
+<p>Geschlecht lässt sich in vier Aspekte unterscheiden: biologisches Geschlecht, Geschlechtsidentität, Geschlechtsausdruck und sexuelle Orientierung. Diese Aspekte können unabhängig voneinander sein. Ein Mensch kann zum Beispiel mit einem männlichen Körper geboren werden, sich als Frau identifizieren und sich zu Frauen hingezogen fühlen. Keine Kombination ist „richtiger“ als eine andere. Respektvolle Sprache und die Frage, wie jemand angesprochen werden möchte, sind wichtig.</p>
+<p>Medien zeigen Ausschnitte von Wirklichkeit. Werbung, Musikvideos und Pornografie können Körper idealisieren, Rollenbilder verstärken und Sexualität als Performance darstellen. Oft fehlen Kommunikation, Konsens, Verhütung und Vielfalt. Das kann eigene Erwartungen und das Selbstbild beeinflussen. Ein kritischer Blick fragt: Wer wird gezeigt? Wer fehlt? Was wird verkauft? Was wird ausgeblendet? Pornografie ist kein Aufklärungsmaterial.</p>
+<figure class="tool" data-tool="gender8">
+<div class="tool__head">
+<p class="tool__title">Vier Aspekte von Geschlecht</p>
+<p class="tool__hint">Wähle einen Aspekt. Die vier Aspekte können unabhängig voneinander sein.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Vier Aspekte von Geschlecht: biologisches Geschlecht, Geschlechtsidentität, Geschlechtsausdruck und sexuelle Orientierung" class="gender-svg" role="img" viewbox="0 0 640 300">
+<line class="link" x1="320" x2="160" y1="150" y2="80"></line>
+<line class="link" x1="320" x2="480" y1="150" y2="80"></line>
+<line class="link" x1="320" x2="160" y1="150" y2="220"></line>
+<line class="link" x1="320" x2="480" y1="150" y2="220"></line>
+<circle class="center" cx="320" cy="150" r="42"></circle>
+<text class="center-label" x="320" y="146">Person</text>
+<text class="center-sub" x="320" y="164">Du</text>
+<g class="gender-node" data-gender-node="biologisch" data-tip="Biologisches Geschlecht: Chromosomen, Hormone und Geschlechtsorgane. Es ist nicht dasselbe wie die Geschlechtsidentität." tabindex="0">
+<circle class="node" cx="160" cy="80" r="38"></circle>
+<text class="node-label" x="160" y="76">Biologisches</text>
+<text class="node-label" x="160" y="92">Geschlecht</text>
+</g>
+<g class="gender-node" data-gender-node="identitaet" data-tip="Geschlechtsidentität: das Geschlecht, als das sich ein Mensch fühlt und versteht." tabindex="0">
+<circle class="node" cx="480" cy="80" r="38"></circle>
+<text class="node-label" x="480" y="76">Geschlechts-</text>
+<text class="node-label" x="480" y="92">identität</text>
+</g>
+<g class="gender-node" data-gender-node="ausdruck" data-tip="Geschlechtsausdruck: wie sich ein Mensch kleidet, verhält oder darstellt." tabindex="0">
+<circle class="node" cx="160" cy="220" r="38"></circle>
+<text class="node-label" x="160" y="216">Geschlechts-</text>
+<text class="node-label" x="160" y="232">ausdruck</text>
+</g>
+<g class="gender-node" data-gender-node="orientierung" data-tip="Sexuelle Orientierung: zu wem sich ein Mensch romantisch oder sexuell hingezogen fühlt." tabindex="0">
+<circle class="node" cx="480" cy="220" r="38"></circle>
+<text class="node-label" x="480" y="216">Sexuelle</text>
+<text class="node-label" x="480" y="232">Orientierung</text>
+</g>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die vier Aspekte sind ein Modell. Es hilft, über Geschlecht zu sprechen, ohne Menschen in ein einziges Raster zu pressen.</figcaption>
+</figure>
+<figure class="tool" data-tool="media8">
+<div class="tool__head">
+<p class="tool__title">Mediencheck: Was wird gezeigt, und was fehlt?</p>
+<p class="tool__hint">Wähle ein Medium. Prüfe, welche Botschaften über Körper, Rollen und Sexualität transportiert werden.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="media-card">
+<p class="media-card__title" data-media-title="">Werbung</p>
+<ul class="media-card__list" data-media-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Medien zeigen Ausschnitte, keine vollständige Wirklichkeit. Frage: Wer profitiert von diesem Bild? Was wird ausgeblendet?</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: inter* und trans*: Was ist der Unterschied?</summary>
+<p>Inter* beschreibt biologische Variationen von Chromosomen, Hormonen oder Geschlechtsorganen. Eine inter* Person kann sich als Frau, Mann, nicht-binär oder anders identifizieren. Trans* beschreibt, dass die Geschlechtsidentität nicht mit dem Geschlecht übereinstimmt, das bei der Geburt zugewiesen wurde. Trans* ist also eine Frage der Identität, inter* eine Frage der biologischen Variation. Beides ist kein Defekt und keine Modeerscheinung. Respektvolle Sprache und Selbstbestimmung sind entscheidend.</p>
+</details>
+<section aria-labelledby="sexualitaet-check" class="checkpoint">
+<h3 id="sexualitaet-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="sexualitaet">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="sexualitaet" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "sx1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was beschreibt die Geschlechtsidentität?",
+              "options": ["Das Geschlecht, als das sich ein Mensch fühlt und versteht", "Nur die Chromosomen", "Nur die Kleidung", "Nur die sexuelle Orientierung"],
+              "correct": 0,
+              "explain": "Die Geschlechtsidentität ist das innere Zugehörigkeitsgefühl. Sie muss nicht mit dem biologischen Geschlecht übereinstimmen."
+            },
+            {
+              "id": "sx2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Welche Frage hilft, ein Medienbild kritisch zu prüfen?",
+              "options": ["Wer wird gezeigt, und wer fehlt?", "Ist das Bild bunt?", "Wie viele Likes hat es?", "Ist es lustig?"],
+              "correct": 0,
+              "explain": "Kritische Medienanalyse fragt nach Auswahl, Interessen und Auslassungen. Likes sind kein Qualitätsmerkmal."
+            },
+            {
+              "id": "sx3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was ist ein Unterschied zwischen inter* und trans*?",
+              "options": ["Inter* beschreibt biologische Variation, trans* die Geschlechtsidentität.", "Beides ist dasselbe.", "Inter* ist eine Krankheit.", "Trans* betrifft nur die Kleidung."],
+              "correct": 0,
+              "explain": "Inter* bezieht sich auf biologische Variationen, trans* auf die Geschlechtsidentität. Die Begriffe dürfen nicht vermischt werden."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="sexualitaet" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="konsens" href="#konsens">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Biologisches Geschlecht, Geschlechtsidentität, Geschlechtsausdruck und sexuelle Orientierung sind vier verschiedene Aspekte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Geschlechtsidentität</dt><dd>Geschlecht, als das sich ein Mensch versteht.</dd>
+<dt>Geschlechtsausdruck</dt><dd>Wie sich ein Mensch darstellt.</dd>
+<dt>Sexuelle Orientierung</dt><dd>Zu wem sich ein Mensch hingezogen fühlt.</dd>
+<dt>inter*</dt><dd>biologische Variation von Geschlechtsmerkmalen.</dd>
+<dt>trans*</dt><dd>Geschlechtsidentität weicht vom bei der Geburt zugewiesenen Geschlecht ab.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Aus dem biologischen Geschlecht automatisch auf die Identität oder Orientierung schließen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="konsens" data-title="Konsens und Selbstbestimmung" data-track="true" id="konsens">
+<header class="station__head">
+<h2 id="konsens-title"><span class="station__num">05</span> Konsens und Selbstbestimmung</h2>
+<p class="lead">Nur ein freiwilliges, klares Ja ist Zustimmung. Niemand schuldet einem anderen Körperkontakt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Konsens bedeutet, dass alle Beteiligten einer Handlung freiwillig und informiert zustimmen. „Ja heißt Ja“ ist sicherer als „Nein heißt Nein“: Wer etwas möchte, muss auf ein klares Ja achten. Schweigen, Zögern, ein unsicheres „Weiß nicht“, Wegdrehen oder Druck sind kein Ja. Zustimmung kann jederzeit zurückgenommen werden, auch mitten in einer Situation. Ein früheres Ja gilt nicht automatisch für später.</p>
+<p>Machtgefälle können Zustimmung erschweren. Alter, Erfahrung, Geld, Status, Wohnung oder soziale Abhängigkeit können dazu führen, dass sich jemand nicht traut, Nein zu sagen. Geschenke, teure Einladungen oder Hilfe begründen keine sexuelle Gegenleistung. Eine gesunde Beziehung basiert auf Respekt, Vertrauen und Kommunikation auf Augenhöhe.</p>
+<p>Warnsignale sind Kontrolle über Kontakte, Isolation von Freundinnen und Freunden, Eifersucht als „Liebesbeweis“, Schuldzuweisungen, Druck, Drohungen, das Teilen intimer Bilder ohne Zustimmung und Stalking. Das sind keine normalen Beziehungsprobleme. Alkohol und andere Substanzen können die Fähigkeit zur Zustimmung beeinträchtigen. Wer bewusstlos, stark betrunken oder benommen ist, kann nicht frei zustimmen.</p>
+<p>Wenn du eine Grenzüberschreitung erlebt hast: Du bist nicht schuld. Hilfe ist vertraulich. Sprich mit einer Vertrauensperson, der Schulberatung, einer Beratungsstelle oder (bei akuter Gefahr) mit der Polizei. Es ist okay, sich Hilfe zu holen, auch wenn die Situation schon länger zurückliegt.</p>
+<figure class="tool" data-tool="consent8">
+<div class="tool__head">
+<p class="tool__title">Konsens-Check</p>
+<p class="tool__hint">Lies die Szene und ordne sie ein: 1 = gesund, 2 = Warnsignal, 3 = klare Grenzüberschreitung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="consent-scenario">
+<p class="consent-scenario__text" data-consent-text="">Wähle eine Szene.</p>
+<p class="tool__note" data-consent-progress="" aria-live="polite"></p>
+<div class="consent-scale">
+<button class="btn btn--quiet btn--small" data-consent-rating="1" type="button" data-tip="Gesund: Respekt, klare Kommunikation und Grenzen werden eingehalten.">1 Grün</button>
+<button class="btn btn--quiet btn--small" data-consent-rating="2" type="button" data-tip="Warnsignal: Kontrolle, Eifersucht oder Abwertung – die Situation ist nicht mehr respektvoll.">2 Gelb</button>
+<button class="btn btn--quiet btn--small" data-consent-rating="3" type="button" data-tip="Klare Grenzüberschreitung: Druck, Drohung oder eine Handlung gegen den Willen.">3 Rot</button>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Übung ist keine Diagnose. Bei echten Grenzüberschreitungen hol dir Hilfe bei einer Vertrauensperson oder einer Beratungsstelle.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was ist sexualisierte Gewalt?</summary>
+<p>Sexualisierte Gewalt umfasst jede sexuelle Handlung, die gegen den Willen einer Person erfolgt, zum Beispiel ungewollte Berührungen, sexistische Kommentare, das Zeigen oder Verbreiten intimer Bilder, Druck, Nötigung oder Vergewaltigung. Sie kann offline und online stattfinden und trifft Menschen jeden Geschlechts. Täter nutzen oft Macht, Vertrauen oder Abhängigkeit. Betroffene tragen keine Schuld. Hilfe bieten das Hilfetelefon, pro familia, Frauenberatungsstellen, die Polizei und schulische Beratungsstellen.</p>
+</details>
+<section aria-labelledby="konsens-check" class="checkpoint">
+<h3 id="konsens-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="konsens">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="konsens" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "k1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S6",
+              "prompt": "Was bedeutet „Ja heißt Ja“?",
+              "options": ["Nur ein freiwilliges, klares Ja ist Zustimmung.", "Schweigen gilt als Zustimmung.", "Ein früheres Ja gilt immer.", "Druck ist erlaubt, wenn man sich liebt."],
+              "correct": 0,
+              "explain": "Zustimmung muss freiwillig, informiert und klar sein. Schweigen oder Zögern ist kein Ja."
+            },
+            {
+              "id": "k2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S6",
+              "prompt": "Welches Verhalten ist ein Warnsignal in einer Beziehung?",
+              "options": ["Kontrolle über Kontakte und Isolation", "Ein Kompromiss bei unterschiedlichen Wünschen", "Offene Kommunikation über Grenzen", "Respekt für ein Nein"],
+              "correct": 0,
+              "explain": "Kontrolle und Isolation sind Warnsignale. Respekt, Kompromiss und offene Kommunikation sind gesund."
+            },
+            {
+              "id": "k3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S6",
+              "prompt": "Warum ist starke Alkoholisierung für Konsens problematisch?",
+              "options": ["Die Fähigkeit zur freien Zustimmung kann beeinträchtigt sein.", "Alkohol macht Zustimmung immer gültig.", "Alkohol hat keine Wirkung auf Entscheidungen.", "Nur der andere ist verantwortlich."],
+              "correct": 0,
+              "explain": "Alkohol kann Urteilsvermögen und die Fähigkeit, Grenzen zu erkennen oder zu äußern, beeinträchtigen. Im Zweifel: stoppen und nachfragen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="konsens" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="verhuetung" href="#verhuetung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Konsens ist freiwillig, klar und jederzeit widerrufbar. Schweigen, Druck oder starke Alkoholisierung sind kein Ja.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Konsens</dt><dd>freiwillige und informierte Zustimmung.</dd>
+<dt>Selbstbestimmung</dt><dd>das Recht, über den eigenen Körper und intime Entscheidungen zu bestimmen.</dd>
+<dt>Grenzüberschreitung</dt><dd>eine Handlung gegen den Willen einer Person.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Schweigen als Zustimmung deuten. Ein unsicheres „Weiß nicht“ ist kein Ja.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="verhuetung" data-title="Verhütung" data-track="true" id="verhuetung">
+<header class="station__head">
+<h2 id="verhuetung-title"><span class="station__num">06</span> Verhütung: Methoden vergleichen</h2>
+<p class="lead">Verhütung ist gemeinsame Verantwortung. Die beste Methode ist die, die zu dir passt und die du richtig anwendest.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Verhütungsmethoden verhindern eine Schwangerschaft auf unterschiedliche Weise. Manche blockieren die Spermien, manche verhindern den Eisprung, manche verändern die Gebärmutterschleimhaut. Der Pearl Index schätzt, wie viele von 100 Personen, die eine Methode ein Jahr lang anwenden, schwanger werden. Je niedriger der Wert, desto sicherer ist die Methode bei typischer Anwendung. Die perfekte Anwendung ist oft sicherer als die typische.</p>
+<p>Nur Kondome schützen zuverlässig vor sexuell übertragbaren Infektionen. Hormonelle Methoden wie die Pille, das Verhütungspflaster, der Ring, das Implantat oder die Spritze verhindern den Eisprung, schützen aber nicht vor STIs. Die Spirale ist langfristig wirksam und wird von einer Arztpraxis eingesetzt. Diaphragma und Portiokappe müssen angepasst werden. Natürliche Methoden erfordern Zykluswissen und sind nicht für alle zuverlässig. Die Pille danach ist Notfallverhütung, keine regelmäßige Methode.</p>
+<p>Verhütung ist keine reine Frauensache. Beide Partner können Verantwortung übernehmen, sich informieren und gemeinsam entscheiden. Sprich vor dem Sex über Verhütung, teste Kondome rechtzeitig und habe einen Plan, was bei einer Panne passiert. Die Pille danach wirkt besser, je früher sie eingenommen wird. Bei Unsicherheit hilft eine Arztpraxis oder eine Beratungsstelle.</p>
+<figure class="tool" data-tool="contraception8">
+<div class="tool__head">
+<p class="tool__title">Verhütungsmethoden vergleichen</p>
+<p class="tool__hint">Wähle eine Methode. Achte auf Pearl Index, STI-Schutz und Anwendung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="method-card">
+<p class="method-card__name" data-method-name="">Kondom</p>
+<dl class="method-card__facts">
+<div><dt data-tip="Pearl Index: Zahl der Schwangerschaften pro 100 Personen, die eine Methode ein Jahr lang anwenden. Je niedriger, desto sicherer.">Pearl Index</dt><dd data-method-pearl="">2 bis 12</dd></div>
+<div><dt data-tip="STI-Schutz: Nur Kondome schützen zuverlässig vor sexuell übertragbaren Infektionen. Hormonelle Methoden und die Spirale tun das nicht.">STI-Schutz</dt><dd data-method-sti="">Ja</dd></div>
+<div><dt data-tip="Anwendung: Wann und wie die Methode angewendet werden muss. Anwendungsfehler erhöhen den Pearl Index.">Anwendung</dt><dd data-method-use="">vor jedem Sex</dd></div>
+</dl>
+<p class="method-card__text" data-method-text="">Schützt vor STIs und Schwangerschaft. Auf Größe, Haltbarkeit und richtige Handhabung achten.</p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Pearl Index: Zahl der Schwangerschaften pro 100 Personen, die ein Jahr lang eine Methode anwenden. Je niedriger, desto sicherer. Nur Kondome schützen zuverlässig vor STIs.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Pearl Index und Anwendungsfehler</summary>
+<p>Der Pearl Index unterscheidet oft zwischen perfekter und typischer Anwendung. Bei Kondomen und Diaphragma ist die Spanne groß, weil Anwendungsfehler häufig sind: falsche Größe, Luftblase, zu spätes Aufziehen, falsches Gleitmittel oder ein gerissenes Kondom. Bei der Pille zählen vergessene Einnahmen. Die Spirale und das Implantat sind weniger von der täglichen Anwendung abhängig und deshalb sehr sicher. Keine Methode ist zu 100 Prozent perfekt; bei einer Panne hilft die Pille danach.</p>
+</details>
+<section aria-labelledby="verhuetung-check" class="checkpoint">
+<h3 id="verhuetung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="verhuetung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="verhuetung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "v1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Welche Methode schützt zuverlässig vor sexuell übertragbaren Infektionen?",
+              "options": ["Das Kondom", "Die Pille", "Die Spirale", "Das Implantat"],
+              "correct": 0,
+              "explain": "Nur Kondome schützen zuverlässig vor STIs. Hormonelle Methoden und die Spirale verhindern eine Schwangerschaft, aber keine Infektion."
+            },
+            {
+              "id": "v2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was bedeutet ein niedriger Pearl Index?",
+              "options": ["Die Methode ist bei typischer Anwendung sicherer.", "Die Methode ist unsicherer.", "Die Methode schützt vor STIs.", "Die Methode ist immer perfekt."],
+              "correct": 0,
+              "explain": "Ein niedriger Pearl Index bedeutet weniger Schwangerschaften pro 100 Personen und Jahr. Perfekte Anwendung kann sicherer sein als typische."
+            },
+            {
+              "id": "v3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Wann ist die Pille danach am wirksamsten?",
+              "options": ["Je früher sie nach dem ungeschützten Sex eingenommen wird", "Erst nach der nächsten Periode", "Nur nach dem Eisprung", "Sie wirkt immer gleich gut"],
+              "correct": 0,
+              "explain": "Die Pille danach wirkt am besten, bevor der Eisprung stattfindet. Je früher sie eingenommen wird, desto besser."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="verhuetung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="schwangerschaft" href="#schwangerschaft">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Kondome schützen vor STIs; hormonelle Methoden und die Spirale verhindern eine Schwangerschaft. Verhütung ist gemeinsame Verantwortung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Pearl Index</dt><dd>Schwangerschaften pro 100 Personen und Jahr.</dd>
+<dt>hormonelle Verhütung</dt><dd>Pille, Pflaster, Ring, Implantat, Spritze.</dd>
+<dt>Spirale</dt><dd>langfristige Methode, die in die Gebärmutter eingesetzt wird.</dd>
+<dt>Pille danach</dt><dd>Notfallverhütung nach ungeschütztem Sex.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, die Pille schütze vor STIs. Das tut sie nicht.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="schwangerschaft" data-title="Schwangerschaft" data-track="true" id="schwangerschaft">
+<header class="station__head">
+<h2 id="schwangerschaft-title"><span class="station__num">07</span> Schwangerschaft und Entwicklung</h2>
+<p class="lead">Aus einer befruchteten Eizelle entsteht in etwa 40 Wochen ein Kind. Die Plazenta versorgt es und ist kein perfekter Filter.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Befruchtung findet im Eileiter statt. Eizelle und Spermium verschmelzen; es entsteht eine Zygote. Die Zygote teilt sich und wandert zur Gebärmutter. Etwa 6 bis 10 Tage nach der Befruchtung nistet sie sich in der Gebärmutterschleimhaut ein. Die Plazenta entsteht und übernimmt den Austausch von Sauerstoff, Nährstoffen und Abfallstoffen zwischen Mutter und Embryo. Die Nabelschnur verbindet das Kind mit der Plazenta.</p>
+<p>In den ersten acht Wochen werden die Organe angelegt; man spricht von einem Embryo. Ab der neunten Woche heißt das Kind Fetus. Es wächst, bewegt sich und reift. Die Lunge ist erst kurz vor der Geburt voll funktionsfähig. Die Schwangerschaft wird ab dem ersten Tag der letzten Periode gerechnet und dauert im Durchschnitt etwa 40 Wochen. Die Geburt beginnt mit Wehen, die den Muttermund öffnen; nach der Geburt löst sich die Plazenta.</p>
+<p>Die Lebensführung der Schwangeren beeinflusst das Kind. Alkohol, Rauchen und Drogen können schaden; auch manche Medikamente und Infektionen sind riskant. Folsäure, eine ausgewogene Ernährung, ausreichend Schlaf und regelmäßige Vorsorgeuntersuchungen sind wichtig. Die Plazenta lässt nicht alle Stoffe durch, aber sie filtert nicht alles: Alkohol und andere Schadstoffe erreichen den Embryo. Bei Fragen hilft die Frauenarztpraxis oder eine Hebamme.</p>
+<figure class="tool" data-tool="pregnancy8">
+<div class="tool__head">
+<p class="tool__title">Von der Befruchtung zur Geburt</p>
+<p class="tool__hint">Wähle einen Abschnitt. Die Zeitangaben sind Durchschnittswerte.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Zeitstrahl der Schwangerschaft von der Befruchtung bis zur Geburt" class="pregnancy-svg" role="img" viewbox="0 0 720 220">
+<line class="track" x1="70" x2="650" y1="110" y2="110"></line>
+<g data-pregnancy-node="befruchtung" data-tip="Befruchtung: Im Eileiter verschmelzen Eizelle und Spermium. Es entsteht eine Zygote." tabindex="0">
+<circle class="node" cx="70" cy="110" r="18"></circle>
+<text class="node-label" x="70" y="150">Befruchtung</text>
+</g>
+<g data-pregnancy-node="einnistung" data-tip="Einnistung: Etwa 6 bis 10 Tage nach der Befruchtung nistet sich die Blastozyste in der Gebärmutterschleimhaut ein." tabindex="0">
+<circle class="node" cx="215" cy="110" r="18"></circle>
+<text class="node-label" x="215" y="150">Einnistung</text>
+</g>
+<g data-pregnancy-node="embryo" data-tip="Embryo: Bis zur 8. Woche werden die Organe angelegt. Die Plazenta versorgt den Embryo über die Nabelschnur." tabindex="0">
+<circle class="node" cx="360" cy="110" r="18"></circle>
+<text class="node-label" x="360" y="150">Embryo</text>
+</g>
+<g data-pregnancy-node="fetus" data-tip="Fetus: Ab der 9. Woche heißt das Kind Fetus. Es wächst, bewegt sich und reift bis zur Geburt." tabindex="0">
+<circle class="node" cx="505" cy="110" r="18"></circle>
+<text class="node-label" x="505" y="150">Fetus</text>
+</g>
+<g data-pregnancy-node="geburt" data-tip="Geburt: Wehen öffnen den Muttermund. Nach der Geburt löst sich die Plazenta." tabindex="0">
+<circle class="node" cx="650" cy="110" r="18"></circle>
+<text class="node-label" x="650" y="150">Geburt</text>
+</g>
+<text class="node-label" x="360" y="190">etwa 40 Wochen ab dem ersten Tag der letzten Periode</text>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Schwangerschaft wird ab dem ersten Tag der letzten Periode gerechnet und dauert im Durchschnitt etwa 40 Wochen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Schwangerschaftsabbruch und unerfüllter Kinderwunsch</summary>
+<p>In Deutschland ist ein Schwangerschaftsabbruch unter bestimmten Bedingungen möglich. Er erfordert in der Regel eine Beratung und eine Bedenkzeit; die Kosten und der Zugang können je nach Situation unterschiedlich sein. Betroffene haben ein Recht auf informationelle Selbstbestimmung und respektvolle Beratung. Informationen bieten pro familia, die BZgA und Arztpraxen. Bei unerfülltem Kinderwunsch gibt es verschiedene Wege: Adoption, Pflegschaft, Samenspende, IVF oder ICSI. Diese Entscheidungen sind persönlich und ethisch komplex; Beratungsstellen und Fachpraxen können unterstützen.</p>
+</details>
+<section aria-labelledby="schwangerschaft-check" class="checkpoint">
+<h3 id="schwangerschaft-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="schwangerschaft">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="schwangerschaft" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "sw1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Wo findet die Befruchtung statt?",
+              "options": ["Im Eileiter", "In der Gebärmutter", "In der Vagina", "Im Eierstock"],
+              "correct": 0,
+              "explain": "Die Befruchtung findet im Eileiter statt. Die Zygote wandert anschließend zur Gebärmutter."
+            },
+            {
+              "id": "sw2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was macht die Plazenta?",
+              "options": ["Sie ermöglicht den Austausch von Stoffen zwischen Mutter und Embryo.", "Sie filtert alle Schadstoffe vollständig heraus.", "Sie bildet die Eizellen.", "Sie ersetzt die Lunge des Kindes."],
+              "correct": 0,
+              "explain": "Die Plazenta ermöglicht den Stoffaustausch. Sie filtert aber nicht alle Schadstoffe; Alkohol und andere Stoffe können das Kind erreichen."
+            },
+            {
+              "id": "sw3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Welches Verhalten ist in der Schwangerschaft besonders riskant?",
+              "options": ["Alkohol und Rauchen", "Ausreichend Schlaf", "Folsäure einnehmen", "Regelmäßige Vorsorge"],
+              "correct": 0,
+              "explain": "Alkohol und Rauchen können die Entwicklung des Kindes schädigen. Vorsorge, Folsäure und ausreichend Schlaf sind wichtig."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="schwangerschaft" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="sti" href="#sti">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Die Plazenta versorgt den Embryo, filtert aber nicht alle Schadstoffe. Alkohol, Rauchen und Drogen können das Kind schädigen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Befruchtung</dt><dd>Verschmelzung von Eizelle und Spermium.</dd>
+<dt>Einnistung</dt><dd>Einbetten der Blastozyste in die Gebärmutterschleimhaut.</dd>
+<dt>Embryo</dt><dd>frühe Entwicklungsphase bis zur 8. Woche.</dd>
+<dt>Fetus</dt><dd>Entwicklungsphase ab der 9. Woche.</dd>
+<dt>Plazenta</dt><dd>Mutterkuchen; Stoffaustausch zwischen Mutter und Kind.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, die Plazenta sei ein perfekter Filter. Sie hält nicht alle Schadstoffe zurück.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="sti" data-title="Sexuell übertragbare Infektionen" data-track="true" id="sti">
+<header class="station__head">
+<h2 id="sti-title"><span class="station__num">08</span> Sexuell übertragbare Infektionen</h2>
+<p class="lead">Viele STIs verlaufen ohne Symptome. Schutz, Test und Behandlung sind wichtig, und niemand muss sich schämen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Sexuell übertragbare Infektionen werden durch Viren, Bakterien oder Parasiten übertragen, meist beim Vaginal-, Anal- oder Oralsex, manchmal auch durch Hautkontakt. Viele Infektionen verlaufen ohne sichtbare Symptome. Unbehandelt können sie Schmerzen, Unfruchtbarkeit oder andere gesundheitliche Folgen haben. Deshalb ist ein Test wichtig, auch wenn man keine Beschwerden hat.</p>
+<p>Kondome und Lecktücher reduzieren das Risiko vieler STIs. Gegen HPV und Hepatitis B gibt es Impfungen. Regelmäßige Tests und offene Kommunikation mit Partnern helfen, Infektionen früh zu erkennen. HIV ist heute gut behandelbar: Bei erfolgreicher Therapie ist das Virus nicht mehr übertragbar (U=U). PrEP ist eine zusätzliche Schutzmöglichkeit für Menschen mit erhöhtem Risiko.</p>
+<p>STIs sind häufig und behandelbar. Scham oder Angst vor Verurteilung kann dazu führen, dass Menschen keine Hilfe suchen. Respektvolle Sprache hilft: Es geht um eine Infektion, nicht um einen „schmutzigen“ Menschen. Ärztpraxen, Gesundheitsämter und Beratungsstellen bieten vertrauliche Tests und Behandlung.</p>
+<figure class="tool" data-tool="sti8">
+<div class="tool__head">
+<p class="tool__title">STIs im Überblick</p>
+<p class="tool__hint">Wähle eine Infektion. Viele verlaufen ohne Symptome; ein Test gibt Sicherheit.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="sti-card">
+<p class="sti-card__name" data-sti-name="">Chlamydien</p>
+<dl class="sti-card__facts">
+<div><dt data-tip="Übertragung: Der Weg, über den die Infektion von Mensch zu Mensch gelangt.">Übertragung</dt><dd data-sti-transmission="">Sex ohne Kondom, auch Oral- und Analverkehr</dd></div>
+<div><dt data-tip="Symptome: Anzeichen, die auftreten können – viele STIs verlaufen aber ohne sichtbare Beschwerden.">Symptome</dt><dd data-sti-symptoms="">oft keine; Ausfluss, Brennen, Unterbauchschmerzen</dd></div>
+<div><dt data-tip="Schutz: Maßnahmen, die das Übertragungsrisiko senken. Kondome und Lecktücher reduzieren das Risiko vieler STIs.">Schutz</dt><dd data-sti-protection="">Kondom reduziert das Risiko</dd></div>
+<div><dt data-tip="Test und Behandlung: Ein Test gibt Sicherheit. Viele STIs sind mit Antibiotika oder antiviralen Mitteln behandelbar.">Test und Behandlung</dt><dd data-sti-treatment="">Test in der Arztpraxis, Antibiotika; Partner mitbehandeln</dd></div>
+</dl>
+<p class="sti-card__text" data-sti-text="">Chlamydien sind Bakterien. Eine unbehandelte Infektion kann die Eileiter schädigen und Unfruchtbarkeit verursachen.</p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Angaben sind allgemeine Informationen, keine medizinische Beratung. Bei Symptomen oder Unsicherheit: Arztpraxis oder Beratungsstelle.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Testen: wann und wo?</summary>
+<p>Ein Test ist sinnvoll nach ungeschütztem Sex, bei Symptomen, bei einem neuen Partner oder wenn ein Partner eine Infektion hat. Manche Tests brauchen ein Zeitfenster, weil eine Infektion erst nach einigen Wochen nachweisbar ist. Tests sind vertraulich; sie können in Arztpraxen, bei Gesundheitsämtern oder in Beratungsstellen gemacht werden. Manche Tests sind kostenlos. Bei HIV gibt es zusätzlich die Möglichkeit eines anonymen Tests. Wichtig: Nicht jede Infektion verursacht Symptome; nur ein Test gibt Sicherheit.</p>
+</details>
+<section aria-labelledby="sti-check" class="checkpoint">
+<h3 id="sti-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="sti">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="sti" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "st1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Welche Methode reduziert das Risiko einer STI-Übertragung?",
+              "options": ["Kondome und Lecktücher", "Die Pille", "Die Spirale", "Das Implantat"],
+              "correct": 0,
+              "explain": "Kondome und Lecktücher reduzieren das Risiko vieler STIs. Hormonelle Methoden und die Spirale schützen nicht vor Infektionen."
+            },
+            {
+              "id": "st2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was bedeutet U=U bei HIV?",
+              "options": ["Bei erfolgreicher Behandlung ist das Virus nicht übertragbar.", "HIV ist immer heilbar.", "HIV wird nur durch Blut übertragen.", "Man braucht keinen Test."],
+              "correct": 0,
+              "explain": "U=U bedeutet „undetectable = untransmittable“: Bei erfolgreicher Therapie ist HIV nicht mehr übertragbar."
+            },
+            {
+              "id": "st3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Warum ist ein Test auch ohne Symptome sinnvoll?",
+              "options": ["Viele STIs verlaufen ohne sichtbare Symptome.", "Ein Test schützt vor einer Infektion.", "Symptome sind immer eindeutig.", "Nur Menschen mit vielen Partnern brauchen Tests."],
+              "correct": 0,
+              "explain": "Viele STIs verlaufen symptomlos. Nur ein Test gibt Sicherheit und ermöglicht eine rechtzeitige Behandlung."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="sti" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="hilfe" href="#hilfe">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Viele STIs verlaufen ohne Symptome. Kondome und Lecktücher reduzieren das Risiko; ein Test gibt Sicherheit.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>STI</dt><dd>sexuell übertragbare Infektion.</dd>
+<dt>HIV</dt><dd>Virus, das das Immunsystem schädigt; gut behandelbar.</dd>
+<dt>HPV</dt><dd>Viren, die Warzen und bestimmte Krebsarten verursachen können; Impfung möglich.</dd>
+<dt>U=U</dt><dd>bei erfolgreicher HIV-Therapie nicht übertragbar.</dd>
+<dt>PrEP</dt><dd>vorbeugende HIV-Medikation für Menschen mit erhöhtem Risiko.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, STIs hätten immer sichtbare Symptome. Viele verlaufen unbemerkt.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Hilfe finden" data-station="hilfe" data-title="Hilfe finden" id="hilfe">
+<header class="station__head">
+<h2 id="hilfe-title"><span class="station__num">09</span> Wo bekommst du Hilfe?</h2>
+<p class="lead">Du musst nicht allein klarkommen. Hilfe ist vertraulich, und du bist nicht schuld.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bei Fragen zu Körper, Sexualität, Verhütung oder Beziehungen gibt es viele Anlaufstellen. Du entscheidest, wem du dich anvertraust. Eine Vertrauensperson kann ein Elternteil, eine Lehrkraft, die Schulberatung, eine Freundin oder ein Freund sein. Fachliche Beratung ist oft kostenlos und vertraulich.</p>
+<div class="help-grid">
+<div class="help-card">
+<h3>Vertrauensperson</h3>
+<p>Eltern, Lehrkraft, Schulberatung oder eine Person, der du vertraust. Du musst nicht alles allein tragen.</p>
+</div>
+<div class="help-card">
+<h3>BZgA</h3>
+<p>Bundeszentrale für gesundheitliche Aufklärung: Informationen zu Sexualität, Verhütung, Schwangerschaft und STIs.</p>
+<a href="https://www.bzga.de" rel="noopener" target="_blank">bzga.de</a>
+</div>
+<div class="help-card">
+<h3>pro familia</h3>
+<p>Beratung zu Sexualität, Schwangerschaft, Schwangerschaftsabbruch und Beziehungen.</p>
+<a href="https://www.profamilia.de" rel="noopener" target="_blank">profamilia.de</a>
+</div>
+<div class="help-card">
+<h3>Nummer gegen Kummer</h3>
+<p>Kostenlose Beratung für Kinder und Jugendliche bei Sorgen, Angst oder Fragen.</p>
+<a href="https://www.nummergegenkummer.de" rel="noopener" target="_blank">nummergegenkummer.de</a>
+</div>
+<div class="help-card">
+<h3>Hilfetelefon Gewalt gegen Frauen</h3>
+<p>Beratung bei Gewalt und Grenzüberschreitungen. Telefon: 08000 116 016.</p>
+<a href="https://www.hilfetelefon.de" rel="noopener" target="_blank">hilfetelefon.de</a>
+</div>
+<div class="help-card">
+<h3>Akute Gefahr</h3>
+<p>Wenn du oder eine andere Person in Gefahr ist, ruf die Polizei: 110. Du musst keine Details erklären, um Hilfe zu bekommen.</p>
+</div>
+</div>
+<div class="sensitive-note">
+<h2>Wichtig</h2>
+<p>Diese Seite ersetzt keine ärztliche oder psychologische Beratung. Bei körperlichen Beschwerden, STI-Verdacht oder Fragen zur Verhütung hilft eine Arztpraxis. Bei einer Grenzüberschreitung oder sexualisierten Gewalt kannst du dich an eine Beratungsstelle wenden. Hilfe ist vertraulich. Du bist nicht schuld.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Hilfe holen ist ein Zeichen von Stärke, nicht von Schwäche. Du entscheidest, wem du dich anvertraust.</p>
+</div>
+<div class="note">
+<p class="note__title">Wenn du nicht weißt, wen du fragen sollst</p>
+<p>Beginne mit einer Vertrauensperson oder der Schulberatung. Fachstellen können dir weiterhelfen, auch anonym.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">10</span> Kompetenzcheck Fortpflanzung und Entwicklung</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="fortpflanzung8">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="fortpflanzung8" type="application/json">
+      {
+        "competencies": {
+          "S1": "Pubertät und Entwicklung",
+          "S2": "Anatomie und Fachsprache",
+          "S3": "Menstruationszyklus",
+          "S4": "Sexualität, Identität und Medien",
+          "S5": "Verhütung, Schwangerschaft und STI-Schutz",
+          "S6": "Konsens und Selbstbestimmung"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Welche Veränderung gehört typischerweise zur Pubertät?",
+            "options": ["Wachstumsschub und veränderte Körperbehaarung", "Die Haut wird immer glatter", "Die Stimme bleibt immer gleich", "Die Pubertät betrifft nur den Körper"],
+            "correct": 0,
+            "explain": "Wachstum, Körperbehaarung, Hautveränderungen und viele weitere körperliche und psychische Veränderungen gehören zur Pubertät."
+          },
+          {
+            "id": "c2",
+            "type": "input",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Wie heißt die Hirnanhangsdrüse, die FSH und LH bildet?",
+            "accept": ["hypophyse", "hirnanhangsdrüse", "hirnanhangsdruse"],
+            "model": "Hypophyse",
+            "explain": "Die Hypophyse bildet FSH und LH. Diese Hormone regen die Keimdrüsen an."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Was bezeichnet der Begriff Vulva?",
+            "options": ["Die äußeren weiblichen Geschlechtsorgane", "Nur die Vagina", "Die Gebärmutter", "Den Eierstock"],
+            "correct": 0,
+            "explain": "Die Vulva umfasst die äußeren Geschlechtsorgane. Die Vagina ist der innere Muskelkanal."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Warum liegen die Hoden im Hodensack außerhalb des Körpers?",
+            "options": ["Weil die Spermienproduktion kühlere Temperaturen braucht.", "Weil sie dort besser wachsen.", "Weil sie keine Blutversorgung haben.", "Weil sie dort vor Licht geschützt sind."],
+            "correct": 0,
+            "explain": "Die optimale Temperatur für die Spermienproduktion liegt bei etwa 34 bis 35 °C, etwas unter der Körperkerntemperatur."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Welches Hormon löst den Eisprung aus?",
+            "options": ["LH", "FSH", "Insulin", "Progesteron"],
+            "correct": 0,
+            "explain": "Ein starker LH-Anstieg löst den Eisprung aus. FSH fördert die Follikelreifung."
+          },
+          {
+            "id": "c6",
+            "type": "input",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Wie heißt die Gebärmutterschleimhaut mit Fachbegriff?",
+            "accept": ["endometrium", "endometrium"],
+            "model": "Endometrium",
+            "explain": "Die Gebärmutterschleimhaut heißt Endometrium. Sie wird im Zyklus auf- und abgebaut."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Was beschreibt die sexuelle Orientierung?",
+            "options": ["Zu wem sich ein Mensch romantisch oder sexuell hingezogen fühlt", "Nur die Chromosomen", "Nur die Kleidung", "Nur die Geschlechtsorgane"],
+            "correct": 0,
+            "explain": "Die sexuelle Orientierung beschreibt, zu wem sich ein Mensch hingezogen fühlt. Sie ist nicht dasselbe wie die Geschlechtsidentität."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Welche Frage ist für die kritische Prüfung eines Medienbildes hilfreich?",
+            "options": ["Wer wird gezeigt, und wer fehlt?", "Ist das Bild bunt?", "Wie viele Likes hat es?", "Ist es lustig?"],
+            "correct": 0,
+            "explain": "Kritische Medienanalyse fragt nach Auswahl, Interessen und Auslassungen. Likes sind kein Qualitätsmerkmal."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "S5",
+            "prompt": "Welche Methode schützt zuverlässig vor sexuell übertragbaren Infektionen?",
+            "options": ["Das Kondom", "Die Pille", "Die Spirale", "Das Implantat"],
+            "correct": 0,
+            "explain": "Nur Kondome schützen zuverlässig vor STIs. Hormonelle Methoden und die Spirale verhindern eine Schwangerschaft, aber keine Infektion."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "S5",
+            "prompt": "Was macht die Plazenta?",
+            "options": ["Sie ermöglicht den Austausch von Stoffen zwischen Mutter und Embryo.", "Sie filtert alle Schadstoffe vollständig heraus.", "Sie bildet die Eizellen.", "Sie ersetzt die Lunge des Kindes."],
+            "correct": 0,
+            "explain": "Die Plazenta ermöglicht den Stoffaustausch. Sie filtert aber nicht alle Schadstoffe; Alkohol und andere Stoffe können das Kind erreichen."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "S6",
+            "prompt": "Was bedeutet Konsens?",
+            "options": ["Freiwillige, informierte und klare Zustimmung", "Schweigen als Zustimmung", "Ein früheres Ja gilt immer", "Druck ist erlaubt, wenn man sich liebt"],
+            "correct": 0,
+            "explain": "Konsens muss freiwillig, informiert und klar sein. Schweigen, Zögern oder Druck sind kein Ja."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "S6",
+            "prompt": "Welches Verhalten ist ein Warnsignal in einer Beziehung?",
+            "options": ["Kontrolle über Kontakte und Isolation", "Ein Kompromiss bei unterschiedlichen Wünschen", "Offene Kommunikation über Grenzen", "Respekt für ein Nein"],
+            "correct": 0,
+            "explain": "Kontrolle und Isolation sind Warnsignale. Respekt, Kompromiss und offene Kommunikation sind gesund."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">11</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Pubertät</dt><dd>Übergang vom Kind zum Erwachsenen mit körperlichen, psychischen und sozialen Veränderungen.</dd></div>
+<div class="glossary__row"><dt>Hypophyse</dt><dd>Hirnanhangsdrüse; bildet FSH und LH.</dd></div>
+<div class="glossary__row"><dt>Testosteron</dt><dd>Geschlechtshormon, das unter anderem Muskelwachstum und Stimmbruch fördert.</dd></div>
+<div class="glossary__row"><dt>Östrogen</dt><dd>Geschlechtshormon, das unter anderem Brustentwicklung und Zyklus beeinflusst.</dd></div>
+<div class="glossary__row"><dt>Progesteron</dt><dd>Hormon des Gelbkörpers; stabilisiert die Gebärmutterschleimhaut.</dd></div>
+<div class="glossary__row"><dt>FSH</dt><dd>Hormon, das die Reifung von Follikeln im Eierstock fördert.</dd></div>
+<div class="glossary__row"><dt>LH</dt><dd>Hormon, das den Eisprung auslöst.</dd></div>
+<div class="glossary__row"><dt>Vulva</dt><dd>Die äußeren weiblichen Geschlechtsorgane.</dd></div>
+<div class="glossary__row"><dt>Vagina</dt><dd>Innerer Muskelkanal, der zur Gebärmutter führt.</dd></div>
+<div class="glossary__row"><dt>Uterus</dt><dd>Gebärmutter.</dd></div>
+<div class="glossary__row"><dt>Klitoris</dt><dd>Sensibles Organ; nur ein kleiner Teil liegt außen.</dd></div>
+<div class="glossary__row"><dt>Hymen</dt><dd>Elastischer Gewebesaum am Scheideneingang; kein „Jungfräulichkeitsbeweis“.</dd></div>
+<div class="glossary__row"><dt>Skrotum</dt><dd>Hodensack.</dd></div>
+<div class="glossary__row"><dt>Testis</dt><dd>Hoden; bildet Spermien und Testosteron.</dd></div>
+<div class="glossary__row"><dt>Menstruationszyklus</dt><dd>Zyklus von Hormonen und Gebärmutterschleimhaut, der etwa einen Monat dauert.</dd></div>
+<div class="glossary__row"><dt>Follikel</dt><dd>Bläschen im Eierstock, in dem die Eizelle reift.</dd></div>
+<div class="glossary__row"><dt>Eisprung</dt><dd>Freisetzung der reifen Eizelle aus dem Eierstock.</dd></div>
+<div class="glossary__row"><dt>Gelbkörper</dt><dd>Struktur nach dem Eisprung; bildet Progesteron.</dd></div>
+<div class="glossary__row"><dt>Endometrium</dt><dd>Gebärmutterschleimhaut.</dd></div>
+<div class="glossary__row"><dt>Geschlechtsidentität</dt><dd>Das Geschlecht, als das sich ein Mensch fühlt und versteht.</dd></div>
+<div class="glossary__row"><dt>Geschlechtsausdruck</dt><dd>Wie sich ein Mensch geschlechtlich darstellt, etwa durch Kleidung oder Verhalten.</dd></div>
+<div class="glossary__row"><dt>Sexuelle Orientierung</dt><dd>Zu wem sich ein Mensch romantisch oder sexuell hingezogen fühlt.</dd></div>
+<div class="glossary__row"><dt>inter*</dt><dd>Biologische Variation von Chromosomen, Hormonen oder Geschlechtsorganen.</dd></div>
+<div class="glossary__row"><dt>trans*</dt><dd>Geschlechtsidentität weicht vom bei der Geburt zugewiesenen Geschlecht ab.</dd></div>
+<div class="glossary__row"><dt>Konsens</dt><dd>Freiwillige, informierte und klare Zustimmung; jederzeit widerrufbar.</dd></div>
+<div class="glossary__row"><dt>Selbstbestimmung</dt><dd>Das Recht, über den eigenen Körper und intime Entscheidungen zu bestimmen.</dd></div>
+<div class="glossary__row"><dt>Pearl Index</dt><dd>Schwangerschaften pro 100 Personen, die eine Methode ein Jahr lang anwenden.</dd></div>
+<div class="glossary__row"><dt>Verhütung</dt><dd>Methoden, die eine Schwangerschaft verhindern.</dd></div>
+<div class="glossary__row"><dt>STI</dt><dd>Sexuell übertragbare Infektion.</dd></div>
+<div class="glossary__row"><dt>HIV</dt><dd>Virus, das das Immunsystem schädigt; bei erfolgreicher Therapie nicht übertragbar (U=U).</dd></div>
+<div class="glossary__row"><dt>HPV</dt><dd>Viren, die Warzen und bestimmte Krebsarten verursachen können; Impfung möglich.</dd></div>
+<div class="glossary__row"><dt>U=U</dt><dd>„Undetectable = untransmittable“: Bei erfolgreicher HIV-Therapie ist das Virus nicht übertragbar.</dd></div>
+<div class="glossary__row"><dt>PrEP</dt><dd>Vorbeugende HIV-Medikation für Menschen mit erhöhtem Risiko.</dd></div>
+<div class="glossary__row"><dt>Plazenta</dt><dd>Mutterkuchen; ermöglicht den Stoffaustausch zwischen Mutter und Kind.</dd></div>
+<div class="glossary__row"><dt>Nabelschnur</dt><dd>Verbindet das Kind mit der Plazenta.</dd></div>
+<div class="glossary__row"><dt>Embryo</dt><dd>Frühe Entwicklungsphase bis zur 8. Woche.</dd></div>
+<div class="glossary__row"><dt>Fetus</dt><dd>Entwicklungsphase ab der 9. Woche.</dd></div>
+<div class="glossary__row"><dt>Schwangerschaftsabbruch</dt><dd>Beendigung einer Schwangerschaft; in Deutschland unter bestimmten Bedingungen möglich.</dd></div>
+<div class="glossary__row"><dt>Adoption</dt><dd>Rechtliche Übernahme der Elternschaft für ein Kind.</dd></div>
+<div class="glossary__row"><dt>IVF</dt><dd>In-vitro-Fertilisation; Befruchtung im Labor.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 8</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/8/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 8</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

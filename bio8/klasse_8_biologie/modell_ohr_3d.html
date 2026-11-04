@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="de" data-grade="8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>3D-Labor Ohr | Biologie 8</title>
+<meta name="description" content="Interaktives 3D-Funktionsschnittmodell des menschlichen Ohres für Biologie 8: Ohrmuschel, Trommelfell, Gehörknöchelchen, Cochlea, Haarsinneszellen, Tonotopie und Hörnerv.">
+<style>
+/* Hallmark · shape: 3D lab · genre: editorial · theme: Hedgerow · job: learn · scope: instrument
+ * The lab keeps the Bio-8 sheet, ink and chartreuse signal; the 3D stage is the one working surface. */
+@import url("../assets/fonts.css");
+@import url("../assets/tokens.css");
+@import url("../assets/base.css");
+@import url("../assets/app.css");
+@import url("../assets/theme.css");
+@import url("./lab.css");
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="3d-ohr">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="lab-masthead">
+  <div class="lab-masthead__inner">
+    <a class="lab-brand" href="../index.html" aria-label="Zur Übersicht Biologie 8">
+      <strong>Biologie 8</strong><span>Gymnasium</span>
+    </a>
+    <p class="lab-masthead__issue"><strong>3D-Labor</strong> · Ohr</p>
+    <div class="lab-masthead__actions">
+      <a class="lab-back-link" href="../8-2-sinne-nerven-hormone.html#ohr">← Ohr-Station</a>
+      <a class="lab-back-link" href="../index.html">Übersicht</a>
+    </div>
+  </div>
+</header>
+
+<main class="lab-main" id="main">
+  <section class="lab-hero" aria-labelledby="ear-title">
+    <div>
+      <p class="lab-kicker">Sinnesorgane · Schall · Mechanotransduktion</p>
+      <h1 id="ear-title">Das Ohr in drei Räumen.</h1>
+      <p class="lab-hero__lead">Außenohr, Mittelohr und Innenohr als dreidimensionales Funktionsmodell: Verfolge eine Druckwelle bis zur Haarzelle und weiter in den Hörnerv.</p>
+    </div>
+    <div class="lab-hero__meta">
+      <p><strong>Drei Etagen:</strong> Die Ohrmuschel fängt den Schall, die Gehörknöchelchen verstärken ihn, und die Cochlea macht daraus Nervensignale.</p>
+      <p><strong>Zum Ausprobieren:</strong> Tonhöhe und Lautstärke, die Wanderwelle der Basilarmembran, Tonotopie und ein Warnhinweis ab 85 dB.</p>
+    </div>
+  </section>
+
+  <div class="lab-grid">
+    <div class="lab-stage-column">
+      <div class="lab-stage-shell">
+        <div class="lab-stage" id="ear-stage" role="group" aria-label="Interaktives 3D-Modell des Ohres. Ziehen dreht, Mausrad zoomt. Fahre über ein Bauteil oder einen farbigen Punkt, um Name und Funktion zu lesen.">
+          <div class="lab-fallback">
+            <svg aria-label="Schematischer Schnitt durch das Ohr mit Ohrmuschel, Gehörgang, Trommelfell, Gehörknöchelchen, Cochlea und Hörnerv" role="img" viewBox="0 0 760 420">
+              <rect fill="#101a14" height="420" width="760" x="0" y="0"></rect>
+              <path d="M104 86 Q36 210 108 334" fill="none" stroke="#c88b72" stroke-width="18" stroke-linecap="round"></path>
+              <path d="M128 112 Q78 210 132 306" fill="none" stroke="#9f6554" stroke-width="8" stroke-linecap="round"></path>
+              <path d="M128 210 L300 210" stroke="#9f6554" stroke-width="24"></path>
+              <path d="M128 210 L300 210" stroke="#6f403a" stroke-width="14"></path>
+              <line stroke="#e5c9a8" stroke-width="6" x1="302" x2="302" y1="180" y2="240"></line>
+              <g fill="none" stroke="#eadcbd" stroke-width="8">
+                <path d="M308 210 C330 182 352 176 372 194 L400 206"></path>
+                <path d="M382 205 C410 190 430 188 452 204"></path>
+                <path d="M452 204 C475 188 495 190 510 208"></path>
+                <path d="M510 208 C530 214 544 222 552 236"></path>
+                <path d="M552 236 C560 218 580 210 600 218"></path>
+              </g>
+              <ellipse cx="304" cy="210" fill="#d8a37b" fill-opacity="0.55" rx="7" ry="35"></ellipse>
+              <path d="M420 250 C470 350 530 360 565 350" fill="none" stroke="#c88b72" stroke-width="12" stroke-linecap="round"></path>
+              <path d="M585 188 C585 142 640 142 640 188 C640 234 585 234 585 188 C585 164 612 160 618 184" fill="none" stroke="#e4d5b8" stroke-width="9"></path>
+              <path d="M640 222 C690 220 720 235 735 260" fill="none" stroke="#e8e0cf" stroke-width="13"></path>
+              <circle cx="566" cy="176" fill="none" r="34" stroke="#dfd0b1" stroke-width="5"></circle>
+              <circle cx="566" cy="176" fill="none" r="22" stroke="#dfd0b1" stroke-width="4" transform="rotate(60 566 176)"></circle>
+              <circle cx="566" cy="176" fill="none" r="22" stroke="#dfd0b1" stroke-width="4" transform="rotate(-60 566 176)"></circle>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="36" y="56">Ohrmuschel</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="210" y="154">Gehörgang</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="330" y="146">Trommelfell</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="470" y="164">Gehörknöchelchen</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="590" y="286">Cochlea</text>
+              <text fill="#dce6d2" font-family="Manrope, sans-serif" font-size="15" x="650" y="340">Hörnerv</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="lab-stage-caption"><span><strong>Interaktiv:</strong> Ziehen dreht, Scrollen zoomt. Fahre über ein Bauteil für die Funktion.</span><span>Modell: schematischer Schnitt</span></p>
+    </div>
+
+    <aside class="lab-panel" aria-label="Steuerung des Ohrmodells">
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Reizumwandlung</p>
+        <h2>Vom Schall zum Signal</h2>
+        <p>Vier Phasen: Druckwelle, Mittelohr, Wanderwelle in der Cochlea und Aktionspotentiale im Hörnerv.</p>
+        <button class="btn lab-phase-switch" id="ear-toggle-signal" type="button" aria-pressed="false">Reizumwandlung &amp; Signalweg aktivieren</button>
+        <div class="lab-phases lab-phases--four" aria-label="Phasen der Reizumwandlung">
+          <button class="lab-phase" type="button" data-ear-phase="1"><span>Phase 1</span>Schallwelle</button>
+          <button class="lab-phase" type="button" data-ear-phase="2"><span>Phase 2</span>Mittelohr</button>
+          <button class="lab-phase" type="button" data-ear-phase="3"><span>Phase 3</span>Cochlea</button>
+          <button class="lab-phase" type="button" data-ear-phase="4"><span>Phase 4</span>Hörnerv</button>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Tonhöhe</p>
+        <h3>Frequenz und Tonotopie</h3>
+        <div class="lab-control">
+          <div class="lab-control__head">
+            <label for="ear-frequency">Frequenz</label>
+            <output id="ear-frequency-out" for="ear-frequency">1.050 Hz</output>
+          </div>
+          <input id="ear-frequency" type="range" min="0" max="100" value="45" step="1" aria-describedby="ear-frequency-help">
+          <div class="lab-control__scale"><span>tief</span><span id="ear-frequency-label">mittel</span><span>hoch</span></div>
+          <p id="ear-frequency-help" class="lab-control__scale">Hohe Töne erregen die Cochlea nahe der Basis, tiefe Töne an der Spitze.</p>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Lautstärke</p>
+        <h3>Amplitude und Gehörschutz</h3>
+        <div class="lab-control">
+          <div class="lab-control__head">
+            <label for="ear-db">Schallpegel</label>
+            <output id="ear-db-out" for="ear-db">55 dB</output>
+          </div>
+          <input id="ear-db" type="range" min="0" max="110" value="55" step="1" aria-describedby="ear-db-help">
+          <div class="lab-control__scale"><span>leise</span><span>Lärm</span></div>
+          <p id="ear-db-help" class="lab-control__scale">Ab 85 dB beginnt der Warnbereich für das Gehör.</p>
+        </div>
+        <div class="lab-readouts">
+          <div class="lab-readout">Amplitude<strong id="ear-amplitude-out">mittel</strong></div>
+          <div class="lab-readout">Haarzellen<strong id="ear-hair-out">geschützt</strong></div>
+          <div class="lab-readout">Maximum<strong id="ear-tonotopy-out">mittlere Windung</strong></div>
+          <div class="lab-readout">Cochlea-Wand<strong id="ear-transparency-out">88 %</strong></div>
+        </div>
+        <div class="lab-warning" id="ear-warning" role="status" aria-live="polite"><strong>Gehörschutz:</strong> Unter 85 dB ist die Belastung meist geringer. Entscheidend sind auch Dauer und Abstand zur Schallquelle.</div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Live-Messung</p>
+        <h3>Schall und Hörnerv</h3>
+        <div class="lab-scope">
+          <canvas id="ear-scope" role="img" aria-label="Oszilloskop mit Schallwelle oben und Aktionspotentialen im Hörnerv unten."></canvas>
+          <div class="lab-scope__caption"><span>Schall / Hörnerv</span><span id="ear-scope-rate">Signal aus</span></div>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Geführte Tour</p>
+        <h3>Die vier Stationen</h3>
+        <div class="lab-tour">
+          <button class="btn btn--quiet btn--small is-active" type="button" data-ear-tour="overview" aria-pressed="true">Überblick</button>
+          <button class="btn btn--quiet btn--small" type="button" data-ear-tour="outer" aria-pressed="false">1. Gehörgang</button>
+          <button class="btn btn--quiet btn--small" type="button" data-ear-tour="middle" aria-pressed="false">2. Trommelfell &amp; Knöchelchen</button>
+          <button class="btn btn--quiet btn--small" type="button" data-ear-tour="cochlea" aria-pressed="false">3. Ovales Fenster &amp; Cochlea</button>
+          <button class="btn btn--quiet btn--small" type="button" data-ear-tour="hair" aria-pressed="false">4. Haarzellen</button>
+          <button class="btn btn--quiet btn--small" type="button" data-ear-tour="nerve" aria-pressed="false">5. Hörnerv</button>
+        </div>
+      </section>
+
+      <section class="lab-panel__section">
+        <p class="lab-panel__kicker">Schichten &amp; Ansicht</p>
+        <h3>Freilegen und trennen</h3>
+        <div class="lab-actions">
+          <button class="btn btn--quiet btn--small is-active" type="button" data-ear-layer="outer" aria-pressed="true">Außenohr</button>
+          <button class="btn btn--quiet btn--small is-active" type="button" data-ear-layer="middle" aria-pressed="true">Mittelohr</button>
+          <button class="btn btn--quiet btn--small is-active" type="button" data-ear-layer="inner" aria-pressed="true">Innenohr</button>
+          <button class="btn btn--quiet btn--small is-active" type="button" data-ear-layer="nerve" aria-pressed="true">Hörnerv</button>
+        </div>
+        <div class="lab-control">
+          <div class="lab-control__head">
+            <label for="ear-transparency">Cochlea-Wand</label>
+            <output id="ear-transparency-output" for="ear-transparency">88 %</output>
+          </div>
+          <input id="ear-transparency" type="range" min="8" max="100" value="88" step="1" aria-describedby="ear-transparency-help">
+          <div class="lab-control__scale"><span>transparent</span><span>dicht</span></div>
+          <p id="ear-transparency-help" class="lab-control__scale">Mehr Transparenz zeigt Basilarmembran und Haarsinneszellen im Inneren.</p>
+        </div>
+        <div class="lab-actions">
+          <button class="btn btn--quiet btn--small" type="button" id="ear-explode" aria-pressed="false">Bauteile trennen</button>
+          <button class="btn btn--quiet btn--small" type="button" id="ear-pins-toggle" aria-pressed="true" title="Blendet die kleinen Hover-Punkte an den Bauteilen ein oder aus.">Hotspots: an</button>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <div class="lab-below">
+    <section class="lab-section" aria-labelledby="ear-steps-title">
+      <h2 id="ear-steps-title">So wird aus Schall ein Signal</h2>
+      <ol class="lab-steps">
+        <li>
+          <div><h3>Schall sammeln und weiterleiten</h3><p>Die Ohrmuschel bündelt die Druckwellen. Im Gehörgang wandern sie zum Trommelfell, das im Takt der Schallwelle schwingt.</p></div>
+        </li>
+        <li>
+          <div><h3>Mechanische Verstärkung im Mittelohr</h3><p>Hammer, Amboss und Steigbügel bilden eine Hebelkette. Die Fußplatte des Steigbügels drückt auf das ovale Fenster und überträgt die Schwingung auf die Flüssigkeit der Cochlea.</p></div>
+        </li>
+        <li>
+          <div><h3>Wanderwelle und Tonotopie</h3><p>In der Cochlea läuft eine Wanderwelle über die Basilarmembran. Hohe Töne erreichen ihr Maximum nahe der Basis, tiefe Töne an der Schneckenspitze. Dort werden die Haarsinneszellen gebogen.</p></div>
+        </li>
+        <li>
+          <div><h3>Transduktion und Hörnerv</h3><p>Die Haarsinneszellen wandeln die mechanische Auslenkung in ein Rezeptorpotential um. Über den Hörnerv laufen Aktionspotentiale zum Gehirn. Ab 85 dB steigt das Risiko für dauerhafte Hörschäden.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <aside class="lab-note" aria-labelledby="ear-note-title">
+      <h2 id="ear-note-title">Modellgrenzen</h2>
+      <p>Das Modell ist ein schematischer Funktionsschnitt. Die Cochlea ist als logarithmische Spirale mit 2,5 Windungen konstruiert; Größen, Windungszahl und Zellzahlen sind vereinfacht. Die Bogengänge dienen dem Gleichgewicht und nicht dem Hören.</p>
+      <p><a href="../8-2-sinne-nerven-hormone.html#ohr">Zur ausführlichen Ohr-Station</a></p>
+    </aside>
+  </div>
+
+  <section class="lab-section" aria-labelledby="ear-glossary-title" style="margin-top:48px">
+    <h2 id="ear-glossary-title">Fachbegriffe</h2>
+    <dl class="lab-glossary">
+      <div><dt>Aurikula</dt><dd>Ohrmuschel; fängt und bündelt Schall.</dd></div>
+      <div><dt>Membrana tympani</dt><dd>Trommelfell; schwingt bei Schall.</dd></div>
+      <div><dt>Malleus / Incus / Stapes</dt><dd>Hammer, Amboss und Steigbügel; Knöchelchenkette im Mittelohr.</dd></div>
+      <div><dt>Cochlea</dt><dd>Hörschnecke; 2,5 Windungen mit Haarsinneszellen.</dd></div>
+      <div><dt>Basilarmembran</dt><dd>Träger des Corti-Organs; Wanderwelle und Tonotopie.</dd></div>
+      <div><dt>Haarsinneszellen</dt><dd>Mechanorezeptoren; wandeln Schwingung in Nervensignale um.</dd></div>
+      <div><dt>Nervus cochlearis</dt><dd>Hörnerv; leitet die Signale zum Gehirn.</dd></div>
+      <div><dt>Tonotopie</dt><dd>Räumliche Zuordnung von Frequenzen entlang der Cochlea.</dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer class="lab-colophon">
+  <div class="lab-colophon__inner">
+    <p><strong>Biologie 8 · 3D-Labor Ohr.</strong> Eigene mathematische Konstruktion nach LehrplanPLUS; keine Schulbuchabbildung. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p><a href="../8-2-sinne-nerven-hormone.html#ohr">Ohr-Station</a> · <a href="./modell_auge_3d.html">3D-Labor Auge</a> · <a href="../index.html">Übersicht</a></p>
+  </div>
+</footer>
+
+<script src="../assets/vendor/three.min.js"></script>
+<script src="../assets/vendor/OrbitControls.js"></script>
+<script src="./lab-common.js"></script>
+<script src="./ear-lab.js"></script>
+</body>
+</html>

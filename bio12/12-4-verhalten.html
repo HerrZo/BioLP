@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="de" data-grade="12" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Verhaltensökologie | Biologie 12</title>
+<meta name="description" content="Interaktive Lernwebsite Verhaltensökologie für Biologie 12: Fitness, Optimalitätsmodelle, Kooperation, Kommunikation, Aggression, Paarungssysteme und Primaten.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Almanac (deal 2/3, seed interaktive-lernwebsite-biologie-genetik-96db·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die Fitnesslandschaft und das Hawk-Dove-Spiel · states: default, hover, focus, active, disabled, loading, empty, error
+ * axes: mid/grotesk-sans/chromatic-magenta · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 · weakest: E, the 3D stage needs a still fallback and a pause; the fallback SVG is in the markup and the scenes run only on request */
+/* Hallmark · answered F4 · the G/R segmented control is a state selector, not a primary action; one filled action per screen */
+/* Hallmark · answered F6 · the heading face has no tabular figures; every number uses IBM Plex Mono */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("lab.css?v=2026-11-04b");
+.fitness-legend { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-sm); font: 400 var(--text-sm)/1.4 var(--font-body); color: var(--color-muted); }
+.payoff { border-collapse: collapse; margin-top: var(--space-md); font: 400 var(--text-sm)/1.4 var(--font-body); }
+.payoff th, .payoff td { border: var(--rule-hair) solid var(--color-rule); padding: var(--space-xs); text-align: center; min-width: 4rem; }
+.payoff th { background: var(--color-paper-2); font-weight: 500; }
+.payoff td.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
+.signal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.signal-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.signal-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.signal-card p { font-size: var(--text-sm); }
+.communication-visual svg { width: 100%; height: auto; display: block; }
+.communication-visual text { font-family: var(--font-body); fill: var(--color-ink); }
+.communication-visual .cv-node { fill: var(--color-paper-2); stroke: var(--color-ink); stroke-width: 2; }
+.communication-visual .cv-title { font-size: 15px; font-weight: 500; }
+.communication-visual .cv-label { font-size: 13px; }
+.communication-visual .cv-small { font-size: 11px; fill: var(--color-muted); }
+.communication-visual .cv-signal { stroke: var(--color-accent); fill: none; stroke-width: 2.5; }
+.communication-visual .cv-dot { fill: var(--color-accent); }
+.communication-visual .cv-honest { fill: var(--color-success); font-size: 12px; }
+.communication-visual .cv-deceptive { fill: var(--color-error); font-size: 12px; }
+.fitness-map { width: 100%; height: auto; display: block; }
+.fitness-map text { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.fitness-map .contour { fill: none; stroke: var(--color-rule-2); stroke-width: 1.2; }
+.fitness-map .contour-peak { fill: none; stroke: var(--color-accent); stroke-width: 2; }
+.fitness-map .path { fill: none; stroke: var(--color-ink); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.fitness-map .point { fill: var(--color-accent); stroke: var(--color-sheet); stroke-width: 2; }
+.tool[data-tool="foraging"] .tool__stage,
+.tool[data-tool="hamilton"] .tool__stage,
+.tool[data-tool="mating"] .tool__stage,
+.tool[data-tool="primate"] .tool__stage { min-height: 160px; }
+@media (max-width: 60rem) { .signal-grid { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+<script>
+  (function () {
+    try {
+      var level = localStorage.getItem("bio12-level");
+      if (level === "r" || level === "g") document.documentElement.dataset.level = level;
+    } catch (error) {}
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body data-page="12-4" data-grade="12">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 12">
+      <span class="brand__name">Biologie 12</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">04</span> Verhaltensökologie</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 7</span>
+      <div class="level-toggle" role="group" aria-label="Anforderungsniveau">
+        <button type="button" data-level-set="g" aria-pressed="true" aria-label="Grundlegendes Anforderungsniveau">G</button>
+        <button type="button" data-level-set="r" aria-pressed="false" aria-label="Erhöhtes Anforderungsniveau">R</button>
+      </div>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Verhaltensökologie</h2>
+      <p class="sidebar__deck">Fitness, Nahrungserwerb, Kooperation, Kommunikation, Aggression und Fortpflanzung.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 7</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#fitness" data-station-link="fitness"><span class="station-nav__num">01</span><span>Fitness</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#nahrung" data-station-link="nahrung"><span class="station-nav__num">02</span><span>Nahrungserwerb</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#kooperation" data-station-link="kooperation"><span class="station-nav__num">03</span><span>Kooperation</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#kommunikation" data-station-link="kommunikation"><span class="station-nav__num">04</span><span>Kommunikation</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#aggression" data-station-link="aggression"><span class="station-nav__num">05</span><span>Aggression</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#fortpflanzung" data-station-link="fortpflanzung"><span class="station-nav__num">06</span><span>Fortpflanzung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#primaten" data-station-link="primaten"><span class="station-nav__num">07</span><span>Primaten und Mensch</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">08</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">09</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 12</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Verhaltensökologie: Warum sich Verhalten lohnt.</h1>
+<p class="lead">Verhalten kostet Energie und Zeit. Es lohnt sich, wenn es die Fitness erhöht. Kosten, Nutzen und Alternativen erklären, was Tiere tun.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="fitness" href="#fitness">Erste Station öffnen</a>
+<h2 style="font-size: var(--text-xl); margin: var(--space-xl) 0 var(--space-sm);">Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">S1</span><span>Du beurteilst Verhalten nach seinem Beitrag zur Gesamtfitness.</span></li>
+<li><span class="cnum">S2</span><span>Du wendest Kosten-Nutzen-Analysen und Optimalitätsmodelle auf Nahrungserwerb und Habitatwahl an.</span></li>
+<li><span class="cnum">S3</span><span>Du erklärst Kooperation und Altruismus mit Verwandtenselektion und reziprokem Altruismus.</span></li>
+<li><span class="cnum">S4</span><span>Du analysierst Kommunikation, Aggression und Paarungssysteme mit Fitnessmodellen.</span></li>
+<li><span class="cnum">S5</span><span>Du erklärst Sozialverhalten von Primaten und grenzt biologische von kulturellen Erklärungen ab.</span></li>
+<li><span class="cnum">B1</span><span>Du bewertest die Aussagekraft verhaltensökologischer Modelle und ihre Grenzen.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 4 des LehrplanPLUS Biologie 12 zusammen. R-Vertiefungen sind mit R markiert.</small></p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Modell aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Warum lohnt sich ein Verhalten, das dem Individuum selbst keinen direkten Vorteil bringt?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="fitness" data-title="Fitness" data-track="true" id="fitness">
+<header class="station__head">
+<h2 id="fitness-title"><span class="station__num">01</span> Fitness und adaptiver Wert</h2>
+<p class="lead">Verhalten ist kein Selbstzweck. Es ist dann begünstigt, wenn es den Fortpflanzungserfolg erhöht.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Fitness beschreibt den relativen Beitrag eines Individuums zum Genpool der nächsten Generation. Direkte Fitness entsteht durch eigene Nachkommen. Indirekte Fitness entsteht durch die Unterstützung von Verwandten, die viele der eigenen Allele teilen. Die Gesamtfitness ist die Summe aus beiden. Ein Verhalten ist adaptiv, wenn es unter den gegebenen Bedingungen die Gesamtfitness erhöht.</p>
+<p>Kosten-Nutzen-Analysen vergleichen den Aufwand eines Verhaltens mit dem Nutzen. Optimalitätsmodelle fragen, welches Verhalten unter bestimmten Bedingungen den höchsten Netto-Nutzen bringt. Sie sind keine Behauptung, dass Tiere rechnen. Sie sind Modelle, die beobachtbares Verhalten erklären und Vorhersagen ermöglichen. Proximat fragt, wie ein Verhalten abläuft; ultimate fragt, warum es sich in der Evolution bewährt hat.</p>
+<p>Die Karte überträgt das auf zwei Merkmale: Jeder Punkt steht für eine Kombination von zwei Merkmalswerten, die Höhe ist die Fitness. Ein Gipfel ist eine Kombination mit hoher Fitness, ein Tal eine mit niedriger. Die Höhenlinien verbinden Punkte gleicher Fitness. Der Punkt zeigt, wie Selektion eine Population in Richtung des nächsten Gipfels verschiebt. Das Modell behauptet nicht, dass Tiere rechnen; es zeigt, welche Kombinationen unter den gegebenen Bedingungen mehr Nachkommen erwarten lassen.</p>
+<figure class="tool" data-tool="fitness-landscape">
+<div class="tool__head">
+<p class="tool__title">Fitnesslandschaft</p>
+<p class="tool__hint">Klicke in die Landschaft, um den Startpunkt zu setzen. „Gipfel suchen“ folgt dem steilsten Anstieg. Fahre über die Fläche für eine Fitness-Lesung.</p>
+</div>
+<div class="tool__stage tool__stage--3d lab-stage" data-lab-scene="fitness" id="fitness-scene" tabindex="0" aria-label="Interaktives 3D-Modell einer Fitnesslandschaft mit zwei Merkmalen auf den Achsen und Fitness als Höhe. Drei Gipfel sind sichtbar.">
+<div class="tool__fallback">
+<svg aria-label="Höhenkarte einer Fitnesslandschaft mit drei Gipfeln. Ein Punkt sucht den steilsten Anstieg." class="fitness-map" role="img" viewBox="0 0 640 330">
+<text text-anchor="middle" x="320" y="318">Merkmal 1</text>
+<text transform="rotate(-90 14 165)" x="14" y="165">Merkmal 2</text>
+<g class="contour">
+<ellipse cx="430" cy="120" rx="105" ry="72"></ellipse>
+<ellipse cx="430" cy="120" rx="72" ry="50"></ellipse>
+<ellipse cx="430" cy="120" rx="40" ry="28"></ellipse>
+<ellipse cx="190" cy="220" rx="88" ry="58"></ellipse>
+<ellipse cx="190" cy="220" rx="58" ry="38"></ellipse>
+<ellipse cx="190" cy="220" rx="30" ry="20"></ellipse>
+<ellipse cx="480" cy="245" rx="72" ry="46"></ellipse>
+<ellipse cx="480" cy="245" rx="44" ry="28"></ellipse>
+<ellipse cx="480" cy="245" rx="22" ry="14"></ellipse>
+</g>
+<g class="contour-peak">
+<ellipse cx="430" cy="120" rx="15" ry="10"></ellipse>
+<ellipse cx="190" cy="220" rx="12" ry="8"></ellipse>
+<ellipse cx="480" cy="245" rx="9" ry="6"></ellipse>
+</g>
+<text text-anchor="middle" x="430" y="88">Gipfel</text>
+<text text-anchor="middle" x="190" y="190">Gipfel</text>
+<text text-anchor="middle" x="480" y="218">Gipfel</text>
+<text text-anchor="middle" x="315" y="225">Tal</text>
+<polyline class="path" data-fitness-path="" points=""></polyline>
+<circle class="point" cx="320" cy="160" data-fitness-point="" r="7"></circle>
+</svg>
+</div>
+<div class="lab-stage__hint">Ziehen: drehen · Scrollen: zoomen · Klick: Startpunkt setzen</div>
+<div class="lab-tip lab-tip--stage" data-lab-tip aria-hidden="true"><p class="lab-tip__title"></p><p class="lab-tip__body"></p><p class="lab-tip__meta"></p></div>
+</div>
+<div class="lab-hud">
+<div class="lab-hud__group">
+<button class="btn btn--quiet btn--small" data-lab-play data-lab-play-label="Gipfel suchen" data-lab-pause-label="Anhalten" aria-pressed="false" type="button">Gipfel suchen</button>
+<button class="btn btn--quiet btn--small" data-fitness-reset="" type="button" data-tip="Setzt den Punkt auf die Ausgangsposition zurück und löscht die climbing-Spur. Die Kamera bleibt, wo sie ist.">Position zurücksetzen</button>
+</div>
+<div class="lab-hud__group" role="group" aria-label="Geschwindigkeit">
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-lab-speed="0.5" data-tip="Langsame Gipfelsuche: Du siehst jeden Zwischenschritt der Annäherung." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="1" aria-pressed="true" data-tip="Normale Geschwindigkeit der Gipfelsuche." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="2" data-tip="Schnelle Gipfelsuche: gut, um den Weg zum lokalen Optimum im Ganzen zu sehen." type="button">2×</button>
+</div>
+<span class="lab-hud__spacer"></span>
+<span class="lab-badge">Höhe = Fitness</span>
+<button class="btn btn--quiet btn--small" data-lab-reset-view data-tip="Fährt die Kamera weich in die Ausgangsansicht zurück. Punkt und Verlauf bleiben erhalten." type="button">Ansicht zurücksetzen</button>
+</div>
+<div class="fitness-legend">Gipfel: hohe Fitness. Tal: niedrige Fitness. Die Höhenlinien verbinden Punkte gleicher Fitness. Der Punkt folgt dem steilsten Anstieg, nicht einem geographischen Weg.</div>
+<div aria-live="polite" class="lab-readout" data-fitness-readout=""></div>
+<figcaption class="tool__caption">Die Karte ist ein Modell: Zwei Merkmale auf den Achsen, Fitness als Höhe. Reale Populationen können auf einem lokalen Gipfel stecken bleiben, weil sie nicht über das Tal zum höheren Gipfel gelangen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was Optimalität nicht bedeutet</summary>
+<p>Ein Optimalitätsmodell sagt nicht, dass ein Tier bewusst optimiert. Es sagt, dass unter den modellierten Bedingungen bestimmte Verhaltensweisen höhere Fitness erzielen. Reale Tiere haben begrenzte Information, Konkurrenz und Risiken. Deshalb ist ein Modell kein perfektes Abbild, sondern ein Werkzeug, um Hypothesen zu prüfen. Weicht ein Tier vom Optimum ab, kann das ein Hinweis auf eine übersehene Variable sein.</p>
+</details>
+<section aria-labelledby="fitness-check" class="checkpoint">
+<h3 id="fitness-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="fitness">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="fitness" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "fi1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Was ist direkte Fitness?",
+              "options": ["Der Fortpflanzungserfolg durch eigene Nachkommen", "Die Unterstützung von Verwandten", "Die Körpergröße eines Tieres", "Die Zahl der Artgenossen im Habitat"],
+              "correct": 0,
+              "explain": "Direkte Fitness entsteht durch eigene Nachkommen. Indirekte Fitness entsteht durch Hilfe für Verwandte."
+            },
+            {
+              "id": "fi2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Was beschreibt ein Optimalitätsmodell?",
+              "options": ["Welches Verhalten unter bestimmten Bedingungen den höchsten Netto-Nutzen bringt", "Was ein Tier bewusst denkt", "Wie viele Gene ein Tier hat", "Wie sich eine Art immer verhält"],
+              "correct": 0,
+              "explain": "Optimalitätsmodelle vergleichen Kosten und Nutzen von Verhaltensalternativen. Sie behaupten nicht, dass Tiere bewusst rechnen."
+            },
+            {
+              "id": "fi3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S1",
+              "prompt": "Warum kann ein Verhalten adaptiv sein, obwohl es dem Individuum selbst keinen direkten Vorteil bringt?",
+              "options": ["Weil es die indirekte Fitness über Verwandte erhöht", "Weil es immer die direkte Fitness erhöht", "Weil es keine Kosten hat", "Weil es die Population vergrößert"],
+              "correct": 0,
+              "explain": "Hilfe für Verwandte kann die Weitergabe eigener Allele fördern, auch ohne eigene Nachkommen. Das ist indirekte Fitness."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="fitness" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="nahrung" href="#nahrung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fitness ist relativ. Ein Verhalten ist adaptiv, wenn es unter den gegebenen Bedingungen die Gesamtfitness erhöht.</p>
+</div>
+<div class="note">
+<p class="note__title">Fitnesslandschaft</p>
+<p>Zwei Merkmale auf den Achsen, Fitness als Höhe. Ein Gipfel ist eine Kombination mit hoher Fitness, ein Tal eine mit niedriger. Der Punkt folgt dem steilsten Anstieg.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>direkte Fitness</dt><dd>eigene Nachkommen.</dd>
+<dt>indirekte Fitness</dt><dd>Beitrag über Verwandte.</dd>
+<dt>Optimalitätsmodell</dt><dd>Vergleich von Kosten und Nutzen.</dd>
+<dt>proximat</dt><dd>Wie läuft ein Verhalten ab?</dd>
+<dt>ultimate</dt><dd>Warum hat es sich bewährt?</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Optimalität als bewusste Berechnung verstehen. Das Modell beschreibt Selektionsfolgen, nicht Gedanken.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="nahrung" data-title="Nahrungserwerb" data-track="true" id="nahrung">
+<header class="station__head">
+<h2 id="nahrung-title"><span class="station__num">02</span> Nahrung, Energie und Risiko</h2>
+<p class="lead">Ein gutes Futterpatch ist nicht automatisch die beste Wahl. Entscheidend ist der Netto-Gewinn pro Zeit.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Tiere müssen Energie für Bewegung, Wachstum und Fortpflanzung gewinnen. Ein Patch mit viel Nahrung kann trotzdem ungünstig sein, wenn der Weg dorthin lange dauert oder das Risiko hoch ist. Die optimale Entscheidung maximiert den Netto-Energiegewinn pro Zeit. Das ist eine Kosten-Nutzen-Rechnung: Energieertrag minus Energieaufwand, geteilt durch die aufgewendete Zeit.</p>
+<p>Habitatwahl folgt ähnlichen Logiken. Ein Habitat bietet Nahrung, Schutz und Fortpflanzungsplätze, aber auch Konkurrenz und Räuber. Die ideale freie Verteilung beschreibt, wie sich Individuen auf Patches verteilen, wenn sie frei wählen können und die Qualität der Patches abnimmt, je mehr Individuen dort sind. Reale Verteilungen weichen oft ab, weil Tiere nicht allwissend sind oder Konkurrenz nicht gleich verteilt ist.</p>
+<figure class="tool" data-tool="foraging">
+<div class="tool__head">
+<p class="tool__title">Patch-Rechner</p>
+<p class="tool__hint">Wähle ein Szenario und schalte das Risiko dazu. Das Werkzeug zeigt den Netto-Gewinn pro Zeit.</p>
+</div>
+<div class="tool__controls">
+<label>Szenario <select class="select" data-forage-scenario="" data-tip="Nahrung nah: kurzer Weg, mittlerer Ertrag. Nahrung fern: langer Weg, hoher Ertrag. Großes Patch: viel Nahrung, aber mehr Konkurrenz und Aufwand."><option selected="" value="near">Nahrung nah</option><option value="far">Nahrung fern</option><option value="big">großes Patch</option></select></label>
+<label data-tip="Risiko einbeziehen: Der erwartete Gewinn wird mit der Überlebenswahrscheinlichkeit gewichtet. Ein reiches Patch kann durch Räuber unattraktiv werden."><input data-forage-risk-toggle="" type="checkbox"/> Risiko einbeziehen</label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="matrix-result" data-forage-readout=""></div>
+</div>
+<figcaption class="tool__caption">Der Rechner ist ein Modell. Er zeigt, warum ein reicheres Patch durch Wegzeit oder Risiko unattraktiv werden kann.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Risiko und Konkurrenz</summary>
+<p>Ein Patch mit hohem Ertrag kann viele Räuber anziehen. Die erwartete Fitness hängt dann nicht nur vom Energiegewinn ab, sondern auch von der Überlebenswahrscheinlichkeit. Ein Modell kann Risiko als Kostenfaktor einbauen. Konkurrenz wirkt ähnlich: Je mehr Individuen ein Patch nutzen, desto geringer wird der Anteil pro Tier. Die ideale freie Verteilung sagt voraus, dass die Nettogewinne am Ende angeglichen sind, wenn Tiere frei wechseln können.</p>
+</details>
+<section aria-labelledby="nahrung-check" class="checkpoint">
+<h3 id="nahrung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="nahrung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="nahrung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "na1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Was maximiert ein optimaler Nahrungserwerb?",
+              "options": ["Den Netto-Energiegewinn pro Zeit", "Die absolute Nahrungsmenge", "Die Zahl der Patches", "Die Körpergröße"],
+              "correct": 0,
+              "explain": "Nicht die absolute Menge zählt, sondern der Gewinn nach Abzug von Energieaufwand und Zeit."
+            },
+            {
+              "id": "na2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Warum kann ein nahrungsreiches Patch unattraktiv sein?",
+              "options": ["Weil Wegzeit oder Risiko die Nettokosten erhöhen", "Weil Nahrung immer schädlich ist", "Weil Tiere keine Energie brauchen", "Weil Konkurrenz keine Rolle spielt"],
+              "correct": 0,
+              "explain": "Ein hoher Ertrag kann durch lange Wege, Räuber oder Konkurrenz aufgezehrt werden."
+            },
+            {
+              "id": "na3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S2",
+              "prompt": "Was sagt die ideale freie Verteilung voraus?",
+              "options": ["Individuen verteilen sich so, dass die Nettogewinne zwischen Patches angeglichen sind.", "Alle Tiere wählen immer das beste Patch.", "Tiere wählen zufällig.", "Konkurrenz hat keinen Einfluss."],
+              "correct": 0,
+              "explain": "Wenn Tiere frei wechseln können, sinkt die Attraktivität eines Patches mit der Zahl der Konkurrenten. Am Ende gleichen sich die Nettogewinne an."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="nahrung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="kooperation" href="#kooperation">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Nicht die Menge, sondern der Netto-Gewinn pro Zeit entscheidet. Risiko und Konkurrenz sind Kosten.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Patch</dt><dd>Nahrungsfleck oder Habitatinsel.</dd>
+<dt>Netto-Gewinn</dt><dd>Ertrag minus Aufwand.</dd>
+<dt>ideale freie Verteilung</dt><dd>Modell der Habitatwahl bei Konkurrenz.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur den Energiegehalt der Nahrung betrachten. Auch Wegzeit, Risiko und Konkurrenz zählen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="kooperation" data-title="Kooperation" data-track="true" id="kooperation">
+<header class="station__head">
+<h2 id="kooperation-title"><span class="station__num">03</span> Kooperation und Altruismus</h2>
+<p class="lead">Altruismus sieht aus wie ein Verlust. Über Verwandte oder Gegenleistungen kann er sich trotzdem lohnen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Altruistisches Verhalten erhöht die Fitness eines anderen Individuums und senkt zunächst die eigene. Verwandtenselektion erklärt, warum Hilfe für Verwandte begünstigt sein kann: Verwandte teilen einen Teil der eigenen Allele. Hamiltons Regel besagt, dass Altruismus begünstigt wird, wenn der Verwandtschaftskoeffizient r mal der Nutzen B für den Empfänger größer ist als der Kosten C für den Helfer. Kurz: rB &gt; C.</p>
+<p>Reziproker Altruismus beruht auf Gegenseitigkeit. Hilfe wird gewährt, wenn die Wahrscheinlichkeit hoch ist, dass sie später erwidert wird. Das funktioniert besonders in stabilen Gruppen, in denen Individuen sich wiedererkennen und Wiederholungen wahrscheinlich sind. Kooperation kann auch durch gemeinsame Interessen entstehen, etwa bei der Verteidigung gegen Räuber.</p>
+<figure class="tool" data-tool="hamilton">
+<div class="tool__head">
+<p class="tool__title">Hamiltons Regel</p>
+<p class="tool__hint">Verändere Verwandtschaft, Nutzen und Kosten. Das Werkzeug zeigt, ob Altruismus begünstigt wird.</p>
+</div>
+<div class="tool__controls">
+<label>Verwandtschaft r <select class="select" data-hamilton-r="" data-tip="r ist der Verwandtschaftskoeffizient: der Anteil der Allele, die zwei Individuen aufgrund gemeinsamer Abstammung teilen. Geschwister: 0,5; Halbgeschwister: 0,25; Cousinen: 0,125."><option selected="" value="0.5">0,5 Geschwister</option><option value="0.25">0,25 Halbgeschwister</option><option value="0.125">0,125 Cousinen</option><option value="0">0 fremd</option></select></label>
+<label>Nutzen B <input class="input" data-hamilton-b="" max="10" min="0" type="number" value="4" data-tip="B ist der Fitnessnutzen für den Empfänger der Hilfe. Je größer B, desto eher lohnt sich Altruismus."/></label>
+<label>Kosten C <input class="input" data-hamilton-c="" max="10" min="0" type="number" value="2" data-tip="C sind die Fitnesskosten für den Helfer. Je größer C, desto unwahrscheinlicher ist begünstigter Altruismus."/></label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="matrix-result" data-hamilton-readout=""></div>
+</div>
+<figcaption class="tool__caption">rB &gt; C ist eine Bedingung, kein Beweis. Sie zeigt, wann Altruismus unter Verwandten begünstigt sein kann.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum reziproker Altruismus scheitern kann</summary>
+<p>Reziproker Altruismus ist anfällig für Trittbrettfahrer. Wer Hilfe annimmt, aber nicht zurückgibt, hat kurzfristig einen Vorteil. Deshalb sind Mechanismen nötig, die Kooperation stabilisieren: Wiedererkennen, Erinnerung, Bestrafung von Nichtkooperation oder eine kleine Gruppe mit vielen Wiederholungen. Je anonymer und einmaliger die Interaktion, desto schwieriger ist Reziprozität.</p>
+</details>
+<section aria-labelledby="kooperation-check" class="checkpoint">
+<h3 id="kooperation-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="kooperation">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="kooperation" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ko1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Was besagt Hamiltons Regel?",
+              "options": ["Altruismus wird begünstigt, wenn rB > C.", "Altruismus ist immer nachteilig.", "Nur direkte Fitness zählt.", "Kooperation ist immer reziprok."],
+              "correct": 0,
+              "explain": "r ist die Verwandtschaft, B der Nutzen für den Empfänger, C die Kosten für den Helfer. Wenn rB größer als C ist, kann Altruismus begünstigt sein."
+            },
+            {
+              "id": "ko2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Was ist reziproker Altruismus?",
+              "options": ["Hilfe wird gewährt, weil eine Gegenleistung wahrscheinlich ist.", "Hilfe für Verwandte", "Hilfe ohne jede Bedingung", "Ein Verhalten ohne Kosten"],
+              "correct": 0,
+              "explain": "Reziproker Altruismus beruht auf Gegenseitigkeit. Er funktioniert besonders in stabilen Gruppen mit Wiederholungen."
+            },
+            {
+              "id": "ko3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S3",
+              "prompt": "Warum ist reziproker Altruismus anfällig für Trittbrettfahrer?",
+              "options": ["Weil ein Individuum Hilfe annehmen kann, ohne zurückzugeben.", "Weil Hilfe immer sofort bestraft wird.", "Weil Verwandte keine Rolle spielen.", "Weil Kooperation keine Kosten hat."],
+              "correct": 0,
+              "explain": "Ohne Mechanismen wie Wiedererkennen oder Bestrafung kann ein Trittbrettfahrer kurzfristig profitieren und Kooperation untergraben."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="kooperation" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="kommunikation" href="#kommunikation">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Altruismus kann sich über Verwandtschaft oder Gegenseitigkeit lohnen. rB &gt; C ist die Bedingung der Verwandtenselektion.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Verwandtenselektion</dt><dd>Förderung von Verwandten.</dd>
+<dt>reziproker Altruismus</dt><dd>Hilfe auf Gegenseitigkeit.</dd>
+<dt>Trittbrettfahrer</dt><dd>nimmt Hilfe, gibt nichts zurück.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Altruismus als rein selbstlos verstehen. Evolutiv zählt der Effekt auf die Gesamtfitness.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="kommunikation" data-title="Kommunikation" data-track="true" id="kommunikation">
+<header class="station__head">
+<h2 id="kommunikation-title"><span class="station__num">04</span> Signale senden und empfangen</h2>
+<p class="lead">Kommunikation ist mehr als Lärm. Ein Signal verändert das Verhalten eines Empfängers, und das kann Kosten und Nutzen haben.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Kommunikation lässt sich mit dem Sender-Empfänger-Modell beschreiben: Ein Sender produziert ein Signal, ein Empfänger nimmt es wahr und reagiert. Signale können akustisch, chemisch, optisch oder taktil sein. Sie sind oft ehrlich, weil ihre Produktion mit Kosten verbunden ist. Ein Warnruf kann den Sender gefährden, aber Verwandte retten. Ein Balzgesang kann Fitness signalisieren, weil nur ein gesunder Sender ihn durchhält.</p>
+<p>Signale können aber auch täuschen. Mimikry ist die Nachahmung eines Signals, um einen Vorteil zu erzielen, etwa das Nachahmen einer ungiftigen Art durch eine giftige. Signalausbeutung entsteht, wenn ein Empfänger ein Signal für eigene Zwecke nutzt, die dem Sender schaden. Kommunikation ist deshalb nicht immer kooperativ.</p>
+<figure class="tool" data-tool="communication">
+<div class="tool__head">
+<p class="tool__title">Signal-Check</p>
+<p class="tool__hint">Wähle ein Signal. Das Werkzeug zeigt Sender, Empfänger und mögliche Interessenkonflikte.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="communication-visual" data-communication-visual=""></div>
+<div aria-live="polite" class="matrix-result" data-communication-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Signal ist nicht automatisch ehrlich. Kosten, Nutzen und Interessen von Sender und Empfänger entscheiden.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Signalausbeutung und Ehrlichkeit</h3>
+<p>Ein Signal ist ehrlich, wenn es für den Sender teuer ist, es zu fälschen. Der Pfauenschwanz ist ein Beispiel: Ein großer, symmetrischer Schwanz kostet Energie und macht angreifbar. Nur ein gesunder Pfau kann ihn tragen. Deshalb ist der Schwanz ein verlässliches Signal für Fitness. Signalausbeutung entsteht, wenn ein Empfänger das Signal für eigene Zwecke nutzt, etwa ein Räuber, der den Warnruf nutzt, um Beute zu finden. Kommunikation ist daher ein evolutionäres Spiel mit Interessen, nicht nur ein Informationsaustausch.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Das Handicap-Prinzip</summary>
+<p>Das Handicap-Prinzip erklärt, warum teure Signale ehrlich sein können. Ein Signal, das jeder leicht produzieren kann, taugt nicht zur Unterscheidung. Ein Signal, das nur ein fitter Sender tragen kann, ist verlässlich. Der Empfänger kann sich darauf verlassen, weil ein schwacher Sender die Kosten nicht tragen könnte. Das Prinzip wird oft bei der Partnerwahl diskutiert.</p>
+</details>
+<section aria-labelledby="kommunikation-check" class="checkpoint">
+<h3 id="kommunikation-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="kommunikation">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="kommunikation" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "km1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was beschreibt das Sender-Empfänger-Modell?",
+              "options": ["Ein Sender produziert ein Signal, ein Empfänger nimmt es wahr und reagiert.", "Nur der Sender profitiert.", "Kommunikation ist immer ehrlich.", "Signale sind immer akustisch."],
+              "correct": 0,
+              "explain": "Kommunikation umfasst Sender, Signal, Empfänger und Reaktion. Sie kann kooperativ oder konflikthaft sein."
+            },
+            {
+              "id": "km2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Warum kann ein teures Signal ehrlich sein?",
+              "options": ["Weil ein schwacher Sender die Kosten nicht tragen könnte.", "Weil es keine Kosten hat.", "Weil es immer vom Empfänger bezahlt wird.", "Weil es nicht beobachtet werden kann."],
+              "correct": 0,
+              "explain": "Teure Signale sind schwer zu fälschen. Nur ein fitter Sender kann sie produzieren, deshalb sind sie verlässlich."
+            },
+            {
+              "id": "km3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S4",
+              "prompt": "Was ist Signalausbeutung?",
+              "options": ["Ein Empfänger nutzt ein Signal für eigene Zwecke, die dem Sender schaden.", "Ein Sender produziert ein ehrliches Signal.", "Zwei Arten kooperieren.", "Ein Signal wird nicht wahrgenommen."],
+              "correct": 0,
+              "explain": "Signalausbeutung liegt vor, wenn der Empfänger das Signal zu seinem Vorteil nutzt, ohne dass der Sender davon profitiert."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="kommunikation" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="aggression" href="#aggression">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Signale können ehrlich oder täuschend sein. Kosten machen ein Signal verlässlicher.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Sender</dt><dd>produziert das Signal.</dd>
+<dt>Empfänger</dt><dd>nimmt das Signal wahr.</dd>
+<dt>Mimikry</dt><dd>Nachahmung eines Signals.</dd>
+<dt>Handicap-Prinzip</dt><dd>teure Signale sind ehrlich.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Kommunikation mit Sprache gleichsetzen. Auch Farben, Düfte und Berührungen sind Signale.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="aggression" data-title="Aggression" data-track="true" id="aggression">
+<header class="station__head">
+<h2 id="aggression-title"><span class="station__num">05</span> Aggression und Rangordnung</h2>
+<p class="lead">Aggression ist teuer. Deshalb wird sie oft ritualisiert, bevor es gefährlich wird.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Aggression kann in Stufen verlaufen: Drohen, Kommentkampf und Beschädigungskampf. Drohen ist billig und oft ausreichend, wenn der Gegner die Drohung ernst nimmt. Der Kommentkampf ist ritualisiert und selten tödlich; er entscheidet über Rang oder Territorium, ohne die Beteiligten unnötig zu verletzen. Beschädigungskampf ist riskant und wird vermieden, wenn die Kosten den möglichen Nutzen übersteigen.</p>
+<p>Rangordnungen und Territorialität können Aggression reduzieren, weil sie Erwartungen schaffen: Wer oben steht, wird weniger herausgefordert; wer ein Territorium hält, kann Eindringlinge früh abwehren. Die Spieltheorie modelliert solche Konflikte mit Strategien wie „Falke“ und „Taube“. Falken kämpfen, Tauben drohen nur und ziehen sich zurück. Das Gleichgewicht hängt vom Wert der Ressource und den Kosten des Kampfes ab.</p>
+<figure class="tool" data-tool="hawk-dove">
+<div class="tool__head">
+<p class="tool__title">Falke und Taube</p>
+<p class="tool__hint">Verändere Ressourcenwert und Kampfkosten. Das Werkzeug zeigt, welche Strategie im Vorteil ist.</p>
+</div>
+<div class="tool__controls">
+<label>Szenario <select class="select" data-hawk-scenario="" data-tip="Die Auszahlungen hängen vom Ressourcenwert und den Kampfkosten ab. Hoher Wert und niedrige Kosten begünstigen Falken; niedriger Wert und hohe Kosten begünstigen Tauben."><option value="high">hoher Wert, niedrige Kosten</option><option value="low">niedriger Wert, hohe Kosten</option><option selected="" value="balanced">ausgeglichen</option></select></label>
+<label>Anteil Falken <input data-hawk-p="" max="100" min="0" type="range" value="50" data-tip="Der Anteil der Falken in der Population. Verändere ihn und beobachte, wie sich die durchschnittlichen Auszahlungen verschieben."/></label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<table class="payoff">
+<thead><tr><th></th><th>Falke</th><th>Taube</th></tr></thead>
+<tbody>
+<tr><th>Falke</th><td class="num" data-hawk-ff="">1</td><td class="num" data-hawk-fd="">6</td></tr>
+<tr><th>Taube</th><td class="num" data-hawk-df="">0</td><td class="num" data-hawk-dd="">3</td></tr>
+</tbody>
+</table>
+<div aria-live="polite" class="matrix-result" data-hawk-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Auszahlungen sind ein Modell. Falke gegen Falke teilt die Ressource, zieht aber die Kampfkosten ab.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Drohen oft reicht</summary>
+<p>Drohen ist ein Signal, das die Bereitschaft zum Kampf anzeigt. Wenn beide Seiten die Kosten eines echten Kampfes kennen, kann die Drohung ausreichen, um eine Entscheidung herbeizuführen. Das setzt voraus, dass das Signal verlässlich ist. Ein Gegner, der immer nachgibt, wird nicht als glaubwürdig wahrgenommen. Deshalb sind Rangordnungen und ritualisierte Kämpfe oft stabiler als ständige Beschädigungskämpfe.</p>
+</details>
+<section aria-labelledby="aggression-check" class="checkpoint">
+<h3 id="aggression-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="aggression">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="aggression" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ag1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was ist ein Kommentkampf?",
+              "options": ["Ein ritualisierter Kampf mit geringem Verletzungsrisiko", "Ein Kampf bis zum Tod", "Eine Paarung", "Ein Warnruf"],
+              "correct": 0,
+              "explain": "Der Kommentkampf ist ritualisiert. Er entscheidet über Rang oder Territorium, ohne die Beteiligten unnötig zu verletzen."
+            },
+            {
+              "id": "ag2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Warum kann Drohen günstiger sein als Kämpfen?",
+              "options": ["Weil es weniger Energie und Verletzungsrisiko kostet", "Weil es immer zum Sieg führt", "Weil es keine Information überträgt", "Weil es nur bei Pflanzen vorkommt"],
+              "correct": 0,
+              "explain": "Drohen ist billiger als ein Beschädigungskampf. Wenn die Drohung glaubwürdig ist, kann sie den Konflikt entscheiden."
+            },
+            {
+              "id": "ag3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S4",
+              "prompt": "Wann ist eine Falken-Strategie im Hawk-Dove-Modell im Vorteil?",
+              "options": ["Wenn der Ressourcenwert hoch und die Kampfkosten niedrig sind", "Wenn die Ressource wertlos ist", "Wenn alle Tauben sind", "Wenn es keine Konkurrenz gibt"],
+              "correct": 0,
+              "explain": "Falken lohnen sich, wenn der Gewinn groß und das Risiko klein ist. Bei hohen Kosten kann Taube die bessere Strategie sein."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="aggression" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="fortpflanzung" href="#fortpflanzung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Aggression ist teuer. Drohen, Rangordnung und Territorium können Kosten senken.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Kommentkampf</dt><dd>ritualisierter Kampf.</dd>
+<dt>Rangordnung</dt><dd>stabile soziale Hierarchie.</dd>
+<dt>Territorialität</dt><dd>Verteidigung eines Gebiets.</dd>
+<dt>Hawk-Dove</dt><dd>Spieltheorie-Modell für Konflikte.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Aggression als grundsätzlich schlecht bewerten. Sie kann Ressourcen sichern und Konflikte regeln.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="fortpflanzung" data-title="Fortpflanzung" data-track="true" id="fortpflanzung">
+<header class="station__head">
+<h2 id="fortpflanzung-title"><span class="station__num">06</span> Partnerwahl und Elternaufwand</h2>
+<p class="lead">Wer mehr in Nachkommen investiert, wählt sorgfältiger. Wer weniger investiert, konkurriert stärker um Partner.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Elternaufwand ist die Energie und Zeit, die ein Elternteil in Nachkommen investiert. In vielen Arten investieren Weibchen mehr, weil Eizellen größer sind und Schwangerschaft oder Brutpflege Zeit kosten. Das kann erklären, warum Weibchen oft wählerischer sind und Männchen stärker um Partner konkurrieren. Die Theorie ist kein starres Gesetz: In Arten mit männlicher Brutpflege können sich die Rollen umkehren.</p>
+<p>Partnerwahl kann über ehrliche Signale laufen, etwa über Balz, Gesang oder Schmuck. Das Handicap-Prinzip erklärt, warum teure Signale verlässlich sind. Paarungssysteme reichen von Monogamie über Polygynie bis Polyandrie. Der Eltern-Kind-Konflikt entsteht, weil Eltern in weitere Nachkommen investieren wollen, während ein einzelnes Kind mehr elterliche Fürsorge für sich will.</p>
+<figure class="tool" data-tool="mating">
+<div class="tool__head">
+<p class="tool__title">Elternaufwand</p>
+<p class="tool__hint">Verändere den relativen Aufwand. Das Werkzeug zeigt, wie sich Partnerwahl und Konkurrenz verschieben.</p>
+</div>
+<div aria-label="Elternaufwand" class="tool__controls" role="group">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-mating-mode="female" type="button" data-tip="Weibchen investieren mehr: Eizellen, Schwangerschaft oder Brutpflege kosten mehr. Erwartung: Weibchen wählen sorgfältiger, Männchen konkurrieren stärker.">Weibchen investieren mehr</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-mating-mode="equal" type="button" data-tip="Gleicher Elternaufwand: Die Theorie sagt weniger starke Rollenunterschiede bei Partnerwahl und Konkurrenz voraus.">gleich</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-mating-mode="male" type="button" data-tip="Männchen investieren mehr: Die Rollen können sich umkehren. Dann wählen Männchen sorgfältiger und Weibchen konkurrieren stärker.">Männchen investieren mehr</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="matrix-result" data-mating-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Grafik ist ein Modell. Der relative Aufwand verschiebt die Erwartungen an Partnerwahl und Konkurrenz.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Monogamie nicht immer treu bedeutet</summary>
+<p>Monogamie beschreibt ein Paarungssystem, nicht automatisch lebenslange Treue. Bei vielen Vögeln bleiben Paare über eine Brutzeit zusammen, aber es kann zusätzliche Paarungen geben. Die genetische Elternschaft ist nicht immer mit der sozialen Paarbindung identisch. Für die Fitness zählt, welche Allele an die nächste Generation weitergegeben werden, nicht nur, wer das Nest verteidigt.</p>
+</details>
+<section aria-labelledby="fortpflanzung-check" class="checkpoint">
+<h3 id="fortpflanzung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="fortpflanzung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="fortpflanzung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "fp1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was ist Elternaufwand?",
+              "options": ["Energie und Zeit, die in Nachkommen investiert werden", "Die Zahl der Gene eines Elternteils", "Die Körpergröße der Eltern", "Die Lebensdauer der Eltern"],
+              "correct": 0,
+              "explain": "Elternaufwand umfasst alle Ressourcen, die ein Elternteil in die Nachkommen investiert."
+            },
+            {
+              "id": "fp2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was ist das Handicap-Prinzip?",
+              "options": ["Teure Signale sind ehrlich, weil nur fitte Sender sie tragen können.", "Alle Signale sind billig.", "Partnerwahl ist immer zufällig.", "Elternaufwand ist immer gleich."],
+              "correct": 0,
+              "explain": "Ein teures Signal ist schwer zu fälschen. Es kann deshalb verlässlich Fitness anzeigen."
+            },
+            {
+              "id": "fp3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S4",
+              "prompt": "Warum entsteht ein Eltern-Kind-Konflikt?",
+              "options": ["Weil Eltern in weitere Nachkommen investieren wollen, ein Kind aber mehr Fürsorge für sich will", "Weil Eltern und Kinder nie verwandt sind", "Weil Kinder keine Fitness haben", "Weil Eltern keinen Aufwand betreiben"],
+              "correct": 0,
+              "explain": "Eltern und Kind teilen Gene, aber ihre optimalen Investitionsmengen unterscheiden sich. Das erzeugt Konflikt."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="fortpflanzung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="primaten" href="#primaten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Mehr Elternaufwand geht oft mit wählerischerer Partnerwahl einher. Die Rollen können sich umkehren.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Elternaufwand</dt><dd>Investition in Nachkommen.</dd>
+<dt>Handicap-Prinzip</dt><dd>teure Signale sind ehrlich.</dd>
+<dt>Eltern-Kind-Konflikt</dt><dd>unterschiedliche optimale Investition.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Monogamie mit lebenslanger Treue gleichsetzen. Das Paarungssystem beschreibt die Bindung, nicht jede Paarung.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="primaten" data-title="Primaten und Mensch" data-track="true" id="primaten">
+<header class="station__head">
+<h2 id="primaten-title"><span class="station__num">07</span> Primaten und Mensch</h2>
+<p class="lead">Sozialverhalten von Primaten kann menschliches Verhalten beleuchten. Es erklärt es aber nicht allein.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Primaten leben oft in komplexen sozialen Gruppen. Rangordnung, Kooperation, Kommunikation und Konfliktlösung sind wichtige Themen. Exogene Ursachen kommen von außen, etwa Nahrungsverteilung, Räuber oder Gruppengröße. Endogene Ursachen liegen im Organismus, etwa Hormone oder genetische Dispositionen. Beide wirken zusammen.</p>
+<p>Menschliches Verhalten lässt sich nicht einfach aus Primatenverhalten ableiten. Kulturelle Normen, Sprache und Institutionen prägen menschliches Handeln. Biologistische Erklärungen, die soziale und kulturelle Faktoren ausblenden, sind unvollständig. Gleichzeitig ist der Mensch ein Primat; evolutionäre Perspektiven können bestimmte Muster erklären, ohne sie zu rechtfertigen.</p>
+<figure class="tool" data-tool="primate">
+<div class="tool__head">
+<p class="tool__title">Natur oder Kultur?</p>
+<p class="tool__hint">Wähle ein Beispiel. Das Werkzeug zeigt biologische und kulturelle Anteile.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="matrix-result" data-primate-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Beispiele sind bewusst mehrdeutig. Gute Erklärungen nennen biologische und kulturelle Faktoren.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Biologische Grenzen der Erklärung</h3>
+<p>Ein Beispiel: Männer und Frauen unterscheiden sich statistisch in einigen Verhaltensmerkmalen. Eine rein evolutionäre Erklärung könnte Paarungsstrategien anführen. Eine rein kulturelle Erklärung könnte Rollenbilder und Sozialisation anführen. Beide können relevant sein. Eine gute Analyse trennt deskriptive Befunde von normativen Schlussfolgerungen und vermeidet den naturalistischen Fehlschluss. Prüfe bei Medienberichten, ob aus einem statistischen Unterschied eine allgemeine Regel oder eine moralische Forderung abgeleitet wird.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Was Primatenforschung leisten kann</summary>
+<p>Primatenforschung kann zeigen, welche sozialen Fähigkeiten ohne menschliche Kultur möglich sind. Sie kann aber nicht direkt beweisen, warum Menschen bestimmte Normen haben. Vergleiche zwischen Arten sind nur dann aussagekräftig, wenn die ökologischen Bedingungen und die Verwandtschaft berücksichtigt werden. Ein einzelnes Beispiel aus einer Primatenart ist kein Beweis für eine allgemeine menschliche Eigenschaft.</p>
+</details>
+<section aria-labelledby="primaten-check" class="checkpoint">
+<h3 id="primaten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="primaten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="primaten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "pr1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was ist eine exogene Ursache von Sozialverhalten?",
+              "options": ["Nahrungsverteilung oder Räuberdruck", "Hormone", "Gene", "Gehirnstruktur"],
+              "correct": 0,
+              "explain": "Exogene Ursachen kommen von außen, etwa Umwelt, Nahrung oder Räuber. Endogene Ursachen liegen im Organismus."
+            },
+            {
+              "id": "pr2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Warum kann Primatenverhalten menschliches Verhalten nicht allein erklären?",
+              "options": ["Weil kulturelle Normen und Sprache menschliches Handeln mitprägen", "Weil Menschen keine Primaten sind", "Weil Primaten kein Sozialverhalten haben", "Weil Evolution keine Rolle spielt"],
+              "correct": 0,
+              "explain": "Menschen sind Primaten, aber Kultur, Sprache und Institutionen sind zusätzliche Faktoren. Eine rein biologische Erklärung greift zu kurz."
+            },
+            {
+              "id": "pr3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S5",
+              "prompt": "Was ist an einer einseitig biologistischen Erklärung menschlichen Verhaltens problematisch?",
+              "options": ["Sie blendet soziale und kulturelle Ursachen aus und kann normative Schlüsse verzerren.", "Sie verwendet keine Daten.", "Sie ist immer falsch.", "Sie erklärt zu viele Gene."],
+              "correct": 0,
+              "explain": "Eine einseitige Erklärung übersieht kulturelle Faktoren und kann aus Beschreibungen unzulässige Forderungen ableiten."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="primaten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Biologische und kulturelle Faktoren wirken zusammen. Keine Seite erklärt alles allein.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>exogen</dt><dd>von außen kommend.</dd>
+<dt>endogen</dt><dd>im Organismus liegend.</dd>
+<dt>Biologismus</dt><dd>Überbewertung biologischer Erklärungen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Aus „ist so“ ein „soll so sein“ ableiten. Das ist der naturalistische Fehlschluss.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">08</span> Kompetenzcheck Verhalten</h2>
+<p class="lead">Zehn Aufgaben im grundlegenden Niveau, drei Vertiefungen im erhöhten Niveau.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="verhalten">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="verhalten" type="application/json">
+      {
+        "competencies": {
+          "S1": "Fitness und adaptiver Wert",
+          "S2": "Nahrungserwerb und Optimalität",
+          "S3": "Kooperation und Altruismus",
+          "S4": "Kommunikation, Aggression, Fortpflanzung",
+          "S5": "Primaten und Mensch",
+          "B1": "Modelle und Evidenz bewerten"
+        },
+        "questions": [
+          {
+            "id": "v1",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Was ist Gesamtfitness?",
+            "options": ["Direkte plus indirekte Fitness", "Nur die Zahl der eigenen Nachkommen", "Nur die Körpergröße", "Die Zahl der Artgenossen"],
+            "correct": 0,
+            "explain": "Gesamtfitness ist die Summe aus direkter Fitness durch eigene Nachkommen und indirekter Fitness über Verwandte."
+          },
+          {
+            "id": "v2",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Was maximiert ein optimaler Nahrungserwerb?",
+            "options": ["Den Netto-Energiegewinn pro Zeit", "Die absolute Nahrungsmenge", "Die Zahl der Patches", "Die Körpergröße"],
+            "correct": 0,
+            "explain": "Der Netto-Gewinn pro Zeit berücksichtigt Ertrag, Aufwand und Wegzeit."
+          },
+          {
+            "id": "v3",
+            "type": "mc",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Was besagt Hamiltons Regel?",
+            "options": ["rB > C", "rB < C", "B > rC", "C > rB"],
+            "correct": 0,
+            "explain": "Altruismus wird begünstigt, wenn der Verwandtschaftskoeffizient mal Nutzen größer ist als die Kosten."
+          },
+          {
+            "id": "v4",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Warum sind teure Signale oft ehrlich?",
+            "options": ["Weil nur fitte Sender sie tragen können", "Weil sie keine Kosten haben", "Weil sie immer vom Empfänger bezahlt werden", "Weil sie nicht beobachtet werden"],
+            "correct": 0,
+            "explain": "Teure Signale sind schwer zu fälschen. Das macht sie verlässlich."
+          },
+          {
+            "id": "v5",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Was ist ein Kommentkampf?",
+            "options": ["Ein ritualisierter Kampf mit geringem Verletzungsrisiko", "Ein Kampf bis zum Tod", "Eine Paarung", "Ein Warnruf"],
+            "correct": 0,
+            "explain": "Der Kommentkampf ist ritualisiert und dient der Entscheidung von Rang oder Territorium."
+          },
+          {
+            "id": "v6",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Was ist Elternaufwand?",
+            "options": ["Energie und Zeit, die in Nachkommen investiert werden", "Die Zahl der Gene", "Die Körpergröße", "Die Lebensdauer"],
+            "correct": 0,
+            "explain": "Elternaufwand umfasst alle Ressourcen, die in Nachkommen investiert werden."
+          },
+          {
+            "id": "v7",
+            "type": "mc",
+            "level": "g",
+            "competency": "S5",
+            "prompt": "Was ist eine exogene Ursache von Sozialverhalten?",
+            "options": ["Nahrungsverteilung oder Räuberdruck", "Hormone", "Gene", "Gehirnstruktur"],
+            "correct": 0,
+            "explain": "Exogene Ursachen kommen von außen. Endogene Ursachen liegen im Organismus."
+          },
+          {
+            "id": "v8",
+            "type": "mc",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Was ist reziproker Altruismus?",
+            "options": ["Hilfe auf Gegenseitigkeit", "Hilfe für Verwandte", "Hilfe ohne Bedingung", "Ein Verhalten ohne Kosten"],
+            "correct": 0,
+            "explain": "Reziproker Altruismus beruht auf der Erwartung einer Gegenleistung."
+          },
+          {
+            "id": "v9",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Warum kann ein nahrungsreiches Patch unattraktiv sein?",
+            "options": ["Weil Wegzeit oder Risiko die Nettokosten erhöhen", "Weil Nahrung immer schädlich ist", "Weil Tiere keine Energie brauchen", "Weil Konkurrenz keine Rolle spielt"],
+            "correct": 0,
+            "explain": "Ein hoher Ertrag kann durch Wegzeit, Räuber oder Konkurrenz aufgezehrt werden."
+          },
+          {
+            "id": "v10",
+            "type": "mc",
+            "level": "g",
+            "competency": "B1",
+            "prompt": "Was ist eine Grenze von Optimalitätsmodellen?",
+            "options": ["Sie vereinfachen und erfassen nicht alle Risiken und Informationen.", "Sie sind immer exakt.", "Sie erklären jedes Verhalten.", "Sie benötigen keine Daten."],
+            "correct": 0,
+            "explain": "Modelle vereinfachen. Sie können übersehene Variablen oder begrenzte Information nicht immer abbilden."
+          },
+          {
+            "id": "v11",
+            "type": "mc",
+            "level": "r",
+            "competency": "S3",
+            "prompt": "Warum ist reziproker Altruismus anfällig für Trittbrettfahrer?",
+            "options": ["Weil Hilfe angenommen werden kann, ohne zurückzugeben", "Weil Hilfe immer bestraft wird", "Weil Verwandte keine Rolle spielen", "Weil Kooperation keine Kosten hat"],
+            "correct": 0,
+            "explain": "Ohne Wiedererkennen oder Bestrafung kann ein Trittbrettfahrer kurzfristig profitieren."
+          },
+          {
+            "id": "v12",
+            "type": "mc",
+            "level": "r",
+            "competency": "S4",
+            "prompt": "Wann ist eine Falken-Strategie im Hawk-Dove-Modell im Vorteil?",
+            "options": ["Wenn der Ressourcenwert hoch und die Kampfkosten niedrig sind", "Wenn die Ressource wertlos ist", "Wenn alle Tauben sind", "Wenn es keine Konkurrenz gibt"],
+            "correct": 0,
+            "explain": "Falken lohnen sich bei hohem Gewinn und niedrigem Risiko. Bei hohen Kosten kann Taube besser sein."
+          },
+          {
+            "id": "v13",
+            "type": "mc",
+            "level": "r",
+            "competency": "S5",
+            "prompt": "Warum ist eine einseitig biologistische Erklärung menschlichen Verhaltens problematisch?",
+            "options": ["Sie blendet soziale und kulturelle Ursachen aus.", "Sie verwendet keine Daten.", "Sie ist immer falsch.", "Sie erklärt zu viele Gene."],
+            "correct": 0,
+            "explain": "Menschliches Verhalten entsteht aus biologischen, sozialen und kulturellen Faktoren. Eine rein biologische Erklärung greift zu kurz."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">09</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in der Verhaltensökologie immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>adaptiver Wert</dt><dd>Beitrag eines Verhaltens zur Fitness.</dd></div>
+<div class="glossary__row"><dt>Altruismus</dt><dd>Verhalten, das die Fitness eines anderen erhöht und die eigene senkt.</dd></div>
+<div class="glossary__row"><dt>direkte Fitness</dt><dd>Fortpflanzungserfolg durch eigene Nachkommen.</dd></div>
+<div class="glossary__row"><dt>Elternaufwand</dt><dd>Energie und Zeit, die in Nachkommen investiert werden.</dd></div>
+<div class="glossary__row"><dt>Eltern-Kind-Konflikt</dt><dd>Unterschiedliche optimale Investition von Eltern und Kind.</dd></div>
+<div class="glossary__row"><dt>Gesamtfitness</dt><dd>Summe aus direkter und indirekter Fitness.</dd></div>
+<div class="glossary__row"><dt>Hamiltons Regel</dt><dd>rB &gt; C: Altruismus ist begünstigt, wenn der Verwandtschaftsnutzen die Kosten übersteigt.</dd></div>
+<div class="glossary__row"><dt>Handicap-Prinzip</dt><dd>Teure Signale sind ehrlich, weil nur fitte Sender sie tragen können.</dd></div>
+<div class="glossary__row"><dt>Hawk-Dove</dt><dd>Spieltheorie-Modell für Konflikte mit Falken- und Taubenstrategien.</dd></div>
+<div class="glossary__row"><dt>indirekte Fitness</dt><dd>Beitrag zur Weitergabe eigener Allele über Verwandte.</dd></div>
+<div class="glossary__row"><dt>Kommentkampf</dt><dd>Ritualisierter Kampf mit geringem Verletzungsrisiko.</dd></div>
+<div class="glossary__row"><dt>Optimalitätsmodell</dt><dd>Modell, das Verhaltensalternativen nach Kosten und Nutzen vergleicht.</dd></div>
+<div class="glossary__row"><dt>reziproker Altruismus</dt><dd>Hilfe auf Gegenseitigkeit.</dd></div>
+<div class="glossary__row"><dt>Signal</dt><dd>Reiz, der das Verhalten eines Empfängers verändert.</dd></div>
+<div class="glossary__row"><dt>Verwandtenselektion</dt><dd>Förderung von Verwandten aufgrund gemeinsamer Allele.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Verhalten wird durch Kosten, Nutzen und Fitness erklärt. Modelle sind Werkzeuge, keine Beweise.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 12</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/grundlegend" target="_blank" rel="noopener" class="g-only">LehrplanPLUS Biologie 12, grundlegend</a>
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/erhoeht" target="_blank" rel="noopener" class="r-only">LehrplanPLUS Biologie 12, erhöht</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js?v=2026-11-04"></script>
+<script src="./assets/three-scenes.js"></script>
+<script src="lab.js?v=2026-11-04b"></script>
+
+</body>
+</html>

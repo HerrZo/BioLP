@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="de" data-grade="8" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Sucht und Gesundheit | Biologie 8</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 8 zu Sucht und Gesundheit: Suchtentstehung, Belohnungssystem, stoffgebundene und nicht stoffgebundene Sucht, Hilfen.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Hedgerow (deal 2/3, seed interaktive-lernwebsite-biologie-jugendliche-3f84·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die Suchtspirale und der Lebenskompetenz-Check · states: default, hover, focus, active, disabled, loading, empty, error · hedgerow: hedge
+ * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the dark sheet needs the tool wells to sit one step lighter; theme.css lifts the wells and keeps the sheet one step darker */
+/* Hallmark · answered F4 · the 8 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Prata; every figure is Manrope with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.continuum-svg { width: 100%; height: auto; display: block; }
+.continuum-svg .track { stroke: var(--color-rule-2); stroke-width: 2; }
+.continuum-svg .node { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.continuum-svg [data-continuum-node].is-active .node { fill: var(--color-accent); stroke: var(--color-accent); }
+.continuum-svg .node-label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); text-anchor: middle; }
+.continuum-svg [data-continuum-node].is-active .node-label { fill: var(--color-ink); }
+.tank-svg { width: 100%; height: auto; display: block; }
+.tank-svg .tank { fill: var(--color-paper-2); stroke: var(--color-rule-2); stroke-width: 2; }
+.tank-svg .fill { fill: var(--color-accent); transition: transform var(--dur-long) var(--ease-out); transform-origin: center bottom; }
+.tank-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.triangle-svg { width: 100%; height: auto; display: block; }
+.triangle-svg .edge { stroke: var(--color-rule-2); stroke-width: 2; }
+.triangle-svg .node { fill: var(--color-paper-3); stroke: var(--color-rule-2); stroke-width: 2; transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out); }
+.triangle-svg [data-triangle-node].is-active .node { fill: var(--color-accent); stroke: var(--color-accent); }
+.triangle-svg .node-label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); text-anchor: middle; }
+.triangle-svg [data-triangle-node].is-active .node-label { fill: var(--color-ink); }
+.substance-card, .behavior-addiction-card, .lifeskills-card { display: grid; gap: var(--space-sm); }
+.substance-card__name, .behavior-addiction-card__name, .lifeskills-card__name { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.substance-card__facts { display: grid; gap: var(--space-2xs); margin: 0; }
+.substance-card__facts div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); padding-bottom: var(--space-2xs); }
+.substance-card__facts dt { font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); }
+.substance-card__facts dd { margin: 0; font: 400 var(--text-sm)/1.4 var(--font-body); }
+.substance-card__text, .behavior-addiction-card__text, .lifeskills-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.behavior-addiction-card__list, .lifeskills-card__list { margin: 0; padding-left: 1.2em; }
+.behavior-addiction-card__list li, .lifeskills-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.help-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
+.help-card { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.help-card h3 { margin: 0 0 var(--space-xs); font-size: var(--text-md); }
+.help-card p { margin: 0 0 var(--space-xs); font-size: var(--text-sm); color: var(--color-ink-2); }
+.help-card a { font-size: var(--text-sm); }
+.tool[data-tool="use-continuum8"] .tool__stage, .tool[data-tool="lifeskills8"] .tool__stage { min-height: 0; }
+.mobile-hint { display: none; }
+@media (max-width: 60rem) {
+  .help-grid { grid-template-columns: minmax(0, 1fr); }
+  .substance-card__facts div { grid-template-columns: 7rem minmax(0, 1fr); }
+  .tool[data-tool="tank8"] .tool__stage, .tool[data-tool="addiction-triangle8"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="tank8"] .tank-svg, .tool[data-tool="addiction-triangle8"] .triangle-svg { min-width: 480px; }
+  .mobile-hint { display: block; margin-top: var(--space-2xs); font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="8-5" data-grade="8">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 8">
+      <span class="brand__name">Biologie 8</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">05</span> Sucht und Gesundheit</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Sucht und Gesundheit</h2>
+      <p class="sidebar__deck">Genuss, Gewöhnung, Abhängigkeit, Suchtentstehung, Folgen und Lebenskompetenzen.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#genuss" data-station-link="genuss"><span class="station-nav__num">01</span><span>Genuss und Abhängigkeit</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#suchtentstehung" data-station-link="suchtentstehung"><span class="station-nav__num">02</span><span>Suchtentstehung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#stoffe" data-station-link="stoffe"><span class="station-nav__num">03</span><span>Stoffgebundene Sucht</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#verhalten" data-station-link="verhalten"><span class="station-nav__num">04</span><span>Nicht stoffgebundene Sucht</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#folgen" data-station-link="folgen"><span class="station-nav__num">05</span><span>Folgen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#lebenskompetenzen" data-station-link="lebenskompetenzen"><span class="station-nav__num">06</span><span>Lebenskompetenzen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 8</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Sucht und Gesundheit: Genuss, Gewöhnung, Abhängigkeit.</h1>
+<p class="lead">Wie aus Genuss eine Abhängigkeit werden kann, was das Gehirn damit zu tun hat und wie du Schutzfaktoren stärkst.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="genuss" href="#genuss">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">G1</span><span>Du unterscheidest Genuss, Gewöhnung, Missbrauch und Abhängigkeit.</span></li>
+<li><span class="cnum">G2</span><span>Du erklärst die Entstehung von Sucht mit dem Belohnungssystem, dem Gefühlstank und dem Sucht-Dreieck.</span></li>
+<li><span class="cnum">G3</span><span>Du beschreibst stoffgebundene und nicht stoffgebundene Suchtformen und ihre Folgen.</span></li>
+<li><span class="cnum">G4</span><span>Du erklärst körperliche, psychische und soziale Folgen für Betroffene und ihr Umfeld.</span></li>
+<li><span class="cnum">G5</span><span>Du stärkst Lebenskompetenzen und kennst Hilfsangebote.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 5 des LehrplanPLUS Biologie 8 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Sucht ist eine Erkrankung, keine Charakterschwäche. Wir sprechen respektvoll über Betroffene und ihre Angehörigen. Du musst nichts Persönliches teilen. Wenn dich ein Thema belastet, sprich mit einer Vertrauensperson oder einer Beratungsstelle. Hilfe ist vertraulich.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wann ist Konsum Genuss, und wann wird er zur Belastung?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="genuss" data-title="Genuss und Abhängigkeit" data-track="true" id="genuss">
+<header class="station__head">
+<h2 id="genuss-title"><span class="station__num">01</span> Genuss, Gewöhnung, Missbrauch, Abhängigkeit</h2>
+<p class="lead">Die Grenze ist fließend. Entscheidend ist, ob du die Kontrolle behältst und ob der Konsum dein Leben einschränkt.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Genuss ist ein angenehmes Erleben, das nicht automatisch schädlich ist. Ein Stück Schokolade, ein Glas Saft oder ein spannendes Spiel können Freude machen. Genuss wird problematisch, wenn er zur Gewohnheit wird, die Kontrolle verloren geht oder negative Folgen ignoriert werden. Nicht jeder regelmäßige Konsum ist eine Sucht, und nicht jede Sucht beginnt mit einer großen Menge.</p>
+<p>Die Übergänge sind fließend. Bei der Gewöhnung braucht man mehr von etwas, um die gleiche Wirkung zu erzielen; das nennt man Toleranz. Beim Missbrauch entstehen negative Folgen, aber die Person kann noch eingeschränkt steuern. Bei einer Abhängigkeit kommen Craving, Kontrollverlust, Entzugssymptome, Vernachlässigung anderer Interessen und fortgesetzter Konsum trotz Schäden hinzu. Abhängigkeit ist eine Erkrankung mit biologischen, psychischen und sozialen Anteilen.</p>
+<p>Legal heißt nicht harmlos: Alkohol und Nikotin sind legal und können stark abhängig machen. Illegal heißt nicht automatisch gefährlicher: Die Wirkung, die Dosis, die Häufigkeit und die Umstände entscheiden mit. Ein respektvoller Blick fragt nicht „Wer ist schuld?“, sondern „Was braucht die Person, um sicherer zu leben?“</p>
+<figure class="tool" data-tool="use-continuum8">
+<div class="tool__head">
+<p class="tool__title">Wo liegt was?</p>
+<p class="tool__hint">Wähle einen Begriff. Prüfe, wodurch er sich vom nächsten unterscheidet.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Kontinuum von Genuss über Gewöhnung und Missbrauch bis Abhängigkeit" class="continuum-svg" role="img" viewbox="0 0 720 180">
+<line class="track" x1="70" x2="650" y1="90" y2="90"></line>
+<g data-continuum-node="genuss" data-tip="Genuss: angenehmes Erleben ohne zwingende negative Folgen. Du behältst die Kontrolle." tabindex="0"><circle class="node" cx="110" cy="90" r="22"></circle><text class="node-label" x="110" y="140">Genuss</text></g>
+<g data-continuum-node="gewoehnung" data-tip="Gewöhnung: Das Verhalten wird zur Routine. Bei Substanzen braucht man oft mehr für die gleiche Wirkung (Toleranz)." tabindex="0"><circle class="node" cx="290" cy="90" r="22"></circle><text class="node-label" x="290" y="140">Gewöhnung</text></g>
+<g data-continuum-node="missbrauch" data-tip="Missbrauch: Es entstehen negative Folgen. Die Kontrolle ist eingeschränkt, aber nicht vollständig verloren." tabindex="0"><circle class="node" cx="470" cy="90" r="22"></circle><text class="node-label" x="470" y="140">Missbrauch</text></g>
+<g data-continuum-node="abhaengigkeit" data-tip="Abhängigkeit: Craving, Kontrollverlust, Toleranz, Entzug und fortgesetzter Konsum trotz Schäden. Sucht ist eine Erkrankung." tabindex="0"><circle class="node" cx="650" cy="90" r="22"></circle><text class="node-label" x="650" y="140">Abhängigkeit</text></g>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Kontinuum ist ein Modell. Die Übergänge sind fließend, und nicht jede Person durchläuft alle Stufen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Wann wird Konsum problematisch?</summary>
+<p>Warnzeichen sind: Du brauchst mehr für die gleiche Wirkung, du denkst ständig daran, du verlierst die Kontrolle über Menge oder Zeitpunkt, du vernachlässigst Schule, Freundschaften oder Schlaf, du konsumierst weiter trotz körperlicher oder psychischer Folgen, und es fällt dir schwer, ohne Konsum zu entspannen. Ein einzelnes Warnzeichen bedeutet nicht automatisch Abhängigkeit. Mehrere Zeichen über längere Zeit sind ein Anlass, professionelle Hilfe zu suchen.</p>
+</details>
+<section aria-labelledby="genuss-check" class="checkpoint">
+<h3 id="genuss-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="genuss">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="genuss" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "g1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G1",
+              "prompt": "Was bedeutet Toleranz im Zusammenhang mit Sucht?",
+              "options": ["Man braucht mehr von einer Substanz, um die gleiche Wirkung zu erzielen.", "Man verträgt plötzlich gar nichts mehr.", "Man hat keine Lust mehr auf die Substanz.", "Man konsumiert nur noch einmal pro Woche."],
+              "correct": 0,
+              "explain": "Toleranz entsteht durch Gewöhnung. Der Körper reagiert weniger stark, deshalb wird die Dosis oft erhöht."
+            },
+            {
+              "id": "g2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G1",
+              "prompt": "Welche Aussage über legale Substanzen ist richtig?",
+              "options": ["Legal bedeutet nicht automatisch harmlos.", "Legale Substanzen machen nie abhängig.", "Illegale Substanzen sind immer gefährlicher.", "Nur illegale Substanzen haben Folgen."],
+              "correct": 0,
+              "explain": "Alkohol und Nikotin sind legal, können aber stark abhängig machen und gesundheitliche Folgen haben."
+            },
+            {
+              "id": "g3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G1",
+              "prompt": "Was ist ein Kennzeichen von Abhängigkeit?",
+              "options": ["Kontrollverlust und fortgesetzter Konsum trotz Schäden", "Gelegentlicher Genuss ohne Folgen", "Ein einmaliges Ausprobieren", "Eine klare zeitliche Begrenzung"],
+              "correct": 0,
+              "explain": "Abhängigkeit umfasst Kontrollverlust, Craving, Toleranz, Entzug und fortgesetzten Konsum trotz negativer Folgen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="genuss" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="suchtentstehung" href="#suchtentstehung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Genuss, Gewöhnung, Missbrauch und Abhängigkeit sind keine starren Kategorien. Entscheidend sind Kontrolle, Folgen und Leidensdruck.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Genuss</dt><dd>angenehmes Erleben ohne zwingende negative Folgen.</dd>
+<dt>Toleranz</dt><dd>Gewöhnung; mehr Substanz für die gleiche Wirkung.</dd>
+<dt>Craving</dt><dd>starker Drang, zu konsumieren.</dd>
+<dt>Abhängigkeit</dt><dd>Erkrankung mit Kontrollverlust und fortgesetztem Konsum trotz Schäden.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Menschen mit Sucht als „willensschwach“ abzustempeln. Sucht hat biologische, psychische und soziale Ursachen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="suchtentstehung" data-title="Suchtentstehung" data-track="true" id="suchtentstehung">
+<header class="station__head">
+<h2 id="suchtentstehung-title"><span class="station__num">02</span> Wie entsteht Sucht?</h2>
+<p class="lead">Belohnungssystem, Gefühlstank und Sucht-Dreieck erklären, warum manche Menschen schneller abhängig werden.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Das Gehirn hat ein Belohnungssystem. Bei angenehmen Erfahrungen wird Dopamin freigesetzt, besonders im ventralen Tegmentum und im Nucleus accumbens. Das motiviert uns, Dinge zu wiederholen, die überlebenswichtig sind: Essen, soziale Nähe, Schlaf, Bewegung. Suchtmittel und manche Verhaltensweisen können dieses System viel stärker und direkter aktivieren als natürliche Belohnungen. Das Gehirn passt sich an: Rezeptoren werden weniger empfindlich, die gleiche Dosis wirkt schwächer, und ohne den Reiz entsteht ein Mangelgefühl. Das ist die Toleranz; beim Absetzen können Entzugssymptome auftreten.</p>
+<p>Chronischer Konsum kann die Kontrolle schwächen. Der präfrontale Cortex, der Impulse und langfristige Folgen abwägt, wird weniger wirksam; gleichzeitig werden Hinweise auf die Substanz, etwa Orte, Gerüche oder Situationen, zu starken Auslösern für Craving. Stress, Schlafmangel, psychische Erkrankungen und genetische Veranlagung erhöhen das Risiko. Sucht ist deshalb keine reine Willensfrage, sondern eine Erkrankung mit biologischen, psychischen und sozialen Anteilen.</p>
+<p>Das Modell des Gefühlstanks beschreibt, dass Menschen Ressourcen brauchen: Sicherheit, Anerkennung, Zugehörigkeit, Freude und Sinn. Ist der Tank leer, wirken Substanzen oder Ersatzhandlungen wie schnelle Tankstellen: Sie füllen kurz, verdrängen unangenehme Gefühle, lösen aber das eigentliche Bedürfnis nicht. Danach kann der Tank sogar leerer sein. Das Sucht-Dreieck ergänzt, dass Person, Suchtmittel und Umfeld zusammenwirken. Keine einzelne Ursache entscheidet.</p>
+<figure class="tool" data-tool="tank8">
+<div class="tool__head">
+<p class="tool__title">Der Gefühlstank</p>
+<p class="tool__hint">Wähle eine Ressource. Beobachte, wie sie den Tank füllt oder leert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="tank-card">
+<svg aria-label="Gefühlstank als Modell für Ressourcen und Ersatzstoffe" class="tank-svg" role="img" viewbox="0 0 640 260">
+<rect class="tank" height="180" rx="8" width="200" x="220" y="40" data-tip="Gefühlstank: ein Modell für Ressourcen wie Sicherheit, Zugehörigkeit und Freude. Er ist keine messbare Größe im Gehirn." tabindex="0"></rect>
+<rect class="fill" data-tank-fill="" height="168" rx="4" width="188" x="226" y="46"></rect>
+<text class="label" text-anchor="middle" x="320" y="245" data-tip="Der Füllstand zeigt, wie nachhaltig eine Ressource wirkt. Substanzen füllen nur kurzfristig." tabindex="0">Gefühlstank</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+</div>
+<figcaption class="tool__caption">Der Tank ist eine Metapher, keine Messung. Er zeigt, dass Ressourcen und Ersatzstoffe unterschiedlich nachhaltig wirken.</figcaption>
+</figure>
+<figure class="tool" data-tool="addiction-triangle8">
+<div class="tool__head">
+<p class="tool__title">Das Sucht-Dreieck</p>
+<p class="tool__hint">Wähle eine Ecke. Prüfe Schutz- und Risikofaktoren.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Sucht-Dreieck mit Person, Suchtmittel und Umfeld" class="triangle-svg" role="img" viewbox="0 0 640 320">
+<line class="edge" x1="320" x2="120" y1="50" y2="260"></line>
+<line class="edge" x1="320" x2="520" y1="50" y2="260"></line>
+<line class="edge" x1="120" x2="520" y1="260" y2="260"></line>
+<g data-triangle-node="person" data-tip="Person: Selbstwert, Frustrationstoleranz, psychische Gesundheit und genetische Veranlagung." tabindex="0"><circle class="node" cx="320" cy="50" r="38"></circle><text class="node-label" x="320" y="46">Person</text></g>
+<g data-triangle-node="mittel" data-tip="Suchtmittel: Verfügbarkeit, Preis, Werbung und Wirkung. Ein leichter Zugang erhöht das Risiko." tabindex="0"><circle class="node" cx="120" cy="260" r="38"></circle><text class="node-label" x="120" y="256">Suchtmittel</text></g>
+<g data-triangle-node="umfeld" data-tip="Umfeld: Familie, Freundeskreis, Schule und Gesellschaft. Stabile Beziehungen schützen, Gruppendruck belastet." tabindex="0"><circle class="node" cx="520" cy="260" r="38"></circle><text class="node-label" x="520" y="256">Umfeld</text></g>
+</svg>
+<p class="mobile-hint">Auf kleinen Bildschirmen seitlich scrollen.</p>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Sucht-Dreieck ist ein Modell. Es zeigt, dass nicht eine einzelne Ursache entscheidet.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Rückfälle passieren</summary>
+<p>Ein Rückfall ist kein Beweis für fehlenden Willen. Das Gehirn hat gelernt, bestimmte Situationen mit der Substanz zu verknüpfen. Stress, Langeweile, Konflikte, Orte oder alte Kontakte können Craving auslösen. Behandlung hilft, diese Auslöser zu erkennen, neue Bewältigungsstrategien zu trainieren und das Umfeld zu verändern. Rückfälle sind Teil vieler Verläufe; wichtig ist, sie offen anzusprechen und Hilfe anzunehmen, statt sich zu schämen.</p>
+</details>
+<section aria-labelledby="suchtentstehung-check" class="checkpoint">
+<h3 id="suchtentstehung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="suchtentstehung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="suchtentstehung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "se1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G2",
+              "prompt": "Welcher Botenstoff ist im Belohnungssystem besonders wichtig?",
+              "options": ["Dopamin", "Insulin", "Adrenalin", "Thyroxin"],
+              "correct": 0,
+              "explain": "Dopamin ist an Motivation und Belohnung beteiligt. Suchtmittel können das Belohnungssystem stark aktivieren."
+            },
+            {
+              "id": "se2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G2",
+              "prompt": "Was beschreibt das Gefühlstank-Modell?",
+              "options": ["Menschen brauchen Ressourcen; Ersatzstoffe füllen den Tank nur kurzfristig.", "Der Tank ist eine messbare Größe im Gehirn.", "Sucht entsteht nur durch Gene.", "Menschen mit Sucht haben keinen Tank."],
+              "correct": 0,
+              "explain": "Das Modell ist eine Metapher: Ressourcen wie Beziehungen und Bewegung füllen nachhaltig, Ersatzstoffe nur kurzfristig."
+            },
+            {
+              "id": "se3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G2",
+              "prompt": "Welche drei Ecken hat das Sucht-Dreieck?",
+              "options": ["Person, Suchtmittel, Umfeld", "Genuss, Gewöhnung, Abhängigkeit", "Körper, Geist, Seele", "Schule, Familie, Freizeit"],
+              "correct": 0,
+              "explain": "Das Sucht-Dreieck betrachtet Person, Suchtmittel und Umfeld mit ihren Schutz- und Risikofaktoren."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="suchtentstehung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="stoffe" href="#stoffe">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Sucht entsteht aus dem Zusammenspiel von Person, Suchtmittel und Umfeld. Das Belohnungssystem lernt, der Verstand verliert an Kontrolle.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Belohnungssystem</dt><dd>Netzwerk im Gehirn, das angenehme Reize verarbeitet.</dd>
+<dt>Dopamin</dt><dd>Botenstoff, der an Motivation und Belohnung beteiligt ist.</dd>
+<dt>Toleranz</dt><dd>Gewöhnung; mehr Substanz für die gleiche Wirkung.</dd>
+<dt>Craving</dt><dd>starker Drang zu konsumieren.</dd>
+<dt>Sucht-Dreieck</dt><dd>Modell aus Person, Suchtmittel und Umfeld.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Sucht nur als Willensproblem sehen. Das Belohnungssystem und das Umfeld prägen das Verhalten mit.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="stoffe" data-title="Stoffgebundene Sucht" data-track="true" id="stoffe">
+<header class="station__head">
+<h2 id="stoffe-title"><span class="station__num">03</span> Stoffgebundene Sucht: Substanzen und ihre Wirkung</h2>
+<p class="lead">Legal heißt nicht harmlos. Wirkung, Dosis, Häufigkeit und Umstände entscheiden über das Risiko.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Stoffgebundene Sucht entsteht durch Substanzen, die das Belohnungssystem beeinflussen. Dazu gehören Alkohol, Nikotin, Cannabis, Koffein, Medikamente und illegale Drogen. Die Wirkung hängt von der Substanz, der Dosis, der Häufigkeit, dem Körper, der psychischen Verfassung und dem Umfeld ab. Mischkonsum erhöht die Risiken, weil Substanzen sich gegenseitig verstärken oder unvorhersehbar kombinieren können.</p>
+<p>Alkohol wirkt dämpfend und enthemmend. Er beeinträchtigt Urteil, Koordination und Reaktion und erhöht die Unfallgefahr. Langfristig schädigt er Leber, Gehirn und Herz und erhöht das Krebsrisiko. In der Schwangerschaft kann Alkohol das Kind dauerhaft schädigen; es gibt kein risikofreies Konsummuster. Nikotin ist stark abhängig machend und schädigt Lunge, Herz und Gefäße; auch Vaping ist nicht harmlos. Cannabis kann bei Jugendlichen die Gehirnentwicklung beeinträchtigen und bei vulnerablen Menschen Psychosen auslösen.</p>
+<p>Koffein ist in Kaffee, Tee, Cola und Energy Drinks enthalten. Moderate Mengen sind für die meisten Erwachsenen unproblematisch; hohe Dosen können Schlafprobleme, Unruhe und Herzklopfen verursachen. Ecstasy und Kokain sind illegale Stimulanzien mit erheblichen Risiken für Herz, Kreislauf und Psyche. Bei Ecstasy kommen Überhitzung, Dehydration und unbekannte Beimischungen hinzu; bei Kokain sind Herzinfarkt, Schlaganfall und schwere Angstzustände möglich.</p>
+<figure class="tool" data-tool="substances8">
+<div class="tool__head">
+<p class="tool__title">Stoffe im Vergleich</p>
+<p class="tool__hint">Wähle eine Substanz. Prüfe Wirkung, Risiken und Suchtpotenzial.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="substance-card">
+<p class="substance-card__name" data-substance-name="">Alkohol</p>
+<dl class="substance-card__facts">
+<div><dt data-tip="Wirkung: Wie die Substanz auf Gehirn und Körper wirkt – zum Beispiel dämpfend, anregend oder halluzinogen.">Wirkung</dt><dd data-substance-effect="">dämpfend und enthemmend</dd></div>
+<div><dt data-tip="Risiken: Mögliche gesundheitliche und soziale Folgen – kurzfristig und langfristig.">Risiken</dt><dd data-substance-risks="">Leber, Gehirn, Herz, Unfälle, Abhängigkeit</dd></div>
+<div><dt data-tip="Suchtpotenzial: Wie stark eine Substanz abhängig machen kann. Es hängt auch von Dosis, Häufigkeit und Person ab.">Suchtpotenzial</dt><dd data-substance-addiction="">hoch</dd></div>
+<div><dt data-tip="Rechtliches: Ob Konsum, Besitz oder Verkauf erlaubt sind. Legal bedeutet nicht automatisch harmlos.">Rechtliches</dt><dd data-substance-legal="">legal ab 16/18 mit Regeln</dd></div>
+</dl>
+<p class="substance-card__text" data-substance-text="">Alkohol ist die am weitesten verbreitete legale Droge. Es gibt kein risikofreies Konsummuster.</p>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Angaben sind allgemeine Informationen, keine medizinische Beratung. Bei akuter Gefahr: 112.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Was tun bei akuter Vergiftung?</summary>
+<p>Bei Bewusstlosigkeit, Atemnot, Krampfanfällen, Brustschmerz, starker Überhitzung oder wenn die Person nicht mehr ansprechbar ist: sofort 112 rufen. Bleib bei der Person, prüfe Atmung und Bewusstsein, bring sie in eine sichere Seitenlage, wenn sie atmet, und halte sie warm. Versuche nicht, Erbrechen auszulösen. Nenne den Rettungskräften, welche Substanz, welche Menge und wann konsumiert wurde, wenn du es weißt. Lass die Person nicht allein. Bei Unsicherheit lieber früher den Notruf wählen.</p>
+</details>
+<section aria-labelledby="stoffe-check" class="checkpoint">
+<h3 id="stoffe-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="stoffe">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="stoffe" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "st1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Welche Substanz ist legal, kann aber stark abhängig machen?",
+              "options": ["Nikotin", "Kokain", "Ecstasy", "Cannabis für Jugendliche"],
+              "correct": 0,
+              "explain": "Nikotin ist legal ab 18, aber stark abhängig machend. Legal bedeutet nicht harmlos."
+            },
+            {
+              "id": "st2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Warum ist Alkohol in der Schwangerschaft besonders riskant?",
+              "options": ["Er kann das Kind dauerhaft schädigen.", "Er stärkt das Immunsystem des Kindes.", "Er hat keine Wirkung auf das Kind.", "Er wird über die Plazenta nicht weitergegeben."],
+              "correct": 0,
+              "explain": "Alkohol erreicht das Kind über die Plazenta und kann dauerhafte Schäden verursachen. Es gibt kein risikofreies Konsummuster."
+            },
+            {
+              "id": "st3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Was erhöht bei Substanzen das Risiko zusätzlich?",
+              "options": ["Mischkonsum", "Ausreichend Schlaf", "Eine stabile Umgebung", "Klare Regeln"],
+              "correct": 0,
+              "explain": "Mischkonsum kann Wirkungen verstärken und unvorhersehbar machen. Die Risiken steigen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="stoffe" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="verhalten" href="#verhalten">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Legal heißt nicht harmlos. Alkohol und Nikotin sind legal und können stark abhängig machen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>stoffgebundene Sucht</dt><dd>Abhängigkeit von einer Substanz.</dd>
+<dt>Mischkonsum</dt><dd>gleichzeitiger Konsum mehrerer Substanzen.</dd>
+<dt>Entzug</dt><dd>körperliche oder psychische Beschwerden beim Absetzen.</dd>
+<dt>Notruf</dt><dd>112 bei akuter Gefahr.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, illegale Drogen seien automatisch gefährlicher als legale. Die Wirkung und die Umstände entscheiden mit.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="verhalten" data-title="Nicht stoffgebundene Sucht" data-track="true" id="verhalten">
+<header class="station__head">
+<h2 id="verhalten-title"><span class="station__num">04</span> Nicht stoffgebundene Sucht: Verhalten als Sucht</h2>
+<p class="lead">Auch Spiele, Social Media, Glücksspiel oder Arbeit können die Kontrolle übernehmen. Nicht jedes intensive Hobby ist eine Sucht.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Nicht stoffgebundene Sucht entsteht durch ein Verhalten, das kurzfristig belohnt und langfristig Probleme verursacht. Beispiele sind Gaming, Social Media, Glücksspiel, Shopping oder Arbeit. Das Verhalten aktiviert das Belohnungssystem, oft durch unvorhersehbare Belohnungen, Likes, Level-Ups, Streaks oder Gewinne. Mit der Zeit kann die Kontrolle verloren gehen, das Verhalten wird wichtiger als andere Bereiche, und es entstehen Konflikte, Schlafprobleme oder finanzielle Schwierigkeiten.</p>
+<p>Die Weltgesundheitsorganisation erkennt die Gaming Disorder als Störung an. Sie ist nicht gleichbedeutend mit „viel spielen“. Entscheidend sind Kontrollverlust, Priorisierung des Spielens vor anderen Lebensbereichen, Fortsetzung trotz negativer Folgen und Leidensdruck über einen längeren Zeitraum. Ähnliche Kriterien werden für problematische Social-Media-Nutzung und Glücksspiel diskutiert. Glücksspiel ist für Minderjährige verboten und kann schnell zu Schulden und Abhängigkeit führen.</p>
+<p>Viele Apps sind so gestaltet, dass sie die Aufmerksamkeit binden: Endless Scroll, Benachrichtigungen, variable Belohnungen, Streaks und soziale Vergleiche. Das ist kein Zufall, sondern Geschäftsmodell. Medienkompetenz bedeutet, diese Mechanismen zu erkennen und bewusst zu entscheiden, wie viel Zeit und Aufmerksamkeit man ihnen gibt. Hilfreich sind klare Regeln, handyfreie Zeiten, Offline-Aktivitäten und ehrliche Selbstbeobachtung.</p>
+<figure class="tool" data-tool="behavior-addiction8">
+<div class="tool__head">
+<p class="tool__title">Nicht stoffgebundene Sucht</p>
+<p class="tool__hint">Wähle ein Verhalten. Prüfe, welche Zeichen auf ein Problem hindeuten.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="behavior-addiction-card">
+<p class="behavior-addiction-card__name" data-behavior-addiction-name="">Gaming</p>
+<p class="behavior-addiction-card__text" data-behavior-addiction-text="">Spiele können entspannen, fordern und verbinden. Problematisch wird es, wenn Spielen andere Lebensbereiche verdrängt.</p>
+<ul class="behavior-addiction-card__list" data-behavior-addiction-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Nicht jedes intensive Hobby ist eine Sucht. Entscheidend sind Kontrollverlust, Leidensdruck und Folgen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Digitale Selbstkontrolle</summary>
+<p>Setze dir klare Zeitfenster und lege das Handy während des Lernens und in der Nacht außerhalb des Schlafzimmers ab. Schalte nicht notwendige Benachrichtigungen aus und prüfe, welche Apps dich besonders binden. Plane Offline-Aktivitäten fest ein: Sport, Freunde treffen, Musik, Natur. Frage dich nach dem Nutzen: „Was habe ich in den letzten 30 Minuten gemacht, und wie fühle ich mich jetzt?“ Wenn du das Gefühl hast, nicht mehr aufhören zu können, sprich mit einer Vertrauensperson oder einer Beratungsstelle. Selbstkontrolle ist trainierbar, aber sie ist keine reine Willenssache.</p>
+</details>
+<section aria-labelledby="verhalten-check" class="checkpoint">
+<h3 id="verhalten-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="verhalten">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="verhalten" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "nv1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Was ist ein Kennzeichen problematischer Gaming-Nutzung?",
+              "options": ["Kontrollverlust und Vernachlässigung anderer Lebensbereiche", "Regelmäßiges Spielen mit Freunden", "Ein Hobby mit klaren Zeitgrenzen", "Gelegentliches Spielen in der Freizeit"],
+              "correct": 0,
+              "explain": "Problematisch wird es bei Kontrollverlust, Priorisierung des Spielens und negativen Folgen. Nicht jedes Spielen ist eine Sucht."
+            },
+            {
+              "id": "nv2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Warum können Social-Media-Apps besonders bindend sein?",
+              "options": ["Sie nutzen variable Belohnungen, Endless Scroll und Benachrichtigungen.", "Sie zeigen nur neutrale Informationen.", "Sie haben keine Werbung.", "Sie sind immer kostenlos."],
+              "correct": 0,
+              "explain": "Unvorhersehbare Belohnungen und ständige neue Inhalte aktivieren das Belohnungssystem und binden Aufmerksamkeit."
+            },
+            {
+              "id": "nv3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G3",
+              "prompt": "Warum ist Glücksspiel für Minderjährige besonders riskant?",
+              "options": ["Zufällige Gewinne können schnell abhängig machen und zu Schulden führen.", "Es ist immer kostenlos.", "Es hat keine Folgen für die Familie.", "Es stärkt die Konzentration."],
+              "correct": 0,
+              "explain": "Glücksspiel nutzt unvorhersehbare Belohnungen und kann schnell zu Kontrollverlust, Schulden und Abhängigkeit führen. Für Minderjährige ist es verboten."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="verhalten" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="folgen" href="#folgen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Nicht jedes intensive Hobby ist eine Sucht. Entscheidend sind Kontrollverlust, Leidensdruck und Folgen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>nicht stoffgebundene Sucht</dt><dd>Abhängigkeit von einem Verhalten.</dd>
+<dt>Gaming Disorder</dt><dd>anerkannte Störung bei Kontrollverlust und Leidensdruck durch Gaming.</dd>
+<dt>variable Belohnung</dt><dd>unvorhersehbare Belohnung, die Verhalten besonders stark bindet.</dd>
+<dt>Medienkompetenz</dt><dd>bewusster und kritischer Umgang mit Medien.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Jedes intensive Spielen als Sucht bezeichnen. Die Diagnose braucht Kontrollverlust, Leidensdruck und Folgen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="folgen" data-title="Folgen" data-track="true" id="folgen">
+<header class="station__head">
+<h2 id="folgen-title"><span class="station__num">05</span> Folgen: Körper, Psyche und Umfeld</h2>
+<p class="lead">Sucht verändert mehr als den Konsum. Sie betrifft Gesundheit, Beziehungen und Perspektiven.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Folgen von Sucht zeigen sich auf drei Ebenen. Körperlich können Schlaf, Ernährung und Organe leiden; bei Alkohol und Benzodiazepinen kann ein Entzug sogar lebensgefährlich sein. Psychisch sind Angst, Depression, Psychosen, Gedächtnisprobleme, Motivationsverlust und Scham möglich. Sozial entstehen Konflikte in der Familie, Verlust von Freundschaften, Probleme in Schule oder Beruf, Schulden, Isolation und rechtliche Folgen.</p>
+<p>Auch das Umfeld leidet. Angehörige übernehmen oft Verantwortung, decken den Konsum zu, fühlen sich schuldig oder hilflos. Dieses Muster wird manchmal als Co-Abhängigkeit bezeichnet. Es ist wichtig, Angehörige zu unterstützen und ihnen eigene Hilfe zu ermöglichen. Schuldzuweisungen helfen weder der betroffenen Person noch der Familie.</p>
+<p>Sucht ist eine Erkrankung, keine Charakterschwäche. Scham und Stigma führen oft dazu, dass Menschen keine Hilfe suchen. Eine respektvolle Sprache sagt „Mensch mit einer Suchterkrankung“ statt „Süchtiger“. Hilfe ist wirksam: Beratung, Entgiftung, Therapie, Selbsthilfegruppen und die Behandlung begleitender psychischer Erkrankungen können den Verlauf verändern.</p>
+<table class="data-table">
+<caption>Folgen von Sucht: Beispiele</caption>
+<thead><tr><th>Ebene</th><th>Mögliche Folgen</th></tr></thead>
+<tbody>
+<tr><td>Körperlich</td><td>Schlafstörungen, Appetitverlust, Organschäden, Infektionen, Unfälle, Entzugskrämpfe</td></tr>
+<tr><td>Psychisch</td><td>Angst, Depression, Psychosen, Gedächtnis- und Motivationsprobleme, Scham, Suizidgedanken</td></tr>
+<tr><td>Sozial</td><td>Familienkonflikte, Verlust von Freundschaften, Schul- oder Arbeitsprobleme, Schulden, Isolation, rechtliche Folgen</td></tr>
+</tbody>
+</table>
+<details class="deep">
+<summary>Mehr im Detail: Ein Fallbeispiel</summary>
+<p>Ein 16-Jähriger beginnt mit Cannabis, um Stress und Schlafprobleme zu bewältigen. Anfangs hilft es ihm beim Einschlafen. Nach einigen Monaten braucht er mehr, um sich zu entspannen; er zieht sich von Freunden zurück, vernachlässigt die Schule und lügt seine Eltern an. Seine Eltern reagieren mit Vorwürfen, er zieht sich weiter zurück. Was braucht er? Wahrscheinlich mehr als eine Strafe: ein offenes Gespräch ohne Vorwürfe, Informationen über Hilfsangebote, eine professionelle Beratung und Unterstützung bei Schlaf, Stress und Schule. Die Familie braucht ebenfalls Unterstützung, um aus dem Kreislauf aus Vorwurf und Rückzug herauszukommen.</p>
+</details>
+<section aria-labelledby="folgen-check" class="checkpoint">
+<h3 id="folgen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="folgen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="folgen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "f1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G4",
+              "prompt": "Welche Folge ist ein Beispiel für eine soziale Folge von Sucht?",
+              "options": ["Verlust von Freundschaften und Konflikte in der Familie", "Eine verbesserte Konzentration", "Ein stabiler Schlafrhythmus", "Mehr sportliche Leistung"],
+              "correct": 0,
+              "explain": "Sucht kann Beziehungen, Schule, Beruf und Finanzen belasten. Das sind soziale Folgen."
+            },
+            {
+              "id": "f2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G4",
+              "prompt": "Was bedeutet Co-Abhängigkeit?",
+              "options": ["Angehörige übernehmen Verantwortung, decken den Konsum zu und leiden mit.", "Angehörige konsumieren immer selbst.", "Die betroffene Person ist allein schuld.", "Es gibt keine Folgen für die Familie."],
+              "correct": 0,
+              "explain": "Co-Abhängigkeit beschreibt belastende Verhaltensmuster von Angehörigen. Auch sie brauchen Unterstützung."
+            },
+            {
+              "id": "f3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G4",
+              "prompt": "Warum ist eine respektvolle Sprache wichtig?",
+              "options": ["Weil Scham und Stigma Menschen davon abhalten, Hilfe zu suchen.", "Weil sie die Krankheit heilt.", "Weil sie den Konsum verbietet.", "Weil sie die Folgen ignoriert."],
+              "correct": 0,
+              "explain": "Respektvolle Sprache senkt Stigma. Menschen mit Suchterkrankung sollen Hilfe annehmen können, ohne abgewertet zu werden."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="folgen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="lebenskompetenzen" href="#lebenskompetenzen">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Sucht hat körperliche, psychische und soziale Folgen. Auch Angehörige brauchen Unterstützung.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Co-Abhängigkeit</dt><dd>belastendes Muster bei Angehörigen, die Verantwortung übernehmen und den Konsum zudecken.</dd>
+<dt>Stigma</dt><dd>gesellschaftliche Abwertung, die Hilfe erschwert.</dd>
+<dt>Entzug</dt><dd>Beschwerden beim Absetzen; bei Alkohol und Benzodiazepinen kann er gefährlich sein.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Nur die betroffene Person sehen. Sucht betrifft auch Familie, Freundeskreis und Schule.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="lebenskompetenzen" data-title="Lebenskompetenzen" data-track="true" id="lebenskompetenzen">
+<header class="station__head">
+<h2 id="lebenskompetenzen-title"><span class="station__num">06</span> Lebenskompetenzen: Was schützt?</h2>
+<p class="lead">Selbstwahrnehmung, Beziehungen, Problemlösen und Stressbewältigung sind trainierbar.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Weltgesundheitsorganisation beschreibt Lebenskompetenzen als Fähigkeiten, die helfen, Anforderungen des Alltags zu bewältigen. Dazu gehören Selbstwahrnehmung, Empathie, Kommunikation, Beziehungsfähigkeit, Entscheidungsfähigkeit, Problemlösefähigkeit, kreatives und kritisches Denken sowie der Umgang mit Stress und Gefühlen. Diese Fähigkeiten schützen nicht absolut vor Sucht, aber sie erweitern die Handlungsmöglichkeiten.</p>
+<p>Schützende Faktoren sind stabile Beziehungen, klare Ziele, ein guter Schlaf, Bewegung, sinnvolle Freizeitaktivitäten, Medienkompetenz und die Fähigkeit, Hilfe zu holen. Risikofaktoren sind Einsamkeit, fehlende Bewältigungsstrategien, psychische Erkrankungen, leichter Zugang zu Substanzen und ein Umfeld, das Konsum verherrlicht. Die Balance ist wichtig: Kein Mensch ist nur Risiko oder nur Schutz.</p>
+<p>Wenn du dir Sorgen um eine Freundin oder einen Freund machst: Höre zu, ohne sofort zu bewerten. Sprich deine Beobachtung ruhig an („Mir fällt auf, dass …“). Dränge nicht, aber ermutige zu professioneller Hilfe. Decke den Konsum nicht zu und übernimm nicht die Verantwortung für die andere Person. Setze eigene Grenzen und sorge auch für dich. Bei akuter Gefahr: 112.</p>
+<figure class="tool" data-tool="lifeskills8">
+<div class="tool__head">
+<p class="tool__title">Lebenskompetenzen</p>
+<p class="tool__hint">Wähle eine Kompetenz. Prüfe, wie sie im Alltag hilft.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="lifeskills-card">
+<p class="lifeskills-card__name" data-lifeskills-name="">Selbstwahrnehmung</p>
+<p class="lifeskills-card__text" data-lifeskills-text="">Eigene Gefühle, Bedürfnisse und Grenzen erkennen.</p>
+<ul class="lifeskills-card__list" data-lifeskills-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Lebenskompetenzen sind trainierbar. Sie sind kein Schutzschild, aber sie erhöhen die Handlungsmöglichkeiten.</figcaption>
+</figure>
+<div class="help-grid">
+<div class="help-card">
+<h3>Vertrauensperson</h3>
+<p>Eltern, Lehrkraft, Schulberatung oder eine Person, der du vertraust.</p>
+</div>
+<div class="help-card">
+<h3>Suchtberatung</h3>
+<p>Kostenlose und vertrauliche Beratung bei Caritas, Diakonie, AWO oder kommunalen Stellen.</p>
+</div>
+<div class="help-card">
+<h3>BZgA</h3>
+<p>Informationen zu Sucht, Prävention und Hilfsangeboten.</p>
+<a href="https://www.bzga.de" rel="noopener" target="_blank">bzga.de</a>
+</div>
+<div class="help-card">
+<h3>Telefonseelsorge</h3>
+<p>Kostenlos und anonym: 0800 111 0 111 oder 0800 222 2 222.</p>
+<a href="https://www.telefonseelsorge.de" rel="noopener" target="_blank">telefonseelsorge.de</a>
+</div>
+<div class="help-card">
+<h3>Nummer gegen Kummer</h3>
+<p>Beratung für Kinder und Jugendliche: 116 111.</p>
+<a href="https://www.nummergegenkummer.de" rel="noopener" target="_blank">nummergegenkummer.de</a>
+</div>
+<div class="help-card">
+<h3>Akute Gefahr</h3>
+<p>Bei Bewusstlosigkeit, Atemnot, Krampfanfall oder starker Überhitzung: 112.</p>
+</div>
+</div>
+<section aria-labelledby="lebenskompetenzen-check" class="checkpoint">
+<h3 id="lebenskompetenzen-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="lebenskompetenzen">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="lebenskompetenzen" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "lk1",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Welche Fähigkeit gehört zu den Lebenskompetenzen?",
+              "options": ["Stressbewältigung", "Auswendiglernen von Werbeslogans", "Ignorieren von Gefühlen", "Vermeidung aller Konflikte"],
+              "correct": 0,
+              "explain": "Stressbewältigung ist eine zentrale Lebenskompetenz. Sie hilft, Belastungen zu bewältigen, ohne auf schädliche Ersatzhandlungen zurückzugreifen."
+            },
+            {
+              "id": "lk2",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Wie kannst du einer Person mit Suchtproblemen helfen?",
+              "options": ["Zuhören, ohne zu verurteilen, und professionelle Hilfe ermutigen", "Den Konsum ignorieren", "Sie unter Druck setzen", "Ihre Probleme anderen erzählen"],
+              "correct": 0,
+              "explain": "Zuhören, Respekt und die Ermutigung zu professioneller Hilfe sind hilfreicher als Druck oder Stigma."
+            },
+            {
+              "id": "lk3",
+              "type": "mc",
+              "level": "g",
+              "competency": "G5",
+              "prompt": "Wo bekommst du vertrauliche Hilfe?",
+              "options": ["Bei einer Suchtberatung oder der Telefonseelsorge", "Nur bei Freunden", "Nur im Internet", "Nirgends"],
+              "correct": 0,
+              "explain": "Suchtberatung und Telefonseelsorge sind kostenlos und vertraulich. Auch Schulberatung und Arztpraxen können weiterhelfen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="lebenskompetenzen" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Lebenskompetenzen schützen nicht absolut, aber sie erweitern die Handlungsmöglichkeiten. Hilfe holen ist eine Kompetenz.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Lebenskompetenz</dt><dd>Fähigkeit, Alltagsanforderungen zu bewältigen.</dd>
+<dt>Selbstwert</dt><dd>Wert, den ein Mensch sich selbst zuschreibt.</dd>
+<dt>Frustrationstoleranz</dt><dd>Fähigkeit, Enttäuschungen auszuhalten.</dd>
+<dt>Prävention</dt><dd>Maßnahmen, die Problemen vorbeugen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Hilfe sei ein Zeichen von Schwäche. Hilfe holen ist eine Strategie, um Verantwortung zu übernehmen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Sucht und Gesundheit</h2>
+<p class="lead">Zwölf Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="sucht8">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="sucht8" type="application/json">
+      {
+        "competencies": {
+          "G1": "Genuss, Gewöhnung, Missbrauch und Abhängigkeit",
+          "G2": "Suchtentstehung und Sucht-Dreieck",
+          "G3": "Stoffgebundene und nicht stoffgebundene Sucht",
+          "G4": "Folgen für Betroffene und Umfeld",
+          "G5": "Lebenskompetenzen und Hilfe"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "G1",
+            "prompt": "Was bedeutet Toleranz im Zusammenhang mit Sucht?",
+            "options": ["Man braucht mehr von einer Substanz, um die gleiche Wirkung zu erzielen.", "Man verträgt plötzlich gar nichts mehr.", "Man hat keine Lust mehr auf die Substanz.", "Man konsumiert nur noch einmal pro Woche."],
+            "correct": 0,
+            "explain": "Toleranz entsteht durch Gewöhnung. Der Körper reagiert weniger stark, deshalb wird die Dosis oft erhöht."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "G1",
+            "prompt": "Welche Aussage über legale Substanzen ist richtig?",
+            "options": ["Legal bedeutet nicht automatisch harmlos.", "Legale Substanzen machen nie abhängig.", "Illegale Substanzen sind immer gefährlicher.", "Nur illegale Substanzen haben Folgen."],
+            "correct": 0,
+            "explain": "Alkohol und Nikotin sind legal, können aber stark abhängig machen und gesundheitliche Folgen haben."
+          },
+          {
+            "id": "c3",
+            "type": "input",
+            "level": "g",
+            "competency": "G2",
+            "prompt": "Wie heißt der Botenstoff, der im Belohnungssystem besonders wichtig ist?",
+            "accept": ["dopamin"],
+            "model": "Dopamin",
+            "explain": "Dopamin ist an Motivation und Belohnung beteiligt. Suchtmittel können das System stark aktivieren."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "G2",
+            "prompt": "Was beschreibt das Gefühlstank-Modell?",
+            "options": ["Menschen brauchen Ressourcen; Ersatzstoffe füllen den Tank nur kurzfristig.", "Der Tank ist eine messbare Größe im Gehirn.", "Sucht entsteht nur durch Gene.", "Menschen mit Sucht haben keinen Tank."],
+            "correct": 0,
+            "explain": "Das Modell ist eine Metapher: Ressourcen wie Beziehungen und Bewegung füllen nachhaltig, Ersatzstoffe nur kurzfristig."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "G2",
+            "prompt": "Welche drei Ecken hat das Sucht-Dreieck?",
+            "options": ["Person, Suchtmittel, Umfeld", "Genuss, Gewöhnung, Abhängigkeit", "Körper, Geist, Seele", "Schule, Familie, Freizeit"],
+            "correct": 0,
+            "explain": "Das Sucht-Dreieck betrachtet Person, Suchtmittel und Umfeld mit ihren Schutz- und Risikofaktoren."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "G3",
+            "prompt": "Welche ist eine nicht stoffgebundene Sucht?",
+            "options": ["Gaming", "Alkohol", "Nikotin", "Koffein"],
+            "correct": 0,
+            "explain": "Nicht stoffgebundene Sucht entsteht durch ein Verhalten, etwa Gaming, Glücksspiel oder Social Media."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "G3",
+            "prompt": "Warum ist Alkohol in der Schwangerschaft besonders riskant?",
+            "options": ["Er kann das Kind dauerhaft schädigen.", "Er stärkt das Immunsystem des Kindes.", "Er hat keine Wirkung auf das Kind.", "Er wird über die Plazenta nicht weitergegeben."],
+            "correct": 0,
+            "explain": "Alkohol erreicht das Kind über die Plazenta und kann dauerhafte Schäden verursachen. Es gibt kein risikofreies Konsummuster."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "G3",
+            "prompt": "Was ist ein Kennzeichen problematischer Gaming-Nutzung?",
+            "options": ["Kontrollverlust und Vernachlässigung anderer Lebensbereiche", "Regelmäßiges Spielen mit Freunden", "Ein Hobby mit klaren Zeitgrenzen", "Gelegentliches Spielen in der Freizeit"],
+            "correct": 0,
+            "explain": "Problematisch wird es bei Kontrollverlust, Priorisierung des Spielens und negativen Folgen. Nicht jedes Spielen ist eine Sucht."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "G4",
+            "prompt": "Welche Folge ist ein Beispiel für eine soziale Folge von Sucht?",
+            "options": ["Verlust von Freundschaften und Konflikte in der Familie", "Eine verbesserte Konzentration", "Ein stabiler Schlafrhythmus", "Mehr sportliche Leistung"],
+            "correct": 0,
+            "explain": "Sucht kann Beziehungen, Schule, Beruf und Finanzen belasten. Das sind soziale Folgen."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "G4",
+            "prompt": "Was bedeutet Co-Abhängigkeit?",
+            "options": ["Angehörige übernehmen Verantwortung, decken den Konsum zu und leiden mit.", "Angehörige konsumieren immer selbst.", "Die betroffene Person ist allein schuld.", "Es gibt keine Folgen für die Familie."],
+            "correct": 0,
+            "explain": "Co-Abhängigkeit beschreibt belastende Verhaltensmuster von Angehörigen. Auch sie brauchen Unterstützung."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "G5",
+            "prompt": "Welche Fähigkeit gehört zu den Lebenskompetenzen?",
+            "options": ["Stressbewältigung", "Auswendiglernen von Werbeslogans", "Ignorieren von Gefühlen", "Vermeidung aller Konflikte"],
+            "correct": 0,
+            "explain": "Stressbewältigung ist eine zentrale Lebenskompetenz. Sie hilft, Belastungen zu bewältigen, ohne auf schädliche Ersatzhandlungen zurückzugreifen."
+          },
+          {
+            "id": "c12",
+            "type": "input",
+            "level": "g",
+            "competency": "G5",
+            "prompt": "Wie lautet der Notruf bei akuter Gefahr?",
+            "accept": ["112", "1 1 2"],
+            "model": "112",
+            "explain": "Bei Bewusstlosigkeit, Atemnot, Krampfanfall oder starker Überhitzung: sofort 112 rufen."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Genuss</dt><dd>Angenehmes Erleben ohne zwingende negative Folgen.</dd></div>
+<div class="glossary__row"><dt>Gewöhnung</dt><dd>Zunehmende Vertrautheit mit einer Substanz oder einem Verhalten.</dd></div>
+<div class="glossary__row"><dt>Toleranz</dt><dd>Mehr Substanz für die gleiche Wirkung.</dd></div>
+<div class="glossary__row"><dt>Missbrauch</dt><dd>Schädlicher Konsum mit negativen Folgen, aber ohne alle Kriterien der Abhängigkeit.</dd></div>
+<div class="glossary__row"><dt>Abhängigkeit</dt><dd>Erkrankung mit Kontrollverlust, Craving, Toleranz, Entzug und fortgesetztem Konsum trotz Schäden.</dd></div>
+<div class="glossary__row"><dt>Craving</dt><dd>Starker Drang, zu konsumieren.</dd></div>
+<div class="glossary__row"><dt>Entzug</dt><dd>Körperliche oder psychische Beschwerden beim Absetzen.</dd></div>
+<div class="glossary__row"><dt>Sucht</dt><dd>Abhängigkeit von einer Substanz oder einem Verhalten mit Kontrollverlust und Leidensdruck.</dd></div>
+<div class="glossary__row"><dt>stoffgebundene Sucht</dt><dd>Abhängigkeit von einer Substanz.</dd></div>
+<div class="glossary__row"><dt>nicht stoffgebundene Sucht</dt><dd>Abhängigkeit von einem Verhalten.</dd></div>
+<div class="glossary__row"><dt>Belohnungssystem</dt><dd>Netzwerk im Gehirn, das angenehme Reize verarbeitet und Verhalten verstärkt.</dd></div>
+<div class="glossary__row"><dt>Dopamin</dt><dd>Botenstoff, der an Motivation und Belohnung beteiligt ist.</dd></div>
+<div class="glossary__row"><dt>Gefühlstank</dt><dd>Modell für Ressourcen, die Menschen für ihr Wohlbefinden brauchen.</dd></div>
+<div class="glossary__row"><dt>Sucht-Dreieck</dt><dd>Modell aus Person, Suchtmittel und Umfeld.</dd></div>
+<div class="glossary__row"><dt>Co-Abhängigkeit</dt><dd>Belastendes Muster bei Angehörigen, die Verantwortung übernehmen und den Konsum zudecken.</dd></div>
+<div class="glossary__row"><dt>Lebenskompetenz</dt><dd>Fähigkeit, Anforderungen des Alltags zu bewältigen.</dd></div>
+<div class="glossary__row"><dt>Selbstwert</dt><dd>Wert, den ein Mensch sich selbst zuschreibt.</dd></div>
+<div class="glossary__row"><dt>Frustrationstoleranz</dt><dd>Fähigkeit, Enttäuschungen auszuhalten.</dd></div>
+<div class="glossary__row"><dt>Rückfall</dt><dd>Erneuter Konsum nach einer Phase der Abstinenz oder Reduktion.</dd></div>
+<div class="glossary__row"><dt>Suchtberatung</dt><dd>Kostenlose und vertrauliche Beratung für Betroffene und Angehörige.</dd></div>
+<div class="glossary__row"><dt>Prävention</dt><dd>Maßnahmen, die Problemen vorbeugen.</dd></div>
+<div class="glossary__row"><dt>riskanter Konsum</dt><dd>Konsum, der die Gesundheit oder das soziale Leben gefährdet.</dd></div>
+<div class="glossary__row"><dt>Mischkonsum</dt><dd>Gleichzeitiger Konsum mehrerer Substanzen.</dd></div>
+<div class="glossary__row"><dt>Alkohol</dt><dd>Dämpfende legale Substanz; riskant für Leber, Gehirn, Herz und Schwangerschaft.</dd></div>
+<div class="glossary__row"><dt>Nikotin</dt><dd>Stark abhängig machende Substanz in Tabak und Vapes.</dd></div>
+<div class="glossary__row"><dt>Cannabis</dt><dd>Pflanze mit THC; kann bei Jugendlichen die Gehirnentwicklung beeinträchtigen.</dd></div>
+<div class="glossary__row"><dt>Koffein</dt><dd>Anregende Substanz in Kaffee, Tee, Cola und Energy Drinks.</dd></div>
+<div class="glossary__row"><dt>Ecstasy</dt><dd>Illegale stimulierende Substanz mit Risiken für Kreislauf und Psyche.</dd></div>
+<div class="glossary__row"><dt>Kokain</dt><dd>Illegale, stark stimulierende und stark abhängig machende Substanz.</dd></div>
+<div class="glossary__row"><dt>Gaming Disorder</dt><dd>Anerkannte Störung bei Kontrollverlust und Leidensdruck durch Gaming.</dd></div>
+<div class="glossary__row"><dt>Social Media</dt><dd>Plattformen mit variable Belohnungen, Endless Scroll und sozialen Vergleichen.</dd></div>
+<div class="glossary__row"><dt>Glücksspiel</dt><dd>Spiel um Geld mit unvorhersehbaren Gewinnen; für Minderjährige verboten.</dd></div>
+<div class="glossary__row"><dt>Workaholismus</dt><dd>Zwanghafte Arbeit, die Erholung und Beziehungen verdrängt.</dd></div>
+<div class="glossary__row"><dt>Entgiftung</dt><dd>Medizinisch begleitete Phase des Absetzens.</dd></div>
+<div class="glossary__row"><dt>Therapie</dt><dd>Behandlung, die Verhalten, Gedanken und Bewältigungsstrategien verändert.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 8</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/8/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 8</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

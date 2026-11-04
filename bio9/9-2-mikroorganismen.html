@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="de" data-grade="9" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Mikroorganismen und Biotechnologie | Biologie 9</title>
+<meta name="description" content="Interaktive Lernwebsite Biologie 9 zu Mikroorganismen und Biotechnologie: Bakterien, Hefen, Gärung, Lebensmittel und Konservierung.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Newsprint (deal 3/3, seed interaktive-lernwebsite-biologie-mikroorganismen-127b·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die Gärungskammer und das Wachstumsmodell · states: default, hover, focus, active, disabled, loading, empty, error · newsprint: broadsheet
+ * axes: light/slab-serif/warm · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V5 · weakest: E, the light sheet needs the tool wells to sit one step darker; theme.css sets the wells on paper-2 and keeps the ink band to one per page */
+/* Hallmark · answered F4 · the 9 pages have no level toggle; the only filled primary is the station action */
+/* Hallmark · answered F6 · the heading face is Zilla Slab; every figure is Libre Franklin with tabular numerals */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("./assets/theme.css");
+.overview-band { margin-top: var(--space-xl); padding: var(--space-lg); border-top: var(--rule-bar) solid var(--color-accent-deep); }
+.overview-band h2 { margin: 0 0 var(--space-sm); }
+.sensitive-note { margin: var(--space-lg) 0; padding: var(--space-md); border-left: var(--rule-bar) solid var(--color-accent); background: var(--color-paper-3); }
+.sensitive-note h2 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table caption { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding-bottom: var(--space-xs); }
+.growth-svg { width: 100%; height: auto; display: block; }
+.growth-svg .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.growth-svg .grid { stroke: var(--color-rule); stroke-width: 1; }
+.growth-svg .curve { fill: none; stroke: var(--color-accent); stroke-width: 2.5; }
+.growth-svg .point { fill: var(--color-accent); stroke: var(--color-paper); stroke-width: 2; }
+.growth-svg .marker { stroke: var(--color-ink); stroke-width: 2; stroke-dasharray: 4 4; }
+.growth-svg .label { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
+.growth-svg .value { font-family: var(--font-outlier); font-size: 13px; fill: var(--color-ink); }
+.ferment-card, .preserve-card { display: grid; gap: var(--space-sm); }
+.ferment-card__title, .preserve-card__title { margin: 0; font: 700 var(--text-xl)/1.15 var(--font-display); }
+.ferment-card__equation { margin: 0; padding: var(--space-sm); border-block: var(--rule-hair) solid var(--color-rule); font: 500 var(--text-md)/1.4 var(--font-outlier); color: var(--color-ink); }
+.ferment-card__list, .preserve-card__list { margin: 0; padding-left: 1.2em; }
+.ferment-card__list li, .preserve-card__list li { margin-bottom: var(--space-2xs); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.preserve-card__text { margin: 0; font: 400 var(--text-sm)/1.5 var(--font-body); color: var(--color-ink-2); }
+.tool[data-tool="fermentation9"] .tool__stage, .tool[data-tool="preservation9"] .tool__stage { min-height: 0; }
+.microbe-fallback { width: 100%; height: 100%; }
+@media (max-width: 60rem) {
+  .tool[data-tool="growth9"] .tool__stage { overflow-x: auto; overflow-y: hidden; }
+  .tool[data-tool="growth9"] .growth-svg { min-width: 560px; }
+}
+
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="9-2" data-grade="9">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 9">
+      <span class="brand__name">Biologie 9</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">02</span> Mikroorganismen und Biotechnologie</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 5</span>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Mikroorganismen und Biotechnologie</h2>
+      <p class="sidebar__deck">Bakterien, Hefen, Gärung, Lebensmittel, Konservierung und Biogas.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 5</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#bau" data-station-link="bau"><span class="station-nav__num">01</span><span>Bau und Vielfalt</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#vermehrung" data-station-link="vermehrung"><span class="station-nav__num">02</span><span>Vermehrung und Wachstum</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#stoffwechsel" data-station-link="stoffwechsel"><span class="station-nav__num">03</span><span>Stoffwechsel und Gärung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#lebensmittel" data-station-link="lebensmittel"><span class="station-nav__num">04</span><span>Lebensmittel und Verderb</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#konservierung" data-station-link="konservierung"><span class="station-nav__num">05</span><span>Konservierung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">06</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">07</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 9</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Mikroorganismen: Unsichtbar, aber unverzichtbar.</h1>
+<p class="lead">Bakterien, Hefen und Schimmelpilze prägen Lebensmittel, Stoffkreisläufe und Biotechnologie.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="bau" href="#bau">Erste Station öffnen</a>
+<div class="band--cream overview-band">
+<h2>Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">M1</span><span>Du beschreibst den Bau von Bakterien, Hefen und Schimmelpilzen und vergleichst prokaryotische mit eukaryotischen Zellen.</span></li>
+<li><span class="cnum">M2</span><span>Du erklärst Vermehrung durch Zweiteilung und Knospung sowie exponentielles Wachstum und die Wachstumskurve.</span></li>
+<li><span class="cnum">M3</span><span>Du vergleichst Milchsäuregärung, alkoholische Gärung und Zellatmung und erklärst ihre biotechnologische Nutzung.</span></li>
+<li><span class="cnum">M4</span><span>Du erklärst Lebensmittelherstellung, Verderb und Konservierung und leitest Hygienemaßnahmen ab.</span></li>
+<li><span class="cnum">M5</span><span>Du bewertest die Nutzung von Mikroorganismen in Lebensmitteln und Biogas unter ökologischen und gesundheitlichen Aspekten.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 2 des LehrplanPLUS Biologie 9 zusammen.</small></p>
+</div>
+<div class="sensitive-note">
+<h2>Bevor du beginnst</h2>
+<p>Mikroorganismen sind nicht nur Krankheitserreger. Die meisten Bakterien und Pilze sind harmlos oder nützlich: Sie helfen bei der Verdauung, bilden Lebensmittel, zersetzen Abfälle und produzieren Biogas. Nur ein kleiner Teil ist pathogen. Hygiene schützt, ohne die Nützlinge zu verteufeln.</p>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Werkzeug aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie nutzen Menschen Mikroorganismen, und wie schützen sie sich vor den schädlichen?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="bau" data-title="Bau und Vielfalt" data-track="true" id="bau">
+<header class="station__head">
+<h2 id="bau-title"><span class="station__num">01</span> Bau und Vielfalt der Mikroorganismen</h2>
+<p class="lead">Bakterien sind Prokaryoten, Hefen und Schimmelpilze Eukaryoten. Der Unterschied prägt ihren Stoffwechsel und ihre Nutzung.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Mikroorganismen sind Lebewesen, die man meist nur mit dem Mikroskop erkennt: Bakterien, einzellige Pilze wie Hefen, Schimmelpilze, Mikroalgen und Protozoen. Bakterien sind Prokaryoten. Sie haben keinen Zellkern und keine membranumgrenzten Organellen. Ihre DNA liegt als ringförmiges Chromosom im Zellplasma; zusätzlich können sie kleine ringförmige Plasmide tragen. Eine Zellwand aus Murein gibt Form und Stabilität, eine Schleimhülle schützt vor Austrocknung, und Geißeln dienen der Fortbewegung.</p>
+<p>Hefen sind einzellige Eukaryoten. Sie besitzen einen echten Zellkern, Mitochondrien, eine Vakuole und eine Zellwand. Sie vermehren sich durch Knospung: Eine kleine Tochterzelle wächst an der Mutterzelle heran, erhält einen Zellkern und löst sich schließlich ab. Schimmelpilze bilden fadenförmige Hyphen, die ein Mycel ergeben; sie vermehren sich über Sporen. Im Vergleich zu Pflanzenzellen fehlen den Pilzen Chloroplasten; sie sind heterotroph und nehmen organische Stoffe aus ihrer Umgebung auf.</p>
+<p>Der Unterschied zwischen Pro- und Eukaryoten ist medizinisch wichtig. Penicillin hemmt den Aufbau der bakteriellen Zellwand aus Murein. Menschliche Zellen haben keine Murein-Zellwand und werden deshalb nicht direkt geschädigt. Ein Medikament, das Mitochondrien zerstört, würde dagegen menschliche Zellen treffen, aber Bakterien kaum, weil diese keine Mitochondrien besitzen. Antibiotika müssen also gezielt bakteriellen Strukturen angreifen.</p>
+<figure class="tool" data-tool="microbe">
+<div class="tool__head">
+<p class="tool__title">Bakterium und Hefe im 3D-Vergleich</p>
+<p class="tool__hint">Drehen zeigt den Bau. Wechsle zwischen Bakterium und Hefe.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-microbe-mode="bacterium" data-tip-title="Bakterium" data-tip="Prokaryot: kein echter Zellkern, dafür Ringchromosom und Plasmide. Die Zellwand aus Murein ist der Angriffspunkt von Penicillin." type="button">Bakterium</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-microbe-mode="yeast" data-tip-title="Hefe" data-tip="Eukaryot: echter Zellkern, Mitochondrien und Vakuole. Hefen vermehren sich durch Knospung und vergären Zucker." type="button">Hefe</button>
+</div>
+<div class="tool__stage tool__stage--3d" data-scene="microbe" id="microbe-scene">
+<div class="tool__fallback">
+<svg aria-label="Schematischer Vergleich von Bakterium und Hefezelle" class="microbe-fallback" role="img" viewbox="0 0 640 280">
+<rect fill="var(--color-paper-2)" height="280" width="640" x="0" y="0"></rect>
+<g transform="translate(80 70)">
+<rect fill="var(--color-paper-3)" height="70" rx="35" stroke="var(--color-rule-2)" stroke-width="3" width="200" x="0" y="40"></rect>
+<path d="M30 75 C60 40 90 110 120 75 C150 40 170 100 190 75" fill="none" stroke="var(--color-accent)" stroke-width="5"></path>
+<circle cx="160" cy="55" fill="var(--color-accent)" r="8"></circle>
+<path d="M200 75 C230 50 245 100 270 75" fill="none" stroke="var(--color-muted)" stroke-width="4"></path>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="100" y="145">Bakterium: Prokaryot</text>
+</g>
+<g transform="translate(380 50)">
+<circle cx="90" cy="80" fill="var(--color-paper-3)" r="70" stroke="var(--color-rule-2)" stroke-width="3"></circle>
+<circle cx="90" cy="80" fill="var(--color-paper)" r="26" stroke="var(--color-accent)" stroke-width="4"></circle>
+<circle cx="60" cy="105" fill="var(--color-paper-2)" r="16" stroke="var(--color-rule-2)" stroke-width="2"></circle>
+<circle cx="165" cy="40" fill="var(--color-paper-3)" r="28" stroke="var(--color-rule-2)" stroke-width="3"></circle>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="90" y="190">Hefe: Eukaryot mit Knospe</text>
+</g>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="tool__readout" data-microbe-readout=""></div>
+<figcaption class="tool__caption">Die 3D-Modelle sind schematisch. Sie zeigen typische Strukturen, nicht die gesamte Vielfalt der Mikroorganismen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Prokaryot und Eukaryot im Vergleich</summary>
+<table class="data-table">
+<caption>Zelltypen im Vergleich</caption>
+<thead><tr><th>Merkmal</th><th>Bakterium</th><th>Hefe</th></tr></thead>
+<tbody>
+<tr><td>Zellkern</td><td>nein</td><td>ja</td></tr>
+<tr><td>DNA</td><td>Ringchromosom und Plasmide</td><td>Chromosomen im Zellkern</td></tr>
+<tr><td>Mitochondrien</td><td>nein</td><td>ja</td></tr>
+<tr><td>Zellwand</td><td>Murein</td><td>Chitin und Glucane</td></tr>
+<tr><td>Fortpflanzung</td><td>Zweiteilung</td><td>Knospung</td></tr>
+</tbody>
+</table>
+</details>
+<section aria-labelledby="bau-check" class="checkpoint">
+<h3 id="bau-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="bau">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="bau" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "b1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Welche Struktur besitzt ein Bakterium?",
+              "options": ["Ringchromosom und Plasmide", "Einen echten Zellkern", "Chloroplasten", "Mitochondrien"],
+              "correct": 0,
+              "explain": "Bakterien sind Prokaryoten. Ihre DNA liegt als Ringchromosom und gegebenenfalls als Plasmid vor; Zellkern und Mitochondrien fehlen."
+            },
+            {
+              "id": "b2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Warum wirkt Penicillin gegen Bakterien, aber nicht direkt gegen menschliche Zellen?",
+              "options": ["Es hemmt den Aufbau der bakteriellen Murein-Zellwand.", "Es zerstört die menschlichen Mitochondrien.", "Es blockiert die menschliche DNA.", "Es tötet alle Zellen gleich."],
+              "correct": 0,
+              "explain": "Penicillin greift den Murein-Aufbau der Bakterienzellwand an. Menschliche Zellen haben keine Murein-Zellwand."
+            },
+            {
+              "id": "b3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M1",
+              "prompt": "Wie vermehrt sich eine Hefezelle ungeschlechtlich?",
+              "options": ["Durch Knospung", "Durch Zweiteilung wie ein Bakterium", "Durch Meiose", "Durch Sporenbildung"],
+              "correct": 0,
+              "explain": "Hefen vermehren sich durch Knospung: Eine Tochterzelle wächst an der Mutterzelle heran und löst sich ab."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="bau" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="vermehrung" href="#vermehrung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Bakterien sind Prokaryoten, Hefen und Schimmelpilze Eukaryoten. Der Zellbau bestimmt, welche Stoffe und Medikamente wirken.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Prokaryot</dt><dd>Zelle ohne echten Zellkern.</dd>
+<dt>Eukaryot</dt><dd>Zelle mit Zellkern und Organellen.</dd>
+<dt>Ringchromosom</dt><dd>ringförmige DNA im Bakterium.</dd>
+<dt>Plasmid</dt><dd>kleines zusätzliches DNA-Molekül.</dd>
+<dt>Murein</dt><dd>Baustoff der bakteriellen Zellwand.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Bakterien und Viren gleichsetzen. Viren sind keine Zellen und haben keinen eigenen Stoffwechsel.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="vermehrung" data-title="Vermehrung und Wachstum" data-track="true" id="vermehrung">
+<header class="station__head">
+<h2 id="vermehrung-title"><span class="station__num">02</span> Vermehrung und Wachstum</h2>
+<p class="lead">Bakterien teilen sich durch Zweiteilung. Unter günstigen Bedingungen wächst eine Population exponentiell.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bakterien vermehren sich ungeschlechtlich durch Zweiteilung. Zuerst wird das Ringchromosom verdoppelt, dann wächst die Zelle, schnürt sich in der Mitte ein und teilt sich in zwei genetisch identische Tochterzellen. Hefen vermehren sich durch Knospung, Schimmelpilze über Sporen. Ungeschlechtliche Vermehrung ist schnell und energiesparend, erzeugt aber Klone mit geringer genetischer Vielfalt. Mutationen können trotzdem neue Varianten hervorbringen.</p>
+<p>Unter optimalen Bedingungen verdoppelt sich eine Bakterienpopulation in konstanten Zeitabständen. Die Generationszeit ist die Zeit zwischen zwei Teilungen; sie kann bei Bakterien 20 Minuten oder weniger betragen. Die Zahl der Bakterien wächst dann exponentiell: 10, 20, 40, 80 und so weiter. In der Natur hält dieses Wachstum nicht lange an, weil Nährstoffe und Raum begrenzt sind und giftige Stoffwechselprodukte entstehen.</p>
+<p>Die reale Wachstumskurve hat vier Phasen: die Anlaufphase (Lag-Phase), in der sich die Zellen an die Umgebung anpassen; die exponentielle Phase mit maximaler Vermehrung; die stationäre Phase, in der Vermehrung und Absterben im Gleichgewicht sind; und die Absterbephase, in der die Population zurückgeht. Für die Lebensmittelhygiene ist wichtig: Wärme beschleunigt das Wachstum, Kälte verlangsamt es. Deshalb gehören leicht verderbliche Lebensmittel in den Kühlschrank.</p>
+<figure class="tool" data-tool="growth9">
+<div class="tool__head">
+<p class="tool__title">Bakterienwachstum berechnen</p>
+<p class="tool__hint">Wähle eine Zeit und eine Generationszeit. Die Kurve zeigt die Zahl der Bakterien.</p>
+</div>
+<div class="tool__controls">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-growth-time="0" data-tip-title="Startzeit 0 h" data-tip="Am Anfang sind 10 Bakterien vorhanden. Jede Teilung verdoppelt die Zahl." type="button">0 h</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-growth-time="2" data-tip-title="Zeitpunkt 2 h" data-tip="Nach zwei Stunden hat sich die Population mehrfach verdoppelt – abhängig von der Generationszeit." type="button">2 h</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-growth-time="4" data-tip-title="Zeitpunkt 4 h" data-tip="Bei exponentiellem Wachstum wächst die Zahl in jedem Zeitabschnitt um denselben Faktor." type="button">4 h</button>
+<button aria-pressed="false" class="btn btn--quiet btn--small" data-growth-time="6" data-tip-title="Zeitpunkt 6 h" data-tip="Nach sechs Stunden ist die Zahl sehr groß. In der Natur begrenzen Nährstoffe und Abfallprodukte das Wachstum." type="button">6 h</button>
+<label data-tip-title="Generationszeit" data-tip="Zeit zwischen zwei Teilungen. 20 Minuten sind schnell, 60 Minuten langsam. Die Generationszeit hängt von Art und Bedingungen ab.">Generationszeit
+            <select class="select" data-growth-generation="" data-tip-title="Generationszeit" data-tip="Wähle die Zeit zwischen zwei Teilungen. Eine kürzere Generationszeit bedeutet schnelleres Wachstum.">
+<option value="20">20 min</option>
+<option selected="" value="30">30 min</option>
+<option value="60">60 min</option>
+</select>
+</label>
+</div>
+<div class="sim-bar" aria-label="Wachstumsanimation steuern">
+<span class="sim-bar__label">Animation</span>
+<button class="btn btn--quiet btn--small" data-growth-play aria-pressed="false" data-tip-title="Wachstum abspielen" data-tip="Lässt den Zeitpunkt automatisch von 0 bis 6 Stunden laufen. Die Kurve und der Messpunkt bewegen sich mit." type="button">Abspielen</button>
+<div class="speed-group" role="group" aria-label="Geschwindigkeit der Wachstumsanimation">
+<button class="btn btn--quiet btn--small" data-growth-speed="0.5" aria-pressed="false" data-tip-title="Halbe Geschwindigkeit" data-tip="Die Animation läuft langsamer. Die berechneten Werte bleiben gleich." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-growth-speed="1" aria-pressed="true" data-tip-title="Normale Geschwindigkeit" data-tip="Die Animation läuft mit normalem Tempo." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-growth-speed="2" aria-pressed="false" data-tip-title="Doppelte Geschwindigkeit" data-tip="Die Animation läuft schneller. Die berechneten Werte bleiben gleich." type="button">2×</button>
+</div>
+<button class="btn btn--quiet btn--small" data-growth-reset data-tip-title="Wachstum zurücksetzen" data-tip="Setzt Zeitpunkt und Geschwindigkeit auf den Start zurück." type="button">Zurücksetzen</button>
+</div>
+<div class="range-row">
+<label for="growth-time-range" data-tip-title="Zeitpunkt" data-tip="Stelle einen beliebigen Zeitpunkt zwischen 0 und 6 Stunden ein. Der Messpunkt und die Rechnung passen sich an.">Zeitpunkt</label>
+<input id="growth-time-range" type="range" min="0" max="6" step="0.1" value="0" data-growth-slider data-tip-title="Zeitpunkt" data-tip="Der Regler zeigt die Zeit seit dem Start der Kultur. Jede Teilung verdoppelt die Bakterienzahl.">
+<output data-growth-value>0,0 h</output>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<svg aria-label="Exponentielle Wachstumskurve einer Bakterienpopulation" class="growth-svg" role="img" viewbox="0 0 720 320">
+<line class="grid" x1="70" x2="660" y1="80" y2="80"></line>
+<line class="grid" x1="70" x2="660" y1="140" y2="140"></line>
+<line class="grid" x1="70" x2="660" y1="200" y2="200"></line>
+<line class="axis" x1="70" x2="660" y1="250" y2="250"></line>
+<line class="axis" x1="70" x2="70" y1="40" y2="250"></line>
+<polyline class="curve" data-growth-line="" points=""></polyline>
+<g data-growth-points=""></g>
+<line class="marker" data-growth-marker="" style="display:none" x1="70" x2="70" y1="40" y2="250"></line>
+<circle class="point" cx="70" cy="250" data-growth-dot="" r="5" style="display:none"></circle>
+<text class="label" text-anchor="middle" x="365" y="290">Zeit in Stunden</text>
+<text class="label" transform="rotate(-90 20 145)" x="20" y="145">Bakterienzahl</text>
+<text class="label" text-anchor="middle" x="70" y="268">0</text>
+<text class="label" text-anchor="middle" x="660" y="268">6</text>
+<text class="label" text-anchor="end" x="70" y="60">hoch</text>
+<text class="label" data-growth-max="" text-anchor="end" x="660" y="35">max. 40.960</text>
+<text class="label" text-anchor="end" x="70" y="245">10</text>
+</svg>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Das Modell startet mit 10 Bakterien und zeigt ungehindertes Wachstum. In der Natur begrenzen Ressourcen das Wachstum.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum exponentielles Wachstum nicht ewig weitergeht</summary>
+<p>Die exponentielle Kurve beschreibt nur die ideale Phase. In einem geschlossenen System werden Nährstoffe knapp, Sauerstoff kann fehlen, und Stoffwechselprodukte wie Säuren oder Alkohole hemmen das Wachstum. Dann erreicht die Population die stationäre Phase. In der Lebensmittelhygiene nutzt man dieses Wissen: Kühlen verlangsamt die Vermehrung, Erhitzen tötet viele Keime ab, und Sauerstoffentzug oder Säure hemmen das Wachstum. Entscheidend sind immer mehrere Faktoren zusammen.</p>
+</details>
+<section aria-labelledby="vermehrung-check" class="checkpoint">
+<h3 id="vermehrung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="vermehrung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="vermehrung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "v1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Wie vermehren sich Bakterien?",
+              "options": ["Durch Zweiteilung", "Durch Meiose", "Durch Knospung wie Hefen", "Durch Samenbildung"],
+              "correct": 0,
+              "explain": "Bakterien verdoppeln ihr Ringchromosom und teilen sich durch Zweiteilung in zwei identische Tochterzellen."
+            },
+            {
+              "id": "v2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Was bedeutet exponentielle Vermehrung?",
+              "options": ["Die Population verdoppelt sich in konstanten Zeitabständen.", "Die Population wächst immer linear.", "Die Population bleibt gleich.", "Die Population stirbt immer sofort."],
+              "correct": 0,
+              "explain": "Bei konstanter Generationszeit verdoppelt sich die Zahl der Bakterien in jedem Zeitintervall. Das führt zu einer exponentiellen Kurve."
+            },
+            {
+              "id": "v3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M2",
+              "prompt": "Welche Phase der Wachstumskurve zeigt maximale Vermehrung?",
+              "options": ["Die exponentielle Phase", "Die Anlaufphase", "Die stationäre Phase", "Die Absterbephase"],
+              "correct": 0,
+              "explain": "In der exponentiellen Phase sind die Bedingungen optimal, und die Population verdoppelt sich in kurzen Abständen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="vermehrung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="stoffwechsel" href="#stoffwechsel">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Zweiteilung erzeugt Klone. Exponentielles Wachstum gilt nur für optimale Bedingungen; real folgen Anlauf-, exponentielle, stationäre und Absterbephase.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Zweiteilung</dt><dd>ungeschlechtliche Teilung eines Bakteriums in zwei Tochterzellen.</dd>
+<dt>Knospung</dt><dd>ungeschlechtliche Vermehrung bei Hefen.</dd>
+<dt>Generationszeit</dt><dd>Zeit zwischen zwei Teilungen.</dd>
+<dt>Lag-Phase</dt><dd>Anlaufphase mit geringer Vermehrung.</dd>
+<dt>stationäre Phase</dt><dd>Vermehrung und Absterben im Gleichgewicht.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Exponentielles Wachstum als dauerhaften Zustand verstehen. In der Natur begrenzen Ressourcen und Abfallprodukte das Wachstum.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="stoffwechsel" data-title="Stoffwechsel und Gärung" data-track="true" id="stoffwechsel">
+<header class="station__head">
+<h2 id="stoffwechsel-title"><span class="station__num">03</span> Stoffwechsel: Gärung und Zellatmung</h2>
+<p class="lead">Mikroorganismen gewinnen Energie auf unterschiedliche Weise. Ihre Stoffwechselprodukte machen wir uns zunutze.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Mikroorganismen sind heterotroph, wenn sie organische Stoffe aus ihrer Umgebung nutzen. Bei der Zellatmung wird Glucose mit Sauerstoff zu Kohlenstoffdioxid und Wasser abgebaut; dabei wird viel Energie frei. Ohne Sauerstoff können manche Mikroorganismen Gärung betreiben. Bei der Milchsäuregärung entsteht aus Glucose Milchsäure, bei der alkoholischen Gärung entstehen Ethanol und Kohlenstoffdioxid. Gärung liefert weniger Energie als die Zellatmung, funktioniert aber auch ohne Sauerstoff.</p>
+<p>Diese Stoffwechselwege sind die Grundlage vieler Lebensmittel. Milchsäurebakterien machen aus Milch Joghurt und aus Kohl Sauerkraut; Hefen lassen Brotteig durch Kohlenstoffdioxid aufgehen und vergären Zucker zu Alkohol. Schimmelpilze verleihen Käse Aroma und können Sojasauce herstellen. Methanbildner vergären organische Abfälle ohne Sauerstoff zu Biogas, das zur Energiegewinnung genutzt werden kann. Die Reaktionsschemata sind vereinfacht; in der Zelle laufen viele einzelne Schritte ab.</p>
+<figure class="tool" data-tool="fermentation9">
+<div class="tool__head">
+<p class="tool__title">Gärung und Zellatmung vergleichen</p>
+<p class="tool__hint">Wähle einen Stoffwechselweg. Prüfe Produkte, Energie und Anwendung.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="ferment-card">
+<p class="ferment-card__title" data-ferment-title="">Milchsäuregärung</p>
+<p class="ferment-card__equation" data-ferment-equation="">Glucose → Milchsäure + Energie</p>
+<ul class="ferment-card__list" data-ferment-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Reaktionsschemata sind vereinfacht. Entscheidend sind die Produkte und die Bedingungen, unter denen sie entstehen.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Energieausbeute und Anwendungen</summary>
+<p>Die Zellatmung liefert deutlich mehr Energie als die Gärung, weil Glucose vollständig zu CO₂ und Wasser abgebaut wird. Bei der Gärung bleibt ein Teil der Energie in den Produkten gebunden. Für Mikroorganismen ist Gärung trotzdem vorteilhaft, wenn kein Sauerstoff verfügbar ist. Für uns ist wichtig: Die Produkte der Gärung können Lebensmittel haltbar machen, weil Säure oder Alkohol das Wachstum anderer Mikroorganismen hemmen. Gleichzeitig können Gärungsprodukte in großen Mengen schädlich sein; Alkohol ist ein Beispiel.</p>
+</details>
+<section aria-labelledby="stoffwechsel-check" class="checkpoint">
+<h3 id="stoffwechsel-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="stoffwechsel">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="stoffwechsel" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "st1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Welche Produkte entstehen bei der alkoholischen Gärung?",
+              "options": ["Ethanol und Kohlenstoffdioxid", "Milchsäure und Wasser", "Nur Sauerstoff", "Glucose und ATP"],
+              "correct": 0,
+              "explain": "Bei der alkoholischen Gärung setzen Hefen Zucker zu Ethanol und Kohlenstoffdioxid um. Dabei wird Energie frei."
+            },
+            {
+              "id": "st2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Warum liefert die Zellatmung mehr Energie als die Gärung?",
+              "options": ["Glucose wird vollständig zu CO₂ und Wasser abgebaut.", "Gärung findet nur mit Sauerstoff statt.", "Bei der Gärung wird kein ATP gebildet.", "Die Zellatmung braucht keine Enzyme."],
+              "correct": 0,
+              "explain": "Bei der Zellatmung wird Glucose vollständig abgebaut. Bei der Gärung bleiben energiereiche Produkte wie Milchsäure oder Ethanol übrig."
+            },
+            {
+              "id": "st3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M3",
+              "prompt": "Welche Mikroorganismen machen aus Milch Joghurt?",
+              "options": ["Milchsäurebakterien", "Methanbildner", "Schimmelpilze", "Algen"],
+              "correct": 0,
+              "explain": "Milchsäurebakterien vergären den Milchzucker zu Milchsäure. Dadurch sinkt der pH-Wert, und das Milcheiweiß gerinnt."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="stoffwechsel" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="lebensmittel" href="#lebensmittel">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Zellatmung braucht Sauerstoff und liefert viel Energie. Gärung läuft ohne Sauerstoff und liefert weniger Energie, aber typische Produkte.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Zellatmung</dt><dd>Abbau von Glucose mit Sauerstoff zu CO₂ und Wasser.</dd>
+<dt>Milchsäuregärung</dt><dd>Glucose zu Milchsäure ohne Sauerstoff.</dd>
+<dt>alkoholische Gärung</dt><dd>Glucose zu Ethanol und CO₂ ohne Sauerstoff.</dd>
+<dt>Biogas</dt><dd>Methan und CO₂ aus der Vergärung organischer Stoffe.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Gärung und Zellatmung gleichsetzen. Beide liefern Energie, aber mit unterschiedlichen Produkten und Bedingungen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="lebensmittel" data-title="Lebensmittel und Verderb" data-track="true" id="lebensmittel">
+<header class="station__head">
+<h2 id="lebensmittel-title"><span class="station__num">04</span> Lebensmittel: Nutzung und Verderb</h2>
+<p class="lead">Mikroorganismen machen Lebensmittel haltbar und schmackhaft, können sie aber auch verderben.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Bei der Lebensmittelherstellung nutzt man gezielt bestimmte Mikroorganismen. Joghurt entsteht durch Milchsäurebakterien, die Milchzucker zu Milchsäure vergären; der pH-Wert sinkt, und das Milcheiweiß gerinnt. Brot entsteht mit Hefen, die Zucker zu CO₂ und Alkohol vergären; das CO₂ lässt den Teig aufgehen. Käse nutzt Lab, Milchsäurebakterien und teilweise Schimmelpilze. Sauerkraut und Kimchi entstehen durch Milchsäuregärung, Sojasauce durch Schimmelpilze und Hefen.</p>
+<p>Verderb entsteht, wenn unerwünschte Mikroorganismen sich vermehren. Sie brauchen Nährstoffe, Wasser, eine passende Temperatur und oft Sauerstoff. Besonders kritisch sind leicht verderbliche Lebensmittel wie Fleisch, Fisch, Milchprodukte und Eier. Warnzeichen sind Geruch, Farbe, Schleim, Schimmel und Gasbildung. Manche Krankheitserreger verändern Aussehen und Geruch nicht; deshalb ist Hygiene wichtiger als der Augenschein.</p>
+<p>Hygienemaßnahmen im Alltag: Hände waschen, saubere Geräte, getrennte Schneidebretter für rohes Fleisch und Salat, Lebensmittel kühl lagern, Reste schnell abkühlen, Mindesthaltbarkeitsdatum beachten und durcherhitzen. Die Kühlkette sollte nicht unterbrochen werden. Bei Unsicherheit gilt: lieber wegwerfen als riskieren.</p>
+<table class="data-table">
+<caption>Lebensmittel und Mikroorganismen</caption>
+<thead><tr><th>Produkt</th><th>Mikroorganismus</th><th>Stoffwechsel</th></tr></thead>
+<tbody>
+<tr><td>Joghurt</td><td>Milchsäurebakterien</td><td>Milchsäuregärung</td></tr>
+<tr><td>Brot</td><td>Hefe</td><td>alkoholische Gärung (CO₂)</td></tr>
+<tr><td>Käse</td><td>Milchsäurebakterien, Schimmelpilze</td><td>Gärung, Reifung</td></tr>
+<tr><td>Sauerkraut</td><td>Milchsäurebakterien</td><td>Milchsäuregärung</td></tr>
+<tr><td>Biogas</td><td>Methanbildner</td><td>anaerobe Vergärung</td></tr>
+</tbody>
+</table>
+<section aria-labelledby="lebensmittel-check" class="checkpoint">
+<h3 id="lebensmittel-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="lebensmittel">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="lebensmittel" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "l1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Warum wird Milch bei der Joghurt-Herstellung dick?",
+              "options": ["Milchsäurebakterien bilden Milchsäure; das Milcheiweiß gerinnt.", "Die Milch wird stark erhitzt und verdampft.", "Hefen bilden Alkohol.", "Schimmelpilze bilden Sporen."],
+              "correct": 0,
+              "explain": "Milchsäure senkt den pH-Wert. Dadurch gerinnt das Milcheiweiß, und der Joghurt wird dick."
+            },
+            {
+              "id": "l2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Welche Bedingungen fördern das Wachstum von Mikroorganismen in Lebensmitteln?",
+              "options": ["Wärme, Feuchtigkeit und Nährstoffe", "Kälte und Trockenheit", "Säure und Salz", "Vakuum und Sterilisation"],
+              "correct": 0,
+              "explain": "Mikroorganismen brauchen Nährstoffe, Wasser und eine passende Temperatur. Kälte, Trockenheit, Säure und Salz hemmen sie."
+            },
+            {
+              "id": "l3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Warum reicht der Augenschein nicht, um ein Lebensmittel als sicher zu beurteilen?",
+              "options": ["Manche Krankheitserreger verändern Aussehen und Geruch nicht.", "Alle Lebensmittel sind immer sicher.", "Schimmel ist immer harmlos.", "Kälte tötet alle Keime sofort."],
+              "correct": 0,
+              "explain": "Pathogene Keime können Lebensmittel besiedeln, ohne es sichtbar zu verändern. Hygiene und Kühlkette sind deshalb wichtig."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="lebensmittel" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="konservierung" href="#konservierung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Gezielte Mikroorganismen machen Lebensmittel. Unerwünschte Mikroorganismen verderben sie. Hygiene und Kühlkette schützen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Fermentation</dt><dd>mikrobielle Umwandlung von Stoffen.</dd>
+<dt>Kühlkette</dt><dd>durchgehende Kühlung vom Produzenten bis zum Verbrauch.</dd>
+<dt>Pathogen</dt><dd>krankheitserregend.</dd>
+<dt>MHD</dt><dd>Mindesthaltbarkeitsdatum; danach ist das Lebensmittel nicht automatisch verdorben.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Schimmel sei immer harmlos. Schimmelpilze können Gifte bilden; befallene Lebensmittel werden entsorgt.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="konservierung" data-title="Konservierung" data-track="true" id="konservierung">
+<header class="station__head">
+<h2 id="konservierung-title"><span class="station__num">05</span> Konservierung: Mikroorganismen stoppen</h2>
+<p class="lead">Kälte, Hitze, Wasserentzug, Säure und Sauerstoffentzug hemmen oder töten Mikroorganismen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Konservierung verändert die Bedingungen so, dass Mikroorganismen sich nicht mehr vermehren oder absterben. Kühlen und Gefrieren senken die Temperatur; Mikroorganismen werden langsamer oder stellen ihren Stoffwechsel ein, sterben aber nicht unbedingt. Erhitzen tötet viele Keime ab: Pasteurisieren reicht für Milch und Saft, Sterilisieren tötet alle vermehrungsfähigen Mikroorganismen und wird für Konserven genutzt. Trocknen, Salzen und Zuckern entziehen Wasser; Säure senkt den pH-Wert; Vakuum und Schutzgas entziehen Sauerstoff.</p>
+<p>Jede Methode hat Grenzen. Kühlen verlangsamt nur, es tötet nicht. Gefrorene Lebensmittel können nach dem Auftauen schneller verderben. Pasteurisierte Milch ist nicht steril und muss gekühlt werden. Sterilisierte Konserven sind lange haltbar, verlieren aber oft an Vitaminen und Geschmack. Salzen und Zuckern verändern den Geschmack und können bei hohem Konsum gesundheitlich problematisch sein. Die Wahl der Methode hängt von Lebensmittel, Haltbarkeit, Qualität und Sicherheit ab.</p>
+<p>Für die Hygiene gilt: Kühlen ersetzt nicht das Händewaschen, und ein sauberes Aussehen ersetzt keinen Schutz vor Krankheitserregern. Besonders gefährdet sind Menschen mit geschwächtem Immunsystem, Schwangere, kleine Kinder und ältere Menschen. Bei Konserven mit gewölbtem Deckel, unangenehmem Geruch oder Schimmel gilt: nicht probieren, sondern entsorgen.</p>
+<figure class="tool" data-tool="preservation9">
+<div class="tool__head">
+<p class="tool__title">Konservierungsmethoden vergleichen</p>
+<p class="tool__hint">Wähle eine Methode. Prüfe das Prinzip und die Grenzen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="preserve-card">
+<p class="preserve-card__title" data-preserve-title="">Kühlen</p>
+<p class="preserve-card__text" data-preserve-text="">Kälte verlangsamt den Stoffwechsel der Mikroorganismen. Sie werden nicht unbedingt abgetötet.</p>
+<ul class="preserve-card__list" data-preserve-list=""></ul>
+</div>
+<div aria-live="polite" class="tool__readout" data-tool-readout=""></div>
+</div>
+<figcaption class="tool__caption">Konservierung ist kein Ersatz für Hygiene. Mehrere Hemmnisse zusammen wirken am besten.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Hürdenprinzip</summary>
+<p>Viele Lebensmittel werden durch mehrere Hemmnisse gleichzeitig haltbar gemacht. Ein Beispiel ist Salami: Salz, Trocknung, Säurebildung durch Milchsäurebakterien und Kühlung wirken zusammen. Jedes Hemmnis allein würde nicht reichen; die Kombination macht das Produkt sicher. Das nennt man Hürdenprinzip. Es erklärt auch, warum ein einzelner Faktor wie Kälte versagen kann, wenn andere Bedingungen optimal für Mikroorganismen bleiben.</p>
+</details>
+<section aria-labelledby="konservierung-check" class="checkpoint">
+<h3 id="konservierung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="konservierung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="konservierung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "k1",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Was macht Pasteurisieren?",
+              "options": ["Es tötet viele Mikroorganismen ab, aber nicht alle.", "Es tötet alle Mikroorganismen ab.", "Es entzieht dem Lebensmittel Wasser.", "Es senkt den pH-Wert."],
+              "correct": 0,
+              "explain": "Pasteurisieren erhitzt kurzzeitig und tötet viele, aber nicht alle Mikroorganismen. Pasteurisierte Produkte müssen oft gekühlt werden."
+            },
+            {
+              "id": "k2",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Warum hemmen Salzen und Zuckern das Wachstum von Mikroorganismen?",
+              "options": ["Sie entziehen Wasser und senken die Wasseraktivität.", "Sie erhöhen die Temperatur.", "Sie liefern zusätzliche Nährstoffe.", "Sie töten alle Keime sofort."],
+              "correct": 0,
+              "explain": "Salz und Zucker binden Wasser. Mikroorganismen können es dann schlechter nutzen; die Wasseraktivität sinkt."
+            },
+            {
+              "id": "k3",
+              "type": "mc",
+              "level": "g",
+              "competency": "M4",
+              "prompt": "Was ist das Hürdenprinzip?",
+              "options": ["Mehrere Hemmnisse zusammen machen ein Lebensmittel haltbar.", "Nur Kälte reicht immer.", "Nur Hitze reicht immer.", "Konservierung ersetzt Hygiene."],
+              "correct": 0,
+              "explain": "Beim Hürdenprinzip wirken mehrere Faktoren zusammen, etwa Salz, Trocknung, Säure und Kühlung. Die Kombination macht das Produkt sicher."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="konservierung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Kühlen verlangsamt, Erhitzen tötet, Wasserentzug und Säure hemmen. Mehrere Hürden zusammen sind am wirksamsten.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Pasteurisieren</dt><dd>kurzes Erhitzen, das viele Keime abtötet.</dd>
+<dt>Sterilisieren</dt><dd>Abtötung aller vermehrungsfähigen Mikroorganismen.</dd>
+<dt>Wasseraktivität</dt><dd>verfügbares Wasser für Mikroorganismen.</dd>
+<dt>Hürdenprinzip</dt><dd>Kombination mehrerer Hemmnisse.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Denken, Kühlen töte alle Keime. Kühlen hemmt nur; manche Keime überleben und vermehren sich nach dem Auftauen schneller.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">06</span> Kompetenzcheck Mikroorganismen</h2>
+<p class="lead">Zehn Aufgaben zu den Kompetenzbereichen dieses Lernbereichs.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="mikro9">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="mikro9" type="application/json">
+      {
+        "competencies": {
+          "M1": "Bau und Vielfalt der Mikroorganismen",
+          "M2": "Vermehrung und Wachstum",
+          "M3": "Stoffwechsel und Gärung",
+          "M4": "Lebensmittel, Verderb und Konservierung",
+          "M5": "Biotechnologie und Bewertung"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "M1",
+            "prompt": "Welche Struktur besitzt ein Bakterium?",
+            "options": ["Ringchromosom und Plasmide", "Einen echten Zellkern", "Chloroplasten", "Mitochondrien"],
+            "correct": 0,
+            "explain": "Bakterien sind Prokaryoten. Ihre DNA liegt als Ringchromosom und gegebenenfalls als Plasmid vor; Zellkern und Mitochondrien fehlen."
+          },
+          {
+            "id": "c2",
+            "type": "mc",
+            "level": "g",
+            "competency": "M1",
+            "prompt": "Wie vermehrt sich eine Hefezelle ungeschlechtlich?",
+            "options": ["Durch Knospung", "Durch Zweiteilung wie ein Bakterium", "Durch Meiose", "Durch Sporenbildung"],
+            "correct": 0,
+            "explain": "Hefen vermehren sich durch Knospung: Eine Tochterzelle wächst an der Mutterzelle heran und löst sich ab."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Was bedeutet exponentielle Vermehrung?",
+            "options": ["Die Population verdoppelt sich in konstanten Zeitabständen.", "Die Population wächst immer linear.", "Die Population bleibt gleich.", "Die Population stirbt immer sofort."],
+            "correct": 0,
+            "explain": "Bei konstanter Generationszeit verdoppelt sich die Zahl der Bakterien in jedem Zeitintervall. Das führt zu einer exponentiellen Kurve."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "M2",
+            "prompt": "Welche Phase der Wachstumskurve zeigt maximale Vermehrung?",
+            "options": ["Die exponentielle Phase", "Die Anlaufphase", "Die stationäre Phase", "Die Absterbephase"],
+            "correct": 0,
+            "explain": "In der exponentiellen Phase sind die Bedingungen optimal, und die Population verdoppelt sich in kurzen Abständen."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "M3",
+            "prompt": "Welche Produkte entstehen bei der alkoholischen Gärung?",
+            "options": ["Ethanol und Kohlenstoffdioxid", "Milchsäure und Wasser", "Nur Sauerstoff", "Glucose und ATP"],
+            "correct": 0,
+            "explain": "Bei der alkoholischen Gärung setzen Hefen Zucker zu Ethanol und Kohlenstoffdioxid um. Dabei wird Energie frei."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "M3",
+            "prompt": "Warum liefert die Zellatmung mehr Energie als die Gärung?",
+            "options": ["Glucose wird vollständig zu CO₂ und Wasser abgebaut.", "Gärung findet nur mit Sauerstoff statt.", "Bei der Gärung wird kein ATP gebildet.", "Die Zellatmung braucht keine Enzyme."],
+            "correct": 0,
+            "explain": "Bei der Zellatmung wird Glucose vollständig abgebaut. Bei der Gärung bleiben energiereiche Produkte wie Milchsäure oder Ethanol übrig."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "M4",
+            "prompt": "Warum wird Milch bei der Joghurt-Herstellung dick?",
+            "options": ["Milchsäurebakterien bilden Milchsäure; das Milcheiweiß gerinnt.", "Die Milch wird stark erhitzt und verdampft.", "Hefen bilden Alkohol.", "Schimmelpilze bilden Sporen."],
+            "correct": 0,
+            "explain": "Milchsäure senkt den pH-Wert. Dadurch gerinnt das Milcheiweiß, und der Joghurt wird dick."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "M4",
+            "prompt": "Was macht Pasteurisieren?",
+            "options": ["Es tötet viele Mikroorganismen ab, aber nicht alle.", "Es tötet alle Mikroorganismen ab.", "Es entzieht dem Lebensmittel Wasser.", "Es senkt den pH-Wert."],
+            "correct": 0,
+            "explain": "Pasteurisieren erhitzt kurzzeitig und tötet viele, aber nicht alle Mikroorganismen. Pasteurisierte Produkte müssen oft gekühlt werden."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "M5",
+            "prompt": "Welche Bedeutung hat Biogas aus Mikroorganismen?",
+            "options": ["Es nutzt organische Abfälle als erneuerbare Energiequelle.", "Es ist ein Antibiotikum.", "Es macht Lebensmittel haltbar.", "Es tötet alle Bakterien."],
+            "correct": 0,
+            "explain": "Methanbildner vergären organische Abfälle ohne Sauerstoff zu Biogas. Das ist eine erneuerbare Energiequelle und verwertet Abfälle."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "M5",
+            "prompt": "Warum ist nicht jeder Mikroorganismus ein Krankheitserreger?",
+            "options": ["Viele leben in Symbiose oder sind für Lebensmittel und Stoffkreisläufe nützlich.", "Alle Mikroorganismen sind harmlos.", "Nur Pilze sind nützlich.", "Bakterien kommen nur im Labor vor."],
+            "correct": 0,
+            "explain": "Die meisten Mikroorganismen sind harmlos oder nützlich. Nur ein kleiner Teil ist pathogen. Hygiene schützt gezielt vor den schädlichen."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">07</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in diesem Lernbereich immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Mikroorganismus</dt><dd>Sehr kleines Lebewesen, das meist nur mit dem Mikroskop sichtbar ist.</dd></div>
+<div class="glossary__row"><dt>Bakterium</dt><dd>Prokaryotischer Einzeller ohne Zellkern.</dd></div>
+<div class="glossary__row"><dt>Prokaryot</dt><dd>Zelle ohne echten Zellkern.</dd></div>
+<div class="glossary__row"><dt>Eukaryot</dt><dd>Zelle mit Zellkern und Organellen.</dd></div>
+<div class="glossary__row"><dt>Ringchromosom</dt><dd>Ringförmige DNA im Bakterium.</dd></div>
+<div class="glossary__row"><dt>Plasmid</dt><dd>Kleines zusätzliches DNA-Molekül in Bakterien.</dd></div>
+<div class="glossary__row"><dt>Murein</dt><dd>Baustoff der bakteriellen Zellwand.</dd></div>
+<div class="glossary__row"><dt>Geißel</dt><dd>Fortsatz zur Fortbewegung.</dd></div>
+<div class="glossary__row"><dt>Hefe</dt><dd>Eukaryotischer Einzeller, der Zucker zu Alkohol und CO₂ vergärt.</dd></div>
+<div class="glossary__row"><dt>Schimmelpilz</dt><dd>Pilz mit fadenförmigem Mycel, oft auf Lebensmitteln.</dd></div>
+<div class="glossary__row"><dt>Hyphe</dt><dd>Faden eines Pilzmycels.</dd></div>
+<div class="glossary__row"><dt>Mycel</dt><dd>Gesamtheit der Pilzfäden.</dd></div>
+<div class="glossary__row"><dt>Zweiteilung</dt><dd>Ungeschlechtliche Teilung eines Bakteriums in zwei Tochterzellen.</dd></div>
+<div class="glossary__row"><dt>Knospung</dt><dd>Ungeschlechtliche Vermehrung bei Hefen.</dd></div>
+<div class="glossary__row"><dt>Generationszeit</dt><dd>Zeit zwischen zwei Teilungen.</dd></div>
+<div class="glossary__row"><dt>exponentielles Wachstum</dt><dd>Wachstum, bei dem sich die Population in gleichen Zeiträumen vervielfacht.</dd></div>
+<div class="glossary__row"><dt>Lag-Phase</dt><dd>Anlaufphase mit geringer Vermehrung.</dd></div>
+<div class="glossary__row"><dt>stationäre Phase</dt><dd>Vermehrung und Absterben im Gleichgewicht.</dd></div>
+<div class="glossary__row"><dt>Zellatmung</dt><dd>Abbau von Glucose mit Sauerstoff zu CO₂ und Wasser.</dd></div>
+<div class="glossary__row"><dt>Milchsäuregärung</dt><dd>Umsetzung von Zucker zu Milchsäure ohne Sauerstoff.</dd></div>
+<div class="glossary__row"><dt>alkoholische Gärung</dt><dd>Umsetzung von Zucker zu Alkohol und CO₂ ohne Sauerstoff.</dd></div>
+<div class="glossary__row"><dt>Fermentation</dt><dd>Mikrobielle Umwandlung von Stoffen, oft ohne Sauerstoff.</dd></div>
+<div class="glossary__row"><dt>Biogas</dt><dd>Gasgemisch aus Methan und CO₂ aus der Vergärung organischer Stoffe.</dd></div>
+<div class="glossary__row"><dt>Methanbildner</dt><dd>Mikroorganismen, die im anaeroben Abbau Methan bilden.</dd></div>
+<div class="glossary__row"><dt>Pasteurisieren</dt><dd>Kurzes Erhitzen, das viele Mikroorganismen abtötet.</dd></div>
+<div class="glossary__row"><dt>Sterilisieren</dt><dd>Abtötung aller vermehrungsfähigen Mikroorganismen.</dd></div>
+<div class="glossary__row"><dt>Wasseraktivität</dt><dd>Verfügbares Wasser für Mikroorganismen.</dd></div>
+<div class="glossary__row"><dt>Hürdenprinzip</dt><dd>Kombination mehrerer Hemmnisse zur Konservierung.</dd></div>
+<div class="glossary__row"><dt>pathogen</dt><dd>Krankheitserregend.</dd></div>
+<div class="glossary__row"><dt>Kühlkette</dt><dd>Durchgehende Kühlung vom Produzenten bis zum Verbrauch.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 9</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/9/biologie" target="_blank" rel="noopener">LehrplanPLUS Biologie 9</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/qol.js"></script>
+<script src="./assets/tools.js"></script>
+<script src="./assets/three-scenes.js"></script>
+
+</body>
+</html>

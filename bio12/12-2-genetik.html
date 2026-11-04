@@ -1,0 +1,1708 @@
+<!doctype html>
+<html lang="de" data-grade="12" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Genetik und Gentechnik | Biologie 12</title>
+<meta name="description" content="Interaktive Lernwebsite Genetik und Gentechnik für Biologie 12: DNA, Proteinbiosynthese, Genregulation, PCR, Meiose, Mendel, Stammbäume und CRISPR.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Almanac (deal 2/3, seed interaktive-lernwebsite-biologie-genetik-96db·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die DNA-Doppelhelix, das Chromatin-Modell und der Codon-Übersetzer · states: default, hover, focus, active, disabled, loading, empty, error
+ * axes: mid/grotesk-sans/chromatic-magenta · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 · weakest: E, the 3D stage needs a still fallback and a pause; the fallback SVG is in the markup and the scenes run only on request */
+/* Hallmark · answered F4 · the G/R segmented control is a state selector, not a primary action; one filled action per screen */
+/* Hallmark · answered F6 · the heading face has no tabular figures; every number uses IBM Plex Mono */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("lab.css?v=2026-11-04b");
+.data-table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0 var(--space-lg); font: 400 var(--text-sm)/1.45 var(--font-body); }
+.data-table th { text-align: left; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.data-table td { padding: var(--space-xs) var(--space-xs) var(--space-xs) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.data-table td.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.codon-output { font-family: var(--font-outlier); font-size: var(--text-md); line-height: 1.7; overflow-wrap: anywhere; }
+.codon-output .base { letter-spacing: 0.08em; }
+.codon-output .aa { color: var(--color-accent); font-weight: 500; }
+.codon-controls { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: end; }
+.codon-controls label { display: grid; gap: var(--space-2xs); font: 400 var(--text-sm)/1.3 var(--font-body); color: var(--color-muted); }
+.codon-controls .input { min-width: 18rem; }
+.pcr-count { font-family: var(--font-outlier); font-size: var(--text-xl); font-variant-numeric: tabular-nums; color: var(--color-ink); min-width: 2ch; text-align: center; }
+.base-pair-row { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }
+.base-pair-row button { min-width: 44px; font-family: var(--font-outlier); }
+.base-pair-row button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
+.base-pair-display { display: block; min-height: 260px; margin: var(--space-md) 0; }
+.base-pair-selected { margin: 0 0 var(--space-sm); text-align: center; font: 500 var(--text-sm)/1.4 var(--font-body); color: var(--color-ink); }
+.base-pair-svg-wrap svg { width: 100%; height: auto; display: block; }
+.base-pair-svg text { font-family: var(--font-body); fill: var(--color-ink); }
+.base-pair-svg .svg-title { font-size: 18px; font-weight: 500; }
+.base-pair-svg .svg-atom { font-size: 15px; font-weight: 500; }
+.base-pair-svg .svg-small { font-size: 13px; fill: var(--color-muted); }
+.base-pair-svg .bond { stroke: var(--color-ink); stroke-width: 2; fill: none; }
+.base-pair-svg .hbond { stroke: var(--color-ink); stroke-width: 2; stroke-dasharray: 5 4; fill: none; }
+.tool[data-tool="base-pair"] .tool__stage { min-height: 340px; }
+.tool[data-tool="cell-cycle"] .tool__stage { min-height: 160px; }
+.gene-path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xs); align-items: stretch; margin-top: var(--space-md); }
+.gene-step { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-xs); font: 400 var(--text-sm)/1.4 var(--font-body); }
+.gene-step strong { display: block; color: var(--color-ink); }
+.gene-result { margin-top: var(--space-md); padding-top: var(--space-sm); border-top: var(--rule-bar) solid var(--color-rule-2); display: flex; align-items: center; gap: var(--space-md); }
+.flower { width: 72px; height: 72px; flex: 0 0 72px; border: var(--rule-hair) solid var(--color-rule-2); background: var(--petal, var(--color-paper)); position: relative; }
+.flower.pattern { background-image: radial-gradient(var(--color-paper) 18%, transparent 19%); background-size: 16px 16px; }
+.flower::before, .flower::after { content: ""; position: absolute; width: 32px; height: 32px; border-radius: 50%; background: var(--petal, var(--color-paper)); border: var(--rule-hair) solid var(--color-rule-2); }
+.flower::before { left: 6px; top: 19px; }
+.flower::after { right: 6px; top: 19px; }
+[data-punnett-b-controls] { display: inline-flex; flex-wrap: wrap; gap: var(--space-md); align-items: end; }
+.punnett { border-collapse: collapse; margin-top: var(--space-md); font: 400 var(--text-md)/1.3 var(--font-outlier); }
+.punnett th, .punnett td { border: var(--rule-hair) solid var(--color-rule); min-width: 3.2rem; height: 2.6rem; text-align: center; padding: var(--space-2xs); }
+.punnett th { background: var(--color-paper-2); font-weight: 500; }
+.punnett .head { background: var(--color-ink); color: var(--color-paper); }
+.punnett .cell { background: var(--color-sheet); }
+.punnett .cell.dom { background: color-mix(in oklab, var(--color-accent) 12%, var(--color-sheet)); }
+.karyogram { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: var(--space-xs); margin-top: var(--space-md); }
+.chromosome { min-height: 58px; border: var(--rule-hair) solid var(--color-rule); background: var(--color-sheet); display: grid; place-items: center; font: 500 var(--text-xs)/1.2 var(--font-outlier); color: var(--color-ink); cursor: pointer; }
+.chromosome[aria-pressed="true"] { border-color: var(--color-accent); background: var(--color-paper-2); }
+.chromosome.extra { border-color: var(--color-error); background: color-mix(in oklab, var(--color-error) 12%, var(--color-sheet)); }
+.gel { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: var(--space-sm); align-items: stretch; margin-top: var(--space-md); }
+.gel__lanes { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-xs); background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); padding: var(--space-sm); }
+.gel__lane { display: grid; gap: var(--space-xs); align-content: start; border: 0; background: transparent; padding: 0; cursor: pointer; }
+.gel__slot { height: 18px; display: flex; align-items: center; }
+.gel__band { height: 6px; width: 100%; background: var(--color-ink); color: var(--color-paper); }
+.gel__lane.is-selected .gel__band { background: var(--color-accent); color: var(--color-accent-ink); }
+.gel__label { font: 500 var(--text-xs)/1.2 var(--font-outlier); text-align: center; color: var(--color-muted); }
+@media (max-width: 60rem) { .gene-path { grid-template-columns: repeat(2, minmax(0, 1fr)); } .karyogram { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .codon-controls .input { min-width: 100%; } .gene-path { grid-template-columns: minmax(0, 1fr); } .karyogram { grid-template-columns: repeat(4, minmax(0, 1fr)); } .gel { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+<script>
+  (function () {
+    try {
+      var level = localStorage.getItem("bio12-level");
+      if (level === "r" || level === "g") document.documentElement.dataset.level = level;
+    } catch (error) {}
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body data-page="12-2" data-grade="12">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 12">
+      <span class="brand__name">Biologie 12</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">02</span> Genetik und Gentechnik</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 7</span>
+      <div class="level-toggle" role="group" aria-label="Anforderungsniveau">
+        <button type="button" data-level-set="g" aria-pressed="true" aria-label="Grundlegendes Anforderungsniveau">G</button>
+        <button type="button" data-level-set="r" aria-pressed="false" aria-label="Erhöhtes Anforderungsniveau">R</button>
+      </div>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Genetik und Gentechnik</h2>
+      <p class="sidebar__deck">DNA, Proteinbiosynthese, Regulation, Replikation, Meiose, Vererbung und Gentechnik.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 7</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#dna" data-station-link="dna"><span class="station-nav__num">01</span><span>DNA und RNA</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#protein" data-station-link="protein"><span class="station-nav__num">02</span><span>Vom Gen zum Protein</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#genwirkkette" data-station-link="genwirkkette"><span class="station-nav__num">03</span><span>Genwirkkette</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#regulation" data-station-link="regulation"><span class="station-nav__num">04</span><span>Genregulation</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#replikation" data-station-link="replikation"><span class="station-nav__num">05</span><span>Replikation und PCR</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#meiose" data-station-link="meiose"><span class="station-nav__num">06</span><span>Meiose und Mutationen</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#vererbung" data-station-link="vererbung"><span class="station-nav__num">07</span><span>Vererbung und DNA-Analytik</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">08</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">09</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 12</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Genetik und Gentechnik: Vom Nukleotid zum Stammbaum.</h1>
+<p class="lead">Wie Informationen gespeichert, abgelesen, verändert und weitergegeben werden. Mit DNA-Modell, Codon-Übersetzer, PCR, Meiose und Stammbaumanalyse.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="dna" href="#dna">Erste Station öffnen</a>
+<h2 style="font-size: var(--text-xl); margin: var(--space-xl) 0 var(--space-sm);">Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">S1</span><span>Du beschreibst DNA und RNA, leitest aus Basensequenzen Aminosäuresequenzen ab und erklärst die Proteinbiosynthese.</span></li>
+<li><span class="cnum">S2</span><span>Du erläuterst Aufgaben von Proteinen und das Zusammenwirken von Genen in einer Genwirkkette.</span></li>
+<li><span class="cnum">S3</span><span>Du erklärst Genregulation und Epigenetik und beurteilst die Bedeutung von Stammzellen.</span></li>
+<li><span class="cnum">S4</span><span>Du vergleichst Replikation und PCR und beschreibst Zellzyklus, Mitose und ihre Bedeutung.</span></li>
+<li><span class="cnum">S5</span><span>Du erklärst Meiose, Neukombination, Genommutationen und Genmutationen.</span></li>
+<li><span class="cnum">S6</span><span>Du erläuterst gentechnische Verfahren, CRISPR/Cas und ihre Anwendungen und bewertest sie ethisch.</span></li>
+<li><span class="cnum">S7</span><span>Du wendest die Mendel-Regeln auf mono- und dihybride Erbgänge an und analysierst Stammbäume und DNA-Analysen.</span></li>
+<li><span class="cnum">B1</span><span>Du bewertest genetische Diagnostik, Gentherapie und Stammzellforschung mit Kriterien und Perspektiven.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 2 des LehrplanPLUS Biologie 12 zusammen. R-Vertiefungen sind auf den Stationen mit R markiert.</small></p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Modell aus.</li>
+<li>Beantworte den Prüfpunkt. Du bekommst sofort Rückmeldung.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Wie kann dieselbe DNA in jeder Zelle stecken und trotzdem zu unterschiedlichen Zelltypen führen?</p>
+</div>
+<div class="note">
+<p class="note__title">R-Niveau</p>
+<p>Der Schalter G/R oben blendet zusätzliche Vertiefungen ein, etwa alternatives Spleißen, HI-Viren, DNA-Reparatur, Kopplung und Präimplantationsdiagnostik.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="dna" data-title="DNA und RNA" data-track="true" id="dna">
+<header class="station__head">
+<h2 id="dna-title"><span class="station__num">01</span> DNA und RNA: Speicher und Bote</h2>
+<p class="lead">Die DNA speichert Information stabil. Die RNA transportiert und übersetzt sie. Der Unterschied liegt im Bau und in der Funktion.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Ein Nukleotid besteht aus einer Phosphatgruppe, einem Zucker und einer Base. In der DNA ist der Zucker Desoxyribose, in der RNA Ribose. Die DNA enthält die Basen A, T, G und C, die RNA A, U, G und C. Die DNA liegt als Doppelstrang vor, die RNA meist als Einzelstrang. Die beiden DNA-Stränge sind antiparallel: Der eine läuft von 5' nach 3', der andere von 3' nach 5'.</p>
+<p>Zwischen den Strängen paaren sich die Basen: A mit T über zwei Wasserstoffbrücken, G mit C über drei. Diese komplementäre Paarung ist die Grundlage der Replikation und der Transkription. Die Basenfolge eines Strangs legt die Folge des anderen Strangs fest. Die RNA kopiert einen Abschnitt der DNA und trägt die Information aus dem Zellkern zu den Ribosomen.</p>
+<figure class="tool" data-tool="dna-scene">
+<div class="tool__head">
+<p class="tool__title">DNA-Doppelhelix</p>
+<p class="tool__hint">Ziehen dreht das Modell. Fahre über eine Sprosse, um Basenpaar und Wasserstoffbrücken zu lesen.</p>
+</div>
+<div class="tool__stage tool__stage--3d lab-stage" data-lab-scene="dna" id="dna-scene" tabindex="0" aria-label="Interaktives 3D-Modell der DNA-Doppelhelix mit zwei antiparallelen Strängen und farbigen Basenpaaren.">
+<div class="tool__fallback">
+<svg aria-label="Schematische DNA-Doppelhelix mit zwei Strängen und Basenpaaren" role="img" viewBox="0 0 640 360">
+<path d="M180 20 C260 80, 100 140, 180 200 S260 320, 180 340" fill="none" stroke="var(--color-ink)" stroke-width="5"></path>
+<path d="M460 20 C380 80, 540 140, 460 200 S380 320, 460 340" fill="none" stroke="var(--color-muted)" stroke-width="5"></path>
+<g stroke="var(--color-accent)" stroke-width="3">
+<line x1="205" x2="435" y1="60" y2="60"></line><line x1="220" x2="420" y1="100" y2="100"></line><line x1="205" x2="435" y1="140" y2="140"></line><line x1="220" x2="420" y1="180" y2="180"></line><line x1="205" x2="435" y1="220" y2="220"></line><line x1="220" x2="420" y1="260" y2="260"></line><line x1="205" x2="435" y1="300" y2="300"></line>
+</g>
+<text x="154" y="28" fill="var(--color-ink)" font-family="var(--font-outlier)" font-size="14">5′</text>
+<text x="474" y="28" fill="var(--color-ink)" font-family="var(--font-outlier)" font-size="14">3′</text>
+<text x="154" y="348" fill="var(--color-ink)" font-family="var(--font-outlier)" font-size="14">3′</text>
+<text x="474" y="348" fill="var(--color-ink)" font-family="var(--font-outlier)" font-size="14">5′</text>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="14" text-anchor="middle" x="320" y="356">Zwei antiparallele Stränge, Basenpaare dazwischen</text>
+</svg>
+</div>
+<div class="lab-stage__hint">Ziehen: drehen · Scrollen: zoomen · Doppelklick: Ausgangsansicht</div>
+<div class="lab-tip lab-tip--stage" data-lab-tip aria-hidden="true"><p class="lab-tip__title"></p><p class="lab-tip__body"></p><p class="lab-tip__meta"></p></div>
+</div>
+<div class="lab-hud">
+<div class="lab-hud__group">
+<button class="btn btn--quiet btn--small" data-lab-play data-lab-play-label="Drehen" data-lab-pause-label="Anhalten" aria-pressed="false" type="button">Drehen</button>
+<button class="btn btn--quiet btn--small" data-lab-step type="button" data-tip="Hebt ein zufälliges Basenpaar hervor und zeigt die Zahl der Wasserstoffbrücken.">Beispiel</button>
+<button class="btn btn--quiet btn--small" data-lab-reset type="button" data-tip="Setzt Drehung, Auswahl und Text auf den Ausgangszustand zurück.">Modell zurücksetzen</button>
+</div>
+<label class="lab-hud__group" data-tip="Blendet die Basenpaare ein oder aus. Die beiden Zucker-Phosphat-Stränge bleiben sichtbar."><input checked="" data-lab-pairs="" type="checkbox"/> <span>Basenpaare</span></label>
+<div class="lab-hud__group" role="group" aria-label="Geschwindigkeit">
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-lab-speed="0.5" data-tip="Langsame Drehung: gut, um die Windung und die Basenpaare zu verfolgen." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="1" aria-pressed="true" data-tip="Normale Drehung des Modells." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="2" data-tip="Schnelle Drehung: gut für den Gesamteindruck der Helix." type="button">2×</button>
+</div>
+<span class="lab-hud__spacer"></span>
+<button class="btn btn--quiet btn--small" data-lab-reset-view data-tip="Fährt die Kamera weich zurück. Die Drehung wird angehalten." type="button">Ansicht zurücksetzen</button>
+</div>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-base-a)"></span>A</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-base-t)"></span>T</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-base-g)"></span>G</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-base-c)"></span>C</span>
+<span class="legend-item lab-badge">5′ → 3′ antiparallel</span>
+</div>
+<div aria-live="polite" class="lab-readout" data-dna-readout=""></div>
+<figcaption class="tool__caption">Jede Sprosse ist zweigeteilt: Die eine Hälfte gehört zur Base des einen Strangs, die andere zur komplementären Base. A ist magenta, T teal, G amber, C blau. Die Farben sind eine Modellhilfe, keine chemische Codierung.</figcaption>
+</figure>
+<figure class="tool" data-tool="base-pair">
+<div class="tool__head">
+<p class="tool__title">Basenpaarung</p>
+<p class="tool__hint">Wähle eine Base. Das Werkzeug zeigt den komplementären Partner.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="base-pair-row">
+<button aria-pressed="true" class="btn btn--quiet btn--small" data-base="A" type="button" data-tip="Adenin paart mit Thymin über zwei Wasserstoffbrücken. In der RNA tritt Uracil an die Stelle von Thymin.">A</button>
+<button class="btn btn--quiet btn--small" data-base="T" type="button" data-tip="Thymin paart mit Adenin über zwei Wasserstoffbrücken. Thymin kommt nur in der DNA vor.">T</button>
+<button class="btn btn--quiet btn--small" data-base="G" type="button" data-tip="Guanin paart mit Cytosin über drei Wasserstoffbrücken. Die Paarung ist dadurch stabiler als A–T.">G</button>
+<button class="btn btn--quiet btn--small" data-base="C" type="button" data-tip="Cytosin paart mit Guanin über drei Wasserstoffbrücken. In der RNA bleibt Cytosin erhalten.">C</button>
+</div>
+<div class="base-pair-display" data-base-display="">
+<p class="base-pair-selected" data-base-selected="">Gewählt: A. Partner: T.</p>
+<div class="base-pair-svg-wrap" data-base-pair-at="">
+<svg aria-label="Schematische Strukturformeln von Adenin und Thymin mit zwei Wasserstoffbrücken" class="base-pair-svg" role="img" viewbox="0 0 640 300">
+<text class="svg-title" text-anchor="middle" x="120" y="28">Adenin</text>
+<text class="svg-title" text-anchor="middle" x="520" y="28">Thymin</text>
+<g>
+<polygon fill="var(--color-base-a)" fill-opacity="0.14" points="90,150 120,120 155,135 150,175 115,185" stroke="var(--color-ink)" stroke-width="2"></polygon>
+<polygon fill="var(--color-base-a)" fill-opacity="0.14" points="155,135 190,115 225,140 215,180 180,195 150,175" stroke="var(--color-ink)" stroke-width="2"></polygon>
+<line stroke="var(--color-ink)" stroke-width="2" x1="190" x2="190" y1="115" y2="92"></line>
+<text class="svg-atom" x="120" y="116">N7</text>
+<text class="svg-atom" x="150" y="194">N9</text>
+<text class="svg-atom" text-anchor="middle" x="190" y="86">H₂N</text>
+<text class="svg-atom" x="228" y="144">N1</text>
+</g>
+<g>
+<polygon fill="var(--color-base-t)" fill-opacity="0.14" points="430,150 460,120 500,120 525,150 500,180 460,180" stroke="var(--color-ink)" stroke-width="2"></polygon>
+<text class="svg-atom" text-anchor="end" x="430" y="116">O4</text>
+<text class="svg-atom" text-anchor="end" x="430" y="184">N3-H</text>
+<text class="svg-atom" x="530" y="154">O2</text>
+<text class="svg-atom" text-anchor="middle" x="500" y="200">CH₃</text>
+<text class="svg-atom" x="460" y="116">N1</text>
+</g>
+<line class="hbond" x1="235" x2="420" y1="120" y2="120"></line>
+<line class="hbond" x1="235" x2="420" y1="165" y2="165"></line>
+<text class="svg-small" text-anchor="middle" x="328" y="110">N6-H···O4</text>
+<text class="svg-small" text-anchor="middle" x="328" y="190">N1···H-N3</text>
+<text class="svg-small" text-anchor="middle" x="320" y="255">2 Wasserstoffbrücken</text>
+</svg>
+</div>
+<div class="base-pair-svg-wrap" data-base-pair-gc="" hidden="">
+<svg aria-label="Schematische Strukturformeln von Guanin und Cytosin mit drei Wasserstoffbrücken" class="base-pair-svg" role="img" viewbox="0 0 640 300">
+<text class="svg-title" text-anchor="middle" x="120" y="28">Guanin</text>
+<text class="svg-title" text-anchor="middle" x="520" y="28">Cytosin</text>
+<g>
+<polygon fill="var(--color-base-g)" fill-opacity="0.16" points="90,150 120,120 155,135 150,175 115,185" stroke="var(--color-ink)" stroke-width="2"></polygon>
+<polygon fill="var(--color-base-g)" fill-opacity="0.16" points="155,135 190,115 225,140 215,180 180,195 150,175" stroke="var(--color-ink)" stroke-width="2"></polygon>
+<line stroke="var(--color-ink)" stroke-width="2" x1="190" x2="190" y1="115" y2="92"></line>
+<text class="svg-atom" text-anchor="middle" x="190" y="86">O6</text>
+<text class="svg-atom" x="228" y="144">N1-H</text>
+<text class="svg-atom" text-anchor="middle" x="190" y="205">H₂N</text>
+<text class="svg-atom" x="120" y="116">N7</text>
+<text class="svg-atom" x="150" y="194">N9</text>
+</g>
+<g>
+<polygon fill="var(--color-base-c)" fill-opacity="0.14" points="430,150 460,120 500,120 525,150 500,180 460,180" stroke="var(--color-ink)" stroke-width="2"></polygon>
+<text class="svg-atom" text-anchor="end" x="430" y="116">O2</text>
+<text class="svg-atom" text-anchor="end" x="430" y="154">N3</text>
+<text class="svg-atom" text-anchor="end" x="430" y="188">N4-H₂</text>
+<text class="svg-atom" x="460" y="116">N1</text>
+</g>
+<line class="hbond" x1="235" x2="420" y1="110" y2="110"></line>
+<line class="hbond" x1="235" x2="420" y1="150" y2="150"></line>
+<line class="hbond" x1="235" x2="420" y1="190" y2="190"></line>
+<text class="svg-small" text-anchor="middle" x="328" y="100">O6···H-N4</text>
+<text class="svg-small" text-anchor="middle" x="328" y="140">N1-H···N3</text>
+<text class="svg-small" text-anchor="middle" x="328" y="180">N2-H···O2</text>
+<text class="svg-small" text-anchor="middle" x="320" y="255">3 Wasserstoffbrücken</text>
+</svg>
+</div>
+</div>
+<div aria-live="polite" class="matrix-result" data-base-readout="">Wähle eine Base.</div>
+</div>
+<figcaption class="tool__caption">A paart mit T, G mit C. In der RNA tritt U an die Stelle von T.</figcaption>
+</figure>
+<table class="data-table">
+<thead><tr><th>Merkmal</th><th>DNA</th><th>RNA</th></tr></thead>
+<tbody>
+<tr><td>Zucker</td><td>Desoxyribose</td><td>Ribose</td></tr>
+<tr><td>Basen</td><td>A, T, G, C</td><td>A, U, G, C</td></tr>
+<tr><td>Stränge</td><td>Doppelstrang</td><td>meist Einzelstrang</td></tr>
+<tr><td>Stabilität</td><td>stabil, Langzeitspeicher</td><td>kurzlebig, Boten- und Funktionsmolekül</td></tr>
+<tr><td>Ort</td><td>Zellkern, Mitochondrien, Chloroplasten</td><td>Zellkern und Zellplasma</td></tr>
+</tbody>
+</table>
+<div class="r-only">
+<h3>R-Vertiefung: RNA als kurzlebiger Bote</h3>
+<p>Die mRNA ist chemisch weniger stabil als die DNA. Das ist kein Nachteil, sondern Teil ihrer Funktion: Eine Boten-RNA soll nur so lange vorhanden sein, wie ihr Protein gebraucht wird. Die Zelle kann die Menge eines Proteins über die Lebensdauer der mRNA regulieren. mRNA-Impfstoffe nutzen diese Logik: Sie bringen eine Bauanleitung in die Zelle, die nach kurzer Zeit abgebaut wird. Die Erbinformation im Zellkern wird dabei nicht verändert.</p>
+<p>Vergleiche die Stabilität von DNA und mRNA. Erkläre, warum eine kurzlebige mRNA für die Regulation von Vorteil ist und warum sie für die langfristige Speicherung der Erbinformation ungeeignet wäre.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Basenpaarung so zuverlässig ist</summary>
+<p>Die komplementäre Paarung ist keine starre Verabredung, sondern folgt aus der Geometrie der Basen und den Wasserstoffbrücken. A und T bilden zwei, G und C drei Wasserstoffbrücken. Die große Zahl schwacher Bindungen zusammen macht die Doppelhelix stabil, lässt sich aber lokal öffnen, wenn die Polymerase die Stränge trennt. Dieses Zusammenspiel aus Stabilität und Öffnungsfähigkeit ist die Grundlage von Replikation und Transkription.</p>
+</details>
+<section aria-labelledby="dna-check" class="checkpoint">
+<h3 id="dna-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="dna">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="dna" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "d1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Welche Base kommt in der RNA anstelle von Thymin vor?",
+              "options": ["Adenin", "Uracil", "Guanin", "Cytosin"],
+              "correct": 1,
+              "explain": "In der RNA ersetzt Uracil das Thymin. Die übrigen Basen A, G und C bleiben gleich."
+            },
+            {
+              "id": "d2",
+              "type": "input",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Welche Base ist komplementär zu Guanin?",
+              "accept": ["cytosin", "c"],
+              "model": "Cytosin",
+              "explain": "Guanin paart mit Cytosin über drei Wasserstoffbrücken."
+            },
+            {
+              "id": "d3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Was bedeutet antiparallel bei der DNA?",
+              "options": [
+                "Die beiden Stränge laufen in entgegengesetzte Richtungen.",
+                "Die beiden Stränge haben dieselbe Basenfolge.",
+                "Die DNA besteht aus zwei Proteinen.",
+                "Die Basen liegen außen, die Zucker innen."
+              ],
+              "correct": 0,
+              "explain": "Der eine Strang läuft 5' nach 3', der andere 3' nach 5'. Diese entgegengesetzte Orientierung heißt antiparallel."
+            },
+            {
+              "id": "d4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S1",
+              "prompt": "Warum ist die mRNA als kurzlebiger Bote für die Regulation eines Proteins geeignet?",
+              "options": [
+                "Weil sie nach kurzer Zeit abgebaut werden kann und die Proteinproduktion dann stoppt.",
+                "Weil sie die DNA dauerhaft verändert.",
+                "Weil sie keine Basen besitzt.",
+                "Weil sie im Zellkern gespeichert wird."
+              ],
+              "correct": 0,
+              "explain": "Die Lebensdauer der mRNA reguliert, wie lange ein Protein gebildet wird. Das macht die Genexpression flexibel."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="dna" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="protein" href="#protein">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>A paart mit T, G mit C. In der RNA steht U anstelle von T. Die Stränge sind antiparallel.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Nukleotid</dt><dd>Baustein aus Phosphat, Zucker und Base.</dd>
+<dt>komplementär</dt><dd>passend ergänzend in der Basenpaarung.</dd>
+<dt>antiparallel</dt><dd>in entgegengesetzter Richtung laufend.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Die RNA als „einsträngige DNA“ bezeichnen. Sie hat einen anderen Zucker und Uracil statt Thymin.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="protein" data-title="Vom Gen zum Protein" data-track="true" id="protein">
+<header class="station__head">
+<h2 id="protein-title"><span class="station__num">02</span> Vom Gen zum Protein</h2>
+<p class="lead">Transkription, Prozessierung und Translation. Der genetische Code übersetzt Basen in Aminosäuren.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Proteinbiosynthese beginnt im Zellkern. Die RNA-Polymerase bindet an den Promotor eines Gens und liest den codogenen DNA-Strang ab. Dabei entsteht die prä-mRNA, die noch Introns enthält. Bei Eukaryoten wird sie prozessiert: Eine 5'-Kappe wird angehängt, ein Poly-A-Schwanz wird ergänzt, und die Introns werden entfernt. Die reife mRNA verlässt den Zellkern durch die Kernporen.</p>
+<p>Im Zellplasma bindet die mRNA an ein Ribosom. Die tRNA bringt Aminosäuren, deren Anticodon zum Codon der mRNA passt. Das Ribosom verknüpft die Aminosäuren zu einer Polypeptidkette. Der genetische Code ist ein Triplettcode: Drei Basen codieren eine Aminosäure. Er ist degeneriert, weil mehrere Codons dieselbe Aminosäure codieren können, und er enthält Start- und Stoppsignale.</p>
+<figure class="tool" data-tool="codon">
+<div class="tool__head">
+<p class="tool__title">Codon-Übersetzer</p>
+<p class="tool__hint">Gib eine DNA- oder mRNA-Sequenz ein. Das Werkzeug zeigt die mRNA und die Aminosäuren.</p>
+</div>
+<div class="tool__controls">
+<div class="codon-controls">
+<label for="codon-input">Sequenz<input autocomplete="off" class="input" id="codon-input" spellcheck="false" type="text" value="TAC TTG CCA GTC AAG" data-tip="Gib Basen in Dreiergruppen ein. Erlaubt sind A, T, G, C und U; Leerzeichen und X werden ignoriert. Beispiel: TAC TTG CCA."/></label>
+<label for="codon-mode">Leserichtung<select class="select" id="codon-mode" data-tip="Matrizenstrang: Die mRNA ist komplementär. Codogener Strang: Die mRNA ist gleichsinnig, nur mit U statt T. mRNA: Die Sequenz wird direkt gelesen."><option selected="" value="dna-template">DNA, Matrizenstrang</option><option value="dna-coding">DNA, codogener Strang</option><option value="mrna">mRNA</option></select></label>
+<button class="btn btn--quiet btn--small" data-codon-run="" type="button" data-tip="Übersetzt die eingegebene Sequenz in mRNA und Aminosäuren. Start: AUG; Stopp: UAA, UAG, UGA.">Übersetzen</button>
+</div>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="codon-output" data-codon-output="">Noch keine Übersetzung.</div>
+</div>
+<figcaption class="tool__caption">Der codogene Strang ist komplementär zum Matrizenstrang und hat dieselbe Leserichtung wie die mRNA, nur mit T statt U. Start codon: AUG. Stopp codons: UAA, UAG, UGA.</figcaption>
+</figure>
+<figure class="tool" data-tool="central-dogma">
+<div class="tool__head">
+<p class="tool__title">Transkription und Translation</p>
+<p class="tool__hint">Starte die Animation oder gehe Schritt für Schritt. Die Erklärung bleibt auch ohne Animation lesbar.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-dogma-play="" type="button" data-tip="Startet die Schrittfolge. Die Animation zeigt die Reihenfolge von Transkription und Translation, nicht die molekularen Details jedes Enzyms.">Abspielen</button>
+<button class="btn btn--quiet btn--small" data-dogma-step="" type="button" data-tip="Gehe einen Schritt weiter. So kannst du jeden Abschnitt einzeln mit dem Text abgleichen.">Schritt</button>
+<button class="btn btn--quiet btn--small" data-dogma-reset="" type="button" data-tip="Setzt die Animation an den Anfang zurück.">Zurücksetzen</button>
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-dogma-speed="0.5" type="button" data-tip="Halbe Geschwindigkeit: mehr Zeit zum Lesen der Schritttexte.">0,5×</button>
+<button class="btn btn--quiet btn--small" data-dogma-speed="1" aria-pressed="true" type="button" data-tip="Normale Geschwindigkeit.">1×</button>
+<button class="btn btn--quiet btn--small" data-dogma-speed="2" type="button" data-tip="Doppelte Geschwindigkeit: gut zum Wiederholen.">2×</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<canvas aria-label="Animation: DNA wird im Zellkern in mRNA umgeschrieben, die mRNA verlässt den Zellkern und wird am Ribosom in ein Protein übersetzt." class="dogma-canvas" height="320" width="720"></canvas>
+<div aria-live="polite" class="matrix-result" data-dogma-readout="">Schritt 1: Die RNA-Polymerase bindet an den Promotor.</div>
+</div>
+<figcaption class="tool__caption">Die Animation ist ein Modell. Sie zeigt die Reihenfolge der Ereignisse, nicht die molekularen Details jedes Enzyms.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum der genetische Code degeneriert ist</summary>
+<p>Von den 64 Codons codieren 61 Aminosäuren, drei sind Stoppsignale. Mehrere Codons können dieselbe Aminosäure codieren. Diese Redundanz macht den Code fehlertoleranter: Eine Punktmutation an der dritten Position führt oft nicht zu einer anderen Aminosäure. Der Code ist außerdem nahezu universell, was ein Beleg für die gemeinsame Abstammung aller Lebewesen ist.</p>
+<p>Die Leserichtung ist entscheidend. Ein Rasterwechsel durch Insertion oder Deletion kann alle folgenden Codons verändern. Das ist der Unterschied zwischen einer Punktmutation und einer Rastermutation.</p>
+</details>
+<div class="r-only">
+<h3>R-Vertiefung: Alternatives Spleißen und Antibiotika</h3>
+<p>Beim alternativen Spleißen werden Exons unterschiedlich kombiniert. Aus einer prä-mRNA können so mehrere reife mRNAs und mehrere Proteinvarianten entstehen. Das erhöht die Proteinvielfalt, ohne dass das Genom mehr Gene braucht. Es ist ein Beispiel dafür, wie Regulation auf der RNA-Ebene die Bedeutung eines Gens verändert.</p>
+<p>Antibiotika können gezielt Unterschiede zwischen prokaryotischer und eukaryotischer Proteinbiosynthese nutzen. Viele Antibiotika binden an die 70S-Ribosomen der Bakterien oder blockieren deren Elongationsfaktoren. Menschliche 80S-Ribosomen werden dadurch weniger stark betroffen. Das erklärt die selektive Wirkung, aber auch Nebenwirkungen und Resistenzbildung.</p>
+</div>
+<section aria-labelledby="protein-check" class="checkpoint">
+<h3 id="protein-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="protein">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="protein" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "p1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Wo findet die Transkription bei Eukaryoten statt?",
+              "options": ["Im Zellkern", "Am Ribosom", "In der Mitochondrienmatrix", "Im Golgi-Apparat"],
+              "correct": 0,
+              "explain": "Die DNA liegt im Zellkern. Dort wird sie in prä-mRNA umgeschrieben. Die Translation findet am Ribosom im Zellplasma statt."
+            },
+            {
+              "id": "p2",
+              "type": "input",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Wie viele Basen bilden ein Codon?",
+              "accept": ["3", "drei"],
+              "model": "3",
+              "explain": "Ein Codon besteht aus drei Basen und codiert eine Aminosäure oder ein Stoppsignal."
+            },
+            {
+              "id": "p3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Welche Aufgabe hat die tRNA?",
+              "options": [
+                "Sie bringt die passende Aminosäure zum Ribosom.",
+                "Sie speichert die Erbinformation im Zellkern.",
+                "Sie bildet die Kernhülle.",
+                "Sie schneidet Introns aus der DNA."
+              ],
+              "correct": 0,
+              "explain": "Die tRNA erkennt über ihr Anticodon das Codon der mRNA und liefert die passende Aminosäure."
+            },
+            {
+              "id": "p4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S1",
+              "prompt": "Was ist der Vorteil des alternativen Spleißens?",
+              "options": [
+                "Aus einer prä-mRNA können mehrere Proteinvarianten entstehen.",
+                "Die DNA wird dabei verdoppelt.",
+                "Die Ribosomen werden größer.",
+                "Die Mutationen werden repariert."
+              ],
+              "correct": 0,
+              "explain": "Unterschiedliche Exon-Kombinationen erzeugen verschiedene reife mRNAs und damit verschiedene Proteine aus einem Gen."
+            },
+            {
+              "id": "p5",
+              "type": "mc",
+              "level": "r",
+              "competency": "S1",
+              "prompt": "Warum wirken manche Antibiotika selektiv auf Bakterien?",
+              "options": [
+                "Sie binden an bakterielle Ribosomen, die sich von menschlichen Ribosomen unterscheiden.",
+                "Sie zerstören die menschliche DNA.",
+                "Sie blockieren alle Ribosomen gleich stark.",
+                "Sie verhindern die Transkription im Zellkern."
+              ],
+              "correct": 0,
+              "explain": "Bakterien haben 70S-Ribosomen, Menschen 80S-Ribosomen. Viele Antibiotika nutzen diesen Unterschied."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="protein" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="genwirkkette" href="#genwirkkette">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Transkription im Zellkern, Translation am Ribosom. Drei Basen ergeben ein Codon.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>codogener Strang</dt><dd>DNA-Strang mit derselben Leserichtung wie die mRNA.</dd>
+<dt>Matrizenstrang</dt><dd>DNA-Strang, der abgelesen wird.</dd>
+<dt>Codon</dt><dd>Basentriplett der mRNA.</dd>
+<dt>Anticodon</dt><dd>passendes Triplett der tRNA.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Den Matrizenstrang als codogenen Strang verwenden. Die mRNA ist komplementär zum Matrizenstrang und gleichsinnig zum codogenen Strang.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="genwirkkette" data-title="Genwirkkette" data-track="true" id="genwirkkette">
+<header class="station__head">
+<h2 id="genwirkkette-title"><span class="station__num">03</span> Gene wirken in Ketten</h2>
+<p class="lead">Ein Merkmal entsteht selten aus einem Gen allein. Proteine arbeiten in Stoffwechselwegen zusammen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Proteine sind die Genprodukte, die im Organismus arbeiten: als Enzyme, Strukturproteine, Transportproteine, Rezeptoren, Signalmoleküle oder Antikörper. Ihre Funktion hängt von ihrer räumlichen Struktur ab. Die Primärstruktur ist die Aminosäuresequenz; durch Faltung entstehen Sekundär-, Tertiär- und Quartärstruktur. Eine falsche Aminosäure kann die Faltung und damit die Funktion verändern.</p>
+<p>In einer Genwirkkette aktiviert ein Genprodukt den nächsten Schritt. Ein Beispiel: Gen A codiert ein Enzym, das einen farblosen Vorläufer in ein gelbes Zwischenprodukt umwandelt. Gen B codiert ein Enzym, das daraus einen magentafarbenen Farbstoff macht. Gen C steuert ein Muster. Fällt ein Gen aus, stoppt die Kette an dieser Stelle. Der Phänotyp zeigt, welcher Schritt fehlt.</p>
+<figure class="tool" data-tool="gene-switch">
+<div class="tool__head">
+<p class="tool__title">Genwirkkette schalten</p>
+<p class="tool__hint">Schalte die Gene A, B und C. Beobachte, wie sich der Phänotyp verändert.</p>
+</div>
+<div class="tool__controls">
+<label><input checked="" data-gene="A" type="checkbox"/> Gen A</label>
+<label><input checked="" data-gene="B" type="checkbox"/> Gen B</label>
+<label><input checked="" data-gene="C" type="checkbox"/> Gen C</label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="gene-path">
+<div class="gene-step"><strong>Vorläufer</strong>farblos</div>
+<div class="gene-step"><strong>Enzym A</strong>gelbes Zwischenprodukt</div>
+<div class="gene-step"><strong>Enzym B</strong>magenta Farbstoff</div>
+<div class="gene-step"><strong>Enzym C</strong>Muster</div>
+</div>
+<div class="gene-result">
+<div class="flower" data-flower=""></div>
+<div aria-live="polite" data-gene-result="">Alle Gene aktiv: magenta Blüte mit Muster.</div>
+</div>
+</div>
+<figcaption class="tool__caption">Der Phänotyp ist das Ergebnis der ganzen Kette. Ein einzelner Genausfall kann einen Schritt blockieren und alle folgenden Produkte verhindern.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Unterbrechung und Knock-out</h3>
+<p>Wird ein Gen in einer Genwirkkette ausgeschaltet, nennt man das einen Knock-out. Forschende nutzen Knock-out-Organismen, um die Funktion eines Gens zu untersuchen. Ein Knock-out kann aber mehrere Merkmale verändern, weil ein Genprodukt in mehreren Wegen vorkommen kann. Diese Mehrfachwirkung heißt Pleiotropie. Sie zeigt, dass „ein Gen, ein Merkmal“ eine zu einfache Vorstellung ist.</p>
+<p>Beurteile, warum ein Knock-out-Experiment allein noch nicht beweist, dass ein Gen ausschließlich für ein bestimmtes Merkmal verantwortlich ist.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Proteinbau und Funktion</summary>
+<p>Die Aminosäuresequenz bestimmt, wie sich ein Protein faltet. Wasserstoffbrücken, Ionenbindungen, hydrophobe Wechselwirkungen und Disulfidbrücken halten die Struktur zusammen. Hitzeeinwirkung oder ein falscher pH-Wert können diese Bindungen stören; das Protein denaturiert und verliert seine Funktion. Deshalb sind Enzyme nur in einem bestimmten Temperatur- und pH-Bereich aktiv.</p>
+<p>Ein Protein kann auch dann funktionsfähig sein, wenn seine Struktur leicht verändert ist. Entscheidend ist, ob das aktive Zentrum oder eine Bindungsstelle noch passt. Struktur und Funktion sind also eng gekoppelt, aber nicht identisch.</p>
+</details>
+<section aria-labelledby="genwirkkette-check" class="checkpoint">
+<h3 id="genwirkkette-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="genwirkkette">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="genwirkkette" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "g1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Was ist eine Genwirkkette?",
+              "options": [
+                "Das Zusammenwirken mehrerer Gene über ihre Proteinprodukte bei der Merkmalsausbildung.",
+                "Die Verdopplung der DNA vor der Zellteilung.",
+                "Die Wanderung der mRNA aus dem Zellkern.",
+                "Die Paarung der Chromosomen in der Meiose."
+              ],
+              "correct": 0,
+              "explain": "In einer Genwirkkette beeinflussen mehrere Genprodukte nacheinander ein Merkmal."
+            },
+            {
+              "id": "g2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Gen B ist ausgeschaltet. Welcher Phänotyp ist zu erwarten, wenn die Kette Vorläufer, A, B, C lautet?",
+              "options": [
+                "Der Weg stoppt nach A; das magenta Produkt fehlt.",
+                "Der Weg läuft unverändert weiter.",
+                "Gen A wird automatisch ausgeschaltet.",
+                "Die DNA wird verdoppelt."
+              ],
+              "correct": 0,
+              "explain": "Ohne Enzym B wird das Zwischenprodukt aus A nicht zum magenta Farbstoff umgesetzt. Die Kette stoppt an dieser Stelle."
+            },
+            {
+              "id": "g3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S2",
+              "prompt": "Warum kann ein Knock-out eines Gens mehrere Merkmale verändern?",
+              "options": [
+                "Weil ein Genprodukt in mehreren Stoffwechselwegen oder Geweben gebraucht werden kann.",
+                "Weil ein Gen immer nur ein Merkmal steuert.",
+                "Weil Knock-outs die DNA verdoppeln.",
+                "Weil nur die Umwelt zählt."
+              ],
+              "correct": 0,
+              "explain": "Pleiotropie entsteht, wenn ein Genprodukt an mehreren Stellen wirkt. Ein Knock-out kann deshalb mehrere Phänotypen zeigen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="genwirkkette" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="regulation" href="#regulation">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Ein Merkmal ist oft das Produkt einer Kette. Fällt ein Schritt aus, ändert sich der Phänotyp.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Genwirkkette</dt><dd>aufeinanderfolgende Wirkung mehrerer Gene.</dd>
+<dt>Pleiotropie</dt><dd>ein Gen beeinflusst mehrere Merkmale.</dd>
+<dt>Knock-out</dt><dd>Ausschalten eines Gens.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>„Ein Gen, ein Merkmal“ annehmen. Viele Merkmale entstehen aus mehreren Genen und aus Umweltfaktoren.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="regulation" data-title="Genregulation" data-track="true" id="regulation">
+<header class="station__head">
+<h2 id="regulation-title"><span class="station__num">04</span> Regulation: Dieselbe DNA, andere Zelle</h2>
+<p class="lead">Nervenzelle, Muskelzelle und Blutzelle haben dieselbe Erbinformation. Was sie unterscheidet, ist die Regulation der Gene.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Gene werden nicht alle gleichzeitig abgelesen. Die Regulation beginnt an der Chromatinstruktur: Ist die DNA dicht verpackt, kann die RNA-Polymerase schlechter binden. Transkriptionsfaktoren erkennen Promotoren und regulatorische Abschnitte wie Enhancer und Silencer. Enhancer fördern die Transkription, Silencer hemmen sie. Durch Schleifenbildungen der DNA kommen diese Abschnitte räumlich nah an den Transkriptionskomplex.</p>
+<p>Epigenetische Veränderungen verändern nicht die Basensequenz, aber die Aktivität der Gene. Die DNA-Methylierung an CpG-Inseln kann Gene abschalten. Histonmodifikationen können das Chromatin öffnen oder schließen. Die Inaktivierung eines X-Chromosoms bei weiblichen Säugetieren ist ein Beispiel für epigenetische Regulation. Epigenetische Muster können bei der Zellteilung weitergegeben werden, sind aber nicht dasselbe wie Mutationen.</p>
+<figure class="tool" data-tool="chromatin-lab">
+<div class="tool__head">
+<p class="tool__title">Chromatin-Schalter</p>
+<p class="tool__hint">Verändere Methylierung und Acetylierung. Fahre über Histone und Markierungen, um ihre Funktion zu lesen.</p>
+</div>
+<div class="tool__stage tool__stage--3d lab-stage" data-lab-scene="chromatin" id="chromatin-scene" tabindex="0" aria-label="Interaktives 3D-Modell des Chromatins: DNA-Faden um Histonproteine, Methylgruppen und Acetylgruppen.">
+<div class="tool__fallback">
+<svg aria-label="Schematische Chromatinfaser: Methylierung schließt, Acetylierung öffnet die DNA für die Transkription." class="chart" role="img" viewBox="0 0 640 200">
+<line stroke="var(--color-rule-2)" stroke-width="2" x1="40" x2="600" y1="100" y2="100"></line>
+<g data-chromatin-beads="">
+<circle cx="90" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="160" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="230" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="300" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="370" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="440" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="510" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+<circle cx="580" cy="100" fill="var(--color-paper-3)" r="18" stroke="var(--color-rule-2)"></circle>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="320" y="170">Chromatin: Verpackung und Zugänglichkeit der DNA</text>
+</svg>
+</div>
+<div class="lab-stage__hint">Ziehen: drehen · Scrollen: zoomen · Klick: Markierung setzen</div>
+<div class="lab-tip lab-tip--stage" data-lab-tip aria-hidden="true"><p class="lab-tip__title"></p><p class="lab-tip__body"></p><p class="lab-tip__meta"></p></div>
+</div>
+<div class="lab-hud">
+<div class="lab-hud__group">
+<button class="btn btn--quiet btn--small" data-lab-play data-lab-play-label="Drehen" data-lab-pause-label="Anhalten" aria-pressed="false" type="button">Drehen</button>
+<button class="btn btn--quiet btn--small" data-lab-methyl="" aria-pressed="false" type="button" data-tip="Methylierung an CpG-Inseln: Sie kann die Transkription hemmen. Die Basensequenz bleibt gleich, die Verpackung wird dichter.">Methylierung</button>
+<button class="btn btn--quiet btn--small" data-lab-acetyl="" aria-pressed="true" type="button" data-tip="Acetylierung von Histonen: Sie lockert das Chromatin. Die DNA wird zugänglicher und kann leichter abgelesen werden.">Acetylierung</button>
+<button class="btn btn--quiet btn--small" data-lab-reset type="button" data-tip="Setzt Methylierung und Acetylierung auf den Ausgangszustand zurück.">Zurücksetzen</button>
+</div>
+<div class="lab-hud__group" role="group" aria-label="Geschwindigkeit">
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-lab-speed="0.5" data-tip="Langsame Übergänge: gut, um die Änderung der Verpackung zu verfolgen." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="1" aria-pressed="true" data-tip="Normale Übergangsgeschwindigkeit." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="2" data-tip="Schnelle Übergänge: gut für den Vergleich der Zustände." type="button">2×</button>
+</div>
+<span class="lab-hud__spacer"></span>
+<button class="btn btn--quiet btn--small" data-lab-reset-view data-tip="Fährt die Kamera weich zurück und setzt die Drehung fort." type="button">Ansicht zurücksetzen</button>
+</div>
+<div aria-live="polite" class="lab-readout" data-chromatin-readout=""></div>
+<div class="tool__legend">
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-ink)"></span>DNA</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-accent)"></span>Methylgruppe</span>
+<span class="legend-item"><span class="legend-swatch" style="--swatch: var(--color-base-g)"></span>Acetylgruppe</span>
+<span class="legend-item lab-badge">Verpackung steuert Zugänglichkeit</span>
+</div>
+<figcaption class="tool__caption">Methylierung und Acetylierung sind zwei epigenetische Mechanismen. Sie verändern die Zugänglichkeit der DNA, nicht die Basenfolge. Die Übergänge sind bewusst langsam: Epigenetik ist eine Veränderung der Verpackung, kein Schalter mit zwei Zuständen.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Epigenetik, RNA-Interferenz und Stammzellen</h3>
+<p>Neben der DNA-Methylierung verändern Histonmodifikationen die Verpackung: Acetylgruppen lockern das Chromatin, Methylgruppen können es je nach Position verdichten. RNA-Interferenz kann die Translation einer mRNA blockieren oder ihren Abbau fördern. Die Inaktivierung des X-Chromosoms verhindert, dass weibliche Säugetiere die Gene des X-Chromosoms doppelt exprimieren.</p>
+<p>Embryonale Stammzellen sind pluripotent: Sie können sich in viele Zelltypen entwickeln. Adulte Stammzellen sind meist multipotent und auf bestimmte Gewebe begrenzt. Die Forschung an embryonalen Stammzellen ist ethisch umstritten, weil für ihre Gewinnung Embryonen verwendet werden. Bewerte die Chancen und die ethischen Grenzen mit mindestens drei Kriterien.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Warum Methylierung nicht für immer ist</summary>
+<p>Epigenetische Muster können sich verändern. Während der Embryonalentwicklung werden die elterlichen Muster weitgehend gelöscht und neu etabliert. Manche Muster werden bei der Zellteilung weitergegeben, andere sind reversibel. Deshalb ist die Epigenetik ein Bindeglied zwischen Genen und Umwelt, aber kein einfaches Schicksal. Lebensstil, Stress und Ernährung können epigenetische Veränderungen beeinflussen; ob und wie sie vererbt werden, ist von Fall zu Fall verschieden.</p>
+</details>
+<section aria-labelledby="regulation-check" class="checkpoint">
+<h3 id="regulation-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="regulation">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="regulation" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "r1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Warum sind Nervenzelle und Muskelzelle trotz gleicher DNA unterschiedlich?",
+              "options": [
+                "Weil unterschiedliche Gene aktiv sind.",
+                "Weil sie unterschiedliche DNA besitzen.",
+                "Weil Muskelzellen keine Gene haben.",
+                "Weil Nervenzellen keine Proteine bilden."
+              ],
+              "correct": 0,
+              "explain": "Die DNA ist gleich, aber die Genexpression ist unterschiedlich. Regulation entscheidet, welche Gene in welcher Zelle aktiv sind."
+            },
+            {
+              "id": "r2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Was bewirkt eine DNA-Methylierung an CpG-Inseln häufig?",
+              "options": [
+                "Sie kann die Genexpression unterdrücken.",
+                "Sie verdoppelt die DNA.",
+                "Sie verändert die Basensequenz.",
+                "Sie entfernt Introns."
+              ],
+              "correct": 0,
+              "explain": "Methylierung kann Gene abschalten, ohne die Sequenz zu verändern. Sie ist ein epigenetischer Mechanismus."
+            },
+            {
+              "id": "r3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S3",
+              "prompt": "Was unterscheidet embryonale von adulten Stammzellen?",
+              "options": [
+                "Embryonale Stammzellen sind pluripotent, adulte meist multipotent.",
+                "Adulte Stammzellen können sich in jeden Zelltyp entwickeln.",
+                "Embryonale Stammzellen kommen nur im Knochenmark vor.",
+                "Es gibt keinen Unterschied."
+              ],
+              "correct": 0,
+              "explain": "Embryonale Stammzellen können sich in viele Zelltypen entwickeln. Adulte Stammzellen sind stärker auf bestimmte Gewebe festgelegt."
+            },
+            {
+              "id": "r4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S3",
+              "prompt": "Warum ist die Inaktivierung des X-Chromosoms epigenetisch?",
+              "options": [
+                "Weil sie die Basensequenz nicht verändert, aber die Genaktivität.",
+                "Weil sie die DNA verdoppelt.",
+                "Weil sie die Chromosomenzahl halbiert.",
+                "Weil sie nur bei Männern vorkommt."
+              ],
+              "correct": 0,
+              "explain": "Die Inaktivierung verändert die Verpackung und Aktivität eines Chromosoms, nicht die Sequenz. Sie ist ein epigenetischer Vorgang."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="regulation" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="replikation" href="#replikation">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Methylierung schließt, Acetylierung öffnet. Epigenetik verändert die Aktivität, nicht die Sequenz.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Epigenetik</dt><dd>vererbbare oder reversible Veränderungen der Genaktivität ohne Sequenzänderung.</dd>
+<dt>CpG-Insel</dt><dd>DNA-Abschnitt mit vielen Cytosin-Guanin-Paaren.</dd>
+<dt>Enhancer</dt><dd>DNA-Abschnitt, der die Transkription fördert.</dd>
+<dt>Silencer</dt><dd>DNA-Abschnitt, der die Transkription hemmt.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Epigenetische Veränderungen als Mutationen bezeichnen. Die Basensequenz bleibt gleich.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="replikation" data-title="Replikation und PCR" data-track="true" id="replikation">
+<header class="station__head">
+<h2 id="replikation-title"><span class="station__num">05</span> Kopieren: in der Zelle und im Labor</h2>
+<p class="lead">Die DNA-Replikation ist semikonservativ. Die PCR macht dasselbe Prinzip im Reagenzglas nutzbar.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Vor der Zellteilung muss die DNA verdoppelt werden. Die Helikase trennt die Stränge, die Primase legt einen kurzen RNA-Primer an, und die DNA-Polymerase verlängert den neuen Strang in 5'- nach 3'-Richtung. Weil die Stränge antiparallel sind, entsteht ein durchgehender Leitstrang und ein in Fragmenten synthetisierter Folgestrang. Die Fragmente werden später verbunden. Die Replikation ist semikonservativ: Jedes Tochtermolekül enthält einen alten und einen neuen Strang.</p>
+<p>Die PCR nutzt dieses Prinzip im Labor. Bei der Denaturierung werden die Stränge getrennt, beim Annealing binden Primer an die Zielsequenz, bei der Extension verlängert eine hitzestabile Polymerase die Primer. Mit jedem Zyklus verdoppelt sich die Zielsequenz. Nach 30 Zyklen sind aus einem Molekül theoretisch über eine Milliarde Kopien geworden. Die PCR amplifiziert einen Abschnitt, nicht das ganze Genom.</p>
+<figure class="tool" data-tool="pcr">
+<div class="tool__head">
+<p class="tool__title">PCR-Zyklen</p>
+<p class="tool__hint">Stelle die Zahl der Zyklen ein. Die Kopienzahl wächst exponentiell.</p>
+</div>
+<div class="tool__controls">
+<button aria-label="Einen Zyklus weniger" class="btn btn--quiet btn--small" data-pcr-minus="" type="button" data-tip="Einen Zyklus zurück. Jeder Zyklus verdoppelt die Zielsequenz.">−</button>
+<output aria-live="polite" class="pcr-count" data-pcr-cycles="">0</output>
+<button aria-label="Einen Zyklus mehr" class="btn btn--quiet btn--small" data-pcr-plus="" type="button" data-tip="Einen Zyklus weiter. Nach n Zyklen sind theoretisch 2 hoch n Kopien vorhanden.">+</button>
+<button class="btn btn--quiet btn--small" data-pcr-run="" type="button" data-tip="Lässt zehn Zyklen automatisch ablaufen. Die y-Achse ist logarithmisch gedacht; in der Praxis sättigt die Reaktion.">10 Zyklen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="matrix-result" data-pcr-readout=""></div>
+<svg aria-label="Balkendiagramm: Kopienzahl der Zielsequenz wächst mit der Zahl der PCR-Zyklen exponentiell." class="chart" role="img" viewbox="0 0 640 220">
+<line class="axis" x1="50" x2="620" y1="180" y2="180"></line>
+<line class="axis" x1="50" x2="50" y1="180" y2="20"></line>
+<rect data-pcr-bar="0" fill="var(--color-accent)" height="8" width="24" x="70" y="172"></rect>
+<rect data-pcr-bar="1" fill="var(--color-accent)" height="20" width="24" x="110" y="160"></rect>
+<rect data-pcr-bar="2" fill="var(--color-accent)" height="35" width="24" x="150" y="145"></rect>
+<rect data-pcr-bar="3" fill="var(--color-accent)" height="55" width="24" x="190" y="125"></rect>
+<rect data-pcr-bar="4" fill="var(--color-accent)" height="80" width="24" x="230" y="100"></rect>
+<rect data-pcr-bar="5" fill="var(--color-accent)" height="110" width="24" x="270" y="70"></rect>
+<rect data-pcr-bar="6" fill="var(--color-accent)" height="140" width="24" x="310" y="40"></rect>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" text-anchor="middle" x="330" y="205">Zyklen</text>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="13" transform="rotate(-90 18 100)" x="18" y="100">Kopien</text>
+</svg>
+</div>
+<figcaption class="tool__caption">Die y-Achse ist logarithmisch gedacht. Ohne Sättigung verdoppelt sich die Zielsequenz pro Zyklus.</figcaption>
+</figure>
+<figure class="tool" data-tool="cell-cycle">
+<div class="tool__head">
+<p class="tool__title">Zellzyklus</p>
+<p class="tool__hint">Wähle eine Phase. Das Werkzeug erklärt, was in der Zelle passiert.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div aria-live="polite" class="matrix-result" data-cell-readout="">Wähle eine Phase.</div>
+</div>
+<figcaption class="tool__caption">Der Zellzyklus besteht aus Interphase und Mitose. Kontrollpunkte prüfen, ob die DNA vollständig und korrekt kopiert ist.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Reparatur, Apoptose und Tumore</h3>
+<p>Die DNA-Polymerase macht Fehler. Reparaturenzyme erkennen und entfernen falsche Basen. Bei der Basenexzisionsreparatur wird eine beschädigte Base herausgeschnitten und durch die richtige ersetzt. Ist die Reparatur fehlerhaft, können Mutationen entstehen. Apoptose ist der programmierte Zelltod: Die Zelle wird kontrolliert abgebaut, ohne eine Entzündung auszulösen. Bei einer Tumorzelle sind Zellzyklus, Reparatur und Apoptose gestört. Onkogene fördern die Teilung, Tumorsuppressorgene bremsen sie. Beide können durch Mutationen aus dem Gleichgewicht geraten.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Warum die PCR so empfindlich ist</summary>
+<p>Die PCR kann sehr kleine Mengen DNA vervielfältigen. Genau das macht sie für Diagnostik und Forensik nützlich. Es macht sie aber auch anfällig für Kontaminationen: Schon wenige fremde DNA-Moleküle können amplifiziert werden. Deshalb werden Negativkontrollen mitgeführt. Die Primer bestimmen, welcher Abschnitt amplifiziert wird. Passt ein Primer nicht, wird die Zielsequenz nicht vervielfältigt.</p>
+</details>
+<section aria-labelledby="replikation-check" class="checkpoint">
+<h3 id="replikation-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="replikation">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="replikation" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "rep1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was bedeutet semikonservativ bei der Replikation?",
+              "options": [
+                "Jedes Tochtermolekül enthält einen alten und einen neuen Strang.",
+                "Beide Tochtermoleküle bestehen nur aus neuen Strängen.",
+                "Die DNA wird nicht verdoppelt.",
+                "Nur ein Strang wird kopiert."
+              ],
+              "correct": 0,
+              "explain": "Semikonservativ heißt: Die beiden Tochter-DNA-Moleküle behalten je einen elterlichen Strang und erhalten einen neuen."
+            },
+            {
+              "id": "rep2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Welche Reihenfolge hat die PCR?",
+              "options": [
+                "Denaturierung, Annealing, Extension",
+                "Extension, Denaturierung, Annealing",
+                "Annealing, Extension, Denaturierung",
+                "Transkription, Translation, Replikation"
+              ],
+              "correct": 0,
+              "explain": "Die PCR trennt zuerst die Stränge, lässt dann die Primer binden und verlängert sie anschließend."
+            },
+            {
+              "id": "rep3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was macht die Mitose?",
+              "options": [
+                "Sie verteilt die bereits kopierten Chromosomen auf zwei Tochterzellen.",
+                "Sie halbiert die Chromosomenzahl.",
+                "Sie verdoppelt die DNA ohne Zellteilung.",
+                "Sie tauscht Chromosomen zwischen Individuen."
+              ],
+              "correct": 0,
+              "explain": "Die Mitose ist die Kernteilung nach der Replikation. Sie erhält die Chromosomenzahl und dient Wachstum, Reparatur und ungeschlechtlicher Vermehrung."
+            },
+            {
+              "id": "rep4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S4",
+              "prompt": "Warum ist die Apoptose für einen Organismus wichtig?",
+              "options": [
+                "Sie entfernt beschädigte oder überflüssige Zellen kontrolliert.",
+                "Sie verdoppelt die DNA.",
+                "Sie verhindert jede Zellteilung.",
+                "Sie ersetzt die Meiose."
+              ],
+              "correct": 0,
+              "explain": "Apoptose ist programmierter Zelltod. Sie entfernt beschädigte Zellen und formt Gewebe, ohne eine Entzündung auszulösen."
+            },
+            {
+              "id": "rep5",
+              "type": "mc",
+              "level": "r",
+              "competency": "S4",
+              "prompt": "Was ist die Folge einer Störung von Onkogenen und Tumorsuppressorgenen?",
+              "options": [
+                "Die Zelle kann unkontrolliert teilen und einen Tumor bilden.",
+                "Die DNA wird automatisch repariert.",
+                "Die Meiose läuft schneller.",
+                "Die Zelle verliert alle Chromosomen."
+              ],
+              "correct": 0,
+              "explain": "Onkogene fördern die Teilung, Tumorsuppressorgene bremsen sie. Fallen Bremsen aus oder wird das Gaspedal zu stark, kann eine Tumorzelle entstehen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="replikation" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="meiose" href="#meiose">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Replikation ist semikonservativ. PCR verdoppelt eine Zielsequenz pro Zyklus.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Denaturierung</dt><dd>Trennen der DNA-Stränge durch Hitze.</dd>
+<dt>Annealing</dt><dd>Bindung der Primer an die Zielsequenz.</dd>
+<dt>Extension</dt><dd>Verlängerung der Primer durch die Polymerase.</dd>
+<dt>Apoptose</dt><dd>programmierter Zelltod.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Annehmen, die PCR kopiere das ganze Genom. Sie amplifiziert nur den Abschnitt zwischen den Primern.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="meiose" data-title="Meiose und Mutationen" data-track="true" id="meiose">
+<header class="station__head">
+<h2 id="meiose-title"><span class="station__num">06</span> Meiose: Vielfalt durch Teilung</h2>
+<p class="lead">Meiose halbiert die Chromosomenzahl und erzeugt neue Kombinationen. Fehler dabei können zu Genommutationen führen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Meiose besteht aus zwei Teilungen. In der Meiose I werden die homologen Chromosomen getrennt, in der Meiose II die Schwesterchromatiden. Vor der Meiose I findet eine Replikation statt. Während der Prophase I können homologe Chromosomen über Kreuzungen Abschnitte austauschen. Dieses Crossing-over und die zufällige Verteilung der homologen Chromosomen erzeugen neue Kombinationen. Am Ende entstehen vier haploide Zellen.</p>
+<p>Bei der Befruchtung verschmelzen zwei haploide Keimzellen. Die Nachkommen unterscheiden sich dadurch genetisch von beiden Eltern. Fehler bei der Trennung der Chromosomen heißen Non-Disjunction. Sie können zu Aneuploidien führen, etwa zur Trisomie 21. Ein Karyogramm macht die Chromosomen sichtbar und ermöglicht die Diagnose.</p>
+<figure class="tool" data-tool="meiosis">
+<div class="tool__head">
+<p class="tool__title">Meiose Schritt für Schritt</p>
+<p class="tool__hint">Gehe durch die Phasen. Beobachte, wann die Chromosomenzahl halbiert wird und wann Crossing-over stattfindet.</p>
+</div>
+<div class="tool__controls">
+<button class="btn btn--quiet btn--small" data-meiosis-play="" type="button" data-tip="Lässt die Meiose automatisch durchlaufen. Mit „Pause“ hältst du an jeder Phase an.">Abspielen</button>
+<button class="btn btn--quiet btn--small" data-meiosis-prev="" type="button" data-tip="Einen Schritt zurück. So kannst du Crossing-over und die beiden Teilungen getrennt betrachten.">Zurück</button>
+<button class="btn btn--quiet btn--small" data-meiosis-next="" type="button" data-tip="Einen Schritt weiter.">Weiter</button>
+<button class="btn btn--quiet btn--small" data-meiosis-reset="" type="button" data-tip="Setzt die Meiose an den Anfang zurück.">Von vorn</button>
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-meiosis-speed="0.5" type="button" data-tip="Halbe Geschwindigkeit: mehr Zeit für die Phasentexte.">0,5×</button>
+<button class="btn btn--quiet btn--small" data-meiosis-speed="1" aria-pressed="true" type="button" data-tip="Normale Geschwindigkeit.">1×</button>
+<button class="btn btn--quiet btn--small" data-meiosis-speed="2" type="button" data-tip="Doppelte Geschwindigkeit: gut zum Wiederholen.">2×</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<canvas aria-label="Animation der Meiose: homologe Chromosomen werden getrennt, Crossing-over erzeugt neue Kombinationen, vier haploide Zellen entstehen." class="meiosis-canvas" height="320" width="720"></canvas>
+<div aria-live="polite" class="matrix-result" data-meiosis-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Meiose ist ein Modell mit zwei Teilungen. Die Zahl der Chromosomen wird halbiert; die genetische Vielfalt steigt durch Crossing-over und freie Kombination.</figcaption>
+</figure>
+<figure class="tool" data-tool="karyogram">
+<div class="tool__head">
+<p class="tool__title">Karyogramm lesen</p>
+<p class="tool__hint">Wähle ein Karyogramm. Finde die Chromosomenpaare und prüfe, ob ein Chromosom zu viel oder zu wenig vorhanden ist.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="karyogram" data-karyogram=""></div>
+<div aria-live="polite" class="matrix-result" data-karyogram-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Karyogramm ordnet die Chromosomen nach Größe und Form. Paare 1 bis 22 sind Autosomen, das 23. Paar sind die Gonosomen.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Gonosomale Abweichungen, Polyploidie und Krebs</h3>
+<p>Neben der Trisomie 21 gibt es gonosomale Abweichungen wie das Turner-Syndrom (45, X) oder das Klinefelter-Syndrom (47, XXY). Bei Pflanzen kann Polyploidie vorkommen: Es gibt mehr als zwei Chromosomensätze. Polyploidie ist oft mit größeren Zellen und veränderten Merkmalen verbunden und kann bei der Züchtung genutzt werden.</p>
+<p>Genmutationen können durch Mutagene wie UV-Strahlung oder bestimmte Chemikalien ausgelöst werden. Sie können somatisch oder in der Keimbahn auftreten. Nur Keimbahnmutationen werden an Nachkommen weitergegeben. Mutationen sind die Quelle neuer Allele; die natürliche Selektion entscheidet, welche Varianten sich durchsetzen.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Warum Crossing-over die Vielfalt erhöht</summary>
+<p>Ohne Crossing-over würden die Chromosomen eines Elternteils als ganze Blöcke weitergegeben. Durch den Austausch von Abschnitten entstehen Chromosomen mit neuen Kombinationen von Allelen. Zusammen mit der zufälligen Verteilung der homologen Chromosomen und der zufälligen Befruchtung entsteht eine enorme Vielfalt. Diese Vielfalt ist die Grundlage dafür, dass Populationen auf veränderte Umweltbedingungen reagieren können.</p>
+</details>
+<section aria-labelledby="meiose-check" class="checkpoint">
+<h3 id="meiose-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="meiose">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="meiose" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "me1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was passiert in der Meiose I?",
+              "options": [
+                "Die homologen Chromosomen werden getrennt.",
+                "Die Schwesterchromatiden werden getrennt.",
+                "Die DNA wird verdoppelt.",
+                "Die Zellmembran verschwindet."
+              ],
+              "correct": 0,
+              "explain": "In der Meiose I trennen sich die homologen Chromosomen. Die Schwesterchromatiden bleiben zunächst zusammen und werden erst in der Meiose II getrennt."
+            },
+            {
+              "id": "me2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was ist eine Folge des Crossing-over?",
+              "options": [
+                "Neue Kombinationen von Allelen auf einem Chromosom.",
+                "Eine Verdopplung der Chromosomenzahl.",
+                "Die Entstehung von identischen Keimzellen.",
+                "Die Inaktivierung des X-Chromosoms."
+              ],
+              "correct": 0,
+              "explain": "Beim Crossing-over tauschen homologe Chromosomen Abschnitte aus. Dadurch entstehen neue Allelkombinationen."
+            },
+            {
+              "id": "me3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was ist eine Genommutation?",
+              "options": [
+                "Eine Veränderung der Chromosomenzahl oder Chromosomenstruktur.",
+                "Ein Austausch einer einzelnen Base.",
+                "Eine Methylierung der DNA.",
+                "Eine Änderung der Genaktivität ohne Sequenzänderung."
+              ],
+              "correct": 0,
+              "explain": "Genommutationen betreffen ganze Chromosomen oder Chromosomensätze. Punktmutationen betreffen einzelne Basen."
+            },
+            {
+              "id": "me4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S5",
+              "prompt": "Warum ist eine Keimbahnmutation für die Evolution bedeutsamer als eine somatische Mutation?",
+              "options": [
+                "Weil sie an Nachkommen weitergegeben werden kann.",
+                "Weil sie nur in Hautzellen vorkommt.",
+                "Weil sie die Chromosomenzahl halbiert.",
+                "Weil sie immer tödlich ist."
+              ],
+              "correct": 0,
+              "explain": "Nur Mutationen in den Keimzellen können an die nächste Generation weitergegeben werden und damit in die Evolution eingehen."
+            },
+            {
+              "id": "me5",
+              "type": "mc",
+              "level": "r",
+              "competency": "S5",
+              "prompt": "Was ist Polyploidie?",
+              "options": [
+                "Mehr als zwei Chromosomensätze in einer Zelle.",
+                "Ein fehlendes Chromosom.",
+                "Eine Punktmutation in einem Gen.",
+                "Eine epigenetische Methylierung."
+              ],
+              "correct": 0,
+              "explain": "Polyploidie bedeutet mehrere vollständige Chromosomensätze. Sie kommt bei Pflanzen häufig vor und kann bei der Züchtung genutzt werden."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="meiose" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="vererbung" href="#vererbung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Meiose I trennt homologe Chromosomen, Meiose II die Schwesterchromatiden. Crossing-over erzeugt neue Kombinationen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Reduktionsteilung</dt><dd>Meiose I, halbiert die Chromosomenzahl.</dd>
+<dt>Äquationsteilung</dt><dd>Meiose II, trennt die Schwesterchromatiden.</dd>
+<dt>Non-Disjunction</dt><dd>fehlerhafte Trennung von Chromosomen.</dd>
+<dt>Karyogramm</dt><dd>geordnete Darstellung der Chromosomen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Mitose und Meiose verwechseln. Die Mitose erhält die Chromosomenzahl, die Meiose halbiert sie.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="vererbung" data-title="Vererbung und DNA-Analytik" data-track="true" id="vererbung">
+<header class="station__head">
+<h2 id="vererbung-title"><span class="station__num">07</span> Vererbung: Von Mendel zum Gentest</h2>
+<p class="lead">Mendel beschrieb die Regeln. Stammbäume, Punnett-Quadrate und DNA-Analysen machen Vorhersagen möglich.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Mendel untersuchte Erbsen und erkannte, dass Merkmale durch diskrete Einheiten vererbt werden. Das erste Gesetz beschreibt die Uniformität der F1-Generation bei reinerbigen Eltern. Das zweite Gesetz beschreibt die Spaltung der Merkmale in der F2-Generation. Das dritte Gesetz beschreibt die unabhängige Kombination verschiedener Merkmale, solange die Gene nicht gekoppelt sind. Heute wissen wir: Die Einheiten sind Allele auf Chromosomen.</p>
+<p>Bei einem dominant-rezessiven Erbgang überdeckt das dominante Allel das rezessive. Bei unvollständiger Dominanz entsteht ein Zwischenphänotyp, bei Kodominanz werden beide Allele sichtbar, etwa im AB0-System. Das Rhesus-System ist ein weiteres Beispiel für Dominanz. Bei X-chromosomalen Erbgängen unterscheiden sich die Wahrscheinlichkeiten für Söhne und Töchter.</p>
+<figure class="tool" data-tool="punnett">
+<div class="tool__head">
+<p class="tool__title">Punnett-Quadrat</p>
+<p class="tool__hint">Wähle die Genotypen der Eltern. Das Werkzeug zeigt die Keimzellen, die Kombinationen und das Phänotypverhältnis.</p>
+</div>
+<div class="tool__controls">
+<label>Modus <select class="select" data-punnett-mode="" data-tip="Monohybrid: ein Merkmal mit zwei Allelen. Dihybrid: zwei Merkmale, die unabhängig kombiniert werden."><option selected="" value="mono">monohybrid</option><option value="di">dihybrid</option></select></label>
+<label>Elternteil 1 <select class="select" data-punnett-parent="0" data-tip="Genotyp des ersten Elternteils. AA und aa sind reinerbig, Aa ist mischerbig."><option value="AA">AA</option><option selected="" value="Aa">Aa</option><option value="aa">aa</option></select></label>
+<label>Elternteil 2 <select class="select" data-punnett-parent="1" data-tip="Genotyp des zweiten Elternteils. Die Keimzellen entstehen durch Meiose und enthalten je ein Allel."><option value="AA">AA</option><option selected="" value="Aa">Aa</option><option value="aa">aa</option></select></label>
+<span data-punnett-b-controls="" hidden="">
+<label>Gen B, Elternteil 1 <select class="select" data-punnett-b-parent="0" data-tip="Zweites Gen, erster Elternteil. Bei unabhängiger Kombination entstehen vier verschiedene Keimzelltypen."><option value="BB">BB</option><option selected="" value="Bb">Bb</option><option value="bb">bb</option></select></label>
+<label>Gen B, Elternteil 2 <select class="select" data-punnett-b-parent="1" data-tip="Zweites Gen, zweiter Elternteil. Die 9:3:3:1-Verteilung gilt nur bei unabhängiger Kombination."><option value="BB">BB</option><option selected="" value="Bb">Bb</option><option value="bb">bb</option></select></label>
+</span>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div data-punnett-output=""></div>
+</div>
+<figcaption class="tool__caption">Das Quadrat zeigt Wahrscheinlichkeiten für ein Kind, nicht eine Garantie für eine Familie. Jede Befruchtung ist ein neues Ereignis.</figcaption>
+</figure>
+<figure class="tool" data-tool="gel">
+<div class="tool__head">
+<p class="tool__title">Gelelektrophorese</p>
+<p class="tool__hint">Vergleiche die Banden. Welches Kind passt zu welchem Elternteil?</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="gel">
+<div class="gel__label">Start</div>
+<div class="gel__lanes" data-gel-lanes=""></div>
+</div>
+<div aria-live="polite" class="matrix-result" data-gel-readout=""></div>
+</div>
+<figcaption class="tool__caption">Kurze Fragmente wandern weiter als lange. Die Banden sind ein Muster, kein vollständiger genetischer Fingerabdruck.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Kopplung, epigenetische Vererbung und PID</h3>
+<p>Gene auf demselben Chromosom sind gekoppelt. Je näher sie beieinanderliegen, desto seltener werden sie durch Crossing-over getrennt. Die Rekombinationshäufigkeit kann daher als Maß für den Abstand dienen. Epigenetische Vererbung und genomische Prägung zeigen, dass nicht nur die Basensequenz, sondern auch die Verpackung der DNA an die nächste Generation weitergegeben werden kann. Bei der Präimplantationsdiagnostik werden Embryonen vor der Implantation genetisch untersucht. Das ist medizinisch hilfreich, wirft aber ethische Fragen auf, etwa nach Selektion und Selbstbestimmung.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Stammbäume lesen</summary>
+<p>In einem Stammbaum stehen Quadrate für männliche, Kreise für weibliche Personen. Gefüllte Symbole zeigen das Merkmal. Aus dem Muster kannst du auf den Erbgang schließen: Tritt das Merkmal bei jedem Betroffenen in jeder Generation auf, ist ein dominanter Erbgang plausibel. Tritt es bei nicht betroffenen Eltern auf, ist ein rezessiver Erbgang wahrscheinlich. Bei X-chromosomalen Erbgängen sind meist mehr Männer betroffen, weil sie nur ein X-Chromosom besitzen.</p>
+<p>Ein Stammbaum beweist keinen Erbgang. Er macht einen Erbgang plausibel. Für Sicherheit brauchst du molekulare Daten, etwa einen Gentest.</p>
+</details>
+<section aria-labelledby="vererbung-check" class="checkpoint">
+<h3 id="vererbung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="vererbung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="vererbung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "v1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S7",
+              "prompt": "Zwei heterozygote Eltern (Aa x Aa) werden gekreuzt. Welches Phänotypverhältnis ist bei dominant-rezessivem Erbgang zu erwarten?",
+              "options": ["3 : 1", "1 : 1", "1 : 2 : 1", "4 : 0"],
+              "correct": 0,
+              "explain": "Die Genotypen sind AA, Aa, Aa, aa. Drei von vier zeigen den dominanten Phänotyp, einer den rezessiven."
+            },
+            {
+              "id": "v2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S7",
+              "prompt": "Was ist Kodominanz?",
+              "options": [
+                "Beide Allele werden im Phänotyp sichtbar.",
+                "Ein Allel überdeckt das andere vollständig.",
+                "Es entsteht immer ein Zwischenphänotyp.",
+                "Es gibt nur ein Allel."
+              ],
+              "correct": 0,
+              "explain": "Bei Kodominanz werden beide Allele nebeneinander sichtbar, etwa bei den Blutgruppen A und B."
+            },
+            {
+              "id": "v3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S7",
+              "prompt": "Warum sind bei X-chromosomal rezessiven Erbgängen häufiger Männer betroffen?",
+              "options": [
+                "Weil Männer nur ein X-Chromosom haben und ein rezessives Allel nicht ausgeglichen wird.",
+                "Weil Männer zwei X-Chromosomen haben.",
+                "Weil Frauen keine X-Chromosomen haben.",
+                "Weil das Merkmal nur in Spermien vorkommt."
+              ],
+              "correct": 0,
+              "explain": "Männer sind hemizygot für X-chromosomale Gene. Ein rezessives Allel auf dem einzigen X-Chromosom kann nicht durch ein zweites, dominantes Allel ausgeglichen werden."
+            },
+            {
+              "id": "v4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S7",
+              "prompt": "Was bedeutet genetische Kopplung?",
+              "options": [
+                "Gene liegen auf demselben Chromosom und werden gemeinsam vererbt, wenn kein Crossing-over dazwischen liegt.",
+                "Gene liegen immer auf verschiedenen Chromosomen.",
+                "Allele werden immer unabhängig kombiniert.",
+                "Ein Gen hat immer nur ein Allel."
+              ],
+              "correct": 0,
+              "explain": "Gekoppelte Gene liegen auf demselben Chromosom. Crossing-over kann die Kopplung aufbrechen; je weiter die Gene entfernt sind, desto häufiger."
+            },
+            {
+              "id": "v5",
+              "type": "mc",
+              "level": "r",
+              "competency": "S7",
+              "prompt": "Warum ist die Präimplantationsdiagnostik ethisch umstritten?",
+              "options": [
+                "Weil Embryonen untersucht und gegebenenfalls nicht implantiert werden.",
+                "Weil sie die DNA nicht verändert.",
+                "Weil sie nur bei Pflanzen angewendet wird.",
+                "Weil sie keine medizinischen Informationen liefert."
+              ],
+              "correct": 0,
+              "explain": "Die PID kann schwere Erbkrankheiten erkennen, wirft aber Fragen nach Selektion, Selbstbestimmung und dem Schutz embryonalen Lebens auf."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="vererbung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Mendel-Regeln gelten für diskrete Merkmale. Kopplung, Epigenetik und Umwelt können das Bild erweitern.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Allel</dt><dd>Variante eines Gens.</dd>
+<dt>Genotyp</dt><dd>die Kombination der Allele.</dd>
+<dt>Phänotyp</dt><dd>das sichtbare Merkmal.</dd>
+<dt>Kopplung</dt><dd>Gene auf demselben Chromosom.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Ein 3:1-Verhältnis als Garantie für eine Familie lesen. Es beschreibt Wahrscheinlichkeiten über viele Fälle.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">08</span> Kompetenzcheck Genetik</h2>
+<p class="lead">Zwölf Aufgaben im grundlegenden Niveau, vier zusätzliche Vertiefungen im erhöhten Niveau.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest. Dein Bestwert bleibt auf diesem Gerät gespeichert.</p>
+<div class="check" data-check="genetik">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="genetik" type="application/json">
+      {
+        "competencies": {
+          "S1": "DNA, RNA und Proteinbiosynthese",
+          "S2": "Proteine und Genwirkkette",
+          "S3": "Genregulation und Epigenetik",
+          "S4": "Replikation, PCR und Zellzyklus",
+          "S5": "Meiose und Mutationen",
+          "S6": "Gentechnik und CRISPR",
+          "S7": "Vererbung und DNA-Analytik",
+          "B1": "Ethische Bewertung"
+        },
+        "questions": [
+          {
+            "id": "c1",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Welche Aussage über die DNA ist richtig?",
+            "options": ["Die beiden Stränge sind antiparallel und komplementär.", "Die DNA enthält Uracil.", "Die DNA ist ein Einzelstrang.", "Die Basen liegen außen, die Zucker innen."],
+            "correct": 0,
+            "explain": "Die DNA ist ein antiparalleles Doppelstrangmolekül mit komplementären Basen. Uracil kommt in der RNA vor."
+          },
+          {
+            "id": "c2",
+            "type": "input",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Welche Aminosäure codiert das Startcodon AUG?",
+            "accept": ["methionin", "met"],
+            "model": "Methionin",
+            "explain": "AUG codiert Methionin und dient zugleich als Startcodon der Translation."
+          },
+          {
+            "id": "c3",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Was passiert, wenn in einer Genwirkkette ein Enzym fehlt?",
+            "options": ["Die Kette kann an dieser Stelle stoppen und der Phänotyp ändert sich.", "Die DNA wird automatisch repariert.", "Alle folgenden Gene werden stärker aktiv.", "Die Meiose beginnt."],
+            "correct": 0,
+            "explain": "Fehlt ein Enzym, wird das Zwischenprodukt nicht umgesetzt. Der Phänotyp zeigt den blockierten Schritt."
+          },
+          {
+            "id": "c4",
+            "type": "mc",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Was ist ein epigenetischer Mechanismus?",
+            "options": ["DNA-Methylierung", "Basenaustausch", "Chromosomenverlust", "Befruchtung"],
+            "correct": 0,
+            "explain": "Methylierung verändert die Genaktivität, ohne die Basensequenz zu ändern. Sie ist epigenetisch."
+          },
+          {
+            "id": "c5",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Was ist bei der PCR der Schritt des Annealings?",
+            "options": ["Die Primer binden an die Zielsequenz.", "Die DNA-Stränge werden getrennt.", "Die Polymerase verlängert die Primer.", "Die Zellmembran wird zerstört."],
+            "correct": 0,
+            "explain": "Beim Annealing binden die Primer an die komplementäre Zielsequenz. Danach folgt die Extension."
+          },
+          {
+            "id": "c6",
+            "type": "mc",
+            "level": "g",
+            "competency": "S5",
+            "prompt": "Was ist das Ergebnis der Meiose?",
+            "options": ["Vier haploide Zellen", "Zwei diploide Zellen", "Eine Zelle mit doppelter Chromosomenzahl", "Vier identische diploide Zellen"],
+            "correct": 0,
+            "explain": "Die Meiose halbiert die Chromosomenzahl und erzeugt vier haploide Keimzellen."
+          },
+          {
+            "id": "c7",
+            "type": "mc",
+            "level": "g",
+            "competency": "S6",
+            "prompt": "Was ist CRISPR/Cas?",
+            "options": ["Ein molekulares Werkzeug zum gezielten Schneiden von DNA.", "Ein Protein, das DNA verdoppelt.", "Ein Chromosom.", "Ein Antibiotikum."],
+            "correct": 0,
+            "explain": "CRISPR/Cas ist ein gentechnisches System, das DNA an einer bestimmten Zielsequenz schneiden kann."
+          },
+          {
+            "id": "c8",
+            "type": "mc",
+            "level": "g",
+            "competency": "S7",
+            "prompt": "Zwei heterozygote Eltern (Aa x Aa) werden gekreuzt. Wie hoch ist die Wahrscheinlichkeit für ein Kind mit dem rezessiven Phänotyp?",
+            "options": ["25 %", "50 %", "75 %", "100 %"],
+            "correct": 0,
+            "explain": "Nur der Genotyp aa zeigt den rezessiven Phänotyp. Die Wahrscheinlichkeit ist 1 von 4, also 25 %."
+          },
+          {
+            "id": "c9",
+            "type": "mc",
+            "level": "g",
+            "competency": "S7",
+            "prompt": "Was zeigt ein Karyogramm?",
+            "options": ["Die Chromosomen eines Individuums, geordnet nach Paaren.", "Die Basensequenz eines Gens.", "Die Proteine einer Zelle.", "Die Enzymaktivität."],
+            "correct": 0,
+            "explain": "Ein Karyogramm ordnet die Chromosomen nach Größe und Form. Es zeigt Chromosomenzahl und grobe Struktur."
+          },
+          {
+            "id": "c10",
+            "type": "mc",
+            "level": "g",
+            "competency": "B1",
+            "prompt": "Welche Frage ist eine ethische Bewertungsfrage?",
+            "options": ["Sollte genetische Diagnostik allen zugänglich sein?", "Wie viele Chromosomen hat der Mensch?", "Welche Base paart mit Guanin?", "Wie verläuft die PCR?"],
+            "correct": 0,
+            "explain": "Die Frage nach dem Zugang ist normativ. Die anderen Fragen sind empirisch oder fachlich."
+          },
+          {
+            "id": "c11",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Welche Rolle hat die mRNA bei der Proteinbiosynthese?",
+            "options": ["Sie überträgt die Information von der DNA zum Ribosom.", "Sie speichert die Erbinformation dauerhaft.", "Sie bildet die Zellmembran.", "Sie verdoppelt die DNA."],
+            "correct": 0,
+            "explain": "Die mRNA ist der Bote zwischen DNA und Ribosom. Die DNA bleibt der Langzeitspeicher."
+          },
+          {
+            "id": "c12",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Welche Funktion können Proteine haben?",
+            "options": ["Enzyme, Struktur, Transport und Signalübertragung", "Nur Speicherung der Erbinformation", "Nur Bildung der Zellwand", "Nur Farbgebung"],
+            "correct": 0,
+            "explain": "Proteine sind vielseitig: Sie katalysieren Reaktionen, bilden Strukturen, transportieren Stoffe und übertragen Signale."
+          },
+          {
+            "id": "c13",
+            "type": "mc",
+            "level": "r",
+            "competency": "S1",
+            "prompt": "Warum erhöht alternatives Spleißen die Proteinvielfalt?",
+            "options": ["Weil aus einer prä-mRNA verschiedene Exon-Kombinationen entstehen können.", "Weil die DNA dabei verdoppelt wird.", "Weil alle Introns im Protein bleiben.", "Weil die Ribosomen größer werden."],
+            "correct": 0,
+            "explain": "Unterschiedliche Spleißmuster erzeugen verschiedene reife mRNAs und damit verschiedene Proteinvarianten."
+          },
+          {
+            "id": "c14",
+            "type": "mc",
+            "level": "r",
+            "competency": "S4",
+            "prompt": "Warum ist die DNA-Reparatur für die Zelle wichtig?",
+            "options": ["Sie entfernt Fehler, bevor sie zu Mutationen werden.", "Sie verdoppelt die Chromosomen.", "Sie verhindert die Transkription.", "Sie baut Proteine ab."],
+            "correct": 0,
+            "explain": "Reparaturenzyme erkennen und korrigieren DNA-Schäden. Ohne Reparatur würden Mutationen häufiger und könnten zu Krebs führen."
+          },
+          {
+            "id": "c15",
+            "type": "mc",
+            "level": "r",
+            "competency": "S6",
+            "prompt": "Welche Aussage über CRISPR/Cas ist richtig?",
+            "options": ["Es kann DNA gezielt schneiden, aber die Reparatur kann fehlerhaft sein.", "Es verändert nur RNA.", "Es ist ein natürliches Antibiotikum.", "Es verdoppelt die Chromosomenzahl."],
+            "correct": 0,
+            "explain": "CRISPR/Cas schneidet gezielt DNA. Die Zelle repariert den Schnitt; dabei können Fehler entstehen, die für den Knock-out genutzt werden."
+          },
+          {
+            "id": "c16",
+            "type": "mc",
+            "level": "r",
+            "competency": "B1",
+            "prompt": "Welche Abwägung gehört zu einer ethischen Bewertung der Gentherapie?",
+            "options": ["Chancen, Risiken, Autonomie und Gerechtigkeit gegeneinander abwägen.", "Nur die technische Machbarkeit prüfen.", "Nur die Kosten zählen.", "Die Meinung der Mehrheit ungeprüft übernehmen."],
+            "correct": 0,
+            "explain": "Eine ethische Bewertung betrachtet Chancen, Risiken, Selbstbestimmung und Gerechtigkeit. Technische Machbarkeit allein reicht nicht."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+<div class="note">
+<p class="note__title">Drucken</p>
+<p>Über „Drucken“ bekommst du Aufgaben und Lösungen auf Papier. Die Lösungen erscheinen nur im Druck.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">09</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in Genetik und Gentechnik immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>Allel</dt><dd>Eine Variante eines Gens an einem bestimmten Ort im Chromosom.</dd></div>
+<div class="glossary__row"><dt>Anticodon</dt><dd>Basentriplett der tRNA, das zum Codon der mRNA passt.</dd></div>
+<div class="glossary__row"><dt>Apoptose</dt><dd>Programmierter Zelltod, der beschädigte oder überflüssige Zellen entfernt.</dd></div>
+<div class="glossary__row"><dt>CRISPR/Cas</dt><dd>Molekulares System, das DNA gezielt schneiden kann.</dd></div>
+<div class="glossary__row"><dt>Crossing-over</dt><dd>Austausch von Abschnitten zwischen homologen Chromosomen.</dd></div>
+<div class="glossary__row"><dt>Epigenetik</dt><dd>Veränderungen der Genaktivität ohne Änderung der Basensequenz.</dd></div>
+<div class="glossary__row"><dt>Genomutation</dt><dd>Veränderung der Chromosomenzahl oder Chromosomenstruktur.</dd></div>
+<div class="glossary__row"><dt>Genmutation</dt><dd>Veränderung der Basensequenz eines Gens.</dd></div>
+<div class="glossary__row"><dt>Genotyp</dt><dd>Die Kombination der Allele eines Organismus.</dd></div>
+<div class="glossary__row"><dt>Genwirkkette</dt><dd>Zusammenwirken mehrerer Gene über ihre Proteinprodukte bei der Merkmalsausbildung.</dd></div>
+<div class="glossary__row"><dt>Karyogramm</dt><dd>Geordnete Darstellung der Chromosomen eines Individuums.</dd></div>
+<div class="glossary__row"><dt>Kodominanz</dt><dd>Beide Allele werden im Phänotyp sichtbar.</dd></div>
+<div class="glossary__row"><dt>Kopplung</dt><dd>Gene liegen auf demselben Chromosom und werden häufig gemeinsam vererbt.</dd></div>
+<div class="glossary__row"><dt>Meiose</dt><dd>Zwei aufeinanderfolgende Teilungen, die haploide Keimzellen erzeugen.</dd></div>
+<div class="glossary__row"><dt>Mitose</dt><dd>Kernteilung, die die Chromosomenzahl erhält.</dd></div>
+<div class="glossary__row"><dt>Non-Disjunction</dt><dd>Fehlerhafte Trennung von Chromosomen in der Meiose.</dd></div>
+<div class="glossary__row"><dt>PCR</dt><dd>Polymerase-Kettenreaktion, die eine Zielsequenz im Labor vervielfältigt.</dd></div>
+<div class="glossary__row"><dt>Phänotyp</dt><dd>Das sichtbare Merkmal eines Organismus.</dd></div>
+<div class="glossary__row"><dt>Pleiotropie</dt><dd>Ein Gen beeinflusst mehrere Merkmale.</dd></div>
+<div class="glossary__row"><dt>Promotor</dt><dd>DNA-Abschnitt, an dem die Transkription beginnt.</dd></div>
+<div class="glossary__row"><dt>Replikation</dt><dd>Verdopplung der DNA vor der Zellteilung.</dd></div>
+<div class="glossary__row"><dt>Transkription</dt><dd>Umschreiben eines DNA-Abschnitts in mRNA.</dd></div>
+<div class="glossary__row"><dt>Translation</dt><dd>Übersetzung der mRNA in eine Aminosäuresequenz am Ribosom.</dd></div>
+<div class="glossary__row"><dt>Trisomie</dt><dd>Drei Kopien eines Chromosoms statt zwei, zum Beispiel Trisomie 21.</dd></div>
+<div class="glossary__row"><dt>unvollständige Dominanz</dt><dd>Der heterozygote Phänotyp liegt zwischen den beiden homozygoten Phänotypen.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Fachbegriffe sind Werkzeuge. Wenn du einen Begriff verwendest, musst du ihn erklären können.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 12</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/grundlegend" target="_blank" rel="noopener" class="g-only">LehrplanPLUS Biologie 12, grundlegend</a>
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/erhoeht" target="_blank" rel="noopener" class="r-only">LehrplanPLUS Biologie 12, erhöht</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js?v=2026-11-04"></script>
+<script src="./assets/three-scenes.js"></script>
+<script src="lab.js?v=2026-11-04b"></script>
+
+</body>
+</html>

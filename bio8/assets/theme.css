@@ -1,0 +1,66 @@
+/* Hallmark · Hedgerow overrides for the Biologie 8 app shell.
+ * The shell keeps the field-guide material: leaf-green ground, cream ink, one chartreuse signal.
+ * The reading sheet sits one step darker than the shell; the tool wells sit one step lighter. */
+:root {
+  --color-overlay: color-mix(in oklab, var(--color-paper-2) 84%, transparent);
+  --color-cream: oklch(93% 0.022 88);
+}
+
+body { background: var(--color-paper); color: var(--color-ink); }
+.main { background: var(--color-sheet); border-top: var(--rule-bar, 2px) solid var(--color-ink); }
+.tool { background: var(--color-paper-3); }
+.tool__stage { background: var(--color-sheet); border-color: var(--color-rule); }
+.opt { background: var(--color-paper-3); }
+.opt:hover { background: var(--color-paper-2); }
+.opt:has(input:checked) { background: var(--color-paper-2); }
+.input, .select { background: var(--color-paper-3); }
+.area > a:hover { background: var(--color-paper-3); }
+.station-nav a.is-active { background: var(--color-paper-2); }
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+.btn--small { font-size: var(--text-xs); }
+.tool__title { font-size: var(--text-xl); }
+.station__head h1,
+.station__head h2 { line-height: 1.08; }
+.station__head .lead { color: var(--color-ink-2); }
+
+.q__num,
+.score,
+.check__table td.num,
+.progress__line strong,
+.issue__num,
+.matrix-row output {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cnum,
+.area__num,
+.how-list li::before {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+
+/* The cream band is the theme's one dense surface; use it only where a page asks for it. */
+.band--cream {
+  background: var(--color-cream);
+  color: var(--color-paper);
+  --color-ink: var(--color-paper);
+  --color-ink-2: color-mix(in oklab, var(--color-paper) 82%, var(--color-ink));
+  --color-muted: color-mix(in oklab, var(--color-paper) 64%, var(--color-ink));
+  --color-rule: color-mix(in oklab, var(--color-paper) 22%, var(--color-ink));
+  --color-rule-2: color-mix(in oklab, var(--color-paper) 44%, var(--color-ink));
+  --color-focus: var(--color-accent-deep);
+}
+.band--cream .btn { border-color: var(--color-paper); color: var(--color-paper); }
+.band--cream .btn--primary { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
+.band--cream .quiet-link { color: var(--color-paper); }
+.band--cream .station__num,
+.band--cream .cnum { color: var(--color-paper); }
+.reset-dialog__panel { color: var(--color-ink); }

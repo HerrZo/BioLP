@@ -1,0 +1,1300 @@
+<!doctype html>
+<html lang="de" data-grade="12" data-level="g">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Evolution | Biologie 12</title>
+<meta name="description" content="Interaktive Lernwebsite Evolution für Biologie 12: Stammbäume, Darwin und Lamarck, synthetische Evolutionstheorie, Selektion, Artbildung und Koevolution.">
+<style>
+/* Hallmark · shape: app screen · genre: editorial · theme: Almanac (deal 2/3, seed interaktive-lernwebsite-biologie-genetik-96db·fb785218·2026-11-03·r0) · job: learn · scope: app
+ * nav: masthead + station sidebar · footer: colophon · signature: die Selektionssimulation und der Stammbaum · states: default, hover, focus, active, disabled, loading, empty, error
+ * axes: mid/grotesk-sans/chromatic-magenta · posture: restrained · contrast: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4 · weakest: E, the 3D stage needs a still fallback and a pause; the fallback SVG is in the markup and the scenes run only on request */
+/* Hallmark · answered F4 · the G/R segmented control is a state selector, not a primary action; one filled action per screen */
+/* Hallmark · answered F6 · the heading face has no tabular figures; every number uses IBM Plex Mono */
+@import url("./assets/fonts.css");
+@import url("./assets/tokens.css");
+@import url("./assets/base.css");
+@import url("./assets/app.css");
+@import url("lab.css?v=2026-11-04b");
+.compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); margin-top: var(--space-md); }
+.compare-col { border-top: var(--rule-bar) solid var(--color-rule-2); padding-top: var(--space-sm); }
+.compare-col h3 { margin: 0 0 var(--space-xs); font-size: var(--text-lg); }
+.compare-col p, .compare-col li { font-size: var(--text-sm); }
+.statement { border-top: var(--rule-hair) solid var(--color-rule); padding: var(--space-sm) 0; }
+.statement p { margin: 0 0 var(--space-xs); font: 400 var(--text-md)/1.45 var(--font-body); }
+.statement .row { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.island { display: grid; grid-template-columns: minmax(0, 1fr) 3rem minmax(0, 1fr); gap: var(--space-sm); margin-top: var(--space-md); align-items: stretch; }
+.island__box { border: var(--rule-hair) solid var(--color-rule); background: var(--color-sheet); padding: var(--space-sm); min-height: 120px; }
+.island__barrier { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: var(--space-xs); }
+.island__barrier::before { content: ""; flex: 1; width: 2px; background: var(--color-rule); }
+.island__barrier span { font: 500 var(--text-xs)/1.2 var(--font-body); color: var(--color-muted); text-align: center; }
+.island__block { display: none; }
+.island.is-barrier .island__barrier::before { width: 4px; background: var(--color-accent); }
+.island.is-barrier .island__flow { display: none; }
+.island.is-barrier .island__block { display: block; color: var(--color-accent); }
+.island__dots { display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: var(--space-xs); }
+.dot { width: 10px; height: 10px; background: var(--color-accent); }
+.dot.alt { background: var(--color-ink); }
+.timeline { display: grid; gap: var(--space-sm); margin-top: var(--space-md); }
+.timeline__bar { height: 4px; background: var(--color-rule); position: relative; }
+.timeline__bar i { position: absolute; left: var(--x, 0); top: -4px; width: 12px; height: 12px; background: var(--color-accent); transform: translateX(-50%); }
+.timeline__labels { display: flex; justify-content: space-between; font: 400 var(--text-xs)/1.3 var(--font-body); color: var(--color-muted); }
+.histogram { position: relative; }
+.histogram__optimum { position: absolute; top: -4px; bottom: 0; width: 2px; background: var(--color-ink); transform: translateX(-50%); pointer-events: none; }
+.histogram__axis { display: flex; justify-content: space-between; gap: var(--space-sm); margin-top: var(--space-2xs); font: 400 var(--text-xs)/1.3 var(--font-body); color: var(--color-muted); }
+.coevolution-visual svg { width: 100%; height: auto; display: block; }
+.coevolution-visual text { font-family: var(--font-body); fill: var(--color-ink); }
+.coevolution-visual .cv-title { font-size: 14px; font-weight: 500; }
+.coevolution-visual .cv-label { font-size: 13px; }
+.coevolution-visual .cv-small { font-size: 11px; fill: var(--color-muted); }
+.coevolution-visual .cv-a { stroke: var(--color-accent); }
+.coevolution-visual .cv-b { stroke: var(--color-ink); }
+.coevolution-visual .cv-arrow { fill: var(--color-accent); }
+.coevolution-visual .cv-arrow-b { fill: var(--color-ink); }
+.hominin-figure { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: var(--space-md); align-items: center; }
+.hominin-chart, .hominin-skull { width: 100%; height: auto; display: block; }
+.hominin-chart text { font-family: var(--font-body); font-size: 13px; fill: var(--color-muted); }
+.hominin-chart .axis { stroke: var(--color-rule-2); stroke-width: 1; }
+.hominin-chart .gridline { stroke: var(--color-rule); stroke-width: 1; }
+.hominin-chart .series { fill: none; stroke: var(--color-accent); stroke-width: 2; }
+.hominin-chart .series-point { fill: var(--color-accent); stroke: var(--color-sheet); stroke-width: 2; }
+.hominin-chart .timeline-drop { stroke: var(--color-rule-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.cladogram svg { width: 100%; height: auto; display: block; }
+.cladogram text { font-family: var(--font-body); font-size: 13px; fill: var(--color-ink); }
+.cladogram .branch { fill: none; stroke: var(--color-rule-2); stroke-width: 2; }
+.cladogram .branch.is-active { stroke: var(--color-accent); stroke-width: 3; }
+.cladogram .trait { fill: var(--color-paper-2); stroke: var(--color-ink); stroke-width: 1.5; cursor: pointer; }
+.cladogram .trait.is-active { fill: var(--color-accent); stroke: var(--color-accent); }
+.cladogram .trait-label { font-size: 12px; fill: var(--color-muted); }
+.tool[data-tool="homology"] .tool__stage { min-height: 150px; }
+.theory-visual svg { width: 100%; height: auto; display: block; }
+.theory-visual text { font-family: var(--font-body); fill: var(--color-ink); }
+.theory-visual .tv-title { font-size: 14px; font-weight: 500; }
+.theory-visual .tv-step { font-size: 12px; }
+.theory-visual .tv-panel { fill: var(--color-sheet); stroke: var(--color-rule); stroke-width: 1; }
+.theory-visual .tv-panel.is-active { fill: var(--color-paper-2); stroke: var(--color-accent); stroke-width: 2; }
+.theory-visual .tv-arrow { stroke: var(--color-rule-2); stroke-width: 2; fill: none; }
+@media (max-width: 60rem) { .hominin-figure { grid-template-columns: minmax(0, 1fr); } .hominin-skull { max-width: 120px; } }
+@media (max-width: 60rem) { .compare-grid { grid-template-columns: minmax(0, 1fr); } }
+
+</style>
+<script>
+  (function () {
+    try {
+      var level = localStorage.getItem("bio12-level");
+      if (level === "r" || level === "g") document.documentElement.dataset.level = level;
+    } catch (error) {}
+    document.documentElement.classList.add("js");
+  })();
+</script>
+</head>
+<body data-page="12-3" data-grade="12">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="brand" href="index.html" aria-label="Zur Übersicht Biologie 12">
+      <span class="brand__name">Biologie 12</span>
+      <span class="brand__tag">Gymnasium</span>
+    </a>
+    <p class="issue"><span class="issue__num">03</span> Evolution</p>
+    <div class="masthead__actions">
+      <span class="progress-inline" data-progress-inline aria-live="polite">0 von 6</span>
+      <div class="level-toggle" role="group" aria-label="Anforderungsniveau">
+        <button type="button" data-level-set="g" aria-pressed="true" aria-label="Grundlegendes Anforderungsniveau">G</button>
+        <button type="button" data-level-set="r" aria-pressed="false" aria-label="Erhöhtes Anforderungsniveau">R</button>
+      </div>
+      <a class="quiet-link masthead__overview" href="index.html">Übersicht</a>
+      <button class="menu-btn btn btn--quiet btn--small" type="button" data-menu aria-expanded="false" aria-controls="sidebar">Stationen</button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Stationen">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Evolution</h2>
+      <p class="sidebar__deck">Evolutionsforschung, synthetische Theorie, Selektion, Isolation und Koevolution.</p>
+      <div class="progress" data-progress>
+        <div class="progress__line"><span>Dein Lernstand</span><strong data-progress-text>0 / 6</strong></div>
+        <div class="progress__track" aria-hidden="true"><i data-progress-bar style="--p:0"></i></div>
+      </div>
+    </div>
+    <nav class="station-nav" aria-label="Stationen dieser Seite">
+      <a href="#start" data-station-link="start"><span class="station-nav__num">00</span><span>Überblick</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#forschung" data-station-link="forschung"><span class="station-nav__num">01</span><span>Evolutionsforschung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#darwin" data-station-link="darwin"><span class="station-nav__num">02</span><span>Darwin und Lamarck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#synthese" data-station-link="synthese"><span class="station-nav__num">03</span><span>Synthetische Theorie</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#artbildung" data-station-link="artbildung"><span class="station-nav__num">04</span><span>Artbildung</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#koevolution" data-station-link="koevolution"><span class="station-nav__num">05</span><span>Koevolution</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#mensch" data-station-link="mensch"><span class="station-nav__num">06</span><span>Humanevolution</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#check" data-station-link="check"><span class="station-nav__num">07</span><span>Kompetenzcheck</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+      <a href="#glossar" data-station-link="glossar"><span class="station-nav__num">08</span><span>Glossar</span><span class="station-nav__check" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span></a>
+    </nav>
+    <div class="sidebar__foot">
+      <a href="index.html">Alle Lernbereiche</a>
+      <button class="quiet-link" type="button" data-reset-open>Lernstand zurücksetzen</button>
+      <button class="quiet-link" type="button" data-print>Seite drucken</button>
+      <p>LehrplanPLUS<br>Biologie 12</p>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="station is-active" data-nav="Überblick" data-station="start" data-title="Überblick" id="start">
+<header class="station__head">
+<h1 id="start-title">Evolution: Von der Variante zur Art.</h1>
+<p class="lead">Wie aus Unterschieden Angepasstheit wird, warum Arten entstehen und wie Forschende die Geschichte des Lebens rekonstruieren.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<a class="btn" data-go="forschung" href="#forschung">Erste Station öffnen</a>
+<h2 style="font-size: var(--text-xl); margin: var(--space-xl) 0 var(--space-sm);">Das nimmst du mit</h2>
+<ol class="competencies">
+<li><span class="cnum">S1</span><span>Du erklärst Belege der Evolution und liest Stammbäume und Kladogramme.</span></li>
+<li><span class="cnum">S2</span><span>Du vergleichst die Erklärungsansätze von Darwin und Lamarck und grenzt wissenschaftliche von nicht wissenschaftlichen Erklärungen ab.</span></li>
+<li><span class="cnum">S3</span><span>Du wendest die synthetische Evolutionstheorie auf Populationen an.</span></li>
+<li><span class="cnum">S4</span><span>Du erklärst Artbildung durch Isolation und reproduktive Barrieren.</span></li>
+<li><span class="cnum">S5</span><span>Du erläuterst Koevolution als wechselseitige Angepasstheit.</span></li>
+<li><span class="cnum">S6</span><span>Du ordnest den modernen Menschen in die Evolution der Primaten ein und bewertest kulturelle Evolution.</span></li>
+<li><span class="cnum">B1</span><span>Du beurteilst die Aussagekraft von Evidenz und die Grenzen von Modellen.</span></li>
+</ol>
+<p><small>Die Liste fasst die Kompetenzerwartungen von Lernbereich 3 des LehrplanPLUS Biologie 12 zusammen.</small></p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">So arbeitest du</p>
+<ol>
+<li>Lies die Station und probiere das Modell aus.</li>
+<li>Beantworte den Prüfpunkt.</li>
+<li>Arbeite am Ende den Kompetenzcheck durch.</li>
+</ol>
+</div>
+<div class="note">
+<p class="note__title">Leitfrage</p>
+<p>Warum ist eine Population keine Ansammlung identischer Kopien, und warum ist genau das für die Evolution entscheidend?</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="forschung" data-title="Evolutionsforschung" data-track="true" id="forschung">
+<header class="station__head">
+<h2 id="forschung-title"><span class="station__num">01</span> Belege und Stammbäume</h2>
+<p class="lead">Evolution ist rekonstruierbare Geschichte. Fossilien, Homologien und Moleküle liefern unabhängige Belege.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Fossilien zeigen, dass Arten sich über lange Zeiträume verändert haben. Homologe Organe haben einen gemeinsamen Grundbau, auch wenn sie unterschiedliche Funktionen erfüllen, etwa der Arm des Menschen und die Flosse eines Wals. Analoge Organe erfüllen dieselbe Funktion, haben aber keine gemeinsame Abstammung, etwa der Flügel eines Vogels und der Flügel eines Insekts. Molekulare Homologien, also ähnliche DNA- oder Proteinsequenzen, sind ein unabhängiger Beleg für Verwandtschaft.</p>
+<p>Ein Stammbaum stellt Verwandtschaftsverhältnisse dar. Ein Kladogramm ordnet Taxa nach ursprünglichen und abgeleiteten Merkmalen. Ein Merkmal, das nur bei einer Gruppe vorkommt und auf einen gemeinsamen Vorfahren zurückgeht, ist ein abgeleitetes Merkmal. Der morphologische Artbegriff gruppiert Lebewesen nach Merkmalen; der biologische Artbegriff definiert Arten über die Fortpflanzungsgemeinschaft. Beide haben Grenzen.</p>
+<figure class="tool" data-tool="homology">
+<div class="tool__head">
+<p class="tool__title">Homolog oder analog?</p>
+<p class="tool__hint">Ordne die Beispiele zu. Das Werkzeug erklärt, woran du den Unterschied erkennst.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="statement" data-homology-card="">
+<p data-homology-text="">Wähle ein Beispiel.</p>
+<div class="row">
+<button class="btn btn--quiet btn--small" data-homology-answer="homolog" type="button" data-tip="Homolog: gemeinsamer Grundbau und gemeinsame Abstammung, auch wenn die Funktion unterschiedlich ist.">homolog</button>
+<button class="btn btn--quiet btn--small" data-homology-answer="analog" type="button" data-tip="Analog: gleiche Funktion, aber keine gemeinsame Abstammung. Beispiel: Vogelflügel und Insektenflügel.">analog</button>
+</div>
+</div>
+<div aria-live="polite" class="matrix-result" data-homology-readout=""></div>
+</div>
+<figcaption class="tool__caption">Homologie verweist auf gemeinsame Abstammung, Analogie auf gleiche Funktion bei unterschiedlicher Herkunft. Die Unterscheidung ist nicht immer einfach.</figcaption>
+</figure>
+<figure class="tool" data-tool="cladogram">
+<div class="tool__head">
+<p class="tool__title">Kladogramm der Wirbeltiere</p>
+<p class="tool__hint">Wähle ein abgeleitetes Merkmal. Das Werkzeug zeigt, welche Gruppen es teilen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="cladogram" data-cladogram=""></div>
+<div aria-live="polite" class="matrix-result" data-cladogram-readout=""></div>
+</div>
+<figcaption class="tool__caption">Ein Kladogramm ordnet Taxa nach gemeinsamen abgeleiteten Merkmalen. Die Position eines Merkmals zeigt, wann es in der Stammesgeschichte entstanden ist.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Warum Stammbäume Hypothesen sind</summary>
+<p>Ein Stammbaum ist kein Foto der Vergangenheit. Er ist eine Hypothese über Verwandtschaft, die auf Merkmalen oder Sequenzen beruht. Neue Daten können einen Baum verändern. Ein Kladogramm zeigt nur die Reihenfolge der Verzweigungen, nicht die absoluten Zeitpunkte. Für Zeitangaben braucht man Fossilien oder molekulare Uhren, und auch die sind mit Unsicherheit behaftet.</p>
+</details>
+<section aria-labelledby="forschung-check" class="checkpoint">
+<h3 id="forschung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="forschung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="forschung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "f1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Was ist ein homologes Organ?",
+              "options": [
+                "Ein Organ mit gemeinsamem Grundbau und gemeinsamer Abstammung.",
+                "Ein Organ mit gleicher Funktion, aber ohne gemeinsame Abstammung.",
+                "Ein Organ, das nur bei Fossilien vorkommt.",
+                "Ein Organ, das nicht vererbt wird."
+              ],
+              "correct": 0,
+              "explain": "Homologe Organe haben einen gemeinsamen Grundbau, auch wenn ihre Funktion unterschiedlich ist. Analoge Organe haben dieselbe Funktion, aber keine gemeinsame Abstammung."
+            },
+            {
+              "id": "f2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Was zeigt ein Kladogramm?",
+              "options": [
+                "Die Reihenfolge der Verzweigungen aufgrund abgeleiteter Merkmale.",
+                "Die absolute Lebensdauer jeder Art.",
+                "Die Anzahl der Individuen in einer Population.",
+                "Die Basensequenz eines Gens."
+              ],
+              "correct": 0,
+              "explain": "Ein Kladogramm ordnet Taxa nach gemeinsamen abgeleiteten Merkmalen. Es zeigt Verwandtschaft, nicht absolute Zeitpunkte."
+            },
+            {
+              "id": "f3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S1",
+              "prompt": "Warum sind molekulare Homologien ein starker Beleg für Evolution?",
+              "options": [
+                "Weil ähnliche Sequenzen auf gemeinsame Abstammung hinweisen und unabhängig von Körpermerkmalen sind.",
+                "Weil sie immer exakt gleich sind.",
+                "Weil sie nur bei Fossilien vorkommen.",
+                "Weil sie keine Mutationen enthalten."
+              ],
+              "correct": 0,
+              "explain": "Ähnliche DNA- oder Proteinsequenzen sind ein unabhängiger Datensatz. Sie stützen Verwandtschaftshypothesen, die aus Körpermerkmalen abgeleitet wurden."
+            },
+            {
+              "id": "f4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S1",
+              "prompt": "Warum ist der biologische Artbegriff bei asexuellen Organismen schwierig?",
+              "options": [
+                "Weil sie sich nicht über Fortpflanzungsgemeinschaften abgrenzen lassen.",
+                "Weil sie keine DNA haben.",
+                "Weil sie immer nur eine Generation leben.",
+                "Weil sie keine Mutationen haben."
+              ],
+              "correct": 0,
+              "explain": "Der biologische Artbegriff setzt sexuelle Fortpflanzung und Fortpflanzungsgemeinschaften voraus. Bei asexuellen Organismen greift er nicht."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="forschung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="darwin" href="#darwin">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Homologie heißt gemeinsame Herkunft, Analogie heißt gleiche Funktion. Ein Stammbaum ist eine Hypothese.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>homolog</dt><dd>gemeinsamer Grundbau, gemeinsame Abstammung.</dd>
+<dt>analog</dt><dd>gleiche Funktion, unterschiedliche Herkunft.</dd>
+<dt>abgeleitetes Merkmal</dt><dd>neu entstandenes Merkmal einer Gruppe.</dd>
+<dt>Kladogramm</dt><dd>Verzweigungsdiagramm nach Merkmalen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Ähnlichkeit mit Verwandtschaft gleichsetzen. Zwei Organe können ähnlich aussehen, ohne homolog zu sein.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="darwin" data-title="Darwin und Lamarck" data-track="true" id="darwin">
+<header class="station__head">
+<h2 id="darwin-title"><span class="station__num">02</span> Zwei Erklärungen, ein Vergleich</h2>
+<p class="lead">Lamarck und Darwin erkannten beide, dass sich Arten verändern. Sie erklärten den Mechanismus unterschiedlich.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Lamarck ging davon aus, dass Organe durch Gebrauch stärker und durch Nichtgebrauch schwächer werden. Diese erworbenen Veränderungen sollten vererbt werden. Darwin stellte Variation, Vererbung, Überproduktion von Nachkommen und natürliche Selektion in den Mittelpunkt. Nicht der Gebrauch verändert das Erbgut, sondern die unterschiedlichen Fortpflanzungschancen der Varianten.</p>
+<p>Die moderne Genetik stützt Darwin und widerlegt die Vererbung erworbener Merkmale im Lamarckschen Sinn. Das heißt nicht, dass Lamarck in allem falsch lag: Er erkannte die Veränderlichkeit der Arten und den Zusammenhang von Organismus und Umwelt. Seine Erklärung des Mechanismus war jedoch nicht mit den späteren Erkenntnissen der Genetik vereinbar.</p>
+<figure class="tool" data-tool="theory">
+<div class="tool__head">
+<p class="tool__title">Theorien zuordnen</p>
+<p class="tool__hint">Lies die Aussage und entscheide, ob sie eher zu Lamarck oder zu Darwin passt.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="theory-visual" data-theory-visual="">
+<svg aria-label="Vergleich der Erklärungsansätze von Lamarck und Darwin" role="img" viewbox="0 0 640 260">
+<rect class="tv-panel" data-theory-panel="lamarck" height="220" width="290" x="20" y="20"></rect>
+<rect class="tv-panel" data-theory-panel="darwin" height="220" width="290" x="330" y="20"></rect>
+<text class="tv-title" text-anchor="middle" x="165" y="48">Lamarck</text>
+<text class="tv-title" text-anchor="middle" x="475" y="48">Darwin</text>
+<text class="tv-step" x="60" y="85">Umwelt und Gebrauch</text>
+<text class="tv-step" x="60" y="135">erworbene Eigenschaft</text>
+<text class="tv-step" x="60" y="185">wird vererbt</text>
+<text class="tv-step" x="370" y="85">Variation in der Population</text>
+<text class="tv-step" x="370" y="135">unterschiedlicher Fortpflanzungserfolg</text>
+<text class="tv-step" x="370" y="185">Selektion</text>
+<path class="tv-arrow" d="M165 95 V120"></path>
+<path class="tv-arrow" d="M165 145 V170"></path>
+<path class="tv-arrow" d="M475 95 V120"></path>
+<path class="tv-arrow" d="M475 145 V170"></path>
+</svg>
+</div>
+<div class="statement">
+<p data-theory-text="">Wähle eine Aussage.</p>
+<div class="row">
+<button class="btn btn--quiet btn--small" data-theory-answer="lamarck" type="button" data-tip="Lamarck: Gebrauch und Nichtgebrauch verändern Organe; erworbene Eigenschaften werden vererbt.">Lamarck</button>
+<button class="btn btn--quiet btn--small" data-theory-answer="darwin" type="button" data-tip="Darwin: Variation in der Population und unterschiedlicher Fortpflanzungserfolg führen zur Selektion.">Darwin</button>
+</div>
+</div>
+<div aria-live="polite" class="matrix-result" data-theory-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Zuordnung ist eine Vereinfachung. Wichtig ist, den Mechanismus zu erkennen, nicht eine Person zu bewerten.</figcaption>
+</figure>
+<div class="compare-grid">
+<div class="compare-col">
+<h3>Lamarck</h3>
+<ul>
+<li>Gebrauch stärkt Organe, Nichtgebrauch schwächt sie.</li>
+<li>Erworbene Veränderungen werden vererbt.</li>
+<li>Die Veränderung ist gerichtet auf die Umwelt.</li>
+</ul>
+</div>
+<div class="compare-col">
+<h3>Darwin</h3>
+<ul>
+<li>Individuen einer Population variieren.</li>
+<li>Variationen sind teilweise vererbbar.</li>
+<li>Mehr Nachkommen als überleben können.</li>
+<li>Natürliche Selektion begünstigt passende Varianten.</li>
+</ul>
+</div>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Was „survival of the fittest“ bedeutet</summary>
+<p>Fitness ist kein Maß für körperliche Stärke. Sie beschreibt den relativen Beitrag eines Individuums zum Genpool der nächsten Generation. Ein Organismus kann sehr stark sein und trotzdem keine Nachkommen haben. Ein anderer kann klein und unscheinbar sein und viele Nachkommen produzieren. Fitness ist immer auf eine konkrete Umwelt bezogen.</p>
+</details>
+<section aria-labelledby="darwin-check" class="checkpoint">
+<h3 id="darwin-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="darwin">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="darwin" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "da1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Was ist der zentrale Unterschied zwischen Lamarck und Darwin?",
+              "options": [
+                "Lamarck erklärt Veränderung durch Gebrauch und Vererbung erworbener Merkmale, Darwin durch Variation und Selektion.",
+                "Lamarck glaubt nicht an Veränderung, Darwin schon.",
+                "Darwin erklärt Veränderung durch Gebrauch, Lamarck durch Selektion.",
+                "Beide erklären Veränderung ausschließlich durch Mutationen."
+              ],
+              "correct": 0,
+              "explain": "Lamarck setzt auf Gebrauch und Vererbung erworbener Eigenschaften. Darwin setzt auf Variation und unterschiedliche Fortpflanzungschancen."
+            },
+            {
+              "id": "da2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S2",
+              "prompt": "Warum ist die Vererbung erworbener Merkmale im Lamarckschen Sinn heute abgelehnt?",
+              "options": [
+                "Weil die Genetik zeigt, dass Erbgut nicht durch Gebrauch eines Organs gezielt verändert wird.",
+                "Weil Lamarck keine Beobachtungen gemacht hat.",
+                "Weil Arten sich nicht verändern.",
+                "Weil Darwin keine Bücher geschrieben hat."
+              ],
+              "correct": 0,
+              "explain": "Erworbene körperliche Veränderungen werden nicht gezielt an die Nachkommen weitergegeben. Die Erbinformation liegt in den Keimzellen."
+            },
+            {
+              "id": "da3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S2",
+              "prompt": "Welche Aussage ist keine wissenschaftliche Erklärung der Evolution?",
+              "options": [
+                "Die Arten haben sich entwickelt, damit die Welt harmonisch ist.",
+                "Mutation und Rekombination erzeugen Variation.",
+                "Natürliche Selektion verändert Allelfrequenzen.",
+                "Geographische Isolation kann Artbildung fördern."
+              ],
+              "correct": 0,
+              "explain": "Eine finale Zweckbegründung („damit“) ist keine prüfbare mechanistische Erklärung. Die anderen Aussagen sind prüfbar."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="darwin" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="synthese" href="#synthese">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Nicht der Gebrauch verändert das Erbgut, sondern die unterschiedlichen Fortpflanzungschancen der Varianten.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Variation</dt><dd>Unterschiede zwischen Individuen.</dd>
+<dt>Selektion</dt><dd>unterschiedlicher Fortpflanzungserfolg.</dd>
+<dt>Fitness</dt><dd>relativer Beitrag zum Genpool der nächsten Generation.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>„Survival of the fittest“ als „der Stärkste überlebt“ lesen. Fitness heißt Fortpflanzungserfolg, nicht Muskelkraft.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="synthese" data-title="Synthetische Theorie" data-track="true" id="synthese">
+<header class="station__head">
+<h2 id="synthese-title"><span class="station__num">03</span> Die synthetische Evolutionstheorie</h2>
+<p class="lead">Evolution ist eine Veränderung von Allelfrequenzen in Populationen. Mutation, Rekombination, Selektion, Drift und Genfluss wirken zusammen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die synthetische Evolutionstheorie verbindet Darwin mit der Genetik. Mutation und Rekombination erzeugen Variation. Natürliche Selektion verändert die Häufigkeit von Allelen, weil Individuen mit vorteilhaften Merkmalen mehr Nachkommen haben. Genetische Drift ist die zufällige Veränderung von Allelfrequenzen, besonders in kleinen Populationen. Genfluss entsteht durch Migration zwischen Populationen.</p>
+<p>Selektion kann stabilisierend wirken, wenn extreme Varianten benachteiligt werden, gerichtet, wenn ein Extrem bevorzugt wird, oder disruptiv, wenn beide Extreme begünstigt werden und die Mitte benachteiligt wird. Fitness ist immer relativ zur Umwelt. Ein Merkmal, das in einer Umwelt vorteilhaft ist, kann in einer anderen nachteilig sein.</p>
+<figure class="tool" data-tool="selection-lab">
+<div class="tool__head">
+<p class="tool__title">Selektionssimulation</p>
+<p class="tool__hint">Wähle die Selektionsform, verändere Optimum und Druck. Fahre über einen Punkt, um Merkmalswert und Fitness zu lesen.</p>
+</div>
+<div class="tool__controls">
+<label>Selektionsform
+<select class="select" data-selection-mode="" data-tip="Gerichtet: ein Extrem wird bevorzugt. Stabilisierend: die Mitte ist im Vorteil. Disruptiv: beide Extreme sind im Vorteil, die Mitte ist benachteiligt.">
+<option selected="" value="directional">gerichtet</option>
+<option value="stabilizing">stabilisierend</option>
+<option value="disruptive">disruptiv</option>
+</select>
+</label>
+<label>Optimum <input data-selection-optimum="" max="100" min="0" type="range" value="70" data-tip="Nur bei gerichteter Selektion: Der Wert, an dem die Fitness am höchsten ist. 0,70 bedeutet einen hohen Merkmalswert."/></label>
+<label>Selektionsdruck <input data-selection-pressure="" max="100" min="0" type="range" value="60" data-tip="Je höher der Druck, desto schmaler der Fitnessgipfel. Kleine Unterschiede im Merkmal haben dann größere Folgen für den Fortpflanzungserfolg."/></label>
+</div>
+<div class="tool__stage tool__stage--3d lab-stage" data-lab-scene="selection" id="selection-scene" tabindex="0" aria-label="Interaktives 3D-Modell einer Population. Die x-Achse zeigt den Merkmalswert, die Farbe die Fitness, das Histogramm darunter die Verteilung.">
+<div class="tool__fallback">
+<svg aria-label="Punktewolke einer Population und Histogramm der Merkmalsverteilung" role="img" viewBox="0 0 640 320">
+<rect fill="var(--color-paper-2)" height="220" stroke="var(--color-rule-2)" width="560" x="40" y="40"></rect>
+<g fill="var(--color-accent)">
+<circle cx="120" cy="120" r="4"></circle><circle cx="180" cy="160" r="4"></circle><circle cx="240" cy="110" r="4"></circle><circle cx="300" cy="180" r="4"></circle><circle cx="360" cy="140" r="4"></circle><circle cx="420" cy="100" r="4"></circle><circle cx="480" cy="170" r="4"></circle><circle cx="540" cy="130" r="4"></circle>
+</g>
+<text fill="var(--color-muted)" font-family="var(--font-body)" font-size="14" text-anchor="middle" x="320" y="295">Merkmalsverteilung einer Population</text>
+</svg>
+</div>
+<div class="lab-stage__hint">Ziehen: drehen · Scrollen: zoomen · Fahre über einen Punkt für Fitness</div>
+<div class="lab-tip lab-tip--stage" data-lab-tip aria-hidden="true"><p class="lab-tip__title"></p><p class="lab-tip__body"></p><p class="lab-tip__meta"></p></div>
+</div>
+<div class="histogram" data-selection-histogram=""></div>
+<div class="histogram__axis"><span>0</span><span>Merkmalswert, Balken: Häufigkeit</span><span>1</span></div>
+<div class="lab-hud">
+<div class="lab-hud__group">
+<button class="btn btn--quiet btn--small" data-lab-play data-lab-play-label="Lauf starten" data-lab-pause-label="Anhalten" aria-pressed="false" type="button">Lauf starten</button>
+<button class="btn btn--quiet btn--small" data-lab-step type="button" data-tip="Führt genau eine Generation aus. So kannst du die Verschiebung der Verteilung Schritt für Schritt verfolgen.">Generation</button>
+<button class="btn btn--quiet btn--small" data-lab-reset type="button" data-tip="Setzt die Population auf die Ausgangsverteilung zurück und fährt die Kamera in die Ausgangsansicht.">Zurücksetzen</button>
+</div>
+<div class="lab-hud__group" role="group" aria-label="Geschwindigkeit">
+<span class="lab-hud__label">Tempo</span>
+<button class="btn btn--quiet btn--small" data-lab-speed="0.5" data-tip="Langsamer Lauf: eine Generation etwa alle 1,8 Sekunden." type="button">0,5×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="1" aria-pressed="true" data-tip="Normale Geschwindigkeit: eine Generation etwa alle 0,9 Sekunden." type="button">1×</button>
+<button class="btn btn--quiet btn--small" data-lab-speed="2" data-tip="Schneller Lauf: gut, um die Tendenz über viele Generationen zu sehen." type="button">2×</button>
+</div>
+<span class="lab-hud__spacer"></span>
+<span class="lab-badge">x-Achse = Merkmalswert</span>
+<button class="btn btn--quiet btn--small" data-lab-reset-view data-tip="Fährt die Kamera weich in die Ausgangsansicht zurück. Die Population bleibt erhalten." type="button">Ansicht zurücksetzen</button>
+</div>
+<div aria-live="polite" class="lab-readout" data-selection-readout=""></div>
+<figcaption class="tool__caption">Die Simulation zeigt alle drei Selektionsformen. Die Punkte stehen für Individuen, ihre x-Position für den Merkmalswert, die Farbe für denselben Wert. Die Histogrammbalken zeigen die Verteilung; die Linien markieren das bzw. die Fitnessoptima.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Drift und Genfluss</summary>
+<p>Selektion ist nicht die einzige Kraft. In kleinen Populationen kann genetische Drift Allelfrequenzen auch ohne Selektionsvorteil verändern. Ein Allel kann zufällig verschwinden oder sich durchsetzen. Genfluss durch Migration kann Populationen genetisch angleichen und neue Allele einbringen. Die synthetische Theorie betrachtet alle Kräfte zusammen, nicht nur die Selektion.</p>
+</details>
+<section aria-labelledby="synthese-check" class="checkpoint">
+<h3 id="synthese-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="synthese">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="synthese" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "sy1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Was verändert sich in der synthetischen Evolutionstheorie?",
+              "options": ["Allelfrequenzen in einer Population", "Die DNA eines einzelnen Individuums", "Die Chromosomenzahl einer Art", "Die Zahl der Ökosysteme"],
+              "correct": 0,
+              "explain": "Evolution wird als Veränderung von Allelfrequenzen in Populationen über Generationen beschrieben."
+            },
+            {
+              "id": "sy2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Welche Form der Selektion begünstigt beide Extreme und benachteiligt die Mitte?",
+              "options": ["disruptive Selektion", "stabilisierende Selektion", "gerichtete Selektion", "genetische Drift"],
+              "correct": 0,
+              "explain": "Disruptive Selektion begünstigt beide Extreme. Stabilisierende Selektion begünstigt die Mitte, gerichtete Selektion ein Extrem."
+            },
+            {
+              "id": "sy3",
+              "type": "mc",
+              "level": "g",
+              "competency": "S3",
+              "prompt": "Warum ist genetische Drift in kleinen Populationen stärker?",
+              "options": [
+                "Weil Zufallseffekte bei wenigen Individuen größere Auswirkungen haben.",
+                "Weil kleine Populationen keine Mutationen haben.",
+                "Weil Selektion dort nicht wirkt.",
+                "Weil die DNA dort kürzer ist."
+              ],
+              "correct": 0,
+              "explain": "Bei wenigen Individuen kann der Zufall die Allelfrequenzen stark verändern. In großen Populationen mitteln sich Zufallseffekte eher aus."
+            },
+            {
+              "id": "sy4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S3",
+              "prompt": "Ein Merkmal ist in einer Umwelt vorteilhaft, in einer anderen nachteilig. Was folgt daraus?",
+              "options": [
+                "Fitness ist relativ zur Umwelt.",
+                "Das Merkmal ist immer vorteilhaft.",
+                "Selektion findet nicht statt.",
+                "Die Art kann sich nicht verändern."
+              ],
+              "correct": 0,
+              "explain": "Fitness ist keine absolute Eigenschaft. Sie hängt davon ab, welche Merkmale in einer konkreten Umwelt den Fortpflanzungserfolg erhöhen."
+            },
+            {
+              "id": "sy5",
+              "type": "mc",
+              "level": "r",
+              "competency": "S3",
+              "prompt": "Was ist Genfluss?",
+              "options": [
+                "Der Austausch von Allelen zwischen Populationen durch Migration.",
+                "Die Verdopplung der DNA vor der Zellteilung.",
+                "Die zufällige Veränderung von Allelfrequenzen.",
+                "Die Entstehung einer neuen Art durch Isolation."
+              ],
+              "correct": 0,
+              "explain": "Genfluss entsteht, wenn Individuen zwischen Populationen wandern und sich fortpflanzen. Dadurch werden Allele ausgetauscht."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="synthese" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="artbildung" href="#artbildung">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Evolution ist eine Veränderung von Allelfrequenzen. Selektion, Drift und Genfluss wirken zusammen.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Allelfrequenz</dt><dd>Anteil eines Allels im Genpool.</dd>
+<dt>genetische Drift</dt><dd>zufällige Veränderung von Allelfrequenzen.</dd>
+<dt>Genfluss</dt><dd>Allelaustausch zwischen Populationen.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Selektion als zielgerichtet auf eine Art hin verstehen. Selektion wirkt auf Individuen und ihre Fortpflanzung, nicht auf einen Plan.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="artbildung" data-title="Artbildung" data-track="true" id="artbildung">
+<header class="station__head">
+<h2 id="artbildung-title"><span class="station__num">04</span> Isolation und Artbildung</h2>
+<p class="lead">Arten entstehen, wenn Populationen getrennt werden und über lange Zeit unterschiedliche Wege nehmen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Geographische Isolation entsteht, wenn eine Population durch eine Barriere getrennt wird, etwa durch einen Fluss, ein Gebirge oder eine Insel. Die Teilpopulationen können sich nicht mehr austauschen. Mutation, Drift und unterschiedliche Selektionsbedingungen verändern ihre Allelfrequenzen unabhängig voneinander. Mit der Zeit können reproduktive Barrieren entstehen: Die Individuen können sich nicht mehr erfolgreich paaren oder keine fruchtbaren Nachkommen bilden.</p>
+<p>Ökologische Isolation kann auch ohne räumliche Trennung wirken, wenn sich Populationen auf unterschiedliche Wirte, Nahrungsquellen oder Fortpflanzungszeiten spezialisieren. Adaptive Radiation ist die schnelle Entstehung vieler Arten aus einer Ausgangsart, oft auf Inseln mit vielen freien ökologischen Nischen.</p>
+<figure class="tool" data-tool="isolation">
+<div class="tool__head">
+<p class="tool__title">Insel-Simulation</p>
+<p class="tool__hint">Trenne die Populationen und lasse Generationen vergehen. Beobachte, wie die Allelfrequenzen auseinanderlaufen.</p>
+</div>
+<div class="tool__controls">
+<label data-tip="Die Barriere unterbricht den Genfluss zwischen den beiden Populationen. Danach können Mutation, Drift und Selektion unabhängig wirken."><input data-isolation-barrier="" type="checkbox"/> Barriere</label>
+<button class="btn btn--quiet btn--small" data-isolation-step="" type="button" data-tip="Führt eine Generation aus. Ohne Barriere tauschen die Populationen Allele aus; mit Barriere driften sie auseinander.">Generation</button>
+<button class="btn btn--quiet btn--small" data-isolation-reset="" type="button" data-tip="Setzt beide Populationen auf den Ausgangszustand zurück.">Zurücksetzen</button>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="island" data-island="">
+<div class="island__box"><strong>Population A</strong><div class="island__dots" data-island-a=""></div></div>
+<div aria-hidden="true" class="island__barrier"><span class="island__flow">Genfluss</span><span class="island__block">Barriere</span></div>
+<div class="island__box"><strong>Population B</strong><div class="island__dots" data-island-b=""></div></div>
+</div>
+<div aria-live="polite" class="matrix-result" data-isolation-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Punkte stehen für Allele. Ohne Barriere tauschen die Populationen Allele aus; mit Barriere können sie unabhängig voneinander driften.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Wann ist eine Art eine Art?</summary>
+<p>Der biologische Artbegriff definiert Arten über Fortpflanzungsgemeinschaften. Der morphologische Artbegriff nutzt Merkmale. Der populationsgenetische Artbegriff betrachtet den Genpool. Keiner dieser Begriffe funktioniert in allen Fällen gleich gut, besonders bei asexuellen Organismen oder bei Arten, die sich noch nicht vollständig getrennt haben. Artbildung ist oft ein Prozess mit Zwischenstufen, kein plötzlicher Schalter.</p>
+</details>
+<section aria-labelledby="artbildung-check" class="checkpoint">
+<h3 id="artbildung-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="artbildung">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="artbildung" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ar1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was ist geographische Isolation?",
+              "options": [
+                "Eine räumliche Barriere verhindert den Austausch zwischen Populationen.",
+                "Zwei Populationen leben am selben Ort und paaren sich zufällig.",
+                "Eine Population hat keine Mutationen.",
+                "Eine Art hat mehr Chromosomen als eine andere."
+              ],
+              "correct": 0,
+              "explain": "Geographische Isolation trennt Populationen räumlich. Dadurch können sich ihre Allelfrequenzen unabhängig verändern."
+            },
+            {
+              "id": "ar2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S4",
+              "prompt": "Was ist eine reproduktive Barriere?",
+              "options": [
+                "Eine Barriere, die erfolgreiche Fortpflanzung zwischen Gruppen verhindert.",
+                "Eine Mauer aus Gestein.",
+                "Ein Chromosom, das fehlt.",
+                "Eine Mutation, die immer tödlich ist."
+              ],
+              "correct": 0,
+              "explain": "Reproduktive Isolation kann durch Paarungszeiten, Verhalten, Genetik oder Unfruchtbarkeit der Nachkommen entstehen."
+            },
+            {
+              "id": "ar3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S4",
+              "prompt": "Warum kann ökologische Isolation ohne räumliche Trennung Artbildung fördern?",
+              "options": [
+                "Weil Populationen unterschiedliche Nischen nutzen und sich dadurch unterschiedlich anpassen.",
+                "Weil sie immer sofort unfruchtbar werden.",
+                "Weil ökologische Isolation die DNA verdoppelt.",
+                "Weil sie nur bei Pflanzen vorkommt."
+              ],
+              "correct": 0,
+              "explain": "Unterschiedliche Nahrungsquellen, Wirte oder Fortpflanzungszeiten können den Genfluss verringern und unterschiedliche Anpassungen begünstigen."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="artbildung" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="koevolution" href="#koevolution">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Isolation verringert den Genfluss. Reproduktive Barrieren machen die Trennung dauerhaft.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>allopatrisch</dt><dd>Artbildung in getrennten geographischen Gebieten.</dd>
+<dt>sympatrisch</dt><dd>Artbildung im selben Gebiet, etwa durch ökologische Isolation.</dd>
+<dt>adaptive Radiation</dt><dd>schnelle Entstehung vieler Arten aus einer Ausgangsart.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Artbildung als plötzlichen Ereignis sehen. Sie ist meist ein langer Prozess mit Zwischenstufen.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="koevolution" data-title="Koevolution" data-track="true" id="koevolution">
+<header class="station__head">
+<h2 id="koevolution-title"><span class="station__num">05</span> Koevolution: Anpassung aneinander</h2>
+<p class="lead">Wenn zwei Arten sich gegenseitig beeinflussen, verändern sie sich oft gemeinsam. Das kann Zusammenarbeit oder Wettrüsten sein.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Koevolution liegt vor, wenn zwei oder mehr Arten sich wechselseitig als Selektionsfaktoren beeinflussen. Mutualistische Koevolution führt zu Anpassungen, die beiden nützen, etwa Blüten und ihre Bestäuber. Antagonistische Koevolution führt zu einem Wettrüsten, etwa zwischen Wirt und Parasit oder zwischen Räuber und Beute. Jede Anpassung der einen Seite verändert die Selektionsbedingungen für die andere.</p>
+<p>Ein Beispiel ist der lange Rüssel einer Biene und die tiefe Blüte einer Pflanze. Der Rüssel erreicht den Nektar, die Pflanze wird bestäubt. Ein anderes Beispiel ist die Tarnung von Beute und die Sehfähigkeit von Räubern. Koevolution erklärt, warum Angepasstheiten oft nur im Zusammenspiel mit anderen Arten verständlich sind.</p>
+<figure class="tool" data-tool="coevolution">
+<div class="tool__head">
+<p class="tool__title">Anpassung und Gegenanpassung</p>
+<p class="tool__hint">Wähle ein Paar. Das Werkzeug zeigt, welche Anpassungen sich gegenseitig bedingen.</p>
+</div>
+<div class="tool__controls" data-tool-controls=""></div>
+<div class="tool__stage" data-tool-stage="">
+<div class="coevolution-visual" data-coevolution-visual=""></div>
+<div aria-live="polite" class="matrix-result" data-coevolution-readout="">Wähle ein Paar.</div>
+</div>
+<figcaption class="tool__caption">Koevolution ist keine Harmonie. Sie kann mutualistisch oder antagonistisch sein. Die Pfeile zeigen, wie jede Anpassung den Selektionsdruck für die andere Art verändert.</figcaption>
+</figure>
+<details class="deep">
+<summary>Mehr im Detail: Die Waffenrennen der Natur</summary>
+<p>Antagonistische Koevolution wird oft als „evolutionäres Wettrüsten“ beschrieben. Eine Pflanze produziert Giftstoffe, um Fressfeinde abzuwehren. Ein Insekt entwickelt Enzyme, die diese Giftstoffe abbauen. Die Pflanze verändert ihre Giftstoffe, das Insekt seine Enzyme. Keine Seite gewinnt dauerhaft; die Anpassungen bleiben in einem dynamischen Gleichgewicht. Das ist ein wichtiger Unterschied zu einem zielgerichteten Plan.</p>
+</details>
+<section aria-labelledby="koevolution-check" class="checkpoint">
+<h3 id="koevolution-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="koevolution">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="koevolution" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "ko1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Was ist Koevolution?",
+              "options": [
+                "Wechselseitige Anpassung von Arten, die sich gegenseitig beeinflussen.",
+                "Die Evolution einer Art ohne andere Arten.",
+                "Die Verdopplung der DNA.",
+                "Die Entstehung von Fossilien."
+              ],
+              "correct": 0,
+              "explain": "Koevolution entsteht, wenn Arten sich gegenseitig als Selektionsfaktoren beeinflussen und sich dadurch wechselseitig anpassen."
+            },
+            {
+              "id": "ko2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S5",
+              "prompt": "Welches Beispiel ist mutualistische Koevolution?",
+              "options": [
+                "Blüte und Bestäuber",
+                "Wirt und Parasit",
+                "Räuber und Beute",
+                "Pflanze und Herbivore"
+              ],
+              "correct": 0,
+              "explain": "Blüte und Bestäuber profitieren beide. Wirt-Parasit und Räuber-Beute sind antagonistisch."
+            },
+            {
+              "id": "ko3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S5",
+              "prompt": "Warum führt antagonistische Koevolution oft zu einem Wettrüsten?",
+              "options": [
+                "Weil jede Anpassung der einen Seite die Selektionsbedingungen für die andere verändert.",
+                "Weil beide Seiten immer zusammenarbeiten.",
+                "Weil nur eine Seite sich verändert.",
+                "Weil es keine Selektion gibt."
+              ],
+              "correct": 0,
+              "explain": "Eine bessere Verteidigung der Beute erhöht den Druck auf den Räuber, bessere Angriffsstrategien zu entwickeln. Die Anpassungen treiben sich gegenseitig voran."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="koevolution" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="mensch" href="#mensch">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Koevolution ist wechselseitig. Sie kann Zusammenarbeit oder Wettrüsten sein.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>mutualistisch</dt><dd>beide Seiten profitieren.</dd>
+<dt>antagonistisch</dt><dd>eine Seite profitiert auf Kosten der anderen.</dd>
+<dt>Wettrüsten</dt><dd>wechselseitige Steigerung von Angriff und Verteidigung.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Koevolution als absichtliche Zusammenarbeit verstehen. Die Anpassungen entstehen durch Selektion, nicht durch einen Plan.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-station="mensch" data-title="Humanevolution" data-track="true" id="mensch">
+<header class="station__head">
+<h2 id="mensch-title"><span class="station__num">06</span> Die Evolution des Menschen</h2>
+<p class="lead">Homo sapiens ist eine erdgeschichtlich junge Art. Fossilien und molekulare Daten rekonstruieren ihre Geschichte.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Die Evolution des Menschen ist Teil der Primatenevolution. Fossilien zeigen eine Reihe von Homininen mit unterschiedlichen Merkmalen, etwa aufrechter Gang, veränderte Beckenform, größeres Gehirn und Werkzeuggebrauch. Die Savannenhypothese erklärt den aufrechten Gang als Anpassung an offene Lebensräume. Sie ist eine Hypothese, keine abgeschlossene Geschichte.</p>
+<p>Der moderne Mensch breitete sich aus Afrika über die Welt aus. Kulturelle Evolution, also die Weitergabe von Wissen und Verhalten durch Lernen und Sprache, wurde zu einer eigenen Kraft. Sie ermöglichte Anpassungen, die nicht genetisch vererbt werden. Die Grenze zwischen biologischer und kultureller Evolution ist durchlässig; beide beeinflussen sich.</p>
+<figure class="tool" data-tool="timeline">
+<div class="tool__head">
+<p class="tool__title">Zeitreise</p>
+<p class="tool__hint">Bewege den Regler durch die Zeit. Das Werkzeug zeigt eine Station der Homininen-Evolution.</p>
+</div>
+<div class="tool__controls">
+<label data-tip="Bewege den Regler von der Gegenwart zurück in die Vergangenheit. Die Anzeige ist stark vereinfacht und zeigt ausgewählte Homininen, keine lineare Kette.">Zeit <input data-timeline-range="" max="100" min="0" type="range" value="100"/></label>
+</div>
+<div class="tool__stage" data-tool-stage="">
+<div class="hominin-figure">
+<svg aria-label="Diagramm: Schädelvolumen ausgewählter Homininen im Verlauf der Zeit" class="hominin-chart" role="img" viewbox="0 0 640 250">
+<line class="axis" x1="60" x2="600" y1="210" y2="210"></line>
+<line class="axis" x1="60" x2="60" y1="210" y2="30"></line>
+<line class="gridline" x1="60" x2="600" y1="150" y2="150"></line>
+<line class="gridline" x1="60" x2="600" y1="90" y2="90"></line>
+<polyline class="series" points="60,194 222,183 357,156 465,98 546,92 600,92"></polyline>
+<circle class="series-point" cx="600" cy="92" data-timeline-point="" r="6"></circle>
+<line class="timeline-drop" data-timeline-drop="" x1="600" x2="600" y1="92" y2="210"></line>
+<text class="svg-small" x="60" y="232">vor 7 Mio.</text>
+<text class="svg-small" text-anchor="end" x="600" y="232">heute</text>
+<text class="svg-small" x="8" y="214">300</text>
+<text class="svg-small" x="8" y="34">1.700</text>
+<text class="svg-small" transform="rotate(-90 8 125)" x="8" y="125">cm³</text>
+</svg>
+<svg aria-label="Schematische Seitenansicht eines Schädels, Größe proportional zum Schädelvolumen" class="hominin-skull" role="img" viewbox="0 0 100 100">
+<g data-timeline-skull="" transform="translate(50 50) scale(1)">
+<path d="M-32,-6 C-32,-32 -8,-45 16,-40 C36,-36 44,-14 35,4 L29,14 L29,30 L15,30 L15,18 L-5,18 L-5,30 L-23,30 L-23,12 C-30,8 -34,1 -32,-6 Z" fill="var(--color-paper-2)" stroke="var(--color-ink)" stroke-width="2.5"></path>
+<path d="M-23,12 C-12,16 2,16 15,18" fill="none" stroke="var(--color-ink)" stroke-width="1.5"></path>
+<circle cx="14" cy="-14" fill="var(--color-sheet)" r="6" stroke="var(--color-ink)" stroke-width="1.5"></circle>
+<path d="M-5,18 L15,18" fill="none" stroke="var(--color-ink)" stroke-width="1.5"></path>
+<path d="M-3,24 L-3,30 M1,24 L1,30 M5,24 L5,30 M9,24 L9,30" fill="none" stroke="var(--color-ink)" stroke-width="1.2"></path>
+</g>
+</svg>
+</div>
+<div aria-live="polite" class="matrix-result" data-timeline-readout=""></div>
+</div>
+<figcaption class="tool__caption">Die Zeitachse ist stark vereinfacht. Die gezeigten Arten sind Beispiele, keine lineare Kette.</figcaption>
+</figure>
+<div class="r-only">
+<h3>R-Vertiefung: Primaten, Kultur und biologische Grenzen</h3>
+<p>Primaten zeigen komplexes Sozialverhalten, Werkzeuggebrauch und Kommunikation. Beim Menschen kommt die kulturelle Weitergabe von Wissen hinzu, die schneller als genetische Evolution ablaufen kann. Das bedeutet aber nicht, dass menschliches Verhalten allein durch Gene erklärt werden kann. Biologistische Erklärungen, die soziale oder kulturelle Ursachen ausblenden, greifen zu kurz. Bewerte ein Beispiel aus den Medien, das menschliches Verhalten einseitig mit Evolutionsbiologie erklärt.</p>
+</div>
+<details class="deep">
+<summary>Mehr im Detail: Warum die Homininen-Geschichte kein Stammbaum mit einer Linie ist</summary>
+<p>Die Geschichte des Menschen ist kein gerader Weg vom Affen zum Menschen. Es gab mehrere Homininen-Arten, die teilweise gleichzeitig lebten. Einige Linien führten zu Homo sapiens, andere starben aus. Fossilien und genetische Daten ergänzen sich, widersprechen sich manchmal aber auch. Wissenschaftliche Rekonstruktion bedeutet, mit Unsicherheit zu arbeiten und Hypothesen zu revidieren.</p>
+</details>
+<section aria-labelledby="mensch-check" class="checkpoint">
+<h3 id="mensch-check">Prüfpunkt</h3>
+<div class="quiz" data-quiz="mensch">
+<div class="quiz__list"></div>
+<div class="quiz__actions">
+<button class="btn btn--quiet" data-quiz-check="" type="button">Antworten prüfen</button>
+<button class="btn btn--quiet" data-quiz-reset="" type="button">Nochmal</button>
+</div>
+<p aria-live="polite" class="quiz__summary" data-quiz-summary=""></p>
+</div>
+<script data-quiz-data="mensch" type="application/json">
+        {
+          "questions": [
+            {
+              "id": "me1",
+              "type": "mc",
+              "level": "g",
+              "competency": "S6",
+              "prompt": "Was besagt die Savannenhypothese?",
+              "options": [
+                "Der aufrechte Gang war eine Anpassung an offene Lebensräume.",
+                "Der Mensch stammt direkt von heutigen Schimpansen ab.",
+                "Die Homininen lebten nur im Wasser.",
+                "Die Kultur hat die Genetik vollständig ersetzt."
+              ],
+              "correct": 0,
+              "explain": "Die Savannenhypothese erklärt den aufrechten Gang als Anpassung an offene, trockenere Lebensräume. Sie ist eine Hypothese."
+            },
+            {
+              "id": "me2",
+              "type": "mc",
+              "level": "g",
+              "competency": "S6",
+              "prompt": "Was ist kulturelle Evolution?",
+              "options": [
+                "Weitergabe von Wissen und Verhalten durch Lernen und Sprache.",
+                "Veränderung der DNA durch Mutation.",
+                "Die Verdopplung der Chromosomen.",
+                "Die Entstehung von Fossilien."
+              ],
+              "correct": 0,
+              "explain": "Kulturelle Evolution beruht auf Lernen und Weitergabe, nicht auf genetischer Vererbung."
+            },
+            {
+              "id": "me3",
+              "type": "mc",
+              "level": "r",
+              "competency": "S6",
+              "prompt": "Warum ist die Vorstellung einer linearen Affe-zu-Mensch-Kette irreführend?",
+              "options": [
+                "Weil mehrere Homininen-Arten gleichzeitig lebten und einige Linien ausstarben.",
+                "Weil Menschen keine Primaten sind.",
+                "Weil es keine Fossilien gibt.",
+                "Weil Evolution nur in eine Richtung verläuft."
+              ],
+              "correct": 0,
+              "explain": "Die Homininen-Geschichte ist verzweigt. Mehrere Arten existierten gleichzeitig; Homo sapiens ist eine von mehreren Linien."
+            },
+            {
+              "id": "me4",
+              "type": "mc",
+              "level": "r",
+              "competency": "S6",
+              "prompt": "Was ist an einer einseitig biologistischen Erklärung menschlichen Verhaltens problematisch?",
+              "options": [
+                "Sie blendet soziale und kulturelle Ursachen aus.",
+                "Sie verwendet keine DNA.",
+                "Sie ist immer falsch.",
+                "Sie erklärt zu viele Gene."
+              ],
+              "correct": 0,
+              "explain": "Menschliches Verhalten entsteht aus biologischen, sozialen und kulturellen Faktoren. Eine rein genetische Erklärung greift zu kurz."
+            }
+          ]
+        }
+        </script>
+</section>
+<div class="station__footer">
+<span class="status" data-station-status=""></span>
+<div class="station__footer-actions">
+<button class="btn" data-complete="mensch" type="button">Station abschließen</button>
+<a class="quiet-link" data-go="check" href="#check">Weiter</a>
+</div>
+</div>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Die Homininen-Geschichte ist verzweigt, nicht linear. Kultur ist eine eigene Form der Weitergabe.</p>
+</div>
+<div class="note">
+<p class="note__title">Fachsprache</p>
+<dl>
+<dt>Homininen</dt><dd>die Gruppe der Menschen und ihrer nächsten ausgestorbenen Verwandten.</dd>
+<dt>kulturelle Evolution</dt><dd>Weitergabe von Wissen durch Lernen.</dd>
+<dt>Savannenhypothese</dt><dd>Erklärung des aufrechten Gangs durch offene Lebensräume.</dd>
+</dl>
+</div>
+<div class="note">
+<p class="note__title">Typischer Fehler</p>
+<p>Den Menschen als Ziel der Evolution darstellen. Evolution hat kein Ziel.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Kompetenzcheck" data-station="check" data-title="Kompetenzcheck" id="check">
+<header class="station__head">
+<h2 id="check-title"><span class="station__num">07</span> Kompetenzcheck Evolution</h2>
+<p class="lead">Zehn Aufgaben im grundlegenden Niveau, drei Vertiefungen im erhöhten Niveau.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<p>Beantworte die Aufgaben ohne Hilfsmittel. Nach der Auswertung siehst du pro Kompetenz, was sitzt und was du noch üben solltest.</p>
+<div class="check" data-check="evolution">
+<div class="check__list"></div>
+<div class="check__actions">
+<button class="btn" data-check-run="" type="button">Check auswerten</button>
+<button class="btn btn--quiet" data-check-reset="" type="button">Nochmal</button>
+<button class="btn btn--quiet" data-print="" type="button">Drucken</button>
+</div>
+<div aria-live="polite" class="check__result" data-check-result=""></div>
+</div>
+<script data-check-data="evolution" type="application/json">
+      {
+        "competencies": {
+          "S1": "Belege und Stammbäume",
+          "S2": "Darwin und Lamarck",
+          "S3": "Synthetische Evolutionstheorie",
+          "S4": "Artbildung und Isolation",
+          "S5": "Koevolution",
+          "S6": "Humanevolution",
+          "B1": "Evidenz und Modelle bewerten"
+        },
+        "questions": [
+          {
+            "id": "e1",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Was ist ein Beleg für Evolution?",
+            "options": ["Homologe Organe mit gemeinsamem Grundbau", "Gleiche Funktion ohne gemeinsame Abstammung", "Eine einzelne Beobachtung", "Eine ungeprüfte Vermutung"],
+            "correct": 0,
+            "explain": "Homologe Organe weisen auf gemeinsame Abstammung hin. Analoge Organe sind kein Beleg für Verwandtschaft."
+          },
+          {
+            "id": "e2",
+            "type": "mc",
+            "level": "g",
+            "competency": "S2",
+            "prompt": "Welche Aussage stammt von Lamarck?",
+            "options": ["Erworbene Veränderungen durch Gebrauch werden vererbt.", "Variation und Selektion erklären Artenwandel.", "Mutationen erzeugen Allele.", "Isolation führt zu Artbildung."],
+            "correct": 0,
+            "explain": "Lamarck nahm an, dass Gebrauch und Nichtgebrauch Organe verändern und diese Veränderungen vererbt werden."
+          },
+          {
+            "id": "e3",
+            "type": "mc",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Was ist natürliche Selektion?",
+            "options": ["Unterschiedlicher Fortpflanzungserfolg von Varianten", "Zufällige Veränderung der DNA", "Die Verdopplung der Chromosomen", "Die Wanderung von Individuen"],
+            "correct": 0,
+            "explain": "Selektion bedeutet, dass Varianten mit höherer Fitness mehr Nachkommen haben und ihre Allele häufiger weitergeben."
+          },
+          {
+            "id": "e4",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Was ist eine reproduktive Barriere?",
+            "options": ["Eine Barriere, die erfolgreiche Fortpflanzung zwischen Gruppen verhindert", "Eine geographische Mauer", "Eine Mutation", "Ein Fossil"],
+            "correct": 0,
+            "explain": "Reproduktive Isolation verhindert den Genfluss zwischen Populationen und macht Artbildung dauerhaft."
+          },
+          {
+            "id": "e5",
+            "type": "mc",
+            "level": "g",
+            "competency": "S5",
+            "prompt": "Welches Paar ist ein Beispiel für Koevolution?",
+            "options": ["Blüte und Bestäuber", "Fossil und Gestein", "Chromosom und Zellkern", "Enzym und Substrat"],
+            "correct": 0,
+            "explain": "Blüte und Bestäuber beeinflussen sich gegenseitig und passen sich aneinander an."
+          },
+          {
+            "id": "e6",
+            "type": "mc",
+            "level": "g",
+            "competency": "S6",
+            "prompt": "Was ist kulturelle Evolution?",
+            "options": ["Weitergabe von Wissen durch Lernen und Sprache", "Veränderung der DNA", "Verdopplung der Chromosomen", "Entstehung von Fossilien"],
+            "correct": 0,
+            "explain": "Kulturelle Evolution beruht auf Lernen und Weitergabe, nicht auf genetischer Vererbung."
+          },
+          {
+            "id": "e7",
+            "type": "mc",
+            "level": "g",
+            "competency": "S3",
+            "prompt": "Welche Form der Selektion begünstigt ein Extrem?",
+            "options": ["gerichtete Selektion", "stabilisierende Selektion", "disruptive Selektion", "genetische Drift"],
+            "correct": 0,
+            "explain": "Gerichtete Selektion verschiebt die Verteilung in eine Richtung. Stabilisierende Selektion hält die Mitte, disruptive begünstigt beide Extreme."
+          },
+          {
+            "id": "e8",
+            "type": "mc",
+            "level": "g",
+            "competency": "B1",
+            "prompt": "Warum ist ein Stammbaum eine Hypothese?",
+            "options": ["Weil er auf Daten beruht und durch neue Daten verändert werden kann", "Weil er immer falsch ist", "Weil er keine Merkmale nutzt", "Weil er nur für Fossilien gilt"],
+            "correct": 0,
+            "explain": "Ein Stammbaum rekonstruiert Verwandtschaft aus Daten. Neue Befunde können die Rekonstruktion verändern."
+          },
+          {
+            "id": "e9",
+            "type": "mc",
+            "level": "g",
+            "competency": "S1",
+            "prompt": "Was zeigt ein Kladogramm?",
+            "options": ["Verzweigungen aufgrund abgeleiteter Merkmale", "Die absolute Zeit jeder Art", "Die Zahl der Individuen", "Die DNA-Sequenz"],
+            "correct": 0,
+            "explain": "Ein Kladogramm zeigt die Reihenfolge der Verzweigungen nach Merkmalen, nicht absolute Zeitpunkte."
+          },
+          {
+            "id": "e10",
+            "type": "mc",
+            "level": "g",
+            "competency": "S4",
+            "prompt": "Was ist adaptive Radiation?",
+            "options": ["Schnelle Entstehung vieler Arten aus einer Ausgangsart", "Die Verdopplung der DNA", "Die Wanderung einer Population", "Die Entstehung eines Fossils"],
+            "correct": 0,
+            "explain": "Adaptive Radiation entsteht oft auf Inseln oder in neuen Lebensräumen, wenn viele ökologische Nischen frei sind."
+          },
+          {
+            "id": "e11",
+            "type": "mc",
+            "level": "r",
+            "competency": "S3",
+            "prompt": "Warum kann genetische Drift Allele auch ohne Selektionsvorteil verändern?",
+            "options": ["Weil die Weitergabe von Allelen in kleinen Populationen vom Zufall abhängt", "Weil Drift eine Form der Selektion ist", "Weil Drift nur in großen Populationen wirkt", "Weil Drift die DNA verdoppelt"],
+            "correct": 0,
+            "explain": "Drift ist zufällig. In kleinen Populationen können Allele allein durch Zufall häufiger oder seltener werden."
+          },
+          {
+            "id": "e12",
+            "type": "mc",
+            "level": "r",
+            "competency": "S5",
+            "prompt": "Warum ist antagonistische Koevolution ein Wettrüsten?",
+            "options": ["Weil Anpassungen der einen Seite den Selektionsdruck auf die andere erhöhen", "Weil beide Seiten immer kooperieren", "Weil nur eine Seite sich verändert", "Weil es keine Selektion gibt"],
+            "correct": 0,
+            "explain": "Bessere Verteidigung erhöht den Druck auf den Angreifer, bessere Angriffe zu entwickeln. Die Anpassungen treiben sich gegenseitig."
+          },
+          {
+            "id": "e13",
+            "type": "mc",
+            "level": "r",
+            "competency": "S6",
+            "prompt": "Warum ist die lineare Vorstellung einer Affe-zu-Mensch-Kette falsch?",
+            "options": ["Weil mehrere Homininen-Arten gleichzeitig lebten und Linien ausstarben", "Weil Menschen keine Primaten sind", "Weil es keine Fossilien gibt", "Weil Evolution zielgerichtet ist"],
+            "correct": 0,
+            "explain": "Die Homininen-Geschichte ist verzweigt. Mehrere Arten existierten gleichzeitig; Homo sapiens ist eine Linie unter vielen."
+          }
+        ]
+      }
+      </script>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Auswertung</p>
+<p>Der Check zeigt pro Kompetenz, wie viele Aufgaben du richtig hast. Ein Bestwert wird gespeichert.</p>
+</div>
+</aside>
+</div>
+</section>
+<section class="station" data-nav="Glossar" data-station="glossar" data-title="Glossar" id="glossar">
+<header class="station__head">
+<h2 id="glossar-title"><span class="station__num">08</span> Glossar</h2>
+<p class="lead">Die Begriffe, die in der Evolution immer wieder auftauchen.</p>
+</header>
+<div class="protocol">
+<div class="protocol__main">
+<label class="visually-hidden" for="glossar-filter">Glossar durchsuchen</label>
+<input class="input glossary__filter" data-glossary-filter="" id="glossar-filter" placeholder="Begriff suchen" type="search"/>
+<dl class="glossary">
+<div class="glossary__row"><dt>adaptive Radiation</dt><dd>Schnelle Entstehung vieler Arten aus einer Ausgangsart in freien Nischen.</dd></div>
+<div class="glossary__row"><dt>Allel</dt><dd>Variante eines Gens.</dd></div>
+<div class="glossary__row"><dt>allopatrisch</dt><dd>Artbildung in räumlich getrennten Gebieten.</dd></div>
+<div class="glossary__row"><dt>analog</dt><dd>Gleiche Funktion bei unterschiedlicher Herkunft.</dd></div>
+<div class="glossary__row"><dt>Fitness</dt><dd>Relativer Beitrag eines Individuums zum Genpool der nächsten Generation.</dd></div>
+<div class="glossary__row"><dt>Genfluss</dt><dd>Austausch von Allelen zwischen Populationen durch Migration.</dd></div>
+<div class="glossary__row"><dt>genetische Drift</dt><dd>Zufällige Veränderung von Allelfrequenzen, besonders in kleinen Populationen.</dd></div>
+<div class="glossary__row"><dt>Homologie</dt><dd>Gemeinsamer Grundbau aufgrund gemeinsamer Abstammung.</dd></div>
+<div class="glossary__row"><dt>Kladogramm</dt><dd>Verzweigungsdiagramm nach abgeleiteten Merkmalen.</dd></div>
+<div class="glossary__row"><dt>Koevolution</dt><dd>Wechselseitige Anpassung von Arten, die sich gegenseitig beeinflussen.</dd></div>
+<div class="glossary__row"><dt>Mutation</dt><dd>Veränderung der DNA, Quelle neuer Allele.</dd></div>
+<div class="glossary__row"><dt>natürliche Selektion</dt><dd>Unterschiedlicher Fortpflanzungserfolg von Varianten.</dd></div>
+<div class="glossary__row"><dt>reproduktive Isolation</dt><dd>Barriere, die erfolgreiche Fortpflanzung zwischen Gruppen verhindert.</dd></div>
+<div class="glossary__row"><dt>Selektion</dt><dd>Prozess, der die Häufigkeit von Allelen über Fortpflanzungserfolg verändert.</dd></div>
+<div class="glossary__row"><dt>synthetische Evolutionstheorie</dt><dd>Verbindung von Darwin und Genetik zur Erklärung von Evolution.</dd></div>
+<div class="glossary__row"><dt>sympatrisch</dt><dd>Artbildung im selben geographischen Gebiet.</dd></div>
+</dl>
+<p class="glossary__empty" data-glossary-empty="" hidden="">Kein Begriff gefunden.</p>
+</div>
+<aside class="protocol__margin">
+<div class="note">
+<p class="note__title">Merke</p>
+<p>Evolution erklärt, wie Arten entstehen und sich verändern. Sie hat kein Ziel.</p>
+</div>
+</aside>
+</div>
+</section>
+
+  </main>
+</div>
+
+<footer class="colophon">
+  <div class="colophon__inner">
+    <p><strong>Biologie 12</strong>. Lernwebsite nach LehrplanPLUS. Eigene Diagramme und 3D-Modelle; keine Schulbuchabbildungen. Der Lernstand bleibt auf diesem Gerät.</p>
+    <p class="colophon__links">
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/grundlegend" target="_blank" rel="noopener" class="g-only">LehrplanPLUS Biologie 12, grundlegend</a>
+      <a href="https://www.lehrplanplus.bayern.de/fachlehrplan/gymnasium/12/biologie/erhoeht" target="_blank" rel="noopener" class="r-only">LehrplanPLUS Biologie 12, erhöht</a>
+    </p>
+    <p>Stand November 2026. Aufgaben und Rückmeldungen dienen dem Üben, nicht der Benotung.</p>
+  </div>
+</footer>
+
+<div class="reset-dialog" data-reset-dialog hidden>
+  <div class="reset-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <h2 id="reset-title">Lernstand zurücksetzen?</h2>
+    <p>Damit werden die abgeschlossenen Stationen und die Bestwerte dieser Seite für das aktuelle Anforderungsniveau gelöscht. Das lässt sich nicht rückgängig machen.</p>
+    <div class="reset-dialog__actions">
+      <button class="btn" type="button" data-reset-confirm>Zurücksetzen</button>
+      <button class="btn btn--quiet" type="button" data-reset-cancel>Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/three.min.js"></script>
+<script src="./assets/vendor/OrbitControls.js"></script>
+<script src="./assets/app.js"></script>
+<script src="./assets/tools.js?v=2026-11-04"></script>
+<script src="./assets/three-scenes.js"></script>
+<script src="lab.js?v=2026-11-04b"></script>
+
+</body>
+</html>
